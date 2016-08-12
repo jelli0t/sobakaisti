@@ -65,9 +65,6 @@ public class AppRootConfiguration {
 	private Properties getHibernateProperties(){
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		return hibernateProperties;
-		
-	}
-	
-	
+		return hibernateProperties;	
+	}	
 }
