@@ -20,7 +20,7 @@ public class AccountValidationServiceImpl {
 	private AccountManagerService accountManagerServiceImpl;
 
 	private List<StatusReport> reports;
-	
+	private int i=0;
 	public List<StatusReport> validateRegistration(Account account){
 		reports = new ArrayList<StatusReport>(3);
 
@@ -28,14 +28,16 @@ public class AccountValidationServiceImpl {
 		reports.add(1, validateEmail(account.getEmail()));
 		reports.add(2, validatePassword(account.getPassword()));
 		
-		int i=0;
+		
 		
 		for(StatusReport sr : reports){
 			if(sr.getStatus().equals("ERR"))
 				i++;
 		}
+		System.out.println("Broj gresake posle for: "+i);
 		if(i==0){	
 //			if no errors then perform account creation
+			System.out.println("broj gresaka: "+i);
 			accountManagerServiceImpl.createAccount(account);
 		}
 		

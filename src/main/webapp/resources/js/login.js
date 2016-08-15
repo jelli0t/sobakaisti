@@ -5,6 +5,7 @@ $(function() {
 		evt.preventDefault();
 		submitRegistrationForm();
 	});	
+	
 });	// END of document.ready()
 /*
 	on submit registration form
@@ -59,8 +60,12 @@ function displayErrorMsgs(report){
 	for(i in report){
 		if(report[i].status=='ERR'){
 			$(".sbk-err-msg").eq(i).show().html("<span>"+report[i].massage+"</span>");
+			$(".sbk-form-input").eq(i).addClass("sbk-input-focus-red");
 			console.log("sbk@error: "+report[i].status, report[i].massage);
 		}else
 			$(".sbk-err-msg").eq(i).hide();
 	}	
+	$("#sbk-reg-form input").on("keypress", function(){
+		$(this).removeClass("sbk-input-focus-red").next(".sbk-err-msg").hide();
+	});
 }

@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
 
 	private Account account;
-	@Autowired
-	private AccountManagerService accountManagerServiceImpl;
+//	@Autowired
+//	private AccountManagerService accountManagerServiceImpl;
 	@Autowired
 	private AccountValidationServiceImpl accountValidationServiceImpl;
 	

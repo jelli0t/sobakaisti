@@ -18,20 +18,20 @@
 <body>	
 	<div class="main-container">
 	<form id="sbk-reg-form">
-		<div>
+		<div class="sbk-input-div">
 			<input type="text" id="sbk-username" class="sbk-form-input" placeholder="Username"/>
 			<div class="sbk-err-msg"></div>
 		</div>
-		<div>
+		<div class="sbk-input-div">
 			<input type="text" id="sbk-email" class="sbk-form-input" placeholder="e-mail"/>
 			<div class="sbk-err-msg"></div>
 		</div>
-		<div>
+		<div class="sbk-input-div">
 			<input type="password" id="sbk-password" class="sbk-form-input" placeholder="Password"/>
 			<div class="sbk-err-msg"></div>
 		</div>
 		<div>
-			<button type="submit" id="sbk-form-submit" >Sign up</button>
+			<button type="submit" id="sbk-form-submit" class="sbk-btn">Sign up</button>
 		</div>
 	</form>
 	</div>
