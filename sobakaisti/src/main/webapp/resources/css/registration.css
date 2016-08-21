@@ -1,0 +1,26 @@
+.main-container{
+	position: absolute;
+	top:20%;
+	left:50%;
+	width:360px;
+	margin-left:-180px;
+	padding:20px;
+	height: auto;
+	border:1px solid gray;	
+}
+.sbk-err-msg{
+	display:none;
+	position: relative;
+	width: 100%;
+	text-align: center;
+	padding:5px 10px;
+	margin:6px 0 12px;
+	border:1px solid red;
+	border-radius:5px;
+	box-sizing:border-box;
+	color:red;
+}
+.sbk-form-input{
+	width:100%;
+	box-sizing: border-box;
+}
