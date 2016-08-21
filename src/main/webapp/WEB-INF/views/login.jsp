@@ -5,6 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%-- <meta name="_csrf" content="${_csrf.token}"/> --%>
+<!-- 	<!-- default header name is X-CSRF-TOKEN --> -->
+<%-- 	<meta name="_csrf_header" content="${_csrf.headerName}"/> --%>
 <title>Login | Sobakaisti</title>
 </head>
 <body>
@@ -12,9 +15,8 @@
 	<form action="login_process" method="POST">
 		<label>Username: </label><input type="text" name="username"/><br />
 		<label>Password: </label><input type="password" name="password"/><br />
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>		
 		<button type="submit">Prijavi se</button>
-	
-		
 	</form>
 </body>
 </html>

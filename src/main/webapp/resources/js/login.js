@@ -1,11 +1,12 @@
-$(function() {
-	
+$(function() {	
 	$("#sbk-reg-form").on('submit', function(evt) {
 		disableButton($("#sbk-form-submit"), true);	// disables submit button		
 		evt.preventDefault();
 		submitRegistrationForm();
-	});	
-	
+	});
+	$("#sbk-reg-form input").on("focus", function(){
+		$(this).addClass("input-active");
+	})
 });	// END of document.ready()
 /*
 	on submit registration form

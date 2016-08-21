@@ -20,30 +20,30 @@ public class AccountValidationServiceImpl {
 	private AccountManagerService accountManagerServiceImpl;
 
 	private List<StatusReport> reports;
-	private int i=0;
+	
+	
 	public List<StatusReport> validateRegistration(Account account){
+		int i=0;
+		
 		reports = new ArrayList<StatusReport>(3);
 
 		reports.add(0, validateUsername(account.getUsername()));
 		reports.add(1, validateEmail(account.getEmail()));
 		reports.add(2, validatePassword(account.getPassword()));
 		
-		
-		
 		for(StatusReport sr : reports){
-			if(sr.getStatus().equals("ERR"))
+			if(sr.getStatus().equals("ERR")){
 				i++;
+			}	
 		}
 		System.out.println("Broj gresake posle for: "+i);
 		if(i==0){	
 //			if no errors then perform account creation
 			System.out.println("broj gresaka: "+i);
 			accountManagerServiceImpl.createAccount(account);
-		}
-		
+		}		
 		return reports;
-	}
-	
+	}	
 	
 	public StatusReport validateEmail(String email){		
 		try{

@@ -19,7 +19,7 @@ public class UserCredentialValidator {
     private String massage;
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final String USERNAME_PATTERN = "^[a-z0-9._-]{3,20}$";
-    private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9._-]{8,30}$"; //^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,30}$"
+    private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9._-]{8,20}$"; // ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,30}$  ^[a-zA-Z0-9._-]{8,30}$
        
     public void validateUserNameFormat(String username) {
         if(!matchPatternWithValue(USERNAME_PATTERN, username))
@@ -43,7 +43,7 @@ public class UserCredentialValidator {
     public void checkIfInputExists(String field, String value){
     	switch (field) {
 		case "sbk_username":
-			this.massage = "Korisničko ime je zauzeto";
+			this.massage = "Korisni�ko ime je zauzeto";
 			break;
 		case "email":
 			this.massage = "Nalog sa E-mail adresom već postoji";
