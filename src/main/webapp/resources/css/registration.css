@@ -14,7 +14,7 @@ body {
 .input-active { border-color:#000;}
 .main-container {
 	position: absolute;
-	top: 20%;
+	top: 10%;
 	left: 50%;
 	width: 360px;
 	height: auto;
