@@ -47,6 +47,13 @@ public class AccountManagerDaotImpl implements AccountManagerDao{
 		else
 			return false;
 	}
+	@Override
+	@Transactional
+	public Account getAccountByUsernameOrEmail(String field, String value) {
+		Session session = sessionFactory.getCurrentSession();
+		Account acc = (Account) session.createQuery("FROM Account WHERE "+field+"=:value").setString("value", value).setMaxResults(1).uniqueResult();
+		return acc;
+	}
 
 	
 }

@@ -7,4 +7,5 @@ public interface AccountManagerDao {
 	public void createAccount(Account account);
 	public void deleteAccount(int id);
 	public boolean checkIfFieldExists(String value, String field);
+	public Account getAccountByUsernameOrEmail(String field, String value);
 }
