@@ -1,0 +1,103 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700&subset=latin,cyrillic-ext,latin-ext,cyrillic);
+body {
+	background-color: #f4f4f4;
+	font-family: "Noto Sans", sans-serif;
+	font-weight: normal;
+}
+.text-link {
+	text-decoration: none;
+	color:#2E9FFF;
+}
+.text-link:HOVER {
+	color: #1CAFF6;
+}	
+.input-active { border-color:#000;}
+.main-container {
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	width: 360px;
+	height: auto;
+	margin-left: -180px;	
+}
+.main-container .form-wrapper, .main-container .sbk-reg-footer {
+	padding: 30px;
+	margin-bottom:20px;
+	border: 1px solid #D8DEE2;
+	border-radius: 5px; box-sizing : border-box;
+	background-color: #fff;
+	box-sizing: border-box;
+}
+.main-container .sbk-reg-header {
+	text-align: center;
+	font-size:1.1em;
+	margin-bottom: 22px;
+}
+.main-container .sbk-reg-footer {
+	padding:15px 30px;
+	font-size:0.8em;
+	text-align:center;
+	background-color: transparent;
+}
+.sbk-err-msg {
+	display: none;
+	position: relative;
+	width: 100%;
+	text-align: center;
+	padding: 5px 10px;
+	margin-top: 8px;
+	background: none repeat scroll 0% 0% #DD381D;
+	border-radius: 5px;
+	font-size: .775em; 
+	font-weight:700;
+	box-sizing : border-box;
+	color: #FFF;
+	box-sizing: border-box;
+}
+
+.sbk-input-div {
+	margin: 7px 0 14px;
+}
+
+.sbk-form-input {
+	width: 100%;
+	box-sizing: border-box;
+	min-height: 34px;
+	padding: 8px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #343434;
+	vertical-align: middle;
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	border-radius: 3px;
+	outline: medium none;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05) inset;
+}
+.sbk-input-focus-red {
+	border: 1px solid #DD381D;
+}
+
+.sbk-btn {
+	position: relative;
+	display: inline-block;
+	padding: 8px 12px;
+	font-family:inherit;
+	font-size: .9em;
+	line-height: 20px;
+	color: #FFF;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	-moz-user-select: none;
+	background-color: #2E9FFF;
+/* 	background-image: linear-gradient(#2E9FFF, #EEE); #2E9FFF  #FCFCFC */
+	border: 1px solid #D5D5D5;
+	border-radius: 5px;
+	-moz-appearance: none;
+}
+#sbk-form-submit {
+	width: 100%;
+	margin-top:12px;
+	font-weight: 700;
+}
