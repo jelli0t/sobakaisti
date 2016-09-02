@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,5 +10,8 @@
 </head>
 <body>
 	<h1>Welcome @ Sobakaland!</h1>
+	<security:authorize access="isAuthenticated()">
+		Ovaj sadržaj vide samo autorizovani korisnici
+	</security:authorize>
 </body>
 </html>

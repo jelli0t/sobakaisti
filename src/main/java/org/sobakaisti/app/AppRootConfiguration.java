@@ -37,7 +37,7 @@ public class AppRootConfiguration {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti_database");
 		dataSource.setUsername("root");
-		dataSource.setPassword("");	//root
+		dataSource.setPassword("root");	//root
 		return dataSource;
 	}
 	@Autowired

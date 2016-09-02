@@ -50,8 +50,10 @@ public class AccountManagerDaotImpl implements AccountManagerDao{
 	@Override
 	@Transactional
 	public Account getAccountByUsernameOrEmail(String field, String value) {
+		System.out.println("inside getAccountByUsernameOrEmail()");
 		Session session = sessionFactory.getCurrentSession();
 		Account acc = (Account) session.createQuery("FROM Account WHERE "+field+"=:value").setString("value", value).setMaxResults(1).uniqueResult();
+		System.out.println("Fatched account: "+ acc);
 		return acc;
 	}
 
