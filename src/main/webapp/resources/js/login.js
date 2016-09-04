@@ -4,6 +4,11 @@ $(function() {
 		evt.preventDefault();
 		submitRegistrationForm();
 	});
+	$("#sbk-login-form").on('submit', function(evt) {
+		disableButton($("#sbk-form-submit"), true);	// disables submit button		
+		evt.preventDefault();
+		submitLoginForm();
+	});
 	$("#sbk-reg-form input").on("focus", function(){
 		$(this).addClass("input-active");
 	})
@@ -30,6 +35,34 @@ function submitRegistrationForm(){
         },
 		success : function(report) {
 			displayErrorMsgs(report);
+		},	
+		error:function(er, st, msg) { 
+			console.log("ERROR: ", msg);
+        }
+	})
+		.done(function(){
+			console.log("sbk@Done ~ enabling button again.");
+			disableButton($("#sbk-form-submit"), false);
+		});		
+}
+function submitLoginForm(){
+	var credentials = {};
+	var csrf = getCsrfParams();
+	
+	credentials["principal"] = $("#sbk-username").val();
+	credentials["credential"] = $("#sbk-password").val();
+	credentials["remembered"] = $("#sbk-remember").prop('checked');
+	$.ajax({
+		url : 'do.login',
+		type : 'POST',
+		dataType: 'json',
+		contentType : 'application/json; charset=utf-8',
+		data : JSON.stringify(credentials),		
+		beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        },
+		success : function(report) {
+			displayLoginErrorMsgs(report);
 		},	
 		error:function(er, st, msg) { 
 			console.log("ERROR: ", msg);
@@ -70,3 +103,15 @@ function displayErrorMsgs(report){
 		$(this).removeClass("sbk-input-focus-red").next(".sbk-err-msg").hide();
 	});
 }
+function displayLoginErrorMsgs(report){
+	if(report[0].status=='ERR'){
+		$(".sbk-err-msg").eq(0).show().html("<span>"+report[0].massage+"</span>");
+		$(".sbk-form-input").addClass("sbk-input-focus-red");
+		console.log("sbk@error: "+report[0].status, report[0].massage);
+	}else
+		$(".sbk-err-msg").hide();
+	
+	$("#sbk-login-form input").on("keypress", function(){
+		$(this).removeClass("sbk-input-focus-red").find(".sbk-err-msg").hide();
+	});
+}	

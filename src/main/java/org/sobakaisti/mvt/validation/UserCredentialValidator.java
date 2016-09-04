@@ -3,6 +3,8 @@ package org.sobakaisti.mvt.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import org.sobakaisti.mvt.dao.AccountManagerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -43,7 +45,7 @@ public class UserCredentialValidator {
     public void checkIfInputExists(String field, String value){
     	switch (field) {
 		case "sbk_username":
-			this.massage = "Korisnièko ime je zauzeto";
+			this.massage = "Korisniï¿½ko ime je zauzeto";
 			break;
 		case "email":
 			this.massage = "Nalog sa E-mail adresom veÄ‡ postoji";
@@ -52,6 +54,12 @@ public class UserCredentialValidator {
     	if(accountManagerDao.checkIfFieldExists(field, value))
     		throw new BadCredentialsException(massage+"  <a href='' class='err-login-link'>login?</a>");
     }
+    
+    public void checkIfPasswordsMatches(String pass1, String pass2){
+    	if(!pass1.equals(pass2))
+    		throw new BadCredentialsException("Password not maching");
+    }
+    
 //    check if passed value and pattern matches
     private boolean matchPatternWithValue(String p, String v){
     	 pattern = Pattern.compile(p);

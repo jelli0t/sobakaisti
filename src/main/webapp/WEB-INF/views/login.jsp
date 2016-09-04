@@ -1,11 +1,11 @@
 <%@include file="common/login-header.jsp" %>
 <body>
-	<form action="login_process" method="POST">
-		<label>Username: </label><input type="text" name="username"/><br />
-		<label>Password: </label><input type="password" name="password"/><br />
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>		
-		<button type="submit">Prijavi se</button>
-	</form>
+<!-- 	<form action="login_process" method="POST"> -->
+<!-- 		<label>Username: </label><input type="text" name="username"/><br /> -->
+<!-- 		<label>Password: </label><input type="password" name="password"/><br /> -->
+<%-- 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>		 --%>
+<!-- 		<button type="submit">Prijavi se</button> -->
+<!-- 	</form> -->
 <div class="main-container">
 		<div class="sbk-reg-header">
 			<img src="${root}/resources/img/sbk_mvt_logo.png" /> <br />
@@ -13,13 +13,15 @@
 		</div>	
 		<div class="form-wrapper">
 		<form id="sbk-login-form">
+			<div class="sbk-err-msg"></div>
 			<div class="sbk-input-div">
-				<input type="text" id="sbk-username" class="sbk-form-input" placeholder='<spring:message code="form.lebel.usernameOrMail"/>'/>
-				<div class="sbk-err-msg"></div>
+				<input type="text" id="sbk-username" name="username" class="sbk-form-input" placeholder='<spring:message code="form.lebel.usernameOrMail"/>'/>				
 			</div>
 			<div class="sbk-input-div">
-				<input type="password" id="sbk-password" class="sbk-form-input" placeholder="<spring:message code='form.label.password'/>"/>
-				<div class="sbk-err-msg"></div>
+				<input type="password" id="sbk-password" name="password" class="sbk-form-input" placeholder="<spring:message code='form.label.password'/>"/>
+			</div>
+			<div class="sbk-input-div">
+				<input type="checkbox" id="sbk-remember" /><label>Remember me</label>
 			</div>
 			<div>
 				<button type="submit" id="sbk-form-submit" class="sbk-btn">Log in</button>
