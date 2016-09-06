@@ -46,6 +46,7 @@ function submitRegistrationForm(){
 		});		
 }
 function submitLoginForm(){
+	$(".form-loding").show();
 	var credentials = {};
 	var csrf = getCsrfParams();
 	
@@ -67,9 +68,8 @@ function submitLoginForm(){
 			$(location).attr("href", "movement");
 		},	
 		error:function(jqXHR, textStatus, errorThrown) { 
-			console.log("ERROR: ", jqXHR.responseText);
-			console.log("ERROR: ", textStatus );
-			console.log("ERROR: ", errorThrown );
+			console.log("sbk@"+textStatus+" ~ "+errorThrown+" ~ dsc: "+jqXHR.responseText);
+			$(".form-loding").hide();
 			displayLoginErrorMsgs(jqXHR.responseText);
 			disableButton($("#sbk-form-submit"), false);
         }
@@ -111,10 +111,8 @@ function displayErrorMsgs(report){
 }
 function displayLoginErrorMsgs(report){
 	$(".sbk-err-msg").show().html("<span>"+report+"</span>");
-	$(".sbk-form-input").addClass("sbk-input-focus-red");
-	
+		
 	$("#sbk-login-form input").on("keypress", function(){
-		$(this).removeClass("sbk-input-focus-red").find(".sbk-err-msg").hide();
 		$(".sbk-err-msg").hide();
 	});
 }	

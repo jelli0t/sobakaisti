@@ -37,22 +37,7 @@ public class AccountAuthenticationProvider implements AuthenticationProvider{
 	private UserDetailsService accountDetailsService;
 	private UsernamePasswordAuthenticationToken token;
 	private Account account;
-	
-//	public List<StatusReport> preAuthenticate(LogInData loginData){
-//		List<StatusReport> report = new ArrayList<StatusReport>(1);
-//		
-		
-//		try{
-//			if(principal.contains("@"))
-//				validator.validateEmailFormat(principal);
-//			else
-//				validator.validateUserNameFormat(principal);
-//			validator.validatePasswordFormat(credential);			
-//		}catch (BadCredentialsException ex) {
-//			report.add(new StatusReport("ERR", "#1 Please check the username and password and try again."));
-//			return report;
-//		}
-//		
+			
 //		try{
 //			account = (Account) accountDetailsService.loadUserByUsername(principal);
 //			validator.checkIfPasswordsMatches(credential, account.getPassword());
@@ -72,15 +57,38 @@ public class AccountAuthenticationProvider implements AuthenticationProvider{
 		final String principal = authentication.getPrincipal().toString();
 		final String credential = authentication.getCredentials().toString();
 		System.out.println("#1 principal: "+principal+" / credential: "+credential);
+		/*	Validate if login fields are empty	*/
 		try{
 			validator.checkIfInputsAreEmpty(principal);
 			validator.checkIfInputsAreEmpty(credential);
 		}catch (BadCredentialsException ex) {
 			throw new BadCredentialsException(ex.getMessage());
 		}	
-		List<GrantedAuthority> grantedRoles = new ArrayList<>();
-		grantedRoles.add(new SimpleGrantedAuthority("ADMIN"));
-		return new UsernamePasswordAuthenticationToken(principal, credential, grantedRoles);
+		/*	Validate format of input login values	*/
+		try{
+			if(principal.contains("@"))
+				validator.validateEmailFormat(principal);
+			else
+				validator.validateUserNameFormat(principal);
+			
+			validator.validatePasswordFormat(credential);			
+		}catch (BadCredentialsException ex) {
+			throw new BadCredentialsException("Please check the username and password and try again.");
+		}
+		/*	Uzima account obj iz baze
+		 * 	proverava da li se uneta i trenutna lozinka podudaraju
+		 * pravi token koji æe da preda za security context
+		 */
+		try{
+			account = (Account) accountDetailsService.loadUserByUsername(principal);			
+			validator.checkIfPasswordsMatches(credential, account.getPassword());
+			token = new UsernamePasswordAuthenticationToken(principal, credential, account.getAuthorities());
+			
+		}catch (BadCredentialsException ex) {
+			throw new BadCredentialsException("#2 Please check the username and password and try again.");
+		}
+		
+		return token;
 	}
 
 	@Override
