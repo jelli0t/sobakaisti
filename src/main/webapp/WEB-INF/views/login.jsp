@@ -15,14 +15,14 @@
 		<form id="sbk-login-form">
 			<div class="sbk-err-msg"></div>
 			<div class="sbk-input-div">
-				<input type="text" id="sbk-username" name="username" class="sbk-form-input" placeholder='<spring:message code="form.lebel.usernameOrMail"/>'/>				
+				<input type="text" name="principal" id="sbk-username" class="sbk-form-input" placeholder='<spring:message code="form.lebel.usernameOrMail"/>'/>				
 			</div>
 			<div class="sbk-input-div">
-				<input type="password" id="sbk-password" name="password" class="sbk-form-input" placeholder="<spring:message code='form.label.password'/>"/>
+				<input type="password" name="credential" id="sbk-password" class="sbk-form-input" placeholder="<spring:message code='form.label.password'/>"/>
 			</div>
-			<div class="sbk-input-div">
-				<input type="checkbox" id="sbk-remember" /><label>Remember me</label>
-			</div>
+<!-- 			<div class="sbk-input-div"> -->
+<!-- 				<input type="checkbox" id="sbk-remember" /><label>Remember me</label> -->
+<!-- 			</div> -->
 			<div>
 				<button type="submit" id="sbk-form-submit" class="sbk-btn">Log in</button>
 			</div>

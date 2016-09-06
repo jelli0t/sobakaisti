@@ -10,6 +10,8 @@
 </head>
 <body>
 	<h1>Welcome @ Sobakaland!</h1>
+	<h3><a href="login">Log in</a></h3>
+	
 	<security:authorize access="isAuthenticated()">
 		Ovaj sadržaj vide samo autorizovani korisnici
 	</security:authorize>

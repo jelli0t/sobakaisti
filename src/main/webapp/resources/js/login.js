@@ -51,21 +51,27 @@ function submitLoginForm(){
 	
 	credentials["principal"] = $("#sbk-username").val();
 	credentials["credential"] = $("#sbk-password").val();
-	credentials["remembered"] = $("#sbk-remember").prop('checked');
+//	credentials["remembered"] = $("#sbk-remember").prop('checked');
+	
 	$.ajax({
 		url : 'do.login',
 		type : 'POST',
-		dataType: 'json',
-		contentType : 'application/json; charset=utf-8',
-		data : JSON.stringify(credentials),		
+		//dataType: 'json',
+		//contentType : 'application/json; charset=utf-8',
+		data : credentials,
 		beforeSend: function(xhr) {
             xhr.setRequestHeader(csrf[0], csrf[1]);
         },
 		success : function(report) {
-			displayLoginErrorMsgs(report);
+			console.log("SUCC: ", report);
+			$(location).attr("href", "movement");
 		},	
-		error:function(er, st, msg) { 
-			console.log("ERROR: ", msg);
+		error:function(jqXHR, textStatus, errorThrown) { 
+			console.log("ERROR: ", jqXHR.responseText);
+			console.log("ERROR: ", textStatus );
+			console.log("ERROR: ", errorThrown );
+			displayLoginErrorMsgs(jqXHR.responseText);
+			disableButton($("#sbk-form-submit"), false);
         }
 	})
 		.done(function(){
@@ -104,14 +110,11 @@ function displayErrorMsgs(report){
 	});
 }
 function displayLoginErrorMsgs(report){
-	if(report[0].status=='ERR'){
-		$(".sbk-err-msg").eq(0).show().html("<span>"+report[0].massage+"</span>");
-		$(".sbk-form-input").addClass("sbk-input-focus-red");
-		console.log("sbk@error: "+report[0].status, report[0].massage);
-	}else
-		$(".sbk-err-msg").hide();
+	$(".sbk-err-msg").show().html("<span>"+report+"</span>");
+	$(".sbk-form-input").addClass("sbk-input-focus-red");
 	
 	$("#sbk-login-form input").on("keypress", function(){
 		$(this).removeClass("sbk-input-focus-red").find(".sbk-err-msg").hide();
+		$(".sbk-err-msg").hide();
 	});
 }	

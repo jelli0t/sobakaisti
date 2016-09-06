@@ -11,5 +11,5 @@
 	<spring:url value="${pageContext.servletContext.contextPath}" var="root" context=""/>
 	<link href="${root}/resources/css/registration.css" rel="stylesheet">
 	<link rel="icon" type="image/ico" sizes="16x16" href="${root}/resources/img/favicon.ico">
-	<title></title>
+	<title> </title>
 </head>
