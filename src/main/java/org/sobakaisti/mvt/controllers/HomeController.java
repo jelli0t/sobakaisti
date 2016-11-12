@@ -19,4 +19,10 @@ public class HomeController {
 		return "movement";
 	}
 	
+	@RequestMapping(value="/sbk-admin")
+	public String displayDashHome(){
+		
+		return "dash_home";
+	}
+	
 }

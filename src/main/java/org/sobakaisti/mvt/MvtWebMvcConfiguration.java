@@ -35,8 +35,8 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter{
 	private ApplicationContext applicationContext;
 	
 	public void setApplicationContext(ApplicationContext applicationContext) {
-	    this.applicationContext = applicationContext;
-	  }
+		this.applicationContext = applicationContext;
+	}
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -76,6 +76,7 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter{
 	    SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
 	    resolver.setApplicationContext(applicationContext);
 	    resolver.setPrefix("/WEB-INF/templates/");
+	    resolver.setSuffix(".html");
 	    resolver.setTemplateMode(TemplateMode.HTML);
 	    return resolver;
 	  }
