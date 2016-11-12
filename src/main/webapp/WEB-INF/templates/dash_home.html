@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="commons/dash_head :: dash_head(~{::title},~{::link})">
-
+<!-- th:replace="commons/dash_head :: dash_head(~{::title},~{::link})" -->
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
 	<title>Dashboard | Sobakaisti</title>
 </head>
 <body>
+<header th:replace="~{commons/dash_header :: dash_header}">
 
+</header>
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
+
+</section>
+
+body
 </body>
 </html>

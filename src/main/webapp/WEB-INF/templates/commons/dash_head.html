@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="dash_head(title,links)">
+<head th:fragment="dash_head(title)">
   <title th:replace="${title}"></title>
 
   <!-- Common styles and scripts -->
-  <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/awesomeapp.css}">
-  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+  <link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/dashboard.style.css}">
+<!--   <link rel="shortcut icon" th:href="@{/images/favicon.ico}"> -->
   
   <!--/* Per-page placeholder for additional links */-->
-  <th:block th:replace="${links}" />
+<!--   <th:block th:replace="${links}" /> -->
 </head>
 </html>

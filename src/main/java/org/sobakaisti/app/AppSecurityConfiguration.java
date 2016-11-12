@@ -45,10 +45,7 @@ public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter{
                 .passwordParameter("credential")                
                 .failureHandler(accountAuthenticationFailureHandler)
                 .successHandler(accountAuthenticationSuccessHandler);
-		
-//		.and()
-//		    .logout().logoutSuccessUrl("/home")
-//		.and(); 
+
 	}
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -56,4 +53,4 @@ public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter{
 			ignoring()
 			.antMatchers("/resources/**");
 	}
-}	
+}

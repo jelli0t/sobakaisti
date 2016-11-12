@@ -2,7 +2,9 @@ package org.sobakaisti.mvt;
 
 import java.util.Locale;
 
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,8 +16,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
@@ -30,12 +30,13 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages="org.sobakaisti.mvt")
-public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter{
+public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 	
-	private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext; 
 	
-	public void setApplicationContext(ApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;		
 	}
 	
 	@Override
@@ -71,7 +72,7 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter{
 	    engine.setTemplateResolver(templateResolver());
 	    return engine;
 	  }
-
+	  
 	  private ITemplateResolver templateResolver() {
 	    SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
 	    resolver.setApplicationContext(applicationContext);
