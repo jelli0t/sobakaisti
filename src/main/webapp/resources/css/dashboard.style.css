@@ -2,6 +2,7 @@
 html, body {
 	margin:0;
 	padding: 0;
+	background-color: #fff;
 }
 .dash-topbar {
 	position: relative;
@@ -14,6 +15,7 @@ html, body {
 }
 .dash-sidebar {
 	width: 190px;
+	height:100%;
     float: left;
     position: static;
     padding-left: 0;
@@ -21,3 +23,16 @@ html, body {
 	background-color: #F2F2F2;
 	border-right: 1px solid #CCC;
 	}
+.side-nav {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}	
+.side-nav > li {
+    display: block;
+    position: relative;
+    float: none;
+    padding: 0;
+    border-style: solid;
+    border-width: 1px 0 0;
+}
