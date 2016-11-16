@@ -7,21 +7,26 @@ html, body {
 	font-family: 'Noto Sans', sans-serif;
 }
 .dash-topbar {
-	position: relative;
+	position: fixed;
+	top:0;
+	left: 0;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	-webkit-box-shadow: none;
 	box-shadow: none;
-	min-height: 45px;
+	height: 45px;
 	background: #438EB9;
 }
 .dash-sidebar {
+	position: fixed;
+	top:45px;
+	left: 0;
 	width: 190px;
-/* 	height:100%; */
-    float: left;
-    position: static;
-    padding-left: 0;
-    padding-right: 0;
+	height: 100%;
+/*     float: left; */
+/*     position: static; */
+	padding:0;
 	background-color: #F2F2F2;
 	border-right: 1px solid #CCC;
 	}
@@ -52,3 +57,4 @@ html, body {
 .side-nav > li > a:focus, .side-nav > li > a:hover {
     color: #1963AA;
     border-left: 3px solid #1963AA;
+}
