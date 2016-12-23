@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- th:replace="commons/dash_head :: dash_head(~{::title},~{::link})" -->
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
+	<title>Sobakaisti | Dashboard</title>
+</head>
+<body>
+<!-- Top header of dashboard section -->
+<header th:replace="~{commons/dash_header :: dash_header}"></header>
+<!-- Breadcrumbs -->
+<div th:replace="commons/dash_header :: dash_breadcrumbs(~{::li})">
+	<ul>
+		<li><a th:href="@{/sbk-admin/sobakaisti}">Sobakaisti</a></li>
+	</ul>
+</div>
+<!-- Side navigation manu -->
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}"></section>
+
+
+<div class="dash-main-container">
+		
+	<div th:each="author : ${authors}" class="author-box">
+		<div class="author-cover"></div>
+		<div class="author-avatar"></div>
+		<div class="author-content">
+			<div class="author-basic-info author-name"><span th:text="${author.firstName}"></span> 
+			<span th:text="${author.lastName}"></span></div>
+			<div class="author-basic-info author-profession" th:text="${author.profession}">~</div>
+		</div>
+		<div class="author-meta-info">
+			<span th:text="${author.birthplace}" class="icon birthplace-icon"></span>
+			<span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}" class="icon dob-icon"></span>
+			<span class="icon website-icon"><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a> </span>
+			<span th:text="${author.email}" class="icon mail-icon"></span>
+		</div>
+	</div>
+	<div class="author-box new-author-box">
+		<div class="author-add-new">
+			<button class="add-bttn" title="Dodaj Sobakaistu" onclick="callAnchor('add')">&#xe6a9;</button>
+		</div>
+	</div>
+	<button id="simple-btn">Ajax</button>
+</div>
+<div class="overlay" id="add">
+<form id="author-form" action="http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add" method="POST">
+<div class="author-registration">
+	<a href="#"><span class="popup-close">&#xe681;</span></a>
+	<div class="input-wrapper">
+		<input type="text" name="firstName" class="inline" placeholder="Ime" id="firstName"/>
+		<input type="text" name="lastName" class="inline" placeholder="Prezime" style="float: right;" id="lastName"/>
+	</div>
+	<div class="input-wrapper">
+		<input type="text" name="profession" placeholder="Profesija" id="profession"/>
+	</div>
+	<div class="input-wrapper">
+		<input type="text" name="birthplace" placeholder="Mesto rođenja" id="birthplace"/>
+	</div>
+<!-- 	<div class="input-wrapper"> -->
+<!-- 		<input type="date" name="dob" placeholder="Datum rođenja (dd.mm.yyyy.)"/> -->
+<!-- 	</div> -->
+	<div class="input-wrapper">
+		<input type="text" name="dob" placeholder="dd-MM-yyy" id="dob"/>
+	</div>
+	<div class="input-wrapper">
+		<input type="text" name="email" placeholder="E-mail" id="email"/>
+	</div>
+	<div class="input-wrapper">
+		<input type="text" name="website" placeholder="Website" id="website"/>
+	</div>
+	<div class="input-wrapper">
+		<textarea rows="3" placeholder="Kratka biografija" name="shortBio" id="shortBio"></textarea>
+		<input type="hidden" name="avatarPath" value="avatar_path_value" id="avatarPath">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</div>
+<!-- 	<div class="input-wrapper"> -->
+<!-- 		<input type="file" name="pic" accept="image/*"> -->
+<!-- 	</div> -->
+	<div class="input-wrapper">
+		<button class="wide-bttn" id="submit-form">Sačuvaj</button>
+	</div>
+</div>
+</form>
+</div>
+
+<div class="modal-backdrop"></div> 
+
+<footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
+</body>
+</html>
