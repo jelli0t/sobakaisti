@@ -3,4 +3,11 @@
 <header th:fragment="dash_header" class="dash-topbar">
 
 </header>
+<div th:fragment="dash_breadcrumbs(li)" class="dash-breadcrumbs">
+	<ul class="breadcrumb">
+		<li><a th:href="@{/sbk-admin}">Početak</a></li>
+		<li th:replace="${li}"></li>
+	</ul>
+	
+</div>
 </html>

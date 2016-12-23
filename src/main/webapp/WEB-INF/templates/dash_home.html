@@ -5,9 +5,12 @@
 	<title>Dashboard | Sobakaisti</title>
 </head>
 <body>
-<header th:replace="~{commons/dash_header :: dash_header}">
+<header th:replace="~{commons/dash_header :: dash_header}"> </header>
+<!-- Breadcrumbs -->
+<div th:replace="commons/dash_header :: dash_breadcrumbs(~{})">
 
-</header>
+</div>
+
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 
 </section>

@@ -17,12 +17,5 @@ public class HomeController {
 	@RequestMapping(value="/movement", method=RequestMethod.GET )
 	public String showMovementHome(){
 		return "movement";
-	}
-	
-	@RequestMapping(value="/sbk-admin")
-	public String displayDashHome(){
-		
-		return "dash_home";
-	}
-	
+	}	
 }

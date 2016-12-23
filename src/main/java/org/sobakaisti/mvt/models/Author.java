@@ -4,12 +4,19 @@
 package org.sobakaisti.mvt.models;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author jelles
@@ -20,15 +27,17 @@ import javax.persistence.Table;
 public class Author {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ID")
 	private int id;
 	@Column(name="FIRST_NAME")
 	private String firstName;
 	@Column(name="LAST_NAME")
 	private String lastName;
+	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
-	private LocalDate dob;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	private Date dob;
 	@Column(name="BIRTHPLACE")
 	private String birthplace;
 	@Column(name="EMAIL")
@@ -37,6 +46,8 @@ public class Author {
 	private String website;
 	@Column(name="SHORT_BIO")
 	private String shortBio;
+	@Column(name="PROFESSION")
+	private String profession;
 	@Column(name="AVATAR_PATH")
 	private String avatarPath;
 		
@@ -58,10 +69,10 @@ public class Author {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public LocalDate getDob() {
+	public Date getDob() {
 		return dob;
 	}
-	public void setDob(LocalDate dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 	public String getBirthplace() {
@@ -93,5 +104,16 @@ public class Author {
 	}
 	public void setAvatarPath(String avatarPath) {
 		this.avatarPath = avatarPath;
+	}
+	public String getProfession() {
+		return profession;
+	}
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}	
+	
+	@Override
+	public String toString() {
+		return "[Autor: "+firstName+" "+lastName+", "+birthplace+", "+email+"]";
+	}
 }
