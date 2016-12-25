@@ -38,15 +38,17 @@ $(function() {
 //	});
 	
 	
-	$('#simple-btn').on('click', function(){
+	$('#submit-test').on('click', function(){
 		var csrf = getCsrfParams();
-		var dataForUpd = {};
-		dataForUpd['name'] = 'Nemanja';
-		dataForUpd['username'] = 'jelles';
-		dataForUpd['password'] = 'jelles123';
-		dataForUpd['comment'] = 'Ovo je testni json objekat.';
-		dataForUpd['date'] = '12-10-1986';
+		var dataForUpd = $('#test-form').serializeObject();
+//		var dataForUpd = {};
+//		dataForUpd['name'] = 'Nemanja';
+//		dataForUpd['username'] = 'jelles';
+//		dataForUpd['password'] = 'jelles123';
+//		dataForUpd['comment'] = 'Ovo je testni json objekat.';
+//		dataForUpd['date'] = '12-10-1986';
 		alert(JSON.stringify(dataForUpd));
+		
 		$.ajax({
 			url: 'http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/test',
 			type : 'POST',

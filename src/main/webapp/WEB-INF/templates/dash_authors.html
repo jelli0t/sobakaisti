@@ -40,10 +40,35 @@
 		</div>
 	</div>
 	<button id="simple-btn">Ajax</button>
+	
+	<div>
+	<form action="" id="test-form">
+	<div class="input-wrapper">
+		<input type="text" name="name" class="inline" placeholder="Ime" id="firstName"/>
+		<input type="text" name="username" class="inline" placeholder="Username" id="lastName"/>
+	</div>
+	<div class="input-wrapper">
+		<input type="text" name="password" placeholder="Lozinka" id="profession"/>
+	</div>
+
+	<div class="input-wrapper">
+		<input type="date" name="date" placeholder="Datum r�enja (dd.mm.yyyy.)" pattern="dd-MM-yyyy"/>
+	</div>
+<!-- 	<div class="input-wrapper"> -->
+<!-- 		<input type="text" name="date" placeholder="dd-MM-yyy" id="dob"/> -->
+<!-- 	</div> -->
+	<div class="input-wrapper">
+		<textarea rows="3" placeholder="Kratka biografija" name="comment" id="shortBio"></textarea>
+	</div>	
+	</form>
+	<div class="input-wrapper">
+		<button class="wide-bttn" id="submit-test">Sačuvaj</button>
+	</div>
+</div>
 </div>
 <div class="overlay" id="add">
-<form id="author-form" action="http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add" method="POST">
 <div class="author-registration">
+	<form id="author-form" action="http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add" method="POST">
 	<a href="#"><span class="popup-close">&#xe681;</span></a>
 	<div class="input-wrapper">
 		<input type="text" name="firstName" class="inline" placeholder="Ime" id="firstName"/>
@@ -75,12 +100,14 @@
 <!-- 	<div class="input-wrapper"> -->
 <!-- 		<input type="file" name="pic" accept="image/*"> -->
 <!-- 	</div> -->
+	</form>
 	<div class="input-wrapper">
-		<button class="wide-bttn" id="submit-form">Sačuvaj</button>
+		<button class="wide-bttn" id="submit-author">Sačuvaj</button>
 	</div>
 </div>
-</form>
+
 </div>
+
 
 <div class="modal-backdrop"></div> 
 
