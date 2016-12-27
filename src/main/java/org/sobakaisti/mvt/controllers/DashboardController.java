@@ -35,14 +35,15 @@ public class DashboardController {
 	
 	@RequestMapping(value="/sobakaisti", method=RequestMethod.GET)
 	public String showSobakaistiHome(Model model){
-//		model.addAttribute("name", "Sobakaisti");
-//		model.addAttribute("authors", authorDaoImpl.getAllAuthors());
+		model.addAttribute("name", "Sobakaisti");
+		model.addAttribute("authors", authorDaoImpl.getAllAuthors());
 		return "dash_authors";
 	}
 	@RequestMapping(value="/sobakaisti/add", method=RequestMethod.POST)
 	@ResponseBody
 	public Author addNewSoakais(@RequestBody Author author){
 		System.out.println(author);
+		authorDaoImpl.persistAuthor(author);
 		return author;
 	}
 	

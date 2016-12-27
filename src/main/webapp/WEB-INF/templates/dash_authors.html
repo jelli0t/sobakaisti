@@ -17,9 +17,9 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}"></section>
 
 
-<div class="dash-main-container">
-		
+<div class="dash-main-container">	
 	<div th:each="author : ${authors}" class="author-box">
+	<a href="javascript:void(0)"><span class="author-settings">&#xe689;</span></a>
 		<div class="author-cover"></div>
 		<div class="author-avatar"></div>
 		<div class="author-content">
@@ -39,40 +39,15 @@
 			<button class="add-bttn" title="Dodaj Sobakaistu" onclick="callAnchor('add')">&#xe6a9;</button>
 		</div>
 	</div>
-	<button id="simple-btn">Ajax</button>
-	
-	<div>
-	<form action="" id="test-form">
-	<div class="input-wrapper">
-		<input type="text" name="name" class="inline" placeholder="Ime" id="firstName"/>
-		<input type="text" name="username" class="inline" placeholder="Username" id="lastName"/>
-	</div>
-	<div class="input-wrapper">
-		<input type="text" name="password" placeholder="Lozinka" id="profession"/>
-	</div>
+</div>
 
-	<div class="input-wrapper">
-		<input type="date" name="date" placeholder="Datum r�enja (dd.mm.yyyy.)" pattern="dd-MM-yyyy"/>
-	</div>
-<!-- 	<div class="input-wrapper"> -->
-<!-- 		<input type="text" name="date" placeholder="dd-MM-yyy" id="dob"/> -->
-<!-- 	</div> -->
-	<div class="input-wrapper">
-		<textarea rows="3" placeholder="Kratka biografija" name="comment" id="shortBio"></textarea>
-	</div>	
-	</form>
-	<div class="input-wrapper">
-		<button class="wide-bttn" id="submit-test">Sačuvaj</button>
-	</div>
-</div>
-</div>
 <div class="overlay" id="add">
+<form id="author-form" action="http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add" method="POST">
 <div class="author-registration">
-	<form id="author-form" action="http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add" method="POST">
 	<a href="#"><span class="popup-close">&#xe681;</span></a>
 	<div class="input-wrapper">
 		<input type="text" name="firstName" class="inline" placeholder="Ime" id="firstName"/>
-		<input type="text" name="lastName" class="inline" placeholder="Prezime" style="float: right;" id="lastName"/>
+		<input type="text" name="lastName" class="inline" placeholder="Prezime" style="float:right;" id="lastName"/>
 	</div>
 	<div class="input-wrapper">
 		<input type="text" name="profession" placeholder="Profesija" id="profession"/>
@@ -95,19 +70,18 @@
 	<div class="input-wrapper">
 		<textarea rows="3" placeholder="Kratka biografija" name="shortBio" id="shortBio"></textarea>
 		<input type="hidden" name="avatarPath" value="avatar_path_value" id="avatarPath">
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<!-- 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
 	</div>
 <!-- 	<div class="input-wrapper"> -->
 <!-- 		<input type="file" name="pic" accept="image/*"> -->
 <!-- 	</div> -->
-	</form>
 	<div class="input-wrapper">
-		<button class="wide-bttn" id="submit-author">Sačuvaj</button>
+<!-- 		<button class="wide-bttn" id="submit-author">Sačuvaj</button> -->
+		<a href="javascript:void(0)" class="wide-bttn" id="submit-author">Sačuvaj</a>
 	</div>
 </div>
-
+</form>
 </div>
-
 
 <div class="modal-backdrop"></div> 
 

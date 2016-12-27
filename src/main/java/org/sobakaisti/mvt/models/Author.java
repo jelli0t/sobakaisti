@@ -3,9 +3,7 @@
  */
 package org.sobakaisti.mvt.models;
 
-import java.time.LocalDate;
-import java.util.Date;
-
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author jelles
@@ -37,7 +34,7 @@ public class Author {
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	private Date dob;
+	private Calendar dob;
 	@Column(name="BIRTHPLACE")
 	private String birthplace;
 	@Column(name="EMAIL")
@@ -69,10 +66,10 @@ public class Author {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Date getDob() {
+	public Calendar getDob() {
 		return dob;
 	}
-	public void setDob(Date dob) {
+	public void setDob(Calendar dob) {
 		this.dob = dob;
 	}
 	public String getBirthplace() {

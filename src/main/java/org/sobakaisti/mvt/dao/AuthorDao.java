@@ -22,4 +22,5 @@ public interface AuthorDao {
 	 * */
 	public List<Author> getAllAuthors();
 	
+	public void persistAuthor(Author author);
 }

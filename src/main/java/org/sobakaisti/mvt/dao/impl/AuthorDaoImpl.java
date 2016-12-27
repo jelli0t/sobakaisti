@@ -44,4 +44,12 @@ public class AuthorDaoImpl implements AuthorDao {
 		return authors;
 	}
 
+	@Override
+	@Transactional
+	public void persistAuthor(Author author) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(author);
+	}
+
+	
 }

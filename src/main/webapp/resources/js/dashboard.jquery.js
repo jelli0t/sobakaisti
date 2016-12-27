@@ -69,44 +69,30 @@ $(function() {
 	});
 	
 	
-	$('#submit-form').on('click', function(){
+	$('#submit-author').on('click', function(){
 		var csrf = getCsrfParams();
-//		alert(csrf[0]+" / "+ csrf[1]);
-//		var json = $('#author-form').serializeObject();
-//		alert(JSON.stringify(json));
-	//	var json = 'Nemanja';
+		var json = $('#author-form').serializeObject();
+		alert(JSON.stringify(json));
 		
-		var dataForUpd = {};			
-		dataForUpd['firstName'] = $('#firstName').val();
-		dataForUpd['lastName'] = $('#lastName').val();
-		dataForUpd['birthplace'] = $('#birthplace').val();
-		dataForUpd['dob'] = $('#dob').val();
-		dataForUpd['email'] = $('#email').val();
-		dataForUpd['website'] = $('#website').val();
-		dataForUpd['shortBio'] = $('#shortBio').val();
-		dataForUpd['profession'] = $('#profession').val();
-		dataForUpd['avatarPath'] = $('#avatarPath').val();
-		
-		alert(JSON.stringify(dataForUpd));
 		$.ajax({
 			url: 'http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add',
 			type : 'POST',
 			contentType: 'application/json; charset=utf-8',
-			data: JSON.stringify(dataForUpd),
+			data: JSON.stringify(json),
 			dataType : 'json',
-//			timeout : 100000,
 			beforeSend: function(xhr) {
 	            xhr.setRequestHeader(csrf[0], csrf[1]);
 	        },
 			success : function(data) {
 				console.log("SUCCESS: ", data);
+				closePopup();
 			},
 			error:function(er, st, msg) { 
 				console.log("ERROR: ", msg);
 				console.log("ER: ", er);
 			},
 			done : function(e) {
-				console.log("DONE");
+				console.log("DONE");				
 			}
 		});
 	});

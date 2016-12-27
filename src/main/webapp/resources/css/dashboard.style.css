@@ -194,6 +194,16 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 .author-box > .author-content {
 	margin-top: 60px;
 }
+.author-settings {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	font-family: 'Pe-icon-7-stroke';
+	font-size: 18px;
+	font-weight: 700;
+	color: #fff;
+	opacity: 0.7;
+}
 .author-basic-info {
 	text-align: center;
 	font-weight: 300;
