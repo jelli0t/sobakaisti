@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.AccountManagerDao;
 import org.sobakaisti.mvt.dao.impl.AccountManagerDaotImpl;
 import org.sobakaisti.mvt.models.Account;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +37,7 @@ public class AppRootConfiguration {
 	public DataSource getDataSource(){
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti_database");
 		dataSource.setUsername("root");
 		dataSource.setPassword("");	//root 
 		return dataSource;
@@ -46,7 +47,8 @@ public class AppRootConfiguration {
 	public SessionFactory getSessionFactory(DataSource dataSource){
 		LocalSessionFactoryBuilder sessionFactory = new LocalSessionFactoryBuilder(dataSource);
 		sessionFactory.addAnnotatedClass(Account.class)
-						.addAnnotatedClass(Author.class);
+						.addAnnotatedClass(Author.class)
+						.addAnnotatedClass(Article.class);
 		sessionFactory.addProperties(getHibernateProperties());
 		return sessionFactory.buildSessionFactory();
 	}
