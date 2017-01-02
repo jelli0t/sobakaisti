@@ -14,10 +14,6 @@ $(function() {
 		type : 'GET',
 		contentType: 'application/json; charset=utf-8',
 		data: dimension,
-	//	dataType : 'json',
-//		beforeSend: function(xhr) {
-//            xhr.setRequestHeader(csrf[0], csrf[1]);
-//        },
 		success : function(data) {
 			console.log("SUCCESS: ", data);
 			var li = '';
@@ -32,9 +28,14 @@ $(function() {
 		}		
 	}).done(function() {
 		console.log("done!");
-		$('li').animate({marginLeft: '0'}, 5000);	
+		$('li').animate({marginLeft: '0'},{
+            duration: 3000,
+            easing: 'linear'
+        }, {complete: circleFadeIn()});		
 		});
 	
-	 
-	
 });
+
+var circleFadeIn = function() {
+	$('.single-circle').animate({opacity: 1}, 1000);
+}
