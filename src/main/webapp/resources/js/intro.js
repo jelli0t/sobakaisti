@@ -1,4 +1,10 @@
 $(function() {
+	$('.hemisphere').delay(2000).animate({height: '360', marginTop: '-180px'},{
+        duration: 1000,
+        easing: 'linear'
+    });
+	
+	
 	var width = $( window ).width();
 	var height = $( window ).height();
 	var char_w = $('#char-width').width();

@@ -1,8 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700&subset=latin,cyrillic-ext,latin-ext,cyrillic);
-@font-face {
-  font-family: 'NotoMono';
-  src: url('../fonts/NotoMono-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
-}
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans+Mono');
+/* @font-face { */
+/*   font-family: 'NotoMono'; */
+/*   src: url('../fonts/NotoMono-Regular.ttf') format('truetype'); Safari, Android, iOS */
+/* } */
 html, body{
 	margin:0;
 	padding: 0;
@@ -193,7 +194,7 @@ a:LINK, a:VISITED {text-decoration: none; font-weight: 300;}
 .bgd-list {
 	position: static;
     width: 100%;
-	font-family: 'NotoMono';
+	font-family: 'Droid Sans Mono', 'NotoMono';
 	font-size: 12px;
 	width: 100%;
 	opacity: 0.3;
@@ -211,11 +212,11 @@ a:LINK, a:VISITED {text-decoration: none; font-weight: 300;}
 	font-size: 12px;
 }
 .ltr {
-	 margin-left: -90%;
+	 margin-left: -100%;
 }
 .rtl {
-	text-align:right;
-	margin-left: 90%;
+	text-align: justify;
+	margin-left: 100%;
 }
 
 .single-circle {

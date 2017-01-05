@@ -22,7 +22,7 @@ public class HomeController {
 	@RequestMapping(value="/")
 	public String displayHome(){
 		System.out.println("Home controller user: "+SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-		return "home";
+		return "intro";  // home
 	}
 	
 	@RequestMapping(value="/movement", method=RequestMethod.GET )
