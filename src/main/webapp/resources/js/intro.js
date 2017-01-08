@@ -5,20 +5,12 @@ $(function() {
     	}).promise().done(function(){
     		iconAnimation();		
     	});    
-
-	/*	HOVER efekat na krugovima */
-//	$('.single-circle').hover(function() {
-//        $(this).toggle({
-//          effect: "scale",
-//          percent: "100%"
-//        },200);
-//    }, function() {
-//         $(this).toggle({
-//           effect: "scale",
-//           percent: "80%"
-//         },200);
-//
-//    });
+	
+	$('.single-circle').on('click', function(){
+		$('.hemisphere, .v-line').hide('slow');
+		var $circle = $(this).detach().appendTo('body').css({'left':'50%','top':'40%', 'transform':'none'});
+	});
+	
 	
 	var width = $( window ).width();
 	var height = $( window ).height();
