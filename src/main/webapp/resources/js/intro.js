@@ -1,9 +1,24 @@
 $(function() {
-	$('.hemisphere').delay(2000).animate({height: '360', marginTop: '-180px'},{
-        duration: 1000,
+	$('.v-line').delay(2000).animate({height: '360', marginTop: '-180px'},{
+        duration: 500,
         easing: 'linear'
-    });
-	
+    	}).promise().done(function(){
+    		iconAnimation();		
+    	});    
+
+	/*	HOVER efekat na krugovima */
+//	$('.single-circle').hover(function() {
+//        $(this).toggle({
+//          effect: "scale",
+//          percent: "100%"
+//        },200);
+//    }, function() {
+//         $(this).toggle({
+//           effect: "scale",
+//           percent: "80%"
+//         },200);
+//
+//    });
 	
 	var width = $( window ).width();
 	var height = $( window ).height();
@@ -45,3 +60,45 @@ $(function() {
 var circleFadeIn = function() {
 	$('.single-circle').animate({opacity: 1}, 1000);
 }
+var iconAnimation = function() {
+	$('#movement-icon').animate({right: '40%'}, 1000).promise().done(function(){
+		singleCircleAnimation();
+	});
+	$('#game-icon').animate({left: '40%'}, 1000).promise().done(function(){
+		gameCircleAnimation();
+	});
+}
+
+var singleCircleAnimation = function() {
+	$('.left-hemisphere .single-circle').animate({left: '80%', opacity: '1.0'}, {
+        duration: 500       
+    }).promise().done(function(){
+    	for(i=0, deg=0; i<8; i++, deg-=45){
+    		var id = '.mvt-langwrapper-'+i;
+    		$(id).css({
+    			transition: '.4s linear',
+                transform: 'rotate(' + deg + 'deg)'
+            });
+    		$(id+' .single-circle').css({
+                transform: 'rotate(' + Math.abs(deg) + 'deg)'
+            });    		
+    	}		
+	});	
+}
+	
+var gameCircleAnimation = function() {
+	$('.right-hemisphere .single-circle').animate({left: '20%', opacity: '1.0'}, {
+        duration: 500       
+    }).promise().done(function(){
+    	for(i=0, deg=0; i<8; i++, deg+=45){
+    		var id = '.game-langwrapper-'+i;
+    		$(id).css({
+    			transition: '.4s linear',
+                transform: 'rotate(' + deg + 'deg)'
+            });
+    		$(id+' .single-circle').css({
+                transform: 'rotate(' + deg*-1 + 'deg)'
+            });    		
+    	}		
+	});
+}	
