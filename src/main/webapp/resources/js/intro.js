@@ -9,6 +9,8 @@ $(function() {
 	$('.single-circle').on('click', function(){
 		$('.hemisphere, .v-line').hide('slow');
 		var $circle = $(this).detach().appendTo('body').css({'left':'50%','top':'40%', 'transform':'none'});
+//		$('.loader').show('slow');
+		$circle.addClass('loader');
 	});
 	
 	
@@ -44,14 +46,11 @@ $(function() {
 		$('li').animate({marginLeft: '0'},{
             duration: 3000,
             easing: 'linear'
-        }, {complete: circleFadeIn()});		
-		});
+        });		
+	});
 	
-});
+}); // Kraj ready funkcije
 
-var circleFadeIn = function() {
-	$('.single-circle').animate({opacity: 1}, 1000);
-}
 var iconAnimation = function() {
 	$('#movement-icon').animate({right: '40%'}, 1000).promise().done(function(){
 		singleCircleAnimation();
@@ -60,7 +59,9 @@ var iconAnimation = function() {
 		gameCircleAnimation();
 	});
 }
-
+/*
+ * Animira krugove leve hemisvere. Otvaraju se kao lepeza suprotno kazaljkama na satu.
+ * */
 var singleCircleAnimation = function() {
 	$('.left-hemisphere .single-circle').animate({left: '80%', opacity: '1.0'}, {
         duration: 500       
@@ -77,7 +78,9 @@ var singleCircleAnimation = function() {
     	}		
 	});	
 }
-	
+/*
+ * 	Animira krugove DESNE hemisvere. Otvaraju se u smru kazanjlke na satu.
+ * */
 var gameCircleAnimation = function() {
 	$('.right-hemisphere .single-circle').animate({left: '20%', opacity: '1.0'}, {
         duration: 500       
