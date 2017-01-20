@@ -51,23 +51,18 @@ a:LINK, a:VISITED {
 	left: -65px;
 	margin-left: -32px;
 }
-
-.lang-container {
-/* 	border: 1px solid gray; */
+.lang-container, .game-lang-container {
 	position: absolute;
 	width: 30%;
 	height: 100px;
 	top: 50%;
+}
+.lang-container {	
 	margin: -50px 0 0 60%;
 	text-align: right;
 	transform-origin: 0 50%;
 }
 .game-lang-container {
-/* 	border: 1px solid gray; */
-	position: absolute;
-	width: 30%;
-	height: 100px;
-	top: 50%;
 	margin: -50px 20% 0 10%;
 	text-align: left;
 	transform-origin: 100% 50%;
@@ -118,8 +113,7 @@ a:LINK, a:VISITED {
 }
 .single-circle:HOVER {
 	-webkit-transform: scale(1.15, 1.15);
-  	transform: scale(1.15, 1.15);
-  	
+  	transform: scale(1.15, 1.15);  	
   	-webkit-box-shadow: inset 0 0 0 100px rgba(204,204,204, 1);
 	-moz-box-shadow: inset 0 0 0 100px rgba(204,204,204, 1);
   	box-shadow: inset 0 0 0 100px rgba(204,204,204, 1);
@@ -158,6 +152,7 @@ a:LINK, a:VISITED {
     width: 100%;
 	font-family: 'Droid Sans Mono', 'NotoMono';
 	font-size: 12px;
+	font-weight: normal;
 	width: 100%;
 	opacity: 0.3;
 	overflow: hidden;
@@ -168,6 +163,8 @@ a:LINK, a:VISITED {
 	width:100%;
 /* 	text-align: justify; */
 	line-height: 16px;
+	box-sizing: border-box;
+/* 	border: 1px solid green; */
 }
 #char-width {
 	font-family: 'NotoMono';
@@ -179,4 +176,32 @@ a:LINK, a:VISITED {
 .rtl {
 	text-align: justify;
 	margin-left: 100%;
+}
+#circle-menu {
+	position: absolute;
+	width: 800px;
+	top:45%;
+	left: 50%;
+	margin-left: -400px;
+	margin-top:-50px;
+	z-index: 1001;
+/* 	border: 1px solid red; */
+	text-align: center;	
+}
+#circle-menu > li {
+	display: inline;
+}
+#circle-menu > li > .circle-menu-item {
+	position: absolute;
+	display: inline-block;
+	opacity: 0.0;
+	background-color: #fff;	
+	-webkit-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
+	-moz-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
+	box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
+}
+.test-char {
+	display: none;
+	font-family: 'Droid Sans Mono';
+	font-size: 12px;
 }

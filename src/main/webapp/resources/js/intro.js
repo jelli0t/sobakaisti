@@ -6,26 +6,29 @@ $(function() {
     		iconAnimation();		
     	});    
 	
-	var width = $( window ).width();
-	var height = $( window ).height();
+	var width = $( document ).width();
+	var height = $( document ).height();
+	var char_width = $('.test-char').width();
 	
-	$('.single-circle').on('click', function(){
+	$('.mvt-lang-circle').on('click', function(){
 		$('.hemisphere, .v-line').hide('slow');
 		var $circle = $(this).detach().appendTo('body').css({'left':'50%','top':'40%', 'transform':'none'});
 		$circle.addClass('loader').promise().done(function(){
 			var dimension = {
 					'width':width,
-					'height':height
+					'height':height,
+					'charWidth':char_width
 					};
 			background(dimension,$circle);			
 		});
+	});	
+	var sum = 0;
+	$('.test-char').each(function(i, obj) {
+		sum += $(obj).width();
+		console.log("index: ", i);
+		console.log("visina: "+$(obj).height()+"; sirina: "+$(obj).width());
 	});
-	
-	
-//	var char_w = $('#char-width').width();
-//		
-//	console.log("CHAR e WIDTH: ", char_w);
-	
+	console.log("Prosecna sirina: ", sum/9);
 	
 }); // Kraj ready funkcije
 
@@ -101,7 +104,11 @@ var background = function(dimension,$circle){
             easing: 'linear'
         }).promise().done(function(){
         	$circle.removeClass('loader');
-    	});;
+        	$circle.remove();
+        	$('.circle-menu-item').css({'position':'static', 'margin':'0 20px'}).animate({
+        		opacity: '1.0'
+        	}, 1000);        	
+    	});
         	
         	
 	});

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author NEKS Office
+ * @author jelles
  *
  */
 @Service
@@ -20,26 +20,33 @@ public class ArticleServiceImpl implements ArticleService{
 
 	@Autowired
 	private ArticleDao articleDao;
+	
 	private int charsPerRow;
 	private int rowsPerPage;
+	private int charsToFill;
 	
 	@Override
-	public List<String> getRowsFromArticleWithDimension(int width, int height) {
-		charsPerRow = (int) Math.floor(width / FONT_WIDTH);
+	public List<String> getRowsFromArticleWithDimension(int width, int height, double charWidth) {
+		charsPerRow = (int) Math.floor(width / charWidth);
 		rowsPerPage = (int) Math.floor(height / LINE_HEIGHT);
-		System.out.println("Params: Dimensions: "+width+"x"+height+";"
-				+ " Chars x Rows: "+charsPerRow+"x"+rowsPerPage);
-		List<String> row = new ArrayList<>(rowsPerPage);
 		String content = articleDao.getArticleById(1);
 		int length = content.length();
+		charsToFill = (int) (charsPerRow - Math.ceil(length % charsPerRow));
+		
+		System.out.println("Params: Dimensions: "+width+"x"+height+"; Char width: "+charWidth+"; karaktera za popunjavanje: "+charsToFill
+				+ " Chars x Rows: "+charsPerRow+"x"+rowsPerPage);
+		
+		List<String> row = new ArrayList<>(rowsPerPage);
+		
 		if(!content.equals("")){
-			for(int i=0, j=0; i<=rowsPerPage; i++, j+=charsPerRow){				
-				if(j<length-charsPerRow){
-					System.out.println(i+". j="+j);
-					row.add(content.substring(j, j+charsPerRow));				
+			for(int i=0, j=0; i<rowsPerPage; i++){				
+				if(j<length-charsPerRow){					
+					row.add(content.substring(j, j+charsPerRow));
+//					System.out.println(i+". j="+j);
+					j+=charsPerRow;
 				}else if(j < length){
-					row.add(content.substring(j));
-				}else if(row.size() <= rowsPerPage){
+					String ending = content.substring(j)+" "+content.substring(0, charsToFill-1);
+					row.add(ending);
 					j = 0;
 				}
 			}

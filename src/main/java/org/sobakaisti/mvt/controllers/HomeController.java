@@ -33,8 +33,9 @@ public class HomeController {
 	@RequestMapping(value="/load_background", method=RequestMethod.GET)
 	@ResponseBody
 	public List<String> organizeBackground(@RequestParam("width") int width, 
-										@RequestParam("height") int height, Model model){
-		List<String> rows = articleService.getRowsFromArticleWithDimension(width, height);
+										@RequestParam("height") int height, 
+										@RequestParam("charWidth") double charWidth, Model model){
+		List<String> rows = articleService.getRowsFromArticleWithDimension(width, height, charWidth);
 				
 		return rows;
 	}
