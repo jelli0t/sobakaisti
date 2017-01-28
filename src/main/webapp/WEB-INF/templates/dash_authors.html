@@ -19,7 +19,13 @@
 
 <div class="dash-main-container">	
 	<div th:each="author : ${authors}" class="author-box">
-	<a href="javascript:void(0)"><span class="author-settings">&#xe689;</span></a>
+	<div class="author-settings" th:with="id=${author.id}">
+		<span class="dropdown-icon">&#xe689;</span>
+		<ul class="dropdown-menu">
+			<li class="dropdown-item">Edit</li>
+			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}">Delete</a></li>
+		</ul>
+	</div>
 		<div class="author-cover"></div>
 		<div class="author-avatar"></div>
 		<div class="author-content">

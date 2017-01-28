@@ -96,6 +96,11 @@ $(function() {
 			}
 		});
 	});
+	/* shows dropdown menu */
+	$('.dropdown-icon').on('click', function(evt){
+		evt.preventDefault();
+		$(this).next('.dropdown-menu').toggle();
+	});
 	 
 });
 function submitForm(id){

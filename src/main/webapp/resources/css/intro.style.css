@@ -179,14 +179,14 @@ a:LINK, a:VISITED {
 }
 #circle-menu {
 	position: absolute;
-	width: 800px;
+	width: 860px;
 	top:45%;
 	left: 50%;
-	margin-left: -400px;
+	margin-left: -430px;
 	margin-top:-50px;
 	z-index: 1001;
 /* 	border: 1px solid red; */
-	text-align: center;	
+	text-align: center;
 }
 #circle-menu > li {
 	display: inline;
@@ -199,7 +199,8 @@ a:LINK, a:VISITED {
 	-webkit-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
 	-moz-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
 	box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
-}
+	margin: 0 5px;
+	}
 .test-char {
 	display: none;
 	font-family: 'Droid Sans Mono';

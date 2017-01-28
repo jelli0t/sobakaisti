@@ -6,12 +6,15 @@ $(function() {
     		iconAnimation();		
     	});    
 	
-	var width = $( document ).width();
-	var height = $( document ).height();
-	var char_width = $('.test-char').width();
+	
 	
 	$('.mvt-lang-circle').on('click', function(){
 		$('.hemisphere, .v-line').hide('slow');
+		var width = $( document ).width();
+		var height = $( document ).height();
+		var char_width = $('.test-char').width();
+		
+		console.log(width+" x "+height+"; char with: "+char_width);
 		var $circle = $(this).detach().appendTo('body').css({'left':'50%','top':'40%', 'transform':'none'});
 		$circle.addClass('loader').promise().done(function(){
 			var dimension = {
@@ -105,11 +108,9 @@ var background = function(dimension,$circle){
         }).promise().done(function(){
         	$circle.removeClass('loader');
         	$circle.remove();
-        	$('.circle-menu-item').css({'position':'static', 'margin':'0 20px'}).animate({
+        	$('.circle-menu-item').css({'position':'static', 'margin':'0 15px'}).animate({
         		opacity: '1.0'
         	}, 1000);        	
     	});
-        	
-        	
 	});
 }
