@@ -1,41 +1,4 @@
 $(function() {
-//	$('.add-bttn').on('click', function(evt) {
-//		evt.preventDefault();
-////		
-//		$('#overlay').ScrollTo();
-//	})
-//	$('#submit-form').on('click', function(){
-//		var csrf = getCsrfParams();
-//	//	var json = $('#author-form').serializeObject();
-//		var $form = $('#author-form');
-//		var fd = new FormData($form);
-//	
-//		var csrf = getCsrfParams();
-//		$.ajax({
-//			url: 'http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add',
-//			type : 'POST',
-//			contentType: 'application/json; charset=utf-8',
-////			data: JSON.stringify(json2),
-//			data: fd,
-//			processData: false,  // tell jQuery not to process the data
-//			contentType: false,
-//			dataType : 'text',
-////			timeout : 100000,
-////			beforeSend: function(xhr) {
-////	            xhr.setRequestHeader(csrf[0], csrf[1]);
-////	        },
-//			success : function(data) {
-//				console.log("SUCCESS: ", data);
-//			},
-//			error:function(er, st, msg) { 
-//				console.log("ERROR: ", msg);
-//				console.log("ER: ", er);
-//			},
-//			done : function(e) {
-//				console.log("DONE");
-//			}
-//		});
-//	});
 	
 	
 	$('#submit-test').on('click', function(){
@@ -102,6 +65,29 @@ $(function() {
 		$(this).next('.dropdown-menu').toggle();
 	});
 	 
+	
+	$('.delete-item').click(function(evt){
+		evt.preventDefault();
+		var url = $(this).attr('href');
+		var $authorBox = $(this).closest('.author-box');
+		var csrf = getCsrfParams();
+		alert("Clicked! "+url);
+		
+		$.ajax({
+		    url: url,
+		    type: 'DELETE',
+		    beforeSend: function(xhr) {
+	            xhr.setRequestHeader(csrf[0], csrf[1]);
+	        },
+		    success: function(data){
+		    	console.log("Uspesno obrisan!");
+		    	$authorBox.remove();
+		    },
+		    error: function(err){
+		    	console.log(err);
+		    }
+		});
+	});
 });
 function submitForm(id){
 	var csrf = getCsrfParams();

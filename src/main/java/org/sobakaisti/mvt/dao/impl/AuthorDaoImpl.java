@@ -5,7 +5,7 @@ package org.sobakaisti.mvt.dao.impl;
 
 import java.util.List;
 
-
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
@@ -49,6 +49,14 @@ public class AuthorDaoImpl implements AuthorDao {
 	public void persistAuthor(Author author) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(author);
+	}
+
+	@Override
+	@Transactional
+	public void deleteAuthor(int id) throws HibernateException{
+		Session session = sessionFactory.getCurrentSession();
+		String HQL = "delete from Author where id =:ID"; 
+		int result = session.createQuery(HQL).setInteger("ID", id).executeUpdate();
 	}
 
 	
