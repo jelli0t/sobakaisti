@@ -342,3 +342,6 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 #submit-author {
 	color: #fff;
 }
+.success-border {
+	border: 1px solid #9EBF6D;
+}
