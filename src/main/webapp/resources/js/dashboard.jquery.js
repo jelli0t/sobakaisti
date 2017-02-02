@@ -34,31 +34,17 @@ $(function() {
 		$(this).next('.dropdown-menu').toggle();
 	});
 	 
-	
+	/* Delete item */
 	$(document).on('click','.delete-item', function(evt){
 		evt.preventDefault();
 		var url = $(this).attr('href');
 		var $authorBox = $(this).closest('.author-box');
-		var csrf = getCsrfParams();
-//		alert("Clicked! "+url);
-		
-		$.ajax({
-		    url: url,
-		    type: 'DELETE',
-		    beforeSend: function(xhr) {
-	            xhr.setRequestHeader(csrf[0], csrf[1]);
-	        },
-		    success: function(data){
-		    	console.log("Uspesno obrisan!");
-		    	$authorBox.remove();
-		    },
-		    error: function(err){
-		    	console.log(err);
-		    }
-		});
+		callAnchor('delete');
+		hideAllDropdowns();
+		$('.dialog-yes').on('click', function(){			
+			deleteItem(url, $authorBox);
+		});		
 	});
-	
-	
 	
 }); // End Of Ready
 
@@ -125,10 +111,29 @@ function getCsrfParams() {
 	return [ header, token ];
 }
 
-function populateNewAuthorBox(author){	
+function deleteItem(url, $authorBox){
+	var csrf = getCsrfParams();	
+	$.ajax({
+	    url: url,
+	    type: 'DELETE',
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        },
+	    success: function(data){
+	    	console.log("Uspesno obrisan!");
+	    	$authorBox.remove();
+	    },
+	    error: function(err){
+	    	console.log(err);
+	    }
+	});
+}
+
+
+function populateNewAuthorBox(author){
 	var $author_box = '<div class="author-box success-border"><div class="author-settings"><span class="dropdown-icon">&#xe689;</span><ul class="dropdown-menu">'
 						+'<li class="dropdown-item">Edit</li>'
-						+'<li class="dropdown-item"><a href="sobakaisti/delete/'+author.id+'" class="delete-item">Delete</a></li>'
+						+'<li class="dropdown-item"><a href="sobakaisti/delete/'+author.id+'" class="delete-item item-link">Delete</a></li>'
 						+'</ul></div><div class="author-cover"></div>'
 						+'<div class="author-avatar"></div>'
 						+'<div class="author-content">'
@@ -143,6 +148,7 @@ function populateNewAuthorBox(author){
 	$($author_box).insertBefore('.dash-main-container .new-author-box').delay(2000).queue(function(next){
 	    $('.success-border').removeClass("success-border");
 	    next();
-	});;
+	});
 }
 
+function hideAllDropdowns(){$('.dropdown-menu').hide();}
