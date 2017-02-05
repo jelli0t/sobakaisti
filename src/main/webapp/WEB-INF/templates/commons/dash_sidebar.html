@@ -6,13 +6,13 @@
 
 	<ul class="side-nav">
 		<li><a th:href="@{/sbk-admin/}">
-			<span></span><span>Dashboard</span><span></span>
+			<span></span><span th:text="#{nav.item.dahboard}">Dashboard</span><span></span>
 		</a></li>
 		<li><a href="">
-			<span></span><span>Članci</span><span></span>
+			<span></span><span th:text="#{nav.item.articles}">Članci</span><span></span>
 		</a></li>
 		<li id="nav-sobakaisti"><a th:href="@{/sbk-admin/sobakaisti}">
-			<span></span><span>Sobakaisti</span><span></span>
+			<span></span><span th:text="#{nav.item.sobakaisti}">Sobakaisti</span><span></span>
 		</a></li>
 	</ul>
 	

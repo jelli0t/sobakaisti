@@ -22,8 +22,8 @@
 	<div class="author-settings" th:with="id=${author.id}">
 		<span class="dropdown-icon">&#xe689;</span>
 		<ul class="dropdown-menu">
-			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/edit/{id}(id=${id})}" class="edit-item item-link">Edit</a></li>
-			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}" class="delete-item item-link">Delete</a></li>
+			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/edit/{id}(id=${id})}" class="edit-item item-link" th:text="#{menu.item.edit}">Edit</a></li>
+			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}" class="delete-item item-link" th:text="#{menu.item.delete}">Delete</a></li>
 		</ul>
 	</div>
 		<div class="author-cover"></div>
@@ -52,38 +52,36 @@
 <div class="author-registration">
 	<a href="#"><span class="popup-close">&#xe681;</span></a>
 	<div class="input-wrapper">
-		<input type="text" name="firstName" class="inline" placeholder="Ime" id="firstName"/>
-		<input type="text" name="lastName" class="inline" placeholder="Prezime" style="float:right;" id="lastName"/>
+		<input type="text" name="firstName" class="inline" th:placeholder="#{form.label.firstname}" id="firstName"/>
+		<input type="text" name="lastName" class="inline" th:placeholder="#{form.label.lastname}" style="float:right;" id="lastName"/>
 	</div>
 	<div class="input-wrapper">
-		<input type="text" name="profession" placeholder="Profesija" id="profession"/>
+		<input type="text" name="profession" th:placeholder="#{form.label.proffesion}" id="profession"/>
 	</div>
 	<div class="input-wrapper">
-		<input type="text" name="birthplace" placeholder="Mesto rođenja" id="birthplace"/>
+		<input type="text" name="birthplace" th:placeholder="#{form.label.birthplace}" id="birthplace"/>
 	</div>
 <!-- 	<div class="input-wrapper"> -->
-<!-- 		<input type="date" name="dob" placeholder="Datum rođenja (dd.mm.yyyy.)"/> -->
+<!-- 		<input type="date" name="dob" th:placeholder="#{form.label.birthplace}"/> -->
 <!-- 	</div> -->
 	<div class="input-wrapper">
-		<input type="text" name="dob" placeholder="dd-MM-yyy" id="dob"/>
+		<input type="text" name="dob" th:placeholder="#{form.label.dob}" id="dob"/>
 	</div>
 	<div class="input-wrapper">
-		<input type="text" name="email" placeholder="E-mail" id="email"/>
+		<input type="text" name="email" th:placeholder="#{form.label.email}" id="email"/>
 	</div>
 	<div class="input-wrapper">
-		<input type="text" name="website" placeholder="Website" id="website"/>
+		<input type="text" name="website" th:placeholder="#{form.label.website}" id="website"/>
 	</div>
 	<div class="input-wrapper">
-		<textarea rows="3" placeholder="Kratka biografija" name="shortBio" id="shortBio"></textarea>
+		<textarea rows="3" th:placeholder="#{form.label.shortbio}" name="shortBio" id="shortBio"></textarea>
 		<input type="hidden" name="avatarPath" value="avatar_path_value" id="avatarPath">
-<!-- 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
 	</div>
 <!-- 	<div class="input-wrapper"> -->
 <!-- 		<input type="file" name="pic" accept="image/*"> -->
 <!-- 	</div> -->
 	<div class="input-wrapper">
-<!-- 		<button class="wide-bttn" id="submit-author">Sačuvaj</button> -->
-		<a href="javascript:void(0)" class="wide-bttn" id="submit-author">Saučvaj</a>
+		<a href="javascript:void(0)" class="wide-bttn" id="submit-author"th:text="#{button.label.save}" >Save</a>
 	</div>
 </div>
 </form>
@@ -93,10 +91,10 @@
 <div class="overlay" id="delete">
 <div class="dialog-box">
 	<a href="#"><span class="popup-close">&#xe681;</span></a>
-	<div class="dialog-content">Da li ste sigurni da želite da obrišete autora?</div>
+	<div class="dialog-content" th:text="#{warn.author.deleteConfirm}">Da li ste sigurni da želite da obrišete autora?</div>
 	<div class="dialog-options">
-		<a href="#" class="dialog-yes dialog-option">Da</a>
-		<a href="#" class="dialog-no dialog-option">Ne</a>
+		<a href="javascript:void(0)" class="dialog-yes dialog-option" th:text="#{button.label.yes}">Da</a>
+		<a href="#" class="dialog-no dialog-option" th:text="#{button.label.no}">Ne</a>
 	</div>
 </div>
 </div>

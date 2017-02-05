@@ -1,9 +1,11 @@
 $(function() {
 	
+	var uri;
+	var $authorBox;
+	
 	$('#submit-author').on('click', function(){
 		var csrf = getCsrfParams();
 		var json = $('#author-form').serializeObject();
-//		alert(JSON.stringify(json));
 		
 		$.ajax({
 			url: 'http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add',
@@ -18,6 +20,7 @@ $(function() {
 				console.log("SUCCESS: ", data);
 				closePopup();
 				populateNewAuthorBox(data);
+				$('#author-form')[0].reset();
 			},
 			error:function(er, st, msg) { 
 				console.log("ERROR: ", msg);
@@ -34,16 +37,19 @@ $(function() {
 		$(this).next('.dropdown-menu').toggle();
 	});
 	 
+	
 	/* Delete item */
 	$(document).on('click','.delete-item', function(evt){
 		evt.preventDefault();
-		var url = $(this).attr('href');
-		var $authorBox = $(this).closest('.author-box');
-		callAnchor('delete');
+		uri = $(this).attr('href');
+		$authorBox = $(this).closest('.author-box');	
+		callAnchor('delete');		
 		hideAllDropdowns();
-		$('.dialog-yes').on('click', function(){			
-			deleteItem(url, $authorBox);
-		});		
+		console.log('Izlazim.');
+	});
+	$('.dialog-yes').on('click',function(evt){
+		console.log('Klknuo na YES brisem box.');
+		deleteItem(uri, $authorBox);
 	});
 	
 }); // End Of Ready
@@ -110,9 +116,12 @@ function getCsrfParams() {
 	var header = $("meta[name='_csrf_header']").attr("content");
 	return [ header, token ];
 }
-
+/*
+ * 	AJAX Delete function
+ * */
 function deleteItem(url, $authorBox){
 	var csrf = getCsrfParams();	
+	console.log('Brisem Autora na URI: '+url);
 	$.ajax({
 	    url: url,
 	    type: 'DELETE',
@@ -122,13 +131,14 @@ function deleteItem(url, $authorBox){
 	    success: function(data){
 	    	console.log("Uspesno obrisan!");
 	    	$authorBox.remove();
+	    	callAnchor('');
 	    },
 	    error: function(err){
 	    	console.log(err);
 	    }
 	});
+	
 }
-
 
 function populateNewAuthorBox(author){
 	var $author_box = '<div class="author-box success-border"><div class="author-settings"><span class="dropdown-icon">&#xe689;</span><ul class="dropdown-menu">'
