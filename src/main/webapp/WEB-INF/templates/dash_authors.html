@@ -48,18 +48,22 @@
 </div>
 
 <div class="overlay" id="add">
-<form id="author-form" action="http://localhost:8080/sobakaisti/sbk-admin/sobakaisti/add" method="POST">
+<form id="author-form" th:action="@{/sbk-admin/sobakaisti/add}" method="POST">
 <div class="author-registration">
 	<a href="#"><span class="popup-close">&#xe681;</span></a>
 	<div class="input-wrapper">
 		<input type="text" name="firstName" class="inline" th:placeholder="#{form.label.firstname}" id="firstName"/>
+		<div class="validation-error"></div>
 		<input type="text" name="lastName" class="inline" th:placeholder="#{form.label.lastname}" style="float:right;" id="lastName"/>
+		<div class="validation-error"></div>
 	</div>
 	<div class="input-wrapper">
 		<input type="text" name="profession" th:placeholder="#{form.label.proffesion}" id="profession"/>
+		<div class="validation-error"></div>
 	</div>
 	<div class="input-wrapper">
 		<input type="text" name="birthplace" th:placeholder="#{form.label.birthplace}" id="birthplace"/>
+		<div class="validation-error"></div>
 	</div>
 <!-- 	<div class="input-wrapper"> -->
 <!-- 		<input type="date" name="dob" th:placeholder="#{form.label.birthplace}"/> -->

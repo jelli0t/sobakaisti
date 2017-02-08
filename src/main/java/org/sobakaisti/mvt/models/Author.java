@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -27,14 +32,23 @@ public class Author {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ID")
 	private int id;
+	
+	@Pattern(regexp="[a-zA-Z]{0,20}", message="{validation.warn.pattern}")
+	@Size(min=2, max=20, message="{validation.warn.firstName}")
 	@Column(name="FIRST_NAME")
 	private String firstName;
+	
+	@Pattern(regexp="[a-zA-Z\\s\\.]{0,30}", message="{validation.warn.pattern}")
+	@Size(min=2, max=30, message="{validation.warn.lastName}")
 	@Column(name="LAST_NAME")
 	private String lastName;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Calendar dob;
+	
+	@Pattern(regexp="[a-zA-Z\\s\\.\\,]{2,50}", message="{validation.warn.pattern}")
 	@Column(name="BIRTHPLACE")
 	private String birthplace;
 	@Column(name="EMAIL")
@@ -43,6 +57,8 @@ public class Author {
 	private String website;
 	@Column(name="SHORT_BIO")
 	private String shortBio;
+	
+	@Pattern(regexp="[a-zA-Z\\s\\.\\,\\/]{2,50}", message="{validation.warn.pattern}")
 	@Column(name="PROFESSION")
 	private String profession;
 	@Column(name="AVATAR_PATH")
