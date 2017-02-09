@@ -51,6 +51,9 @@ public class Author {
 	@Pattern(regexp="[a-zA-Z\\s\\.\\,]{2,50}", message="{validation.warn.pattern}")
 	@Column(name="BIRTHPLACE")
 	private String birthplace;
+	
+	@Pattern(regexp="[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})",
+			message="{validation.warn.mailPattern}")
 	@Column(name="EMAIL")
 	private String email;
 	@Column(name="WEBSITE")

@@ -167,6 +167,9 @@ function displayValidationErrors(jqXhr){
 			case 'birthplace':
 				showErrorMessageBox('birthplace', errs[i].defaultMessage);
 				break;
+			case 'email':
+				showErrorMessageBox('email', errs[i].defaultMessage);
+				break;
 			}
 	});	
 }
