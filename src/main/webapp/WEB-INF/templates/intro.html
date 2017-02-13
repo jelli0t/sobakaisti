@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/intro.style.css}">
 </head>
 <body>
-<span class="test-char">m</span>
+<!-- Leva hemisfera uvodne strane -->
 <div class="left-hemisphere hemisphere">
 	<img alt="Pokret" th:src="@{/resources/img/Logo-SOBAKA.png}" id="movement-icon" class="intro-icon">
 	<div class="mvt-langwrapper-7 lang-container">
@@ -31,10 +31,12 @@
 		<span class="single-circle mvt-lang-circle">POKRET1</span>
 	</div>
 	<div class="mvt-langwrapper-0 lang-container">
-		<span class="single-circle mvt-lang-circle">POKRET</span>
+		<span class="single-circle mvt-lang-circle"><a th:href="@{/movement}" th:text="#{nav.item.movement}">POKRET</a></span>
 	</div>
 </div>
 <span class="v-line"></span>
+
+<!-- Desna hemisfera uvodne stane -->
 <div class="right-hemisphere hemisphere">
 	<img alt="Igra" th:src="@{/resources/img/Logo-GAME.png}" id="game-icon" class="intro-icon">
 	<div class="game-langwrapper-7 game-lang-container">
@@ -62,17 +64,6 @@
 		<span class="single-circle game-lang-circle">IGRA</span>
 	</div>
 </div>
-
-<ul id="circle-menu">
-	<li><span class="single-circle circle-menu-item">MANIFEST</span></li>
-	<li><span class="single-circle circle-menu-item">RADOVI</span></li>
-	<li><span class="single-circle circle-menu-item">AUTORI</span></li>
-	<li><span class="single-circle circle-menu-item">IZDANJE</span></li>
-	<li><span class="single-circle circle-menu-item">DUĆAN</span></li>
-	<li><span class="single-circle circle-menu-item">KONTAKT</span></li>
-</ul>
-
-<ul class="bgd-list"></ul>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" th:src="@{/resources/js/intro.js}"></script>

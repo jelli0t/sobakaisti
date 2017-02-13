@@ -27,7 +27,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/movement", method=RequestMethod.GET )
 	public String showMovementHome(){
-		return "movement";
+		return "mvt_intro";
 	}	
 	
 	@RequestMapping(value="/load_background", method=RequestMethod.GET)

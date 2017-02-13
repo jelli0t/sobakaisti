@@ -4,34 +4,27 @@ $(function() {
         easing: 'linear'
     	}).promise().done(function(){
     		iconAnimation();		
-    	});    
+    	});
 	
-	
-	
-	$('.mvt-lang-circle').on('click', function(){
-		$('.hemisphere, .v-line').hide('slow');
-		var width = $( document ).width();
-		var height = $( document ).height();
-		var char_width = $('.test-char').width();
-		
-		console.log(width+" x "+height+"; char with: "+char_width);
+	/**
+	 *  Klik na krug pokreta izvrsi animaciju
+	 * */	
+	$('.mvt-lang-circle').on('click', function(evt){
+		evt.preventDefault();
+		var url = $('a', this).attr('href');
 		var $circle = $(this).detach().appendTo('body').css({'left':'50%','top':'40%', 'transform':'none'});
-		$circle.addClass('loader').promise().done(function(){
-			var dimension = {
-					'width':width,
-					'height':height,
-					'charWidth':char_width
-					};
-			background(dimension,$circle);			
-		});
+		$('.hemisphere').hide({
+			duration: 500,
+	        easing: 'linear'
+		}).promise().done(function(){
+			$('.v-line').animate({height: '0', marginTop: '-50px'},{
+		        duration: 500,
+		        easing: 'linear'
+		    })
+		    .promise().done(function(){ window.location.href = (url!=null ? url:'') });			
+    	}); 
 	});	
-	var sum = 0;
-	$('.test-char').each(function(i, obj) {
-		sum += $(obj).width();
-		console.log("index: ", i);
-		console.log("visina: "+$(obj).height()+"; sirina: "+$(obj).width());
-	});
-	console.log("Prosecna sirina: ", sum/9);
+	
 	
 }); // Kraj ready funkcije
 
@@ -81,36 +74,3 @@ var gameCircleAnimation = function() {
     	}		
 	});
 }	
-
-var background = function(dimension,$circle){
-	$.ajax({
-		url: 'http://localhost:8080/sobakaisti/load_background',
-		type : 'GET',
-		contentType: 'application/json; charset=utf-8',
-		data: dimension,
-		success : function(data) {
-			console.log("SUCCESS: ", data);
-			var li = '';
-			$.each(data, function( i, val ){
-				li+= (i % 2 === 0) ? '<li class="rtl">'+val+'</li>' : '<li class="ltr">'+val+'</li>'; 
-			});
-			$('.bgd-list').append(li);						
-		},
-		error:function(er, st, msg) { 
-			console.log("ERROR: ", msg);
-			console.log("ER: ", er);
-		}		
-	}).done(function() {
-		console.log("done!");
-		$('li').animate({marginLeft: '0'},{
-            duration: 3000,
-            easing: 'linear'
-        }).promise().done(function(){
-        	$circle.removeClass('loader');
-        	$circle.remove();
-        	$('.circle-menu-item').css({'position':'static', 'margin':'0 15px'}).animate({
-        		opacity: '1.0'
-        	}, 1000);        	
-    	});
-	});
-}
