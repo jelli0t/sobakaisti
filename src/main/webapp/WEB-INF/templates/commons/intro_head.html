@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="intro_head(title)">
+	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+	<title th:replace="${title}"></title>
+
+  <!-- Common styles and scripts -->
+  	<link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/intro.style.css}">
+<!--   <link rel="shortcut icon" th:href="@{/images/favicon.ico}"> -->
+  
+  <!--/* Per-page placeholder for additional links */-->
+<!--   <th:block th:replace="${links}" /> -->
+</head>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- th:replace="commons/dash_head :: dash_head(~{::title},~{::link})" -->
+<head th:replace="commons/intro_head :: intro_head(~{::title})">
+	<title>Pokret | Sobakaisti</title>
+</head>
+<body>
+<span class="test-char">m</span>
+<span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">POKRET</span>
+<ul id="circle-menu">
+	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.manifesto}">MANIFEST</span></li>
+	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.arts}">RADOVI</span></li>
+	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.authors}">AUTORI</span></li>
+	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.published}">IZDANJE</span></li>
+	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.shop}">DUĆAN</span></li>
+	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.contact}">KONTAKT</span></li>
+</ul>
+<ul class="bgd-list"></ul>
+<footer class="intro-footer">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" th:src="@{/resources/js/mvtintro.jquery.js}"></script>
+</footer>
+</body>
+</html>
