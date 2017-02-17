@@ -172,7 +172,6 @@ a:LINK, a:VISITED {
 /* 	text-align: justify; */
 	line-height: 16px;
 	box-sizing: border-box;
-/* 	border: 1px solid green; */
 }
 .ltr {
 	 margin-left: -100%;
