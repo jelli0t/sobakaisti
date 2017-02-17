@@ -30,7 +30,7 @@ public class HomeController {
 		return "mvt_intro";
 	}	
 	
-	@RequestMapping(value="/load_background", method=RequestMethod.GET)
+	@RequestMapping(value="/movement/load_background", method=RequestMethod.GET)
 	@ResponseBody
 	public List<String> organizeBackground(@RequestParam("width") int width, 
 										@RequestParam("height") int height, 

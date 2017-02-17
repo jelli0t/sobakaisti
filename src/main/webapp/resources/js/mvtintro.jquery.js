@@ -10,20 +10,21 @@ $(function() {
 				'height':height,
 				'charWidth':char_width
 				};
+		console.log('Ucitavam pozadinu prema seledecim dimenzijama: w:'+width+' h:'+height+' char_w:'+char_width);
 		background(dimension,$circle);			
 	});
 });
 /**
  * funkcija koja loaduje tekst kao pozadinu
  * */
-var background = function(dimension,$circle){	
+var background = function(dimension,$circle){
 	$.ajax({
-		url: 'http://localhost:8080/sobakaisti/load_background',
+		url: window.location.href+'/load_background',
 		type : 'GET',
 		contentType: 'application/json; charset=utf-8',
 		data: dimension
 	}).done(function( data ) {
-		console.log("SUCCESS: ", data);
+//		console.log("SUCCESS: ", data);
 		var li = '';
 		$.each(data, function( i, val ){
 			li+= (i % 2 === 0) ? '<li class="rtl">'+val+'</li>' : '<li class="ltr">'+val+'</li>'; 
