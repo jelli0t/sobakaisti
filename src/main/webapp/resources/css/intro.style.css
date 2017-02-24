@@ -9,7 +9,9 @@ html, body, div, img, ul {
 }
 ul { list-style: none; }
 a:LINK, a:VISITED {
+	color: #343434;
 	text-decoration: none;
+	outline: 0;
 }
 .test-char {
 	position: absolute;
@@ -133,14 +135,14 @@ a:LINK, a:VISITED {
 	content: '';
 	top: 50%;
 	left: 50%;
-	margin: -75px 0 0 -75px;
+	margin: -70px 0 0 -70px;
 	border: 5px solid #f9f9f9;
 	border-top: 5px solid #434343;
 	-webkit-border-radius: 100%;
   	-moz-border-radius: 100%;
   	border-radius: 100%;
-	width: 150px;
-	height: 150px;
+	width: 140px;
+	height: 140px;
 	box-sizing: border-box;
 	-webkit-animation: spin 2s linear infinite;
 	animation: spin 2s linear infinite;
@@ -212,6 +214,24 @@ a:LINK, a:VISITED {
 	background-color: #fff;
 	opacity: 1.0;
 }
+
+footer.intro-footer {
+	position: absolute;
+	width: 160px;
+	bottom: 20px;
+	left: 50%;
+	margin-left: -80px;
+	padding: 10px 14px;
+	text-align: center;
+	font-size: 0.8em;
+	color: #434343;
+	opacity: 0.8;
+	background: -webkit-linear-gradient(transparent, #fff, transparent); 	/* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(transparent, #fff, transparent); 		/* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(transparent, #fff, transparent); 		/* For Firefox 3.6 to 15 */
+    background: linear-gradient(transparent, #fff, transparent); 			/* Standard syntax (must be last) */
+}
+footer.intro-footer span { margin: 0 3px;}
 
 /*	MEDIA	*/
 @media only screen and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {

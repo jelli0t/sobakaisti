@@ -21,7 +21,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/")
 	public String displayHome(){
-		System.out.println("Home controller user: "+SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+		
 		return "intro";  // home
 	}
 	

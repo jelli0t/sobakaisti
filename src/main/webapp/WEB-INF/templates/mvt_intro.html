@@ -6,9 +6,11 @@
 </head>
 <body>
 <span class="test-char">m</span>
-<span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">POKRET</span>
+<span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span>
 <ul id="circle-menu">
-	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.manifesto}">MANIFEST</span></li>
+	<li><span class="single-circle circle-menu-item">
+		<a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a>
+	</span></li>
 	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.arts}">RADOVI</span></li>
 	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.authors}">AUTORI</span></li>
 	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.published}">IZDANJE</span></li>
@@ -17,8 +19,11 @@
 </ul>
 <ul class="bgd-list"></ul>
 <footer class="intro-footer">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript" th:src="@{/resources/js/mvtintro.jquery.js}"></script>
+	<span><img th:src="@{/resources/img/Logo-SOBAKA.png}" title="Sobakaisti" width="16" height="16"/> Sobakaisti</span>
+	<span>&copy;</span>
+	<span>2017</span>	
 </footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/mvtintro.jquery.js}"></script>
 </body>
 </html>

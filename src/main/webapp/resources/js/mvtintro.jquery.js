@@ -13,7 +13,23 @@ $(function() {
 		console.log('Ucitavam pozadinu prema seledecim dimenzijama: w:'+width+' h:'+height+' char_w:'+char_width);
 		background(dimension,$circle);			
 	});
+	
+	$('.circle-menu-item').on('click', function(evt){
+		evt.preventDefault();
+		var url = $('a', this).attr('href');
+		$(this).css({'position' : 'fixed'}).animate({
+			top: '8%',
+			left: '50%',
+			marginLeft:'-50px'
+        }, {
+        	duration: 500,
+	        easing: 'swing'
+        }).promise().done(function(){
+        	window.location.href = (url!=null ? url:'');
+        });	
+	});
 });
+
 /**
  * funkcija koja loaduje tekst kao pozadinu
  * */

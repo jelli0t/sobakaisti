@@ -13,16 +13,17 @@ $(function() {
 		evt.preventDefault();
 		var url = $('a', this).attr('href');
 		var $circle = $(this).detach().appendTo('body').css({'left':'50%','top':'40%', 'transform':'none'});
-		$('.hemisphere').hide({
+		$('.hemisphere, .v-line').hide({
 			duration: 500,
 	        easing: 'linear'
-		}).promise().done(function(){
-			$('.v-line').animate({height: '0', marginTop: '-50px'},{
-		        duration: 500,
-		        easing: 'linear'
-		    })
-		    .promise().done(function(){ window.location.href = (url!=null ? url:'') });			
-    	}); 
+		}).promise().done(function(){ window.location.href = (url!=null ? url:'') });	
+//		.promise().done(function(){
+//			$('.v-line').animate({height: '0', marginTop: '-50px'},{
+//		        duration: 500,
+//		        easing: 'linear'
+//		    })
+				
+//    	}); 
 	});	
 	
 	
@@ -40,7 +41,8 @@ var iconAnimation = function() {
  * Animira krugove leve hemisvere. Otvaraju se kao lepeza suprotno kazaljkama na satu.
  * */
 var singleCircleAnimation = function() {
-	$('.left-hemisphere .single-circle').animate({left: '80%', opacity: '1.0'}, {
+	
+	$('.left-hemisphere .single-circle').animate({left: '80%', opacity: '1.0'}, {	// left: 80%
         duration: 500       
     }).promise().done(function(){
     	for(i=0, deg=0; i<8; i++, deg-=45){
