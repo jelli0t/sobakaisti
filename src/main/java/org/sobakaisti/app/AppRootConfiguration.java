@@ -14,6 +14,7 @@ import org.sobakaisti.mvt.dao.impl.AccountManagerDaotImpl;
 import org.sobakaisti.mvt.models.Account;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.IntroArticle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -46,9 +47,7 @@ public class AppRootConfiguration {
 	@Bean(name="sessionFactory")
 	public SessionFactory getSessionFactory(DataSource dataSource){
 		LocalSessionFactoryBuilder sessionFactory = new LocalSessionFactoryBuilder(dataSource);
-		sessionFactory.addAnnotatedClass(Account.class)
-						.addAnnotatedClass(Author.class)
-						.addAnnotatedClass(Article.class);
+		sessionFactory.scanPackages("org.sobakaisti.mvt.models");
 		sessionFactory.addProperties(getHibernateProperties());
 		return sessionFactory.buildSessionFactory();
 	}

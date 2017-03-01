@@ -1,17 +1,25 @@
 package org.sobakaisti.mvt.controllers;
 
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 @Controller
 public class HomeController {
@@ -25,17 +33,21 @@ public class HomeController {
 		return "intro";  // home
 	}
 	
-	@RequestMapping(value="/movement", method=RequestMethod.GET )
-	public String showMovementHome(){
+	@RequestMapping(value="/{lang}/movement", method=RequestMethod.GET )
+	public String showMovementHome(@PathVariable("lang") String lang,
+			HttpServletRequest request, HttpServletResponse response){
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		localeResolver.setLocale(request, response, new Locale(lang));
 		return "mvt_intro";
 	}	
 	
-	@RequestMapping(value="/movement/load_background", method=RequestMethod.GET)
+	@RequestMapping(value="/{lang}/movement/load_background", method=RequestMethod.GET)
 	@ResponseBody
 	public List<String> organizeBackground(@RequestParam("width") int width, 
 										@RequestParam("height") int height, 
-										@RequestParam("charWidth") double charWidth, Model model){
-		List<String> rows = articleService.getRowsFromArticleWithDimension(width, height, charWidth);
+										@RequestParam("charWidth") double charWidth, 
+										@PathVariable("lang") String lang, Model model){
+		List<String> rows = articleService.getRowsFromArticleWithDimension(width, height, charWidth, lang);
 				
 		return rows;
 	}

@@ -11,19 +11,13 @@ $(function() {
 	 * */	
 	$('.mvt-lang-circle').on('click', function(evt){
 		evt.preventDefault();
-		var url = $('a', this).attr('href');
+		$('.v-line').hide();
+		var url = $('a', this).attr('href');		
 		var $circle = $(this).detach().appendTo('body').css({'left':'50%','top':'40%', 'transform':'none'});
-		$('.hemisphere, .v-line').hide({
+		$('.hemisphere').hide({
 			duration: 500,
 	        easing: 'linear'
 		}).promise().done(function(){ window.location.href = (url!=null ? url:'') });	
-//		.promise().done(function(){
-//			$('.v-line').animate({height: '0', marginTop: '-50px'},{
-//		        duration: 500,
-//		        easing: 'linear'
-//		    })
-				
-//    	}); 
 	});	
 	
 	

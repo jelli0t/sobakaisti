@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.ArticleDao;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,10 @@ public class ArticleServiceImpl implements ArticleService{
 	private int charsToFill;
 	
 	@Override
-	public List<String> getRowsFromArticleWithDimension(int width, int height, double charWidth) {
+	public List<String> getRowsFromArticleWithDimension(int width, int height, double charWidth, String lang) {
 		charsPerRow = (int) Math.floor(width / charWidth);
 		rowsPerPage = (int) Math.floor(height / LINE_HEIGHT);
-		String content = articleDao.getArticleById(1);
+		String content = articleDao.getintroArticleByLanguage(lang);
 		int length = content.length();
 		charsToFill = (int) (charsPerRow - Math.ceil(length % charsPerRow));
 		
@@ -53,6 +54,11 @@ public class ArticleServiceImpl implements ArticleService{
 		}
 		return row;
 	}
-	
+
+	@Override
+	public Article getArticleBySlug(String slug, String lang) {
+		Article article = (Article) articleDao.getArticleBySlugTitle(slug, lang);
+		return article;
+	}
 	
 }

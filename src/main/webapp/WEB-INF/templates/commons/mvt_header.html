@@ -2,13 +2,13 @@
 <head><meta charset="UTF-8"></head>
 <header th:fragment="mvt_header" class="mvt-header">
 	<div id="triangle-container">
-		<a th:href="@{/}" title="Jedan korak nazad" class="">
+		<a th:href="@{/}" th:title="#{title.attr.backBttn}" class="">
 			<span class="triangle-icon"></span>
-			<span class="triangle-label">NAZAD</span>
+			<span class="triangle-label" th:text="#{button.label.back}">NAZAD</span>
 		</a>
 	</div>
 	
-	<span class="single-circle page-indikator-circle">MANIFEST</span>
+	<span class="single-circle page-indikator-circle" th:text="#{nav.item.manifesto}">MANIFEST</span>
 
 </header>
 </html>

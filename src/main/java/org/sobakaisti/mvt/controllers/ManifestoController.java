@@ -3,7 +3,13 @@
  */
 package org.sobakaisti.mvt.controllers;
 
+import java.util.Locale;
+
+import org.sobakaisti.mvt.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,10 +20,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/manifesto")
 public class ManifestoController {
-
-	@RequestMapping(method=RequestMethod.GET)
-	public String displayManifestoPage(){
+			
+	@Autowired
+	private ArticleService articleService;
 		
+	public static final String MANIFESTO_SLUG = "manifesto";
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String displayManifestoPage(Model model){
+		Locale locale = LocaleContextHolder.getLocale();
+		
+		model.addAttribute("article", articleService.getArticleBySlug(MANIFESTO_SLUG, locale.getLanguage()));
 		return "manifesto";
 	}
 	
