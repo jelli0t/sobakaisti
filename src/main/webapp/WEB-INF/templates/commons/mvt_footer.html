@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"></head>
+<footer th:fragment="mvt_footer" class="mvt-footer">
+	<div class="footer-container">
+		<div class="footer-row">
+			<!-- footer sobaka icon -->
+			<div class="footer-row"><img th:src="@{/resources/img/Logo-SOBAKA.png}" title="Sobakaisti" width="16" height="16"/></div>	
+			<!-- social media footer -->
+			<div class="social-container">
+				<span class="facebook-ico social-ico">
+					<a th:href="@{https://www.facebook.com/sobakaisti/}" target="_blank" title="Facebook"></a>
+				</span>
+				<span class="twitter-ico social-ico">
+					<a th:href="@{https://twitter.com/sobakaisti}" target="_blank" title="Twitter"></a>
+				</span>
+				<span class="youtube-ico social-ico"></span>
+				<span class="tumblr-ico social-ico">
+					<a th:href="@{http://sobakaisti.tumblr.com/}" target="_blank" title="Tumblr"></a>					
+				</span>
+			</div>
+		</div>		
+		<div class="footer-row">info@sobakaisti.org</div>
+		<div><span>Copyright &copy;</span> <span>2017.</span></div>		
+	</div>
+</footer>
+</html>
