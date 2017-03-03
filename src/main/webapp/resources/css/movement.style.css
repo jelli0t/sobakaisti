@@ -87,21 +87,21 @@ footer .footer-container {
 }
 footer .footer-container .footer-row {
 	display: block;
-	padding: 2px 0;
+	padding: 3px 0;
 }
 
 .social-container {margin: 0; padding: 0;}
 .social-container .social-ico {
 	display: inline-block;
-	width: 26px;
-	height: 26px;
+	width: 24px;
+	height: 24px;
 	margin: 0 5px;
-	border: 2px solid #343434;
+	border: 1px solid #343434;
 	border-radius: 50%;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top right;
-	background-size: 18px 18px;
+	background-size: 14px 14px;
 	background-position: center;
 }
 .social-container .social-ico a {
@@ -111,13 +111,28 @@ footer .footer-container .footer-row {
 }
 .social-container .facebook-ico { background-image:  url('../img/social/facebook-mono.svg'); }
 .social-container .twitter-ico { background-image: url('../img/social/twitter-mono.svg'); }
-.social-container .youtube-ico { background-image: url('../img/social/youtube-mono.svg'); }
+.social-container .youtube-ico { background-image: url('../img/social/youtube-play-mono.svg'); }
 .social-container .tumblr-ico { background-image: url('../img/social/tumblr-mono.svg'); }
 
 .social-container .facebook-ico:HOVER { background-image:  url('../img/social/facebook-color.svg'); border-color: #3b5998; }
 .social-container .twitter-ico:HOVER { background-image:  url('../img/social/twitter-color.svg'); border-color: #1da1f2; }
-.social-container .youtube-ico:HOVER { background-image:  url('../img/social/youtube-color.svg'); border-color: #cd201f; }
+.social-container .youtube-ico:HOVER { background-image:  url('../img/social/youtube-play-color.svg'); border-color: #cd201f; }
 .social-container .tumblr-ico:HOVER { background-image:  url('../img/social/tumblr-color.svg'); border-color: #35465c; }
+
+.footer-nav li {
+	display: inline-block;
+/* 	margin: 3px; */
+}
+.footer-nav li.dotted-befor:before {
+	content:'\2022';
+	color: #343434;
+	font-size: 1.5em;
+	margin: 5px;
+	vertical-align: sub;
+}
+.footer-nav li a:HOVER {
+	color: #1fa0ae;
+}
 
 @media only screen and (max-width: 1024px) {
 	.single-circle {

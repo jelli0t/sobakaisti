@@ -4,7 +4,18 @@
 	<div class="footer-container">
 		<div class="footer-row">
 			<!-- footer sobaka icon -->
-			<div class="footer-row"><img th:src="@{/resources/img/Logo-SOBAKA.png}" title="Sobakaisti" width="16" height="16"/></div>	
+			<div class="footer-row"><img th:src="@{/resources/img/Logo-SOBAKA.png}" title="Sobakaisti" width="16" height="16"/></div>
+			<!-- footer navigation -->
+			<div class="footer-row">
+				<ul class="footer-nav">
+					<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
+					<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.arts}"></a></li>
+					<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.authors}"></a></li>
+					<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.published}"></a></li>
+					<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.shop}"></a></li>
+					<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.contact}"></a></li>
+				</ul>
+			</div>
 			<!-- social media footer -->
 			<div class="social-container">
 				<span class="facebook-ico social-ico">
