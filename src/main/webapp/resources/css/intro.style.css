@@ -64,7 +64,7 @@ a:LINK, a:VISITED {
 }
 .lang-container, .game-lang-container {
 	position: absolute;
-	width: 30%;
+	width: 30%;	  /* 30% */
 	height: 100px;
 	top: 50%;
 }
@@ -135,14 +135,14 @@ a:LINK, a:VISITED {
 	content: '';
 	top: 50%;
 	left: 50%;
-	margin: -70px 0 0 -70px;
+	margin: -65px 0 0 -65px;
 	border: 5px solid #f9f9f9;
 	border-top: 5px solid #434343;
 	-webkit-border-radius: 100%;
   	-moz-border-radius: 100%;
   	border-radius: 100%;
-	width: 140px;
-	height: 140px;
+	width: 130px;
+	height: 130px;
 	box-sizing: border-box;
 	-webkit-animation: spin 2s linear infinite;
 	animation: spin 2s linear infinite;
@@ -234,7 +234,11 @@ footer.intro-footer {
 footer.intro-footer span { margin: 0 3px;}
 
 /*	MEDIA	*/
-@media only screen and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+@media only screen and (max-width: 1024px) {
+  
+/*   .lang-container, .game-lang-container { */
+/*   	width: 160px; */
+/*   } */
   
   .single-circle {
 	width: 80px;
@@ -245,6 +249,22 @@ footer.intro-footer span { margin: 0 3px;}
   }	
   
   .single-circle.mvt-init-circle {
-	margin: -40px 0 0 -40px;
+		margin: -40px 0 0 -40px;
+	}
+	
+	.loader:after {
+		margin: -55px 0 0 -55px;
+		width: 110px;
+		height: 110px;
+	}
+}
+
+@media only screen and (min-width:1440px){
+
+	.lang-container, .game-lang-container {
+		width: 25%;
+	}
+	.game-lang-container {
+		margin-left: 15%;
 	}
 }
