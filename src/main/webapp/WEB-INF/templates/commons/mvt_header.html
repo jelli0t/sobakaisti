@@ -1,15 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"></head>
 <header th:fragment="mvt_header" class="mvt-header">
-	<!--  -->
+	<!-- Header navigation -->
 	<div class="header-nav-container">
 		<div class="header-nav-bttn">
 			<ul class="header-nav">
-				<li></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
+				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.arts}"></a></li>
+				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.authors}"></a></li>
+				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.published}"></a></li>
+				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.shop}"></a></li>
+				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.contact}"></a></li>
 			</ul>
 		</div>
 		
-	<progress value="20%"></progress>	
+	<progress value="0"></progress>	
 	</div>
 
 	<div id="triangle-container">
