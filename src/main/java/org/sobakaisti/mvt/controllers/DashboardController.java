@@ -70,5 +70,11 @@ public class DashboardController {
 			return new ResponseEntity<String>("Neuspela operacija", HttpStatus.SERVICE_UNAVAILABLE);
 		}	
 	}
-
+	
+	
+	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
+	public String createNewArticle(){
+		
+		return "dashboard/dash_article";
+	}
 }

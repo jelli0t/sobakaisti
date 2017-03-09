@@ -6,13 +6,13 @@
 
 	<ul class="side-nav">
 		<li><a th:href="@{/sbk-admin/}">
-			<span></span><span th:text="#{nav.item.dahboard}">Dashboard</span><span></span>
+			<span></span><span th:text="#{nav.item.dahboard}">Dashboard</span><span class="side-nav-item-arrow"></span>
 		</a></li>
-		<li><a href="">
-			<span></span><span th:text="#{nav.item.articles}">Članci</span><span></span>
+		<li><a th:href="@{/sbk-admin/articles/new}">
+			<span></span><span th:text="#{nav.item.articles}">Članci</span><span class="side-nav-item-arrow"></span>
 		</a></li>
 		<li id="nav-sobakaisti"><a th:href="@{/sbk-admin/sobakaisti}">
-			<span></span><span th:text="#{nav.item.sobakaisti}">Sobakaisti</span><span></span>
+			<span></span><span th:text="#{nav.item.sobakaisti}">Sobakaisti</span><span class="side-nav-item-arrow"></span>
 		</a></li>
 	</ul>
 	

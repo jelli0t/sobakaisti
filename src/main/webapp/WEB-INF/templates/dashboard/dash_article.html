@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
+	<title>Article | Sobakaisti</title>	
+</head>
+<body>
+<!-- Top header of dashboard section -->
+<header th:replace="~{commons/dash_header :: dash_header}"></header>
+
+
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
+</section>
+
+<div class="dash-main-container">
+<form>
+	<h3>Uredi članak</h3>
+	<!-- Right container of article edit -->
+	<div class="article-left-container">		
+		<div class="article-input-wrapper">			
+			<input type="text" title="" name="article-title" class="article-title" placeholder="Insert title here">
+			<span>Preview URL:</span> <span></span>			
+		</div>
+		
+		<!-- URL preview of Article -->
+		<div class="article-input-wrapper">
+			
+		</div>
+		
+		<div class="article-input-wrapper">
+			<textarea></textarea>
+		</div>
+	</div>
+
+	<div class="article-right-container">
+		
+	</div>
+</form>	
+</div>
+
+<footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
+</body>
+</html>
