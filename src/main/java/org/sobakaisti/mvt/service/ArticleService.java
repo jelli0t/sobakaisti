@@ -16,4 +16,9 @@ public interface ArticleService {
 	public List<String> getRowsFromArticleWithDimension(int width, int height, double charWidth, String lang);
 	
 	public Article getArticleBySlug(String slug, String lang);
+	
+	/**
+	 * Metoda cuva novi 
+	 * */
+	public Article saveArticle(Article article);
 }

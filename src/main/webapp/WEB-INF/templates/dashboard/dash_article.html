@@ -13,31 +13,59 @@
 </section>
 
 <div class="dash-main-container">
-<form>
+<form action="#" th:action="@{/sbk-admin/articles/new/save}" th:object="${article}" method="POST" id="post-article-form"> 
 	<h3>Uredi članak</h3>
 	<!-- Right container of article edit -->
 	<div class="article-left-container">		
 		<div class="article-input-wrapper">			
-			<input type="text" title="" name="article-title" class="article-title" placeholder="Insert title here">
-			<span>Preview URL:</span> <span></span>			
+			<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" id="article-title" placeholder="Insert title here" th:field="*{title}">
+			<div class="article-url-wrapper">
+				<span class="article-url-label">Preview link:</span> 
+				<span class="article-url-path article-url">http://sobakaisti.org/movement/</span>
+				<span class="article-url-slug article-url"><input type="text" name="slug" readonly="readonly" id="article-slug" th:field="*{slug}"/></span>			
+			</div>
+			<input type="hidden" value="rs" name="lang" >
 		</div>
 		
 		<!-- URL preview of Article -->
 		<div class="article-input-wrapper">
-			
+			 
 		</div>
 		
 		<div class="article-input-wrapper">
-			<textarea></textarea>
+			<textarea name="content" id="article-content"></textarea>
 		</div>
 	</div>
 
 	<div class="article-right-container">
-		
+		<div class="panel side-panel">
+			<div class="panel-element panel-heading">
+				<h6>Objava</h6>
+			</div>
+			<div class="panel-element panel-body">
+				<select th:field="*{author}" name="author">
+					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista
+					</option>
+				</select>
+				
+			</div>
+			<div class="panel-element panel-footer">
+				<a href="javascript:;" id="post-bttn" class="bttn bttn-blue">Objavi</a>
+			</div>
+		</div>
 	</div>
 </form>	
+
+<div class="overlay" id="delete">
+	<div class="dialog-box">
+		
+	</div>
+</div>
 </div>
 
+
+
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
+<a th:href="@{/sbk-admin/articles/new/slug}" id="slug-href" style="display:none;"></a>
 </body>
 </html>

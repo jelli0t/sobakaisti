@@ -35,15 +35,29 @@ $(function() {
 		hideErrorMessageBox($input);
 	});
 	
+	$('#article-title').on('focusout', function(){
+		var $input = $(this);		
+		makeSlugFromTitle($input);
+	});
+	
+	
+	$('#post-bttn').on('click', function(evt){
+		evt.preventDefault();
+		var $form = $('#post-article-form');
+		postArticle($form);
+		
+		
+	});
+	
 }); // End Of Ready
 
 
 function callAnchor(target){
 	location.hash = target;
 }
-
+ 
 $.fn.serializeObject = function()
-{
+{ 
     var o = {};
     var a = this.serializeArray();
     $.each(a, function() {
@@ -51,9 +65,18 @@ $.fn.serializeObject = function()
             if (!o[this.name].push) {
                 o[this.name] = [o[this.name]];
             }
+           
             o[this.name].push(this.value || '');
         } else {
-            o[this.name] = this.value || '';
+        	o[this.name] = this.value || '';
+            if(this.name === 'content'){
+            	o[this.name] = tinyMCE.activeEditor.getContent() || '';
+            }
+            else if(this.name === 'author'){ 
+            	var author = {};
+            	author['id'] = this.value || '';
+            	o[this.name] = author;
+            }
         }
     });
     return o;
@@ -182,4 +205,67 @@ function showErrorMessageBox(field, message){
 function hideErrorMessageBox($input){
 	$input.removeClass('error-border');
 	$input.next('.validation-error').hide();
+}
+
+function makeSlugFromTitle($input){
+	var title = $input.val()!==''?$input.val():'NO_DATA';
+	
+	var csrf = getCsrfParams();	
+	var uri = $('#slug-href').attr('href');
+	$.ajax({
+		url: uri,
+		type : 'POST',
+		contentType: 'application/json; charset=utf-8',
+		data: title,
+		dataType : 'text',
+		beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	}).done(function( data ) {
+		console.dir('successful converted slug to: '+data);
+		$('#article-slug').val(data);
+		$('#article-slug').attr('size', data.length);
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+//	    console.dir( xhr );
+	    $('#article-slug').val('');
+	    
+	})
+}
+
+function postArticle($form){
+	var json = $form.serializeObject();
+	var uri = $form.attr('action');
+	var csrf = getCsrfParams();
+			
+	console.log(JSON.stringify(json));
+	$.ajax({
+		url: uri,
+		type : 'POST',
+		contentType: 'application/json; charset=utf-8',
+		data: JSON.stringify(json),
+		dataType : 'json',
+		beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	}).done(function( json ) {
+		console.log("Uspesno dodat autor "+json[0].firstName+' '+json[0].lastName);
+		
+	}).fail(function( xhr, status, errorThrown ) {
+//	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	    
+	    var err = xhr.responseJSON;
+	    console.log(err);
+	    if(err.field === 'title'){
+	    	console.log(err.defaultMessage);
+	    }
+	    $('#post-article-form input[name=title]').addClass('error-border');
+	    
+	}).always(function( xhr, status ) {
+		console.log( "After adding: " + status );
+	});
+
 }

@@ -4,10 +4,13 @@
 package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.ArticleDao;
+import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,8 @@ public class ArticleServiceImpl implements ArticleService{
 
 	@Autowired
 	private ArticleDao articleDao;
+	@Autowired
+	private AuthorDao authorDao;
 	
 	private int charsPerRow;
 	private int rowsPerPage;
@@ -43,7 +48,6 @@ public class ArticleServiceImpl implements ArticleService{
 			for(int i=0, j=0; i<rowsPerPage; i++){				
 				if(j<length-charsPerRow){					
 					row.add(content.substring(j, j+charsPerRow));
-//					System.out.println(i+". j="+j);
 					j+=charsPerRow;
 				}else if(j < length){
 					String ending = content.substring(j)+" "+content.substring(0, charsToFill-1);
@@ -59,6 +63,19 @@ public class ArticleServiceImpl implements ArticleService{
 	public Article getArticleBySlug(String slug, String lang) {
 		Article article = (Article) articleDao.getArticleBySlugTitle(slug, lang);
 		return article;
+	}
+
+	@Override
+	public Article saveArticle(Article article) {
+		Author author = authorDao.getAuthorById(article.getAuthor().getId());
+		
+		article.setAuthor(author);
+		article.setPostDate(Calendar.getInstance());
+		article = articleDao.saveArticle(article);
+		if(article != null)
+			return article;
+		else
+			return null;
 	}
 	
 }

@@ -25,6 +25,11 @@ public interface ArticleDao {
 	 * @param langCode	Kod jezika (rs, en, it, fr...)
 	 * */
 	public String getintroArticleByLanguage(String langCode);
-
 	
+	/**
+	 * Metoda cuva clanak
+	 * @param clanka
+	 * @return sacuvani clanak
+	 * */
+	public Article saveArticle(Article article);	
 }

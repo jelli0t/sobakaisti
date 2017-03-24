@@ -61,4 +61,17 @@ public class ArticleDaoImpl implements ArticleDao{
 		}		
 	}
 
+	@Override
+	@Transactional
+	public Article saveArticle(Article article) {
+		Session session = sessionFactory.getCurrentSession();
+		try{
+			session.save(article);
+			return article;
+		}catch (HibernateError he) {
+			return null;
+		}
+		
+	}
+
 }

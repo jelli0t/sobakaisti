@@ -24,15 +24,18 @@ public class AuthorDaoImpl implements AuthorDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-//	public AuthorDaoImpl(SessionFactory sessionFactory) {
-//		this.sessionFactory = sessionFactory;
-//	}
-	
 	@Override
+	@Transactional
 	public Author getAuthorById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		final String HQL = "from Author where id=:id";
+		Session session = sessionFactory.getCurrentSession();
+		Author author = (Author) session.createQuery(HQL).setInteger("id", id).uniqueResult();
+		if(author != null){
+			return author;
+		}else{
+			return null;
+		}		
+	}	
 	
 	@Override
 	@Transactional
