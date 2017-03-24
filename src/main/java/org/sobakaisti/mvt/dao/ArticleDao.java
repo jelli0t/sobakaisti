@@ -3,6 +3,8 @@
  */
 package org.sobakaisti.mvt.dao;
 
+import java.util.List;
+
 import org.sobakaisti.mvt.models.Article;
 
 /**
@@ -31,5 +33,6 @@ public interface ArticleDao {
 	 * @param clanka
 	 * @return sacuvani clanak
 	 * */
-	public Article saveArticle(Article article);	
+	public Article saveArticle(Article article);
+	
 }
