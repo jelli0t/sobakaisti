@@ -3,8 +3,6 @@
  */
 package org.sobakaisti.util;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 
 /**
  * @author jelles

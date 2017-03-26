@@ -8,17 +8,18 @@
 <!-- Top header of dashboard section -->
 <header th:replace="~{commons/dash_header :: dash_header}"></header>
 
-
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 
 <div class="dash-main-container">
+<div class="affirmative-notification">Uspeöno postovan Ëlanak</div>
 <form action="#" th:action="@{/sbk-admin/articles/new/save}" th:object="${article}" method="POST" id="post-article-form"> 
 	<h3>Uredi ƒçlanak</h3>
 	<!-- Right container of article edit -->
 	<div class="article-left-container">		
 		<div class="article-input-wrapper">			
 			<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" id="article-title" placeholder="Insert title here" th:field="*{title}">
+			<div class="validation-error"></div>
 			<div class="article-url-wrapper">
 				<span class="article-url-label">Preview link:</span> 
 				<span class="article-url-path article-url">http://sobakaisti.org/movement/</span>
@@ -56,9 +57,9 @@
 	</div>
 </form>	
 
-<div class="overlay" id="delete">
-	<div class="dialog-box">
-		
+<div class="overlay" id="loading">
+	<div class="loader">
+		<img alt="Pokret" th:src="@{/resources/img/Logo-SOBAKA.png}" width="24" height="24">
 	</div>
 </div>
 </div>
@@ -66,6 +67,9 @@
 
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
+<script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.js}"></script>
+	
 <a th:href="@{/sbk-admin/articles/new/slug}" id="slug-href" style="display:none;"></a>
 </body>
 </html>

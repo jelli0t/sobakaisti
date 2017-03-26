@@ -6,11 +6,23 @@
 
 	<ul class="side-nav">
 		<li><a th:href="@{/sbk-admin/}">
-			<span></span><span th:text="#{nav.item.dahboard}">Dashboard</span><span class="side-nav-item-arrow"></span>
+			<span></span><span th:text="#{nav.item.dahboard}">Dashboard</span>
+			<span class="side-nav-item-arrow"></span>
 		</a></li>
-		<li><a th:href="@{/sbk-admin/articles/new}">
-			<span></span><span th:text="#{nav.item.articles}">Članci</span><span class="side-nav-item-arrow"></span>
-		</a></li>
+		<li>
+			<a href="javascript:;" class="expandable">
+				<span></span><span th:text="#{nav.item.articles}">Članci</span>
+				<span class="side-nav-item-arrow rotateable"></span>
+			</a>
+			<ul class="side-sub-nav side-nav hidden">
+				<li><a th:href="@{/sbk-admin/articles}">
+					<span th:text="#{nav.item.articles.all}">Svi članci</span></a>
+				</li>
+				<li>
+					<a th:href="@{/sbk-admin/articles/new}"><span th:text="#{nav.item.articles.new}">Novi članak</span></a>
+				</li>
+			</ul>
+		</li>
 		<li id="nav-sobakaisti"><a th:href="@{/sbk-admin/sobakaisti}">
 			<span></span><span th:text="#{nav.item.sobakaisti}">Sobakaisti</span><span class="side-nav-item-arrow"></span>
 		</a></li>

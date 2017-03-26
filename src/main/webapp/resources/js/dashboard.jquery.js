@@ -2,6 +2,7 @@ $(function() {
 	
 	var uri;
 	var $authorBox;
+	var degree = 0;
 	
 	/*	Adds Author	*/
 	$('#submit-author').on('click', function(){
@@ -43,10 +44,18 @@ $(function() {
 	
 	$('#post-bttn').on('click', function(evt){
 		evt.preventDefault();
+		callAnchor('loading');
 		var $form = $('#post-article-form');
-		postArticle($form);
-		
-		
+		postArticle($form);		
+	});
+	
+	/* Otvaranje podmenija na sidebaru */
+	$('.expandable').on('click', function(evt){
+		evt.preventDefault();
+		degree = degree===0?90:0;
+		$('.side-sub-nav').slideToggle();
+		$('.rotateable').css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
+		$('.rotateable').css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
 	});
 	
 }); // End Of Ready
@@ -250,10 +259,9 @@ function postArticle($form){
             xhr.setRequestHeader(csrf[0], csrf[1]);
         }
 	}).done(function( json ) {
-		console.log("Uspesno dodat autor "+json[0].firstName+' '+json[0].lastName);
+		$('.affirmative-notification').show(0).delay(4000).slideUp(500);
 		
 	}).fail(function( xhr, status, errorThrown ) {
-//	    console.log( "Error: " + errorThrown );
 	    console.log( "Status: " + status );
 	    console.dir( xhr );
 	    
@@ -261,11 +269,15 @@ function postArticle($form){
 	    console.log(err);
 	    if(err.field === 'title'){
 	    	console.log(err.defaultMessage);
+	    	var $input = $('input[name=title]', $form);
+	    	$input.addClass('error-border');
+	    	$input.next('.validation-error').text(err.defaultMessage).show();
 	    }
-	    $('#post-article-form input[name=title]').addClass('error-border');
+//	    $('#post-article-form input[name=title]').addClass('error-border');
 	    
 	}).always(function( xhr, status ) {
 		console.log( "After adding: " + status );
+		closePopup();
 	});
 
 }
