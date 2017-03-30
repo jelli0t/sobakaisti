@@ -12,7 +12,7 @@
 </section>
 
 <div class="dash-main-container">
-<div class="affirmative-notification">Uspešno postovan èlanak</div>
+<div class="affirmative-notification">Uspeï¿½no postovan ï¿½lanak</div>
 <form action="#" th:action="@{/sbk-admin/articles/new/save}" th:object="${article}" method="POST" id="post-article-form"> 
 	<h3>Uredi Älanak</h3>
 	<!-- Right container of article edit -->
@@ -50,8 +50,9 @@
 				</select>
 				
 			</div>
-			<div class="panel-element panel-footer">
-				<a href="javascript:;" id="post-bttn" class="bttn bttn-blue">Objavi</a>
+			<div class="panel-element">
+				<a href="javascript:;" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
+				<a href="javascript:;" id="post-bttn" class="bttn bttn-sm bttn-primary float-right" th:alt="Publish">Objavi</a>
 			</div>
 		</div>
 	</div>

@@ -24,10 +24,7 @@ ul {
 	padding: 0; 
 	box-sizing: content-box;
 	}
-a:LINK, a:VISITED {
-	color: #585858;
-	text-decoration: none;
-}
+
 .icon::BEFORE {
 	font-family: 'Pe-icon-7-stroke';
 	font-size: 14px;
@@ -109,25 +106,25 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 }
 
 .inline { display: inline-block;}
-.bttn {
-	display: inline-block;
-    padding: 3px 10px;
-    margin-bottom: 0;
-    font-size: 0.9em;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
+/* .bttn { */
+/* 	display: inline-block; */
+/*     padding: 3px 10px; */
+/*     margin-bottom: 0; */
+/*     font-size: 0.9em; */
+/*     font-weight: 400; */
+/*     line-height: 1.42857143; */
+/*     text-align: center; */
+/*     white-space: nowrap; */
+/*     -ms-touch-action: manipulation; */
+/*     touch-action: manipulation; */
+/*     cursor: pointer; */
+/*     -webkit-user-select: none; */
+/*     -moz-user-select: none; */
+/*     -ms-user-select: none; */
+/*     user-select: none; */
+/*     border: 1px solid transparent; */
+/*     border-radius: 4px; */
+/* } */
 .bttn-blue {
     color: #fff !important;
     background-color: #337ab7;
@@ -251,10 +248,12 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 	content: '\e684';
 	font-size: 1.2em;
 }
+.side-sub-nav { background: #2c3b41; }
 .side-sub-nav > li > a { 
 	line-height: 16px;
 	font-size: 12px;
     padding: 10px 15px 10px 14px;
+    color: #8aa4af;
 }
 
 .active {
@@ -532,7 +531,6 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 /*	ARTICLES	*/
 .panel {
 	display: block;
-    color: #343434;
     margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -543,8 +541,22 @@ input[type="text"]:-moz-placeholder { color: #585858; }
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.panel .panel-heading {
+    bdisplay: block;
+    padding: 9px 10px 10px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 17px;
+    background-color: #f6f8fa;
+    border: 1px solid rgba(27,31,35,0.15);
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+}
 .panel .panel-element {
+	position: relative;
+	display: block;
 	padding: 13px;
+	box-sizing: inherit;
 }
 
 h6 {

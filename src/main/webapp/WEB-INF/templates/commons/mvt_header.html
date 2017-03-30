@@ -3,6 +3,34 @@
 <header th:fragment="mvt_header" class="mvt-header">
 	<!-- Header navigation -->
 	<div class="header-nav-container">
+		<div class="header-nav-menu">
+		
+		<div class="header-nav-main">
+			<div class="header-logo">
+				<a th:href="@{/rs/movement}"><img alt="Pokret" th:src="@{/resources/img/sobakaisti_logo.jpg}" height="26"></a>
+			</div>
+			<div class="social-container social-header">
+				<span class="facebook-ico social-ico">
+					<a th:href="@{https://www.facebook.com/sobakaisti/}" target="_blank" title="Facebook"></a>
+				</span>
+				<span class="twitter-ico social-ico">
+					<a th:href="@{https://twitter.com/sobakaisti}" target="_blank" title="Twitter"></a>
+				</span>
+				<span class="youtube-ico social-ico"></span>
+				<span class="tumblr-ico social-ico">
+					<a th:href="@{http://sobakaisti.tumblr.com/}" target="_blank" title="Tumblr"></a>					
+				</span>
+			</div>
+			<ul class="header-navigation">
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.arts}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.authors}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.published}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.shop}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.contact}"></a></li>
+			</ul>			
+		</div>		
+		
 		<div class="header-nav-bttn">
 			<ul class="header-nav">
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
@@ -13,8 +41,11 @@
 				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.contact}"></a></li>
 			</ul>
 		</div>
-		
-	<progress value="0"></progress>	
+		</div>
+		<!-- top read indicator -->
+		<progress value="0"></progress>
+		<!-- onmouseover show abowe -->
+		<div class="header-nav-mouseover"></div>	
 	</div>
 
 	<div id="triangle-container">

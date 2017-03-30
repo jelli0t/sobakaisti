@@ -20,6 +20,15 @@ $(function() {
 	$('.header-nav-container .header-nav-bttn').on('click', function(){
 		$('.header-nav', this).toggle();
 	});
+	
+	$(document).on({
+	    mouseenter: function () {
+	        $(this).animate({marginTop:'0'}, {duration: 400, easing: 'swing' });
+	    },
+	    mouseleave: function () {
+	    	 $(this).animate({marginTop:'-34px'}, {duration: 800, easing: 'swing' });
+	    }
+	}, '.header-nav-container');
 });
 
 
