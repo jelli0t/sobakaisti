@@ -14,8 +14,7 @@
 html, body {
 	margin:0;
 	padding: 0;
-/* 	background-color: #fff; */
-	background-color: #f5f5f5;
+	background-color: #fff;
 	font-family: 'Noto Sans', sans-serif;
 }
 ul { 
@@ -612,4 +611,58 @@ h6 {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.list-table-header {
+	position: relative;
+    background-color: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 3px 3px 0 0;
+}
+
+table { 
+	border: 1px solid #e1e4e8;	
+	border-radius: 3px;
+	border-spacing: 0;
+	border-spacing: 0;
+}
+
+.table-header th{
+	background-color: #f6f8fa;
+    border-bottom: 1px solid #e1e4e8;
+    font-weight: normal;
+    font-size: 0.9em;
+}
+td {
+	border-bottom: 1px solid #e1e4e8;
+	padding: 8px;
+	vertical-align: top;
+}
+
+.th-m { width: 240px; }
+
+.label {
+	display: inline-block;
+    padding: 3px 4px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 5px;
+	box-shadow: inset 0 -1px 0 rgba(27,31,35,0.12);
+    margin: 2px;
+}
+
+.label.tag {
+	font-size: 10px;
+	background-color: #0e8a16;
+    color: #fff;
+}
+.label.category {
+	font-size: 12px;
+	background-color: #207de5;
+    color: #fff;
+}
+
+.label a:link, .label a:VISITED{
+	color: #fff;
+	display: block;
 }

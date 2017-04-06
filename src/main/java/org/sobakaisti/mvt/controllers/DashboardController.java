@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
+import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.service.ArticleService;
@@ -39,6 +40,8 @@ public class DashboardController {
 	private AuthorDao authorDao;	
 	@Autowired
 	private ArticleService articleService; 
+	@Autowired
+	private CategoryDao categoryDao;
 	
 	@ModelAttribute
 	public void prepare(Model model){
@@ -89,8 +92,8 @@ public class DashboardController {
 	
 	
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
-	public String createNewArticle(){
-		
+	public String createNewArticle(Model model){
+		model.addAttribute("categories", categoryDao.findAllCategories());
 		return "dashboard/dash_article";
 	}
 	
@@ -123,5 +126,11 @@ public class DashboardController {
 		}else{
 			return new ResponseEntity<Object>(result.getFieldError(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
+	}
+	
+	@RequestMapping(value="/articles", method=RequestMethod.GET)
+	public String displayAllArticles(Model model){
+		model.addAttribute("articles", articleService.getArticlesOrderByDate());
+		return "dashboard/dash_articles";
 	}
 }

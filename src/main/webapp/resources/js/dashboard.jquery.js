@@ -86,6 +86,11 @@ $.fn.serializeObject = function()
             	author['id'] = this.value || '';
             	o[this.name] = author;
             }
+            else if(this.name === 'categories'){ 
+            	var category = {};
+            	category['id'] = this.value || '';
+            	o[this.name] = category;
+            }
         }
     });
     return o;

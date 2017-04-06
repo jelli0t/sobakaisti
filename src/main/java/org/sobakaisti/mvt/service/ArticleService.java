@@ -21,4 +21,6 @@ public interface ArticleService {
 	 * Metoda cuva novi 
 	 * */
 	public Article saveArticle(Article article);
+	
+	public List<Article> getArticlesOrderByDate();
 }

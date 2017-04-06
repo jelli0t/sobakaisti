@@ -1,5 +1,7 @@
 package org.sobakaisti.mvt.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -74,4 +76,15 @@ public class ArticleDaoImpl implements ArticleDao{
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Article> getArticlesSortedByDate() {
+		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc";
+		Session session = sessionFactory.getCurrentSession();
+		List<Article> articles = session.createQuery(HQL).list();
+		return articles;
+	}
+
+	
 }

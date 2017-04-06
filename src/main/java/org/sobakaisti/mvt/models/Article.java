@@ -1,14 +1,19 @@
 package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -46,6 +51,18 @@ public class Article {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Author author;
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "article_tag", joinColumns = {
+			@JoinColumn(name = "article_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "tag_id", nullable = false, updatable = false) })
+	private List<Tag> tags;
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "article_category", joinColumns = {
+			@JoinColumn(name = "article_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "category_id", nullable = false, updatable = false) })
+	private List<Category> categories;
 	
 	public int getId() {
 		return id;
@@ -94,6 +111,18 @@ public class Article {
 	}
 	public void setAuthor(Author author) {
 		this.author = author;
+	}
+	public List<Tag> getTags() {
+		return tags;
+	}
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+	public List<Category> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}	
 	
 }

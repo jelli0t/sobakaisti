@@ -77,5 +77,10 @@ public class ArticleServiceImpl implements ArticleService{
 		else
 			return null;
 	}
+
+	@Override
+	public List<Article> getArticlesOrderByDate() {
+		return articleDao.getArticlesSortedByDate();
+	}
 	
 }

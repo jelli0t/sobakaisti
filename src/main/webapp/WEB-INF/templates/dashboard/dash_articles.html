@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
+	<title>Articles</title>	
+</head>
+<body>
+<!-- Top header of dashboard section -->
+<header th:replace="~{commons/dash_header :: dash_header}"></header>
+
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
+</section>
+
+<div class="dash-main-container">
+
+<div class="articles-listing">
+		
+	<table>
+		<thead>
+			<tr class="table-header">
+				<th colspan="2">Članak</th>				
+				<th>Autor</th>
+				<th>Kategorija</th>
+				<th class="th-m">Oznaka</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="article : ${articles}" class="table-row">
+				<td></td>
+				<td th:with="slug=${article.slug}"><a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="" th:text="${article.title}"></a></td>
+				<td><span th:text="${article.author.firstName}"></span> <span th:text="${article.author.lastName}"></span></td>
+				<td>
+					<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}">
+						<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a>
+					</span>
+				</td>
+				<td>					
+					<span th:each="tag, tagStat : ${article.tags}" class="label tag" th:unless="${tagStat.index} > 5" th:with="slug=${tag.slug}">
+						<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+
+<footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
+</body>
+</html>

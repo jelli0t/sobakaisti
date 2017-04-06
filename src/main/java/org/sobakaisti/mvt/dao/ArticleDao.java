@@ -35,4 +35,6 @@ public interface ArticleDao {
 	 * */
 	public Article saveArticle(Article article);
 	
+	
+	public List<Article> getArticlesSortedByDate();
 }

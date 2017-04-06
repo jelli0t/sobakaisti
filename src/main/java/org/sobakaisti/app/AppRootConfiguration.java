@@ -11,10 +11,6 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.AccountManagerDao;
 import org.sobakaisti.mvt.dao.impl.AccountManagerDaotImpl;
-import org.sobakaisti.mvt.models.Account;
-import org.sobakaisti.mvt.models.Article;
-import org.sobakaisti.mvt.models.Author;
-import org.sobakaisti.mvt.models.IntroArticle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,7 +34,7 @@ public class AppRootConfiguration {
 	public DataSource getDataSource(){
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti");	// 3306
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti?UseUnicode=true&amp;characterEncoding=utf8");	// 3306
 		dataSource.setUsername("root");
 		dataSource.setPassword("");	//root 
 		return dataSource;
@@ -68,6 +64,9 @@ public class AppRootConfiguration {
 	private Properties getHibernateProperties(){
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		hibernateProperties.setProperty("hibernate.connection.CharSet", "utf8");
+		hibernateProperties.setProperty("hibernate.connection.characterEncoding", "utf8");
+		hibernateProperties.setProperty("hibernate.connection.useUnicode", "true");
 		return hibernateProperties;	
 	}	
 }
