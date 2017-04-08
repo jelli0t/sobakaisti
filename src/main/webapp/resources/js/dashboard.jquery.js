@@ -58,6 +58,13 @@ $(function() {
 		$('.rotateable').css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
 	});
 	
+	$('#ser-bttn').on('click', function(){
+		var json = $('#ser-test').serializeObject();
+		console.log(JSON.stringify(json));
+	});
+	
+	
+	
 }); // End Of Ready
 
 
@@ -87,8 +94,8 @@ $.fn.serializeObject = function()
             	o[this.name] = author;
             }
             else if(this.name === 'categories'){ 
-            	var category = {};
-            	category['id'] = this.value || '';
+            	var category = [{'id':'1'},{'id':'2'}];
+//            	category['id'] = this.value || '';
             	o[this.name] = category;
             }
         }
@@ -252,7 +259,7 @@ function postArticle($form){
 	var json = $form.serializeObject();
 	var uri = $form.attr('action');
 	var csrf = getCsrfParams();
-			
+		
 	console.log(JSON.stringify(json));
 	$.ajax({
 		url: uri,

@@ -121,6 +121,7 @@ public class DashboardController {
 			System.out.println("content: "+savedArticle.getContent());
 			System.out.println("slug: "+savedArticle.getSlug());
 			System.out.println("Author name: "+savedArticle.getAuthor());
+			System.out.println("kategorije: "+article.getCategories().size());
 			
 			return new ResponseEntity<Object>(savedArticle, HttpStatus.OK);
 		}else{

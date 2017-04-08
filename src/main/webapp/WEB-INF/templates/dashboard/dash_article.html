@@ -44,11 +44,12 @@
 				<h6>Objava</h6>
 			</div>
 			<div class="panel-element panel-body">
-				<select th:field="*{author}" name="author">
+				<div class="select-wrapper">
+				<select th:field="*{author}" name="author" class="bttn bttn-default bttn-select">
 					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista
 					</option>
 				</select>
-				
+				</div>
 			</div>
 			<div class="panel-element">
 				<a href="javascript:;" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
@@ -69,14 +70,17 @@
 <!-- 				<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}"> -->
 <!-- 						<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a> -->
 <!-- 				</span> -->
+				
 				<span th:each="category : ${categories}" class="">
 					<input type="checkbox" name="categories" th:value="${category.id}" /><span th:text="${category.name}"></span>
-				</span>	
+				</span>
+				
 			</div>
 			
 		</div>
 	</div>
 </form>	
+	
 
 <div class="overlay" id="loading">
 	<div class="loader">

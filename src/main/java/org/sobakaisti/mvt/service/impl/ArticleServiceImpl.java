@@ -9,8 +9,10 @@ import java.util.List;
 
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.dao.AuthorDao;
+import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class ArticleServiceImpl implements ArticleService{
 	private ArticleDao articleDao;
 	@Autowired
 	private AuthorDao authorDao;
+	@Autowired
+	private CategoryDao categoryDao;
 	
 	private int charsPerRow;
 	private int rowsPerPage;
@@ -68,10 +72,11 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public Article saveArticle(Article article) {
 		Author author = authorDao.getAuthorById(article.getAuthor().getId());
-		
+		article.setCategories(prepareCategoriesForArticle(article));		
 		article.setAuthor(author);
-		article.setPostDate(Calendar.getInstance());
+		article.setPostDate(Calendar.getInstance());		
 		article = articleDao.saveArticle(article);
+		
 		if(article != null)
 			return article;
 		else
@@ -83,4 +88,22 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleDao.getArticlesSortedByDate();
 	}
 	
+	/**
+	 * metoda priprema (dohvata) kategorije za prosledjeni clanak
+	 * */
+	private List<Category> prepareCategoriesForArticle(Article article){
+		List<Category> categories = null;
+		if(article.getCategories() != null){
+			final int size = article.getCategories().size();
+			categories = new ArrayList<Category>(size);
+			List<Integer> ids = new ArrayList<Integer>(size);			
+			
+			for(Category c : article.getCategories()){
+				ids.add(c.getId());				
+			}
+			System.out.println("dodao ids u listu, size: "+ids.size());	
+			categories = categoryDao.getAllCategoriesByIds(ids);	
+		}
+		return categories;
+	}
 }

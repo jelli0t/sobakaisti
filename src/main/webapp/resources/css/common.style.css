@@ -74,4 +74,18 @@ a:link, a:VISITED {
     background-position: 0 -0.5em;
     border-color: rgba(27,31,35,0.35);
 }
+
+.bttn-select {
+	width: 100%;
+}
+.select-wrapper:after {
+	position: absolute;
+	right: 30px;
+	top: 26px;
+	content: '';
+	width: 10px;
+	height: 10px;
+	background-color: #000;
+	cursor: pointer;
+}
 /* end of buttons */
