@@ -49,19 +49,39 @@ public class Article {
 	@Column(name="active")
 	private int active;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },
+        targetEntity = Author.class)
 	private Author author;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },targetEntity = Tag.class)
 	@JoinTable(name = "article_tag", joinColumns = {
-			@JoinColumn(name = "article_id", nullable = false, updatable = false) },
-			inverseJoinColumns = { @JoinColumn(name = "tag_id", nullable = false, updatable = false) })
+			@JoinColumn(name = "article_id")},
+			inverseJoinColumns = { @JoinColumn(name = "tag_id")})
 	private List<Tag> tags;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "article_category", joinColumns = {
-			@JoinColumn(name = "article_id", nullable = false, updatable = false) },
-			inverseJoinColumns = { @JoinColumn(name = "category_id", nullable = false, updatable = false) })
+	@ManyToMany(fetch = FetchType.EAGER, cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },
+        targetEntity = Category.class)
+	@JoinTable(name="article_category", 
+				joinColumns={@JoinColumn(name="article_id")}, 
+				inverseJoinColumns={@JoinColumn(name="category_id")})
 	private List<Category> categories;
 	
 	public int getId() {

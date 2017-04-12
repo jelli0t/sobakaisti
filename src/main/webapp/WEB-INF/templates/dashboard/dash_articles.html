@@ -25,9 +25,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="article : ${articles}" class="table-row">
+			<tr th:each="article : ${articles}" class="table-row" th:id="'article-overview-item-'+${article.id}">
 				<td></td>
-				<td th:with="slug=${article.slug}"><a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="" th:text="${article.title}"></a></td>
+				<td th:with="slug=${article.slug}"><a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="" th:text="${article.title}"></a>
+					<ul class="horisontal-list article-operations" th:with="id=${article.id}">
+						<li><a th:href="@{/sbk-admin/article/edit/{id}(id=${id})}">edit</a></li>
+						<li><a th:href="@{/sbk-admin/article/delete/{id}(id=${id})}" class="delete-link" th:alt="${article.id}">delete</a></li>
+					</ul>
+				</td>
 				<td><span th:text="${article.author.firstName}"></span> <span th:text="${article.author.lastName}"></span></td>
 				<td>
 					<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}">

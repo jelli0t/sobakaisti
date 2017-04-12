@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
@@ -105,5 +107,10 @@ public class ArticleServiceImpl implements ArticleService{
 			categories = categoryDao.getAllCategoriesByIds(ids);	
 		}
 		return categories;
+	}
+
+	@Override
+	public boolean deleteArticleById(int id) {
+		return articleDao.deleteArticleById(id);
 	}
 }

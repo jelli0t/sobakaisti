@@ -34,7 +34,7 @@ public class AppRootConfiguration {
 	public DataSource getDataSource(){
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti?UseUnicode=true&amp;characterEncoding=utf8");	// 3306
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti?useUnicode=yes&characterEncoding=UTF-8");	// 3306
 		dataSource.setUsername("root");
 		dataSource.setPassword("");	//root 
 		return dataSource;

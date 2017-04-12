@@ -8,11 +8,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author jelles
@@ -33,7 +36,8 @@ public class Category {
 	@Column(name="slug")
 	private String slug;
 
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="categories")
+	@JsonIgnore
+	@ManyToMany
 	private List<Article> articles;
 	
 	public int getId() {

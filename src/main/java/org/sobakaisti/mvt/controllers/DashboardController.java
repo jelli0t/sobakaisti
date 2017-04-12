@@ -120,13 +120,23 @@ public class DashboardController {
 			System.out.println("Article: "+savedArticle.getTitle());
 			System.out.println("content: "+savedArticle.getContent());
 			System.out.println("slug: "+savedArticle.getSlug());
-			System.out.println("Author name: "+savedArticle.getAuthor());
-			System.out.println("kategorije: "+article.getCategories().size());
+//			System.out.println("Author name: "+savedArticle.getAuthor());
+//			System.out.println("kategorije: "+article.getCategories().size());
 			
 			return new ResponseEntity<Object>(savedArticle, HttpStatus.OK);
 		}else{
 			return new ResponseEntity<Object>(result.getFieldError(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
+	}
+	
+	@RequestMapping(value="/article/delete/{id}", method=RequestMethod.DELETE)
+	@ResponseBody
+	public ResponseEntity<String> deleteArticle(@PathVariable("id") int id){	
+		boolean isDeleted = articleService.deleteArticleById(id);
+		if(isDeleted)
+			return new ResponseEntity<String>("Uspesno obrisan clanak.", HttpStatus.OK);
+		
+		return new ResponseEntity<String>("Greska pri brisanju.", HttpStatus.SERVICE_UNAVAILABLE);
 	}
 	
 	@RequestMapping(value="/articles", method=RequestMethod.GET)

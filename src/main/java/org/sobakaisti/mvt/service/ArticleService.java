@@ -23,4 +23,6 @@ public interface ArticleService {
 	public Article saveArticle(Article article);
 	
 	public List<Article> getArticlesOrderByDate();
+	
+	public boolean deleteArticleById(int id);
 }

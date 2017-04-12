@@ -89,3 +89,9 @@ a:link, a:VISITED {
 	cursor: pointer;
 }
 /* end of buttons */
+
+.horisontal-list li{
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 3px;
+}

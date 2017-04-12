@@ -32,6 +32,19 @@ public class ArticleDaoImpl implements ArticleDao{
 			return "";
 		}
 	}
+	
+	@Override
+	@Transactional
+	public Article findArticleById(int id) {
+		String HQL = "FROM Article WHERE id=:id";
+		try{
+			Session session = sessionFactory.getCurrentSession();
+			Article article = (Article) session.createQuery(HQL).setInteger("id", id).uniqueResult();
+			return article;
+		}catch (Exception e) {
+			return null;
+		}
+	}
 
 	@Override
 	@Transactional
@@ -86,5 +99,17 @@ public class ArticleDaoImpl implements ArticleDao{
 		return articles;
 	}
 
-	
+	@Override
+	@Transactional
+	public boolean deleteArticleById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Article articleToRemove = (Article) session.load(Article.class, id);
+				
+		if(articleToRemove != null){
+			session.delete("article", articleToRemove);
+			return true;
+		}
+		return false;
+	}
+
 }

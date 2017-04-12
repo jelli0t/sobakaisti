@@ -23,6 +23,11 @@ public interface ArticleDao {
 	public String getArticleById(int id);
 	
 	/**
+	 * Nalazi clanak po ID i vraca ga
+	 * */
+	public Article findArticleById(int id);
+	
+	/**
 	 * Metoda vraca clanak na onovu prosledjenog lang koda.
 	 * @param langCode	Kod jezika (rs, en, it, fr...)
 	 * */
@@ -37,4 +42,10 @@ public interface ArticleDao {
 	
 	
 	public List<Article> getArticlesSortedByDate();
+	
+	/**
+	 * Brise clanak na osnovu prosledjenog ID
+	 * @param id
+	 * */
+	public boolean deleteArticleById(int id);
 }

@@ -49,6 +49,17 @@ $(function() {
 		postArticle($form);		
 	});
 	
+	$(document).on('click','.delete-link', function(evt){
+		evt.preventDefault();
+		uri = $(this).attr('href');
+		var articleId = $(this).attr('alt');
+		$articleTr = $('#article-overview-item-'+articleId);	
+		
+//		callAnchor('delete');
+		deleteArticle(uri, $articleTr);
+	});
+	
+	
 	/* Otvaranje podmenija na sidebaru */
 	$('.expandable').on('click', function(evt){
 		evt.preventDefault();
@@ -74,15 +85,19 @@ function callAnchor(target){
  
 $.fn.serializeObject = function()
 { 
-    var o = {};
+    var o = {};    
     var a = this.serializeArray();
     $.each(a, function() {
+    	
         if (o[this.name] !== undefined) {
             if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-           
-            o[this.name].push(this.value || '');
+            	var cat = {};
+            	cat['id'] = o[this.name];
+                o[this.name] = [cat];
+            } 
+            var cat = {};
+        	cat['id'] = this.value || '';
+        	o[this.name].push(cat);
         } else {
         	o[this.name] = this.value || '';
             if(this.name === 'content'){
@@ -92,11 +107,6 @@ $.fn.serializeObject = function()
             	var author = {};
             	author['id'] = this.value || '';
             	o[this.name] = author;
-            }
-            else if(this.name === 'categories'){ 
-            	var category = [{'id':'1'},{'id':'2'}];
-//            	category['id'] = this.value || '';
-            	o[this.name] = category;
             }
         }
     });
@@ -292,4 +302,28 @@ function postArticle($form){
 		closePopup();
 	});
 
+}
+
+/*
+ * 	AJAX Delete function
+ * */
+function deleteArticle(url, $authorBox){
+	var csrf = getCsrfParams();	
+	console.log('Brisem clanak na URI: '+url);	
+	$.ajax({
+	    url: url,
+	    type: 'DELETE',
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	}).done(function( json ) {
+		console.log("success: "+json);
+		$authorBox.remove();
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	}).always(function( xhr, status ) {
+		console.log( "After removing: " + status );
+	});
 }
