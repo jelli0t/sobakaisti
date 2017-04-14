@@ -144,4 +144,14 @@ public class DashboardController {
 		model.addAttribute("articles", articleService.getArticlesOrderByDate());
 		return "dashboard/dash_articles";
 	}
+	
+	@RequestMapping(value="/article/change_status/{id}", method=RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<String> switchArticleStatus(@PathVariable("id") int id) {	
+		String message = articleService.switchArticleStatus(id);
+		if(message != null){
+			return new ResponseEntity<String>(message, HttpStatus.OK);
+		}		
+		return new ResponseEntity<String>("Greska promeni statusa.", HttpStatus.SERVICE_UNAVAILABLE);
+	}
 }

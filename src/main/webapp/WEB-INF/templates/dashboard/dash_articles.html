@@ -26,7 +26,11 @@
 		</thead>
 		<tbody>
 			<tr th:each="article : ${articles}" class="table-row" th:id="'article-overview-item-'+${article.id}">
-				<td></td>
+				<td th:with="id=${article.id}">
+					<a th:href="@{/sbk-admin/article/change_status/{id}(id=${id})}" class="change-status-link" th:alt="${article.id}">
+						<img alt="status" th:src="@{'/resources/img/icons/active-'+${article.active}+'.svg'}" width="16" height="16" class="article-status-icon">
+					</a>
+				</td>
 				<td th:with="slug=${article.slug}"><a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="" th:text="${article.title}"></a>
 					<ul class="horisontal-list article-operations" th:with="id=${article.id}">
 						<li><a th:href="@{/sbk-admin/article/edit/{id}(id=${id})}">edit</a></li>

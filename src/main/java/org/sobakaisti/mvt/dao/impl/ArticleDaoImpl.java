@@ -112,4 +112,27 @@ public class ArticleDaoImpl implements ArticleDao{
 		return false;
 	}
 
+	@Override
+	@Transactional
+	public int switchArticleStatus(int articleId) {
+		Session session = sessionFactory.getCurrentSession();
+		Article article = (Article) session.load(Article.class, articleId);
+		if(article != null){
+			int active = article.getActive();
+			switch (active) {
+			case 0:
+				article.setActive(1);				
+				break;
+			case 1:
+				article.setActive(0);
+				break;
+			default:
+				return -1;
+			}
+			session.update("article", article);
+			return article.getActive();
+		}
+		return -1;
+	}
+
 }

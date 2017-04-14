@@ -59,9 +59,15 @@ $(function() {
 		deleteArticle(uri, $articleTr);
 	});
 	
+	$(document).on('click', '.change-status-link', function(evt){
+		evt.preventDefault();
+		uri = $(this).attr('href');		
+		$(this).switchArticleStatus(uri);
+	});
+	
 	
 	/* Otvaranje podmenija na sidebaru */
-	$('.expandable').on('click', function(evt){
+	$('.expandable').on('click', function(evt) {
 		evt.preventDefault();
 		degree = degree===0?90:0;
 		$('.side-sub-nav').slideToggle();
@@ -327,3 +333,44 @@ function deleteArticle(url, $authorBox){
 		console.log( "After removing: " + status );
 	});
 }
+/*
+ * poziva metodu za promenu statusa na clanku
+ * */
+$.fn.switchArticleStatus = function (uri) {
+	console.log('Pozivam funkciju switchArticleStatus()');
+	var articleId = $(this).attr('alt');
+	var $icon = $('.article-status-icon', this);
+	var csrf = getCsrfParams();	
+	$.ajax({
+	    url: uri,
+	    type: 'PUT',
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	}).done(function( json ) {
+		console.log("success: "+json);
+		var src = $icon.attr('src');
+		console.log("src: "+src);
+		var status = parseInt(src.replace(/[^0-9\.]/g, ''), 10);
+		console.log("status: "+status);
+		switch (status) {
+			case 0:
+				console.log("case 0: "+status);
+				src = src.replace(/[0-9]/g, '1'); 
+				break;
+			case 1:
+				console.log("case 1: "+status);
+				src = src.replace(/[0-9]/g, '0');
+				break;
+		}
+		 console.log("menjam src u: "+src);
+		 $icon.attr('src',src);
+		
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	}).always(function( xhr, status ) {
+		console.log( "After finish: " + status );
+	});
+};

@@ -48,4 +48,10 @@ public interface ArticleDao {
 	 * @param id
 	 * */
 	public boolean deleteArticleById(int id);
+	
+	/**
+	 *  metoda menja status clanka active 1/0
+	 *  public / draft
+	 * */
+	public int switchArticleStatus(int articleId);
 }

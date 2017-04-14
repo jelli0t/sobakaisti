@@ -113,4 +113,15 @@ public class ArticleServiceImpl implements ArticleService{
 	public boolean deleteArticleById(int id) {
 		return articleDao.deleteArticleById(id);
 	}
+
+	@Override
+	public String switchArticleStatus(int articleId) {
+		int articleStatus = articleDao.switchArticleStatus(articleId);		
+		if(articleStatus == ACTIVE){
+			return "Uspesno ste publikovali clanak.";
+		}else if(articleStatus == INACTIVE) {
+			return "Uspesno ste deaktivirali clanak.";
+		}
+		return null;
+	}
 }
