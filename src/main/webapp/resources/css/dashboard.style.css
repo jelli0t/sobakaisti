@@ -641,7 +641,9 @@ td {
 	padding: 8px;
 	vertical-align: top;
 }
-
+.article-status-td {
+	padding-top: 10px;
+}
 .th-m { width: 240px; }
 
 .label {
