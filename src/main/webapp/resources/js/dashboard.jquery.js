@@ -93,14 +93,13 @@ $.fn.serializeObject = function()
 { 
     var o = {};    
     var a = this.serializeArray();
-    $.each(a, function() {
-    	
+    $.each(a, function() {    	
         if (o[this.name] !== undefined) {
             if (!o[this.name].push) {
             	var cat = {};
             	cat['id'] = o[this.name];
                 o[this.name] = [cat];
-            } 
+            }
             var cat = {};
         	cat['id'] = this.value || '';
         	o[this.name].push(cat);
@@ -113,6 +112,11 @@ $.fn.serializeObject = function()
             	var author = {};
             	author['id'] = this.value || '';
             	o[this.name] = author;
+            }
+            else if(this.name === 'categories'){ 
+            	var categoy = {};
+            	categoy['id'] = this.value || '';
+            	o[this.name] = [categoy];
             }
         }
     });
@@ -265,9 +269,7 @@ function makeSlugFromTitle($input){
 	}).fail(function( xhr, status, errorThrown ) {
 	    console.log("Error: " + errorThrown );
 	    console.log( "Status: " + status );
-//	    console.dir( xhr );
-	    $('#article-slug').val('');
-	    
+	    $('#article-slug').val('');	    
 	})
 }
 
@@ -286,10 +288,11 @@ function postArticle($form){
 		beforeSend: function(xhr) {
             xhr.setRequestHeader(csrf[0], csrf[1]);
         }
-	}).done(function( json ) {
-		$('.affirmative-notification').show(0).delay(4000).slideUp(500);
-		
-	}).fail(function( xhr, status, errorThrown ) {
+	})
+	.done(function( json ) {
+		$('.response-message').showResponseMessage('Uspešno postovan članak.', true);
+	})
+	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Status: " + status );
 	    console.dir( xhr );
 	    
@@ -347,7 +350,8 @@ $.fn.switchArticleStatus = function (uri) {
 	    beforeSend: function(xhr) {
             xhr.setRequestHeader(csrf[0], csrf[1]);
         }
-	}).done(function( json ) {
+	})
+	.done(function( json ) {
 		console.log("success: "+json);
 		var src = $icon.attr('src');
 		console.log("src: "+src);
@@ -365,12 +369,28 @@ $.fn.switchArticleStatus = function (uri) {
 		}
 		 console.log("menjam src u: "+src);
 		 $icon.attr('src',src);
-		
-	}).fail(function( xhr, status, errorThrown ) {
+		 $('.response-message').showResponseMessage(json, true);		
+	})
+	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
 	    console.log( "Status: " + status );
 	    console.dir( xhr );
+	    $('.response-message').showResponseMessage(json, false);
 	}).always(function( xhr, status ) {
 		console.log( "After finish: " + status );
 	});
 };
+/**
+ *  prikazuje poruku sa response-a
+ * */
+$.fn.showResponseMessage = function(message, isSuccess) {
+	var className = '';
+	if(isSuccess){
+		console.log('postavljam pozitivan odovor');
+		className = 'affirmative-message';		
+	}else {
+		className = 'negative-message';
+	}
+	$(this).addClass(className).html(message).show()
+	.delay(4000).slideUp(300);
+}

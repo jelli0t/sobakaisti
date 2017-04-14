@@ -65,14 +65,21 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 .input-wrapper input[type="text"].error-border { border-color: #DD381D !important;}
 .error-border { border-color: #DD381D !important;}
 
-.affirmative-notification {
+.affirmative-message { background-color: #6bb951; }
+.negative-message { background-color: #DD381D; } 
+.response-message {
+	position: fixed;
+	width: 80%;
 	display: none;
-	margin: 0 auto;
-	padding: 5px 10px;
-	background-color: #C0E683;
-	color: #fff;
+	padding: 5px 0;
 	text-align: center;
-} 
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	-webkit-border-radius: 3px;
+  	-moz-border-radius: 3px;
+  	border-radius: 3px;
+}
 
 .validation-error {
 	display: none;
@@ -638,13 +645,28 @@ table {
 }
 td {
 	border-bottom: 1px solid #e1e4e8;
-	padding: 8px;
+	padding: 7px 5px;
 	vertical-align: top;
 }
 .article-status-td {
 	padding-top: 10px;
 }
 .th-m { width: 240px; }
+
+.title-link {
+	font-size: 0.9em;
+	color: #24292e !important;
+	line-height: 0.9;
+}
+.title-link:HOVER {
+	color: #0366d6 !important;
+}
+.artice-meta {
+	display: inline;
+	color: #586069 !important;
+	font-size: 11px;
+	line-height: 10px;
+}
 
 .label {
 	display: inline-block;

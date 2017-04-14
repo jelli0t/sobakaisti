@@ -1,8 +1,9 @@
 @CHARSET "UTF-8";
 
-html, body, div, ul {
+html, body, div, ul, span {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 ul { list-style: none; }
@@ -10,6 +11,7 @@ ul { list-style: none; }
 a:link, a:VISITED {	
 	text-decoration: none; 
 	outline: none;
+	margin: 0;
 }
 
 .float-left { float: left; }

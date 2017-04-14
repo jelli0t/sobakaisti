@@ -12,16 +12,16 @@
 </section>
 
 <div class="dash-main-container">
-
+<div class="response-message"></div>
 <div class="articles-listing">
 		
 	<table>
 		<thead>
 			<tr class="table-header">
 				<th colspan="2">Članak</th>				
-				<th>Autor</th>
-				<th>Kategorija</th>
+				<th style="width:150px;">Kategorija</th>
 				<th class="th-m">Oznaka</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,13 +31,16 @@
 						<img alt="status" th:src="@{'/resources/img/icons/active-'+${article.active}+'.svg'}" width="16" height="16" class="article-status-icon">
 					</a>
 				</td>
-				<td th:with="slug=${article.slug}"><a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="" th:text="${article.title}"></a>
-					<ul class="horisontal-list article-operations" th:with="id=${article.id}">
-						<li><a th:href="@{/sbk-admin/article/edit/{id}(id=${id})}">edit</a></li>
-						<li><a th:href="@{/sbk-admin/article/delete/{id}(id=${id})}" class="delete-link" th:alt="${article.id}">delete</a></li>
-					</ul>
+				<td th:with="slug=${article.slug}">
+					<a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="title-link" th:text="${article.title}"></a>
+					<div>
+					<span class="artice-meta">autor</span>
+					<span class="artice-meta" th:text="${article.author.firstName}"></span>
+					<span class="artice-meta" th:text="${article.author.lastName}"></span>
+					<span class="artice-meta">napisan</span>
+					<span class="artice-meta" th:text="${#dates.format(article.postDate, 'dd. MMM. yyyy.')}"></span>
+					</div>					
 				</td>
-				<td><span th:text="${article.author.firstName}"></span> <span th:text="${article.author.lastName}"></span></td>
 				<td>
 					<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}">
 						<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a>
@@ -47,6 +50,12 @@
 					<span th:each="tag, tagStat : ${article.tags}" class="label tag" th:unless="${tagStat.index} > 5" th:with="slug=${tag.slug}">
 						<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
 					</span>
+				</td>
+				<td>
+					<ul class="horisontal-list article-operations" th:with="id=${article.id}">
+						<li><a th:href="@{/sbk-admin/article/edit/{id}(id=${id})}">edit</a></li>
+						<li><a th:href="@{/sbk-admin/article/delete/{id}(id=${id})}" class="delete-link" th:alt="${article.id}">delete</a></li>
+					</ul>
 				</td>
 			</tr>
 		</tbody>
