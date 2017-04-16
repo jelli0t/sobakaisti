@@ -70,10 +70,21 @@
 <!-- 				<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}"> -->
 <!-- 						<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a> -->
 <!-- 				</span> -->
+			<div class="select-wrapper">
+				<button class="bttn bttn-default bttn-select" type="button" id="categories-select">Kategorije</button>
+				<!-- dropdown menu -->
+				<div class="select-content-box">
+<!-- 					<span th:each="category : ${categories}" class=""> -->
+<!-- 						<input type="checkbox" name="categories" th:value="${category.id}" /><span th:text="${category.name}"></span> -->
+<!-- 					</span> -->
+					
+					<label th:each="category : ${categories}" class="checkboxes-label">
+						<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}"/> <span th:text="${category.name}"></span>
+					</label>
+				</div>			
+			</div>
+			<div class="selected-categories"></div>
 				
-				<span th:each="category : ${categories}" class="">
-					<input type="checkbox" name="categories" th:value="${category.id}" /><span th:text="${category.name}"></span>
-				</span>
 				
 			</div>
 			

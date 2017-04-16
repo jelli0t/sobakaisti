@@ -80,8 +80,14 @@ $(function() {
 		console.log(JSON.stringify(json));
 	});
 	
+	$(document).on('click', '#categories-select', function(evt){
+		evt.preventDefault();			
+		$(this).next('.select-content-box').toggle();
+	});
 	
-	
+	$('form input[name=categories]').change(function() {
+		$(this).displaySelectedCategories();
+	});
 }); // End Of Ready
 
 
@@ -393,4 +399,18 @@ $.fn.showResponseMessage = function(message, isSuccess) {
 	}
 	$(this).addClass(className).html(message).show()
 	.delay(4000).slideUp(300);
+}
+
+/*
+ * popunjava box sa selektovanim kategorijama
+ * */
+$.fn.displaySelectedCategories = function() {
+	var value = $(this).attr('title');
+	if($(this).is(':checked')) {
+		console.log('Odabrana kategorija: '+value); 
+		var $category = '<span class="label category" id="cat_'+value+'">'+value+'</span>';
+		$('.selected-categories').append($category);
+	}else {
+		$('#cat_'+value).remove();
+	}
 }
