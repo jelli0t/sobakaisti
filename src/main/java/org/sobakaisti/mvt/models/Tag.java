@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author jelles
  * represent articles metadata
@@ -33,7 +35,8 @@ public class Tag {
 	@Column(name="slug")
 	private String slug;
 	
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="tags")
+	@JsonIgnore
+	@ManyToMany(mappedBy="tags")
 	private List<Article> articles;
 
 	public int getId() {

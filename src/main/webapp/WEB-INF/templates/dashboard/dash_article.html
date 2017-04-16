@@ -63,13 +63,6 @@
 				<h6>Kategorija</h6>
 			</div>
 			<div class="panel-element panel-body">
-<!-- 				<select th:field="*{author}" name="author"> -->
-<!-- 					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista -->
-<!-- 					</option> -->
-<!-- 				</select> -->
-<!-- 				<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}"> -->
-<!-- 						<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a> -->
-<!-- 				</span> -->
 			<div class="select-wrapper">
 				<button class="bttn bttn-default bttn-select" type="button" id="categories-select">Kategorije</button>
 				<!-- dropdown menu -->
@@ -83,11 +76,26 @@
 					</label>
 				</div>			
 			</div>
-			<div class="selected-categories"></div>
-				
-				
+			<div class="selected-categories"></div>				
+			</div>			
+		</div>
+		
+		<!-- Oznake | desno -->
+		<div class="panel side-panel">
+			<div class="panel-element panel-heading">
+				<h6>Oznake</h6>
 			</div>
-			
+			<div class="panel-element panel-body">
+			<div class="select-wrapper">
+				<button class="bttn bttn-default bttn-select" type="button" id="categories-select">Oznake</button>
+				<!-- dropdown menu -->
+				<div class="select-content-box">
+					<input type="text" class="search-field" th:src="@{/sbk-admin/article/tag/search}">
+					<div class="search-result"></div>
+				</div>			
+			</div>
+			<div class="selected-tags"></div>				
+			</div>			
 		</div>
 	</div>
 </form>	

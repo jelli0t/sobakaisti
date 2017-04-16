@@ -3,6 +3,7 @@ package org.sobakaisti.mvt.service;
 import java.util.List;
 
 import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Tag;
 
 public interface ArticleService {
 
@@ -33,4 +34,6 @@ public interface ArticleService {
 	 * @return poruka o promeni statusa
 	 * */
 	public String switchArticleStatus(int articleId);
+	
+	public List<Tag> getTagSerachResult(String phrase);
 }

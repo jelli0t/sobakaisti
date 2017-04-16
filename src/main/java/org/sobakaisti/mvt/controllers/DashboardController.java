@@ -11,6 +11,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,5 +154,12 @@ public class DashboardController {
 			return new ResponseEntity<String>(message, HttpStatus.OK);
 		}		
 		return new ResponseEntity<String>("Greska promeni statusa.", HttpStatus.SERVICE_UNAVAILABLE);
+	}
+	
+	@RequestMapping(value="/article/tag/search", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Tag>> searchArticleTags(@RequestParam("phrase") String phrase){
+		List<Tag> tags = articleService.getTagSerachResult(phrase);
+		return new ResponseEntity<List<Tag>>(tags, HttpStatus.OK);
 	}
 }

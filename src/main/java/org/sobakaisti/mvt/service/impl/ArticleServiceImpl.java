@@ -15,6 +15,7 @@ import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,5 +124,10 @@ public class ArticleServiceImpl implements ArticleService{
 			return "Uspesno ste deaktivirali clanak.";
 		}
 		return null;
+	}
+
+	@Override
+	public List<Tag> getTagSerachResult(String phrase) {
+		return articleDao.searchTagsByPhrase(phrase);
 	}
 }

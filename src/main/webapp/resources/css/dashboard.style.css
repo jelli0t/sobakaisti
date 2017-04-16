@@ -728,3 +728,5 @@ td {
 	cursor: pointer;
 }
 .selected-categories { padding-top: 10px; }
+
+.search-field { width: 150px !important; }

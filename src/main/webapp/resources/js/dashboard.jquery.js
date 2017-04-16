@@ -88,6 +88,17 @@ $(function() {
 	$('form input[name=categories]').change(function() {
 		$(this).displaySelectedCategories();
 	});
+	
+	
+	$(document).on('keyup', '.search-field', function(evt) {
+		evt.preventDefault();
+		var value = $(this).val();
+		if(value.length > 1) {
+			$(this).ajaxSearch();
+		}
+			
+	});
+	
 }); // End Of Ready
 
 
@@ -413,4 +424,36 @@ $.fn.displaySelectedCategories = function() {
 	}else {
 		$('#cat_'+value).remove();
 	}
+}
+
+$.fn.ajaxSearch = function() {
+	var csrf = getCsrfParams();	
+	var uri = $(this).attr('src');
+	var value = $(this).val();
+	console.log('uri: '+uri+"; val: "+value);
+	$.ajax({
+	    url: uri,
+	    type: 'GET',
+	    data: { 'phrase': value},
+	    contentType: 'application/json; charset=utf-8',
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	})
+	.done(function( tags ) {
+		console.log("success: "+tags);
+		var span = '';
+		$.each(tags, function(i){
+			span += '<span class="label tag">'+tags[i].tag+'</span>';
+		});
+		$('.search-result').empty().append(span);
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	})
+	.always(function( xhr, status ) {
+		console.log( "After all: " + status );
+	});
 }

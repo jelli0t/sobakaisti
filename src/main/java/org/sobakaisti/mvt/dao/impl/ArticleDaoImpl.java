@@ -1,5 +1,6 @@
 package org.sobakaisti.mvt.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateError;
@@ -9,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.IntroArticle;
+import org.sobakaisti.mvt.models.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -135,4 +137,17 @@ public class ArticleDaoImpl implements ArticleDao{
 		return -1;
 	}
 
+	@Override
+	@Transactional
+	public List<Tag> searchTagsByPhrase(String phrase) {
+		Session session = sessionFactory.getCurrentSession();
+		final String HQL = "from Tag t where t.tag like :phrase";
+		List<Tag> tags = new ArrayList<Tag>();
+		try {
+			tags = session.createQuery(HQL).setString("phrase", phrase+"%").list();
+			return tags;
+		} catch (Exception e) {
+			return tags;
+		}	
+	}
 }

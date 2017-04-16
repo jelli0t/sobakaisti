@@ -6,6 +6,7 @@ package org.sobakaisti.mvt.dao;
 import java.util.List;
 
 import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Tag;
 
 /**
  * @author jelles
@@ -54,4 +55,9 @@ public interface ArticleDao {
 	 *  public / draft
 	 * */
 	public int switchArticleStatus(int articleId);
+	
+	/**
+	 * metoda koja pronalazi sve tagove na osnovu prosledjene fraze
+	 * */
+	public List<Tag> searchTagsByPhrase(String phrase);
 }
