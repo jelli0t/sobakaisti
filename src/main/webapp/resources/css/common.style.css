@@ -92,7 +92,18 @@ a:link, a:VISITED {
 	width: 100%;
 	font-size: 0.8em;
 	padding: 3px 10px;
+	outline: none;
 }
+
+.bttn-close {
+	float: right;
+/* 	width: 10px; */
+/* 	height: 10px; */
+	padding-left: 4px;
+	opacity: 0.7;
+}
+.bttn-close:hover { opacity: 1.0 }
+
 .select-wrapper::after {
 	font-family: 'Pe-icon-7-stroke';
 	position: absolute;
@@ -111,3 +122,10 @@ a:link, a:VISITED {
 	font-size: 12px;
 	margin: 0 3px;
 }
+
+/* table cell width  */
+.th-xs  { width: 25px; }
+.th-s  { width: 50px; }
+.th-m  { width: 150px; }
+.th-l  { width: 200px; }
+.th-xl { max-width: 300px; }

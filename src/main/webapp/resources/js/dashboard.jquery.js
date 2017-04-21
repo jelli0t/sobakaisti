@@ -4,6 +4,11 @@ $(function() {
 	var $authorBox;
 	var degree = 0;
 	
+	// TODO staviti vam ready(), proba
+	var removeMeta = new Object();
+		
+	var shared = $('#hidden-settings').prepare();
+	
 	/*	Adds Author	*/
 	$('#submit-author').on('click', function(){
 		var csrf = getCsrfParams();
@@ -26,9 +31,11 @@ $(function() {
 		hideAllDropdowns();
 		console.log('Izlazim.');
 	});
+	
 	$('.dialog-yes').on('click',function(evt){
 		console.log('Klknuo na YES brisem box.');
-		deleteItem(uri, $authorBox);
+//		deleteItem(uri, $authorBox);
+		deleteArticle(removeMeta.uri, removeMeta.item);
 	});
 	
 	$('#author-form input').focusin(function(){
@@ -50,13 +57,12 @@ $(function() {
 	});
 	
 	$(document).on('click','.delete-link', function(evt){
-		evt.preventDefault();
-		uri = $(this).attr('href');
-		var articleId = $(this).attr('alt');
-		$articleTr = $('#article-overview-item-'+articleId);	
-		
-//		callAnchor('delete');
-		deleteArticle(uri, $articleTr);
+		evt.preventDefault();		
+		removeMeta.itemId = $(this).attr('alt');
+		removeMeta.uri = $(this).attr('href');
+		removeMeta.item = $('#item-'+removeMeta.itemId);
+				
+		callAnchor('delete');
 	});
 	
 	$(document).on('click', '.change-status-link', function(evt){
@@ -85,6 +91,11 @@ $(function() {
 		$(this).next('.select-content-box').toggle();
 	});
 	
+	$(document).on('click', '.bttn-select', function(evt){
+		evt.preventDefault();			
+		$(this).next('.select-menu-modal').toggle();
+	});
+	
 	$('form input[name=categories]').change(function() {
 		$(this).displaySelectedCategories();
 	});
@@ -95,12 +106,30 @@ $(function() {
 		var value = $(this).val();
 		if(value.length > 1) {
 			$(this).ajaxSearch();
-		}
-			
+		}		
 	});
+	
+	$('.bttn-close').on('click', function(evt){
+		evt.preventDefault();
+		$(this).parent().parent('.select-menu-modal').hide();
+	});
+	
+	$(document).on('click', '.founded-tag', function(evt){
+		evt.preventDefault();
+		$tag = $(this).append(shared.closeButton.clone());		
+		$('.selected-tags').append($tag);
+	});
+	
 	
 }); // End Of Ready
 
+
+$.fn.prepare = function(){
+	var shared = new Object();
+	shared.closeButton = $(this).children('.bttn-close');
+	shared.alert = "IZ objekta!";
+	return shared;
+};
 
 function callAnchor(target){
 	location.hash = target;
@@ -351,6 +380,7 @@ function deleteArticle(url, $authorBox){
 	    console.dir( xhr );
 	}).always(function( xhr, status ) {
 		console.log( "After removing: " + status );
+		callAnchor('');
 	});
 }
 /*
@@ -444,7 +474,7 @@ $.fn.ajaxSearch = function() {
 		console.log("success: "+tags);
 		var span = '';
 		$.each(tags, function(i){
-			span += '<span class="label tag">'+tags[i].tag+'</span>';
+			span += '<span class="label tag founded-tag">'+tags[i].tag+'<input type="hidden" name="tags" value="'+tags[i].id+'"></span>';
 		});
 		$('.search-result').empty().append(span);
 	})
@@ -457,3 +487,4 @@ $.fn.ajaxSearch = function() {
 		console.log( "After all: " + status );
 	});
 }
+

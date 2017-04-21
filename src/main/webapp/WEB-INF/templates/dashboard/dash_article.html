@@ -76,7 +76,7 @@
 					</label>
 				</div>			
 			</div>
-			<div class="selected-categories"></div>				
+			<div class="selected-categories selected-result"></div>				
 			</div>			
 		</div>
 		
@@ -89,12 +89,18 @@
 			<div class="select-wrapper">
 				<button class="bttn bttn-default bttn-select" type="button" id="categories-select">Oznake</button>
 				<!-- dropdown menu -->
-				<div class="select-content-box">
-					<input type="text" class="search-field" th:src="@{/sbk-admin/article/tag/search}">
+				<div class="select-menu-modal">
+					<div class="select-menu-header">
+						<span class="select-menu-title">Pretraga oznaka</span> 
+						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
+					</div>
+					<div class="select-menu-filters">
+						<input type="text" class="search-field" th:src="@{/sbk-admin/article/tag/search}">
+					</div>					
 					<div class="search-result"></div>
 				</div>			
 			</div>
-			<div class="selected-tags"></div>				
+			<div class="selected-tags selected-result"></div>				
 			</div>			
 		</div>
 	</div>
@@ -113,6 +119,10 @@
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
 <script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.js}"></script>
+
+<div id="hidden-settings" style="display:none;">
+	<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel _white.svg}" width="8" height="8"/></a>				
+</div>	
 	
 <a th:href="@{/sbk-admin/articles/new/slug}" id="slug-href" style="display:none;"></a>
 </body>
