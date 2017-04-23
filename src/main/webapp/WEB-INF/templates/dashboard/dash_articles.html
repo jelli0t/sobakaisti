@@ -61,7 +61,7 @@
 						<li><a th:href="@{/sbk-admin/article/edit/{id}(id=${id})}" class="tool-icon edit-link" title="Izmeni">
 							<img alt="x" th:src="@{/resources/img/icons/edit.svg}" width="16" height="16"/>
 						</a></li>
-						<li><a th:href="@{/sbk-admin/article/delete/{id}(id=${id})}" class="tool-icon delete-link" th:alt="${article.id}" title="Obriši članak">
+						<li><a th:href="@{/sbk-admin/article/delete/{id}(id=${id})}" class="tool-icon delete-item" th:alt="${article.id}" title="Obriši članak">
 							<img alt="x" th:src="@{/resources/img/icons/trash.svg}" width="16" height="16"/>
 						</a></li>
 					</ul>
@@ -71,18 +71,6 @@
 	</table>
 </div>
 
-</div>
-
-<!-- Delete Box -->
-<div class="overlay" id="delete">
-<div class="dialog-box">
-	<a href="#"><span class="popup-close">&#xe681;</span></a>
-	<div class="dialog-content" th:text="#{warn.author.deleteConfirm}">Da li ste sigurni da želite da obrišete članak?</div>
-	<div class="dialog-options">
-		<a href="javascript:void(0)" class="dialog-yes dialog-option" th:text="#{button.label.yes}">Da</a>
-		<a href="#" class="dialog-no dialog-option" th:text="#{button.label.no}">Ne</a>
-	</div>
-</div>
 </div>
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>

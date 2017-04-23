@@ -1,12 +1,8 @@
 $(function() {
-	
-	var uri;
-	var $authorBox;
 	var degree = 0;
 	
 	// TODO staviti vam ready(), proba
-	var removeMeta = new Object();
-		
+	var removeMeta = new Object();		
 	var shared = $('#hidden-settings').prepare();
 	
 	/*	Adds Author	*/
@@ -21,23 +17,7 @@ $(function() {
 		evt.preventDefault();
 		$(this).next('.dropdown-menu').toggle();
 	});	 
-	
-	/* Delete item */
-	$(document).on('click','.delete-item', function(evt){
-		evt.preventDefault();
-		uri = $(this).attr('href');
-		$authorBox = $(this).closest('.author-box');	
-		callAnchor('delete');		
-		hideAllDropdowns();
-		console.log('Izlazim.');
-	});
-	
-	$('.dialog-yes').on('click',function(evt){
-		console.log('Klknuo na YES brisem box.');
-//		deleteItem(uri, $authorBox);
-		deleteArticle(removeMeta.uri, removeMeta.item);
-	});
-	
+
 	$('#author-form input').focusin(function(){
 		$input = $(this);
 		hideErrorMessageBox($input);
@@ -56,13 +36,32 @@ $(function() {
 		postArticle($form);		
 	});
 	
-	$(document).on('click','.delete-link', function(evt){
+	/* Delete item */
+//	$(document).on('click','.delete-item', function(evt){
+//		evt.preventDefault();
+//		uri = $(this).attr('href');
+//		$authorBox = $(this).closest('.author-box');	
+//		callAnchor('delete');		
+//		hideAllDropdowns();
+//	});
+	
+	/**
+	 * Na klik ikonicu za brisanje poziva se dialog
+	 * */
+	$(document).on('click','.delete-item', function(evt){
 		evt.preventDefault();		
 		removeMeta.itemId = $(this).attr('alt');
 		removeMeta.uri = $(this).attr('href');
-		removeMeta.item = $('#item-'+removeMeta.itemId);
-				
-		callAnchor('delete');
+		removeMeta.item = $('#item-'+removeMeta.itemId);		
+		/* pozivam dialog box i cekam potvrdu za brisanje*/
+		$(this).confirmationDispatcher(removeMeta, function (confirmed) {
+		    if (confirmed) {
+		    	/* potvrdjeno brisanje pozivam delete ajax funkciju */
+		    	$(this).deleteItem(removeMeta);
+		    } else {
+		    	callAnchor('');
+		    }
+		});
 	});
 	
 	$(document).on('click', '.change-status-link', function(evt){
@@ -211,31 +210,6 @@ function addAuthor(csrf, $form){
 	});
 }
 
-/*
- * 	AJAX Delete function
- * */
-function deleteItem(url, $authorBox){
-	var csrf = getCsrfParams();	
-	console.log('Brisem Autora na URI: '+url);	
-	$.ajax({
-	    url: url,
-	    type: 'DELETE',
-	    beforeSend: function(xhr) {
-            xhr.setRequestHeader(csrf[0], csrf[1]);
-        }
-	}).done(function( json ) {
-		console.log("Uspesno obrisan!");
-    	$authorBox.remove();
-    	callAnchor('');
-	}).fail(function( xhr, status, errorThrown ) {
-	    console.log( "Error: " + errorThrown );
-	    console.log( "Status: " + status );
-	    console.dir( xhr );
-	}).always(function( xhr, status ) {
-		console.log( "After removing: " + status );
-	});
-}
-
 function populateNewAuthorBox(author){
 	var $author_box = '<div class="author-box success-border"><div class="author-settings"><span class="dropdown-icon">&#xe689;</span><ul class="dropdown-menu">'
 						+'<li class="dropdown-item">Edit</li>'
@@ -358,28 +332,39 @@ function postArticle($form){
 	});
 
 }
-
-/*
- * 	AJAX Delete function
+/**
+ * funkcija za prikaz delete dialog box-a, hvatanje odgovora.
  * */
-function deleteArticle(url, $authorBox){
+$.fn.confirmationDispatcher = function(removeMeta, callback) {
+    console.log('Prikazujem delete dialog box. ');
+    callAnchor('delete');
+    $('.dialog-yes').on('click', function(){
+    	console.log('Potvrdni button');
+    	callback(true);
+    });
+}
+/**
+ * 	AJAX Delete function
+ *  @param removeMeta - podaci sa linka za brisanje itema
+ * */
+$.fn.deleteItem = function(removeMeta){
 	var csrf = getCsrfParams();	
-	console.log('Brisem clanak na URI: '+url);	
+	console.log('Brisem objekat na URI: '+removeMeta.uri);	
 	$.ajax({
-	    url: url,
+	    url: removeMeta.uri,
 	    type: 'DELETE',
 	    beforeSend: function(xhr) {
             xhr.setRequestHeader(csrf[0], csrf[1]);
         }
 	}).done(function( json ) {
 		console.log("success: "+json);
-		$authorBox.remove();
+		/* uklanjam DOM el */
+		$(removeMeta.item).remove();
 	}).fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
 	    console.log( "Status: " + status );
 	    console.dir( xhr );
 	}).always(function( xhr, status ) {
-		console.log( "After removing: " + status );
 		callAnchor('');
 	});
 }
@@ -487,4 +472,3 @@ $.fn.ajaxSearch = function() {
 		console.log( "After all: " + status );
 	});
 }
-

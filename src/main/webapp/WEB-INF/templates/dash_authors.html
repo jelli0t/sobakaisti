@@ -16,14 +16,13 @@
 <!-- Side navigation manu -->
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}"></section>
 
-
 <div class="dash-main-container">	
-	<div th:each="author : ${authors}" class="author-box">
+	<div th:each="author : ${authors}" class="author-box" th:id="'item-'+${author.id}">
 	<div class="author-settings" th:with="id=${author.id}">
 		<span class="dropdown-icon">&#xe689;</span>
 		<ul class="dropdown-menu">
-			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/edit/{id}(id=${id})}" class="edit-item item-link" th:text="#{menu.item.edit}">Edit</a></li>
-			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}" class="delete-item item-link" th:text="#{menu.item.delete}">Delete</a></li>
+			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/edit/{id}(id=${id})}" class="edit-item item-link" th:alt="${author.id}" th:text="#{menu.item.edit}">Edit</a></li>
+			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}" class="delete-item item-link" th:alt="${author.id}" th:text="#{menu.item.delete}">Delete</a></li>
 		</ul>
 	</div>
 		<div class="author-cover"></div>
@@ -90,18 +89,6 @@
 </div>
 </form>
 </div> <!-- End of overlay -->
-
-<!-- Delete Box -->
-<div class="overlay" id="delete">
-<div class="dialog-box">
-	<a href="#"><span class="popup-close">&#xe681;</span></a>
-	<div class="dialog-content" th:text="#{warn.author.deleteConfirm}">Da li ste sigurni da želite da obrišete autora?</div>
-	<div class="dialog-options">
-		<a href="javascript:void(0)" class="dialog-yes dialog-option" th:text="#{button.label.yes}">Da</a>
-		<a href="#" class="dialog-no dialog-option" th:text="#{button.label.no}">Ne</a>
-	</div>
-</div>
-</div>
 
 <div class="modal-backdrop"></div> 
 
