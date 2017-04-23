@@ -19,10 +19,10 @@
 		<thead>
 			<tr class="table-header">
 				<th class="th-xs"></th>
-				<th class="th-xl">Članak</th>				
-				<th class="th-m">Kategorija</th>
-				<th class="th-l">Oznaka</th>
-				<th class="th-s"></th>
+				<th class="th-xl" th:text="#{label.article}">Article</th>				
+				<th class="th-m" th:text="#{label.categories}">Kategorija</th>
+				<th class="th-l" th:text="#{label.tags}">Oznaka</th>
+				<th class="th-s" th:text="#{label.comments}"></th>
 				<th class="th-s"></th>
 			</tr>
 		</thead>
@@ -36,9 +36,8 @@
 				<td th:with="slug=${article.slug}">
 					<a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="title-link" th:text="${article.title}"></a>
 					<div>
-					<span class="artice-meta">autor</span>
-					<span class="artice-meta" th:text="${article.author.firstName}"></span>
-					<span class="artice-meta" th:text="${article.author.lastName}"></span>
+					<span class="artice-meta" th:text="#{label.author}">autor</span>
+					<span class="artice-meta" th:text="${article.author.firstName}+' '+${article.author.lastName}"></span>
 					<span class="artice-meta">napisan</span>
 					<span class="artice-meta" th:text="${#dates.format(article.postDate, 'dd. MMM. yyyy.')}"></span>
 					</div>					
