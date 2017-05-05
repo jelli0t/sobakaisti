@@ -95,14 +95,14 @@ a:link, a:VISITED {
 	outline: none;
 }
 
-.bttn-close {
+.bttn-close, .bttn-remove {
 	float: right;
 /* 	width: 10px; */
 /* 	height: 10px; */
 	padding-left: 4px;
 	opacity: 0.7;
 }
-.bttn-close:hover { opacity: 1.0 }
+.bttn-close:hover, .bttn-remove:hover { opacity: 1.0 }
 
 .select-wrapper::after {
 	font-family: 'Pe-icon-7-stroke';

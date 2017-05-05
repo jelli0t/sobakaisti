@@ -84,12 +84,9 @@ $(function() {
 		var json = $('#ser-test').serializeObject();
 		console.log(JSON.stringify(json));
 	});
-	
-	$(document).on('click', '#categories-select', function(evt){
-		evt.preventDefault();			
-		$(this).next('.select-content-box').toggle();
-	});
-	
+	/*
+	 * klik na select button
+	 * */	
 	$(document).on('click', '.bttn-select', function(evt){
 		evt.preventDefault();			
 		$(this).next('.select-menu-modal').toggle();
@@ -110,13 +107,19 @@ $(function() {
 	
 	$('.bttn-close').on('click', function(evt){
 		evt.preventDefault();
+		console.log('close!');
 		$(this).parent().parent('.select-menu-modal').hide();
 	});
 	
 	$(document).on('click', '.founded-tag', function(evt){
 		evt.preventDefault();
-		$tag = $(this).append(shared.closeButton.clone());		
+		$tag = $(this).append(shared.removeButton.clone()).removeClass('founded-tag');		
 		$('.selected-tags').append($tag);
+	});
+	
+	$(document).on('click', '.bttn-remove', function(evt){
+		evt.preventDefault();
+		$(this).parent('.tag').remove();
 	});
 	
 	
@@ -126,6 +129,7 @@ $(function() {
 $.fn.prepare = function(){
 	var shared = new Object();
 	shared.closeButton = $(this).children('.bttn-close');
+	shared.removeButton = $(this).children('.bttn-remove');
 	shared.alert = "IZ objekta!";
 	return shared;
 };
@@ -459,7 +463,7 @@ $.fn.ajaxSearch = function() {
 		console.log("success: "+tags);
 		var span = '';
 		$.each(tags, function(i){
-			span += '<span class="label tag founded-tag">'+tags[i].tag+'<input type="hidden" name="tags" value="'+tags[i].id+'"></span>';
+			span += '<span class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tags" value="'+tags[i].id+'"></span>';
 		});
 		$('.search-result').empty().append(span);
 	})

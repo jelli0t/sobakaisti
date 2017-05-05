@@ -77,7 +77,7 @@ public class AccountAuthenticationProvider implements AuthenticationProvider{
 		}
 		/*	Uzima account obj iz baze
 		 * 	proverava da li se uneta i trenutna lozinka podudaraju
-		 * pravi token koji æe da preda za security context
+		 * pravi token koji ce da preda za security context
 		 */
 		try{
 			account = (Account) accountDetailsService.loadUserByUsername(principal);			
