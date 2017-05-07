@@ -5,7 +5,10 @@ package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.transaction.Transactional;
 
@@ -74,16 +77,20 @@ public class ArticleServiceImpl implements ArticleService{
 
 	@Override
 	public Article saveArticle(Article article) {
+		Locale defaultLocale = Locale.getDefault();
+		ResourceBundle bundle = ResourceBundle.getBundle("messages", defaultLocale);
+		
 		Author author = authorDao.getAuthorById(article.getAuthor().getId());
 		article.setCategories(prepareCategoriesForArticle(article));		
 		article.setAuthor(author);
 		article.setPostDate(Calendar.getInstance());		
-		article = articleDao.saveArticle(article);
+		boolean success = articleDao.saveArticle(article);
 		
-		if(article != null)
+		if(success){			
 			return article;
-		else
+		} else {
 			return null;
+		}
 	}
 
 	@Override

@@ -37,9 +37,9 @@ public interface ArticleDao {
 	/**
 	 * Metoda cuva clanak
 	 * @param clanka
-	 * @return sacuvani clanak
+	 * @return boolean
 	 * */
-	public Article saveArticle(Article article);
+	public boolean saveArticle(Article article);
 	
 	
 	public List<Article> getArticlesSortedByDate();

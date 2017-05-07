@@ -29,11 +29,18 @@ $(function() {
 	});
 	
 	
-	$('#post-bttn').on('click', function(evt){
+	$('#post-bttn, #save-draft-bttn').on('click', function(evt){
 		evt.preventDefault();
 		callAnchor('loading');
-		var $form = $('#post-article-form');
-		postArticle($form);		
+		/* u zavisnosti koji bttn je kliknut postavlja vrednost active */
+		if($(this).is('#post-bttn')){
+			$('#post-article-form input[name=active]').val(1);
+			console.log('publikujem post, postavljam active=1');
+		} else if ($(this).is('#save-draft-bttn')){
+			$('#post-article-form input[name=active]').val(0);
+			console.log('cuvam nacrt posta, postavljam active=0');
+		}
+		$('#post-article-form').postArticle();
 	});
 	
 	/* Delete item */
@@ -113,6 +120,7 @@ $(function() {
 	
 	$(document).on('click', '.founded-tag', function(evt){
 		evt.preventDefault();
+		console.log('Kliknuo na tag.');
 		$tag = $(this).append(shared.removeButton.clone()).removeClass('founded-tag');		
 		$('.selected-tags').append($tag);
 	});
@@ -166,6 +174,11 @@ $.fn.serializeObject = function()
             	var categoy = {};
             	categoy['id'] = this.value || '';
             	o[this.name] = [categoy];
+            }
+            else if(this.name === 'tags'){ 
+            	var tags = {};
+            	tags['id'] = this.value || '';
+            	o[this.name] = [tags];
             }
         }
     });
@@ -296,10 +309,12 @@ function makeSlugFromTitle($input){
 	    $('#article-slug').val('');	    
 	})
 }
-
-function postArticle($form){
-	var json = $form.serializeObject();
-	var uri = $form.attr('action');
+/*
+ * Poziv ajax funkciji za cuvanje clanka
+ * */
+$.fn.postArticle = function(){
+	var json = $(this).serializeObject();
+	var uri = $(this).attr('action');
 	var csrf = getCsrfParams();
 		
 	console.log(JSON.stringify(json));

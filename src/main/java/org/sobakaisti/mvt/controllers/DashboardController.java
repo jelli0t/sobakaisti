@@ -115,21 +115,15 @@ public class DashboardController {
 	
 	@RequestMapping(value="/articles/new/save", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<Object> saveNewArticle(@Valid @RequestBody Article article, BindingResult result){		
+	public ResponseEntity<Object> saveNewArticle(@Valid @RequestBody Article article, BindingResult result){
 		if(!result.hasErrors()){
-			Article savedArticle = articleService.saveArticle(article);
-			System.out.println("Article: "+savedArticle.getTitle());
-			System.out.println("content: "+savedArticle.getContent());
-			System.out.println("slug: "+savedArticle.getSlug());
-//			System.out.println("Author name: "+savedArticle.getAuthor());
-//			System.out.println("kategorije: "+article.getCategories().size());
-			
+			Article savedArticle = articleService.saveArticle(article);	
 			return new ResponseEntity<Object>(savedArticle, HttpStatus.OK);
 		}else{
 			return new ResponseEntity<Object>(result.getFieldError(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 	}
-	
+		
 	@RequestMapping(value="/article/delete/{id}", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> deleteArticle(@PathVariable("id") int id){	
