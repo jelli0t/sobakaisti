@@ -48,14 +48,50 @@
 		<div class="header-nav-mouseover"></div>	
 	</div>
 
-	<div id="triangle-container">
-		<a th:href="@{/}" th:title="#{title.attr.backBttn}" class="">
-			<span class="triangle-icon"></span>
-			<span class="triangle-label" th:text="#{button.label.back}">NAZAD</span>
-		</a>
+<!-- 	<div id="triangle-container"> -->
+<!-- 		<a th:href="@{/}" th:title="#{title.attr.backBttn}" class=""> -->
+<!-- 			<span class="triangle-icon"></span> -->
+<!-- 			<span class="triangle-label" th:text="#{button.label.back}">NAZAD</span> -->
+<!-- 		</a> -->
+<!-- 	</div> -->
+	
+	<!-- Logo / indikator stranice / soc. network -->
+	<div class="header-content">
+		<!-- top half of header -->
+		<div class="header-content-tophalf">
+			<!-- site logo -->
+			<div class="header-logo fleft">
+				<a th:href="@{/rs/movement}"><img alt="Pokret" th:src="@{/resources/img/sobakaisti_logo.jpg}" height="26"></a>
+			</div>
+			<!-- socila networks -->
+			<div class="social-container fright">
+				<span class="facebook-ico social-ico">
+					<a th:href="@{https://www.facebook.com/sobakaisti/}" target="_blank" title="Facebook"></a>
+				</span>
+				<span class="twitter-ico social-ico">
+					<a th:href="@{https://twitter.com/sobakaisti}" target="_blank" title="Twitter"></a>
+				</span>
+				<span class="youtube-ico social-ico"></span>
+				<span class="tumblr-ico social-ico">
+					<a th:href="@{http://sobakaisti.tumblr.com/}" target="_blank" title="Tumblr"></a>					
+				</span>
+			</div>
+		</div>
+		<!-- bottom half of the header -->
+		<div class="header-content-bottomhalf">
+			<!-- left autor filter div -->
+			<div class="header-author-filter"></div>
+			<div class="header-page-indicator">
+				<span class="single-circle page-indikator-circle" th:text="#{nav.item.manifesto}">MANIFEST</span>
+			</div>
+			
+			<!-- right author filter div -->
+			<div class="header-author-filter"></div>
+		</div>
 	</div>
 	
-	<span class="single-circle page-indikator-circle" th:text="#{nav.item.manifesto}">MANIFEST</span>
-
+		
+	
+	
 </header>
 </html>

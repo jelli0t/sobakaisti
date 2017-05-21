@@ -13,6 +13,8 @@ a {
 	outline: 0;
 }
 ul { list-style: none; }
+.fleft { float:left; }
+.fright { float: right; } 
 
 /*	HEADER	*/
 #triangle-container {
@@ -87,9 +89,8 @@ ul { list-style: none; }
 	position: absolute;
 	top:0;
 	width:100%;
-	height: 34px;
+	height: 36px;
 	background-color: #fff;
-/* 	border: 1px solid red; */
 }
 
 /* https://css-tricks.com/reading-position-indicator/ */
@@ -98,73 +99,90 @@ ul { list-style: none; }
 	left: 0;
 	top: 34px;
 	width: 100%;
-	height: 2px;
-	
+	height: 2px;	
 	/* Reset the appearance */
 	-webkit-appearance: none;
 	   -moz-appearance: none;
-	        appearance: none;
-	
+	        appearance: none;	
 	/* Get rid of the default border in Firefox/Opera. */
 	border: none;
-	background-color: #fff;
+	background-color: transparent;
 	color: #1fa0ae;
+	z-index: 998;
 }
 progress[value] { color: #1fa0ae; }
 progress::-webkit-progress-bar-value {background-color: #1fa0ae; }
 progress::-webkit-progress-value {background-color: #1fa0ae; }
-progress[value]::-webkit-progress-bar { background-color: #FFF; }
+progress[value]::-webkit-progress-bar { background-color: transparent; }
 progress::-moz-progress-bar {background-color: #1fa0ae; }
 
 .header-nav-container > .header-nav-mouseover {	
 /* 	border: 1px solid red; */
 	position: absolute;
-	top: 36px;
+	top: 38px;
 	height: 20px;
 	width: 100%;
-	background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1)); 	/* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1)); 		/* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1)); 		/* For Firefox 3.6 to 15 */
-    background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1)); 		/* Standard syntax (must be last) */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1)); /*	For Safari 5.1 to 6.0*/
+    background: -o-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1)); 		/*	For Opera 11.1 to 12.0	*/
+    background: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1)); 	/*	For Firefox 3.6 to 15	*/
+    background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1)); 		/* Standard syntax (must be last)*/
 }
 
-.header-nav-container .header-nav {
-	display: none;
-	position: absolute;
-	right: 10px;
-	top: 36px;
-	padding: 10px 20px 10px 30px;
-	font-size: 1em;
-	border: 1px solid #dedede;
-	border-radius: 3px;
-	background-color: #fff;
-	z-index: 998;	
-    box-shadow: 0 2px 0 rgba(0,0,1,0.05);
-    text-align: right;
-}
-.header-nav-container .header-nav:AFTER {
-	content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border: 12px solid transparent;
-    border-bottom-color: #fff;
-    top: -24px;
-    right: 7px;
-}
-.header-nav-container .header-nav > li {
-	padding: 4px;
-}
+/* .header-nav-container .header-nav { */
+/* 	display: none; */
+/* 	po6ition: absolute; */
+/* 	right: 10px; */
+/* 	top: 34px; */
+/* 	padding: 10px 20px 10px 30px; */
+/* 	font-size: 1em; */
+/* 	border: 1px solid #dedede; */
+/* 	border-radius: 3px; */
+/* 	background-color: #fff; */
+/* 	z-index: 998;	 */
+/*     box-shadow: 0 2px 0 rgba(0,0,1,0.05); */
+/*     text-align: right; */
+/* } */
+/* .header-nav-container .header-nav:AFTER { */
+/* 	content: ""; */
+/*     position: absolute; */
+/*     width: 0; */
+/*     height: 0; */
+/*     border: 12px solid transparent; */
+/*     border-bottom-color: #fff; */
+/*     top: -24px; */
+/*     right: 7px; */
+/* } */
+/* .header-nav-container .header-nav > li { */
+/* 	padding: 4px; */
+/* } */
+
 /* main header navigation	*/
 .header-nav-main {
 	position: relative;
-	height: 34px;
-	max-width:1124px;
+	text-align: center;
+	height: 36px;
+	max-width:1024px;
 	margin: 0 auto;
 	padding: 0 16px;
+	background-color: #fff;
+	box-sizing: border-box;
+	border-bottom: 2px solid #343434;
 }
-.header-nav-main > .header-navigation { 
-	float: right;
+/* trougao na top menu */
+.header-nav-main:before {
+	position:absolute;
+	top: 36px;
+	left: 50%;
+	margin-left: -16px;
+	content: ' ';
+	width: 0; 
+	height: 0; 
+	border-left: 16px solid transparent;
+	border-right: 16px solid transparent;
+	border-top: 15px solid #343434;
+	z-index: 999;
+}
+.header-nav-main > .header-navigation {
 	display: inline-block;
 	text-transform: uppercase;
 	font-family: inherit;
@@ -208,6 +226,20 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	background-image:  url('../img/social/menu-button.svg');
 	cursor: pointer;
 }
+
+/* HEADER CONTENT */
+.header-content {
+	position: relative;
+	display: block;
+	max-width: 1024px;
+	margin: 50px auto 0 auto;
+	box-sizing: border-box;
+	
+/* 	border:1px solid green; */
+}
+
+
+
 /*	FOOTER	*/
 
 footer {
