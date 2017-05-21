@@ -7,6 +7,7 @@ html, body, div, img, ul {
 	font-family: 'Noto Sans', sans-serif;
 }
 body { background: #fdfdff;}
+div { display: block; } 
 a {
 	text-decoration: none;
 	color: #343434;
@@ -65,7 +66,7 @@ ul { list-style: none; }
 	position: relative;
 	max-width: 710px;
 	height:auto;
-	margin: 15% auto 80px auto;
+	margin: 5% auto 80px auto;
 	padding: 15px;
 /* 	border: 1px solid gray; */
 }
@@ -119,7 +120,7 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 .header-nav-container > .header-nav-mouseover {	
 /* 	border: 1px solid red; */
 	position: absolute;
-	top: 38px;
+	top: 36px;
 	height: 20px;
 	width: 100%;
 	background: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,1)); /*	For Safari 5.1 to 6.0*/
@@ -161,9 +162,9 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	position: relative;
 	text-align: center;
 	height: 36px;
-	max-width:1024px;
+	max-width:1000px;
 	margin: 0 auto;
-	padding: 0 16px;
+/* 	padding: 0 16px; */
 	background-color: #fff;
 	box-sizing: border-box;
 	border-bottom: 2px solid #343434;
@@ -231,11 +232,17 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 .header-content {
 	position: relative;
 	display: block;
-	max-width: 1024px;
+	max-width: 1000px;
+	min-height: 100px;
 	margin: 50px auto 0 auto;
 	box-sizing: border-box;
 	
 /* 	border:1px solid green; */
+}
+
+.header-content .header-content-tophalf {
+/* 	border: 1px solid red; */
+/* 	height: 15px; */
 }
 
 
