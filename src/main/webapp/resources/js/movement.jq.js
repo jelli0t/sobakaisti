@@ -12,9 +12,21 @@ $(function() {
 	max = docHeight - winHeight;
 	$progressBar.attr('max', max);
 	
+	var fifthPercent = docHeight * 0.05;
+	var pastWaypoint = false;
+		
 	$(document).on('scroll', function(){
 	   value = $(window).scrollTop();
 	   $progressBar.attr('value', value);
+	   
+	   /* uklanja/prikazuje logo i mreze iz top navigacije */
+	   if(value > fifthPercent && !pastWaypoint){
+		   $('.logo-navigation, .navigation-social').show();
+		   pastWaypoint = true;
+	   }else if(value <= fifthPercent && pastWaypoint){
+		   $('.logo-navigation, .navigation-social').hide();
+		   pastWaypoint = false;
+	   }
 	});
 	
 	$('.header-nav-container .header-nav-bttn').on('click', function(){
@@ -29,6 +41,10 @@ $(function() {
 	    	 $(this).animate({marginTop:'-34px'}, {duration: 800, easing: 'swing' });
 	    }
 	}, '.header-nav-container');
+	
+	
+	
+	
 });
 
 

@@ -162,7 +162,7 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	position: relative;
 	text-align: center;
 	height: 36px;
-	max-width:1000px;
+	max-width:980px;
 	margin: 0 auto;
 /* 	padding: 0 16px; */
 	background-color: #fff;
@@ -201,14 +201,18 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 }
 .header-navigation > li > a:HOVER { color: #1fa0ae; }
 
-.header-nav-main > .header-logo { 
+.header-nav-main > .logo-wrapper { 
 	float: left;
 	margin-top: 4px;	
 }
-.header-nav-main > .social-header {
+.header-nav-main > .logo-navigation { display: none; }
+.header-nav-main > .navigation-social {
+	display: none;
 	float: right;
 	margin: 3px 0 0 5px;
 }
+
+
 
 /* button for resposive menu	*/
 .header-nav-menu > .header-nav-bttn {
@@ -232,7 +236,7 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 .header-content {
 	position: relative;
 	display: block;
-	max-width: 1000px;
+	max-width: 980px;
 	min-height: 100px;
 	margin: 50px auto 0 auto;
 	box-sizing: border-box;

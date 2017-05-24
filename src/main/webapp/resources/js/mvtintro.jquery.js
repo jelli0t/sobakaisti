@@ -28,6 +28,15 @@ $(function() {
         	window.location.href = (url!=null ? url:'');
         });	
 	});
+//	
+//	$('.radial-menu-item').each(function( index ) {
+//		index++;
+//		console.log( index + ": " + $( this ).text() );
+//		$('.radial-menu-item:nth-of-type('+index+')').css({transform: 'translate('+index*72+'px, '+index*72+'px)'});		  
+//	});
+	
+	$('.radial-menu-item:nth-of-type(1)').css({transform: 'translate(180px, 180px)'});	
+	$('.radial-menu-item:nth-of-type(2)').css({transform: 'translate(100px, 100px)'});
 });
 
 /**

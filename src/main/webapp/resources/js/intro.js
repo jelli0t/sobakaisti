@@ -19,8 +19,6 @@ $(function() {
 	        easing: 'linear'
 		}).promise().done(function(){ window.location.href = (url!=null ? url:'') });	
 	});	
-	
-	
 }); // Kraj ready funkcije
 
 var iconAnimation = function() {
