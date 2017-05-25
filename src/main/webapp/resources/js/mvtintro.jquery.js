@@ -28,15 +28,22 @@ $(function() {
         	window.location.href = (url!=null ? url:'');
         });	
 	});
-//	
-//	$('.radial-menu-item').each(function( index ) {
-//		index++;
-//		console.log( index + ": " + $( this ).text() );
-//		$('.radial-menu-item:nth-of-type('+index+')').css({transform: 'translate('+index*72+'px, '+index*72+'px)'});		  
-//	});
 	
-	$('.radial-menu-item:nth-of-type(1)').css({transform: 'translate(180px, 180px)'});	
-	$('.radial-menu-item:nth-of-type(2)').css({transform: 'translate(100px, 100px)'});
+	var P = 5;
+	var radius = 150;
+	var angleChange = 360*4 / P;	
+	
+	$('.radial-menu-item').each(function( index ) {
+//		index++;
+		var angle = index * angleChange;
+		var x = radius * Math.cos(angle) + 1;
+		var y = radius * Math.sin(angle) + 1;
+		console.log('coordinates ('+x+', '+y+'); angle: '+angle+'; index: '+index);
+		$('.radial-menu-item:nth-of-type('+index+')').css({transform: 'translate('+x+'px, '+y+'px)'});		  
+	});
+	
+//	$('.radial-menu-item:nth-of-type(1)').css({transform: 'translate(180px, 180px)'});	
+//	$('.radial-menu-item:nth-of-type(2)').css({transform: 'translate(100px, 100px)'});
 });
 
 /**
