@@ -31,19 +31,18 @@ $(function() {
 	
 	var P = 5;
 	var radius = 150;
-	var angleChange = 360*4 / P;	
+	var angleChange = 6 / P;	
 	
 	$('.radial-menu-item').each(function( index ) {
-//		index++;
+		index++;
 		var angle = index * angleChange;
-		var x = radius * Math.cos(angle) + 1;
-		var y = radius * Math.sin(angle) + 1;
+//		var x = radius * Math.cos(angle);
+//		var y = radius * Math.sin(angle);
+		var x = 1 - 140 * Math.cos(-0.5 * Math.PI - 2*(1/5) * index * Math.PI);
+		var y = 1 + 140 * Math.sin(-0.5 * Math.PI - 2 * (1/5) * index * Math.PI);
 		console.log('coordinates ('+x+', '+y+'); angle: '+angle+'; index: '+index);
 		$('.radial-menu-item:nth-of-type('+index+')').css({transform: 'translate('+x+'px, '+y+'px)'});		  
 	});
-	
-//	$('.radial-menu-item:nth-of-type(1)').css({transform: 'translate(180px, 180px)'});	
-//	$('.radial-menu-item:nth-of-type(2)').css({transform: 'translate(100px, 100px)'});
 });
 
 /**

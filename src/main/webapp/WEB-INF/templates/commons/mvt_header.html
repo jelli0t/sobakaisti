@@ -63,7 +63,7 @@
 			<div class="logo-wrapper fleft header-logo">
 				<a th:href="@{/rs/movement}"><img alt="Pokret" th:src="@{/resources/img/sobakaisti_logo.jpg}" height="26"></a>
 			</div>
-			<!-- socila networks -->
+			<!-- social networks -->
 			<div class="social-container fright header-social">
 				<span class="facebook-ico social-ico">
 					<a th:href="@{https://www.facebook.com/sobakaisti/}" target="_blank" title="Facebook"></a>
@@ -80,18 +80,34 @@
 		<!-- bottom half of the header -->
 		<div class="header-content-bottomhalf">
 			<!-- left autor filter div -->
-			<div class="header-author-filter"></div>
-			<div class="header-page-indicator">
-				<span class="single-circle page-indikator-circle" th:text="#{nav.item.manifesto}">MANIFEST</span>
+			<div class="header-author-filter fleft">
+				<ul th:if="${authors != null}" class="author-filter-list aright">
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
+						<a th:href="@{/}">
+							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">Sobakaisti</span>
+						</a>
+					</li>
+				</ul>
 			</div>
-			
+			<div class="header-page-indicator">
+				<span class="circle page-indikator-circle" th:text="#{nav.item.manifesto}">MANIFEST</span>
+			</div>			
 			<!-- right author filter div -->
-			<div class="header-author-filter"></div>
+			<div class="header-author-filter fright">
+				<ul th:if="${authors != null}" class="author-filter-list aleft">
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
+						<a th:href="@{/}">
+							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">Sobakaisti</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
-	
+		<!-- header sorting buttons -->
+		<div class="header-sorting-container">
 		
-	
-	
+		</div>
+		
+	</div>	
 </header>
 </html>
