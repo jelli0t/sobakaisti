@@ -12,7 +12,6 @@ import org.sobakaisti.mvt.models.Category;
  * Kalsa za pristup podacima o kategorijama clanaka
  */
 public interface CategoryDao {
-
 	/**
 	 * Uzima sve kategorija artikala
 	 * */
@@ -26,4 +25,9 @@ public interface CategoryDao {
 	 * @return lista kategorija
 	 * */
 	public List<Category> getAllCategoriesByIds(List<Integer> ids);
+	
+	/**
+	 * 	Vraca listu pod-kategorija za prosledjen slug roditelja
+	 * */
+	public List<Category> findAllSubcategoriesByParent(String parentSlug);
 }

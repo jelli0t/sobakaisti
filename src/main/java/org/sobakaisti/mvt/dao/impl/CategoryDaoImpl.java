@@ -59,4 +59,19 @@ public class CategoryDaoImpl implements CategoryDao{
 		}		
 	}
 
+	@Override
+	public List<Category> findAllSubcategoriesByParent(String parentSlug) {
+		Session session = sessionFactory.getCurrentSession();
+		String HQL = "from Category c where c.parentId = (select cin.id from Category cin where cin.slug = :parentSlug)";
+		try{
+			@SuppressWarnings("unchecked")
+			List<Category> categories = (List<Category>) session.createQuery(HQL).setString("parentSlug", parentSlug).list();
+			System.out.println("Dohvatio sam categorija size: "+categories.size());
+			return categories;
+		}catch (HibernateException he) {
+			System.err.println("Greska pri dohvatanju kategorija: "+he.getMessage());
+			return null;
+		}
+	}
+
 }

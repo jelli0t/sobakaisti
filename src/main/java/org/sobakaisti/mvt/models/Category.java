@@ -24,7 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="category")
 public class Category {
-
+	public static final String CATEGORY_ARTS = "arts";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
@@ -36,6 +37,9 @@ public class Category {
 	@Column(name="slug")
 	private String slug;
 
+	@Column(name="parent_category_id")
+	private int parentId;
+	
 	@JsonIgnore
 	@ManyToMany
 	private List<Article> articles;
@@ -70,6 +74,14 @@ public class Category {
 
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
+	}
+
+	public int getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
 
 	@Override

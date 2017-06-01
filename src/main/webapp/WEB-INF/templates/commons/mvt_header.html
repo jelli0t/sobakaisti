@@ -89,8 +89,15 @@
 					</li>
 				</ul>
 			</div>
+			<!-- center indicator div -->
 			<div class="header-page-indicator">
-				<span class="circle page-indikator-circle" th:text="#{nav.item.manifesto}">MANIFEST</span>
+				<span class="circle page-indikator-circle">
+					<img th:src="@{/resources/img/icons/literature.svg}" class="selected-art-icon" th:if="${arts != null}"/>
+					<span th:if="${arts == null}" th:text="#{nav.item.manifesto}">MANIFEST</span>
+				</span>
+				<a th:href="@{/arts/{art}(art=${art.slug})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}">
+					<img alt="" th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}" class="arts-submenu-icon" th:classappend="'submenu-icon-' + ${itemStat.index}"/>
+				</a>
 			</div>			
 			<!-- right author filter div -->
 			<div class="header-author-filter fright">
