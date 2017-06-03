@@ -34,7 +34,7 @@
 		<div class="header-nav-bttn">
 			<ul class="header-nav">
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
-				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.arts}"></a></li>
+				<li class="dotted-befor"><a th:href="@{/arts}" th:text="#{nav.item.arts}" th:title="#{nav.item.arts}"></a></li>
 				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.authors}"></a></li>
 				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.published}"></a></li>
 				<li class="dotted-befor"><a th:href="@{/manifesto}" th:text="#{nav.item.shop}"></a></li>
@@ -89,10 +89,10 @@
 					</li>
 				</ul>
 			</div>
-			<!-- center indicator div -->
+			<!-- center indicator continer -->
 			<div class="header-page-indicator">
 				<span class="circle page-indikator-circle">
-					<img th:src="@{/resources/img/icons/literature.svg}" class="selected-art-icon" th:if="${arts != null}"/>
+					<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:if="${arts != null}"/>
 					<span th:if="${arts == null}" th:text="#{nav.item.manifesto}">MANIFEST</span>
 				</span>
 				<a th:href="@{/arts/{art}(art=${art.slug})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}">
@@ -111,8 +111,10 @@
 			</div>
 		</div>
 		<!-- header sorting buttons -->
-		<div class="header-sorting-container">
-		
+		<div class="header-sorting-container" th:if="${arts != null}">
+			<a class="sorting-bttn"><span>NAJNOVIJE</span></a>
+			<span>&#124;</span>
+			<a class="sorting-bttn"><span>Popularno</span></a>
 		</div>
 		
 	</div>	

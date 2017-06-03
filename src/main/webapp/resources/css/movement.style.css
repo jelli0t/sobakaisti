@@ -308,6 +308,17 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	vertical-align: middle;
 }
 
+.header-sorting-container {
+	text-align: center;
+	text-transform: uppercase;
+	padding-top: 15px;
+	font-size: 0.8em;
+	font-weight: 700;
+} 
+.sorting-bttn {
+	
+}
+
 /*	FOOTER	*/
 
 footer {

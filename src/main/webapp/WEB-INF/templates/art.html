@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:with="chosenArt=${chosenArt}">
 <head th:replace="commons/mvt_head :: mvt_head(~{::title})">
-	<title>Literature</title>
+	<title th:text="${chosenArt.name}">Literature</title>
 </head>
 <body>
 <header th:replace="~{commons/mvt_header :: mvt_header}"></header>
