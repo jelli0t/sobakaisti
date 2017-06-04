@@ -62,5 +62,17 @@ public class AuthorDaoImpl implements AuthorDao {
 		int result = session.createQuery(HQL).setInteger("ID", id).executeUpdate();
 	}
 
+	@Override
+	@Transactional
+	public Author findAuthorBySlug(String slug) {
+		Session session = sessionFactory.getCurrentSession();
+		String HQL = "from Author where slug =:slug"; 
+		try {
+			Author author = (Author) session.createQuery(HQL).setString("slug", slug).uniqueResult();
+			return author;
+		} catch (Exception e) {
+			return null;
+		}		
+	}
 	
 }

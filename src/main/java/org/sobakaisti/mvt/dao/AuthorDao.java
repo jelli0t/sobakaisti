@@ -30,4 +30,11 @@ public interface AuthorDao {
 	
 	public void deleteAuthor(int id);
 	
+	/**
+	 * pronalazi autora po polju slug
+	 * @param String slug
+	 * @return Author
+	 * */
+	public Author findAuthorBySlug(String slug);
+	
 }

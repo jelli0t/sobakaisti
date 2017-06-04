@@ -22,12 +22,12 @@
 				</span>
 			</div>
 			<ul class="header-navigation">
-				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
-				<li><a th:href="@{/manifesto}" th:text="#{nav.item.arts}"></a></li>
-				<li><a th:href="@{/manifesto}" th:text="#{nav.item.authors}"></a></li>
-				<li><a th:href="@{/manifesto}" th:text="#{nav.item.published}"></a></li>
-				<li><a th:href="@{/manifesto}" th:text="#{nav.item.shop}"></a></li>
-				<li><a th:href="@{/manifesto}" th:text="#{nav.item.contact}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li>
+				<li><a th:href="@{/arts}" th:text="#{nav.item.arts}" th:title="#{nav.item.arts}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.authors}" th:title="#{nav.item.authors}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.published}" th:title="#{nav.item.published}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.shop}" th:title="#{nav.item.shop}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.contact}" th:title="#{nav.item.contact}"></a></li>
 			</ul>			
 		</div>		
 		
@@ -83,8 +83,11 @@
 			<div class="header-author-filter fleft">
 				<ul th:if="${authors != null}" class="author-filter-list aright">
 					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
-						<a th:href="@{/}">
-							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">Sobakaisti</span>
+						<a th:href="@{/arts/{art}/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+							<span class="circle circle-filter" 
+								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 
+								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? cosen-author : ''">Sobakaisti</span>
+							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
 						</a>
 					</li>
 				</ul>
@@ -93,18 +96,23 @@
 			<div class="header-page-indicator">
 				<span class="circle page-indikator-circle">
 					<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:if="${arts != null}"/>
-					<span th:if="${arts == null}" th:text="#{nav.item.manifesto}">MANIFEST</span>
+					<span th:if="${arts == null}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
 				</span>
-				<a th:href="@{/arts/{art}(art=${art.slug})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}">
-					<img alt="" th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}" class="arts-submenu-icon" th:classappend="'submenu-icon-' + ${itemStat.index}"/>
+				<!-- Arts subcategories -->
+				<a th:href="@{/arts/{art}(art=${art.slug})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}" th:title="${art.name}">
+					<img alt="" th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}" 
+						class="arts-submenu-icon" th:classappend="'submenu-icon-' + ${itemStat.index}" th:alt="${art.name}"/>
 				</a>
 			</div>			
 			<!-- right author filter div -->
 			<div class="header-author-filter fright">
 				<ul th:if="${authors != null}" class="author-filter-list aleft">
 					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
-						<a th:href="@{/}">
-							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">Sobakaisti</span>
+						<a th:href="@{/arts/{art}/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+							<span class="circle circle-filter" 
+								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 
+								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? cosen-author : ''">Sobakaisti</span>
+							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
 						</a>
 					</li>
 				</ul>
@@ -112,9 +120,11 @@
 		</div>
 		<!-- header sorting buttons -->
 		<div class="header-sorting-container" th:if="${arts != null}">
-			<a class="sorting-bttn"><span>NAJNOVIJE</span></a>
+			<a th:href="@{/arts/chronological/{art}/{author}(art=${arts[0].slug}, author=(${chosenAuthor != null} ? ${chosenAuthor.slug} : ''))}" 
+				class="sorting-bttn"><span th:text="#{button.label.chronological}">Hronoloski</span></a>
 			<span>&#124;</span>
-			<a class="sorting-bttn"><span>Popularno</span></a>
+			<a th:href="@{/arts/popular/{art}/{author}(art=${arts[0].slug}, author=(${chosenAuthor != null} ? ${chosenAuthor.slug} : ''))}" 
+				class="sorting-bttn"><span th:text="#{button.label.popular}">Popularno</span></a>
 		</div>
 		
 	</div>	

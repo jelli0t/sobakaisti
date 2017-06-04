@@ -6,6 +6,7 @@ package org.sobakaisti.mvt.controllers;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
+import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,23 @@ public class ArtsController {
 		//TODO napista sve autore koji su relevantni za odabranu kat.
 		model.addAttribute("authors", authorDao.getAllAuthors());		
 		model.addAttribute("arts", subcategories);
+		return "art";
+	}
+	
+	@RequestMapping(value="/{category}/{author}", method=RequestMethod.GET)
+	public String showArtsHomeFilteredByAuthor(Model model, 
+			@PathVariable String category, @PathVariable String author) {
+		Author chosenAuthor = authorDao.findAuthorBySlug(author);
+		if(category != null) {
+			List<Category> subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
+			Category chosenArt = subcategories != null ? subcategories.get(0) : null;
+			model.addAttribute("chosenArt", chosenArt);
+			model.addAttribute("arts", subcategories);
+		}		
+		if(chosenAuthor != null) {
+			model.addAttribute("chosenAuthor", chosenAuthor);
+		}	
+		model.addAttribute("authors", authorDao.getAllAuthors());
 		return "art";
 	}
 

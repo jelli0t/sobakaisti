@@ -42,8 +42,15 @@ $(function() {
 	    }
 	}, '.header-nav-container');
 	
-	
-	
+	/* hover efekat na filterima za autore */
+	$(document).on({
+	    mouseenter: function () {
+	    	$(this).next('.author-fullname-bubble').slideDown('fast');
+	    },
+	    mouseleave: function () {
+	    	 $(this).next('.author-fullname-bubble').hide();
+	    }
+	}, '.circle-filter');
 	
 });
 

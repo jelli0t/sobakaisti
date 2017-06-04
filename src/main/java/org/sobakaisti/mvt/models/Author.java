@@ -66,6 +66,8 @@ public class Author {
 	private String profession;
 	@Column(name="AVATAR_PATH")
 	private String avatarPath;
+	@Column(name="slug")
+	private String slug;
 		
 	public int getId() {
 		return id;
@@ -127,7 +129,12 @@ public class Author {
 	public void setProfession(String profession) {
 		this.profession = profession;
 	}	
-	
+	public String getSlug() {
+		return slug;
+	}
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
 	@Override
 	public String toString() {
 		return "[Autor: "+firstName+" "+lastName+", "+birthplace+", "+email+"]";
