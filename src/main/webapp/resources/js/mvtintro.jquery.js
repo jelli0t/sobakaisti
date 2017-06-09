@@ -68,15 +68,15 @@ var background = function(dimension,$circle){
 	    console.dir( xhr );
 	}).always(function( xhr, status ) {
 		console.log( "loaded: " + status );
-		$('li').animate({marginLeft: '0'},{
-            duration: 3000,
-            easing: 'linear'
-        }).promise().done(function(){
-        	$circle.removeClass('loader');
-        	$circle.remove();
-        	$('.circle-menu-item').css({'position':'static', 'margin':'0 15px'}).animate({
-        		opacity: '1.0'
-        	}, 1000);        	
-    	});
+//		$('li').animate({marginLeft: '0'},{
+//            duration: 3000,
+//            easing: 'linear'
+//        }).promise().done(function(){
+//        	$circle.removeClass('loader');
+//        	$circle.remove();
+//        	$('.circle-menu-item').css({'position':'static', 'margin':'0 15px'}).animate({
+//        		opacity: '1.0'
+//        	}, 1000);        	
+//    	});
 	});
 };	

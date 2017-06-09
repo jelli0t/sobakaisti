@@ -48,7 +48,7 @@ $(function() {
 	    	$(this).next('.author-fullname-bubble').slideDown('fast');
 	    },
 	    mouseleave: function () {
-	    	 $(this).next('.author-fullname-bubble').hide();
+	    	 $(this).next('.author-fullname-bubble').hide('fast');
 	    }
 	}, '.circle-filter');
 	

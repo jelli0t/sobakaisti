@@ -174,14 +174,141 @@ a:LINK, a:VISITED {
 /* 	text-align: justify; */
 	line-height: 16px;
 	box-sizing: border-box;
+	clear: both;
 }
 .ltr {
-	 margin-left: -100%;
+/* 	 margin-left: -100%; */
+	text-align: left;
+	-webkit-animation: leftToRight 3s ease-in-out; /* Safari 4+ */
+	-moz-animation:   leftToRight 3s ease-in-out; /* Fx 5+ */
+	-o-animation:     leftToRight 3s ease-in-out; /* Opera 12+ */
+	animation:        leftToRight 3s ease-in-out; /* IE 10+, Fx 29+ */
 }
+
 .rtl {
-/* 	text-align: justify; */
+	float:right;
+	text-align: right;
 	margin-left: 100%;
+	-webkit-animation: rightToLeft 3s ease-in-out; /* Safari 4+ */
+	-moz-animation:    rightToLeft 3s ease-in-out; /* Fx 5+ */
+	-o-animation:      rightToLeft 3s ease-in-out; /* Opera 12+ */
+	animation:         rightToLeft 3s ease-in-out; /* IE 10+, Fx 29+ */
 }
+
+/* LEFT TO RIGHT ANIMATION */
+@-webkit-keyframes leftToRight {
+  0%   { margin-left: -100%; }
+  100% { margin-left: 0; }
+}
+@-moz-keyframes leftToRight {
+  0%   { margin-left: -100%; }
+  100% { margin-left: 0; }
+}
+@-o-keyframes leftToRight {
+  0%   { margin-left: -100%; }
+  100% { margin-left: 0; }
+}
+@keyframes leftToRight {
+  0%   { margin-left: -100%; }
+  100% { margin-left: 0; }
+}
+
+/* RIGHT TO LEFT ANIMATION */
+@-webkit-keyframes rightToLeft {
+  0%   { margin-right: -100%; }
+  100% { margin-left: 0; }
+}
+@-moz-keyframes rightToLeft {
+  0%   { margin-right: -100%; }
+  100% { margin-left: 0; }
+}
+@-o-keyframes rightToLeft {
+  0%   { margin-right: -100%; }
+  100% { margin-left: 0; }
+}
+@keyframes rightToLeft {
+  0%   { margin-right: -100%; }
+  100% { margin-left: 0; }
+}
+
+/* radial loading */
+
+.radial-loading {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	margin: -60px 0 0 -60px;
+	width: 120px;
+	height: 120px;
+/* 	border: 1px solid red; */
+}
+
+.circle.left {
+    position: absolute;
+    clip: rect(0, 120px, 120px, 60px);
+}
+
+.circle.right {
+    position: absolute;
+    clip: rect(0px, 60px, 120px, 0px);
+}
+
+.circle span {
+    width: 108px;
+    height: 108px;
+    border-radius: 100%;
+    position: absolute;
+    opacity: 0.7;
+    border: 5px solid #343434;
+}
+
+.circle.left span {
+    clip: rect(0px, 60px, 120px, 0px);
+    -webkit-animation: rotate-left 3s linear;
+    -moz-animation:    rotate-left 3s linear; /* Fx 5+ */
+	-o-animation:      rotate-left 3s linear; /* Opera 12+ */
+	animation: 		   rotate-left 3s linear;
+}
+
+.circle.right span {
+    clip: rect(0, 120px, 120px, 60px);
+    -webkit-animation: rotate-right 3s linear;
+    -moz-animation:    rotate-right 3s linear; /* Fx 5+ */
+	-o-animation:      rotate-right 3s linear; /* Opera 12+ */
+	animation: 		   rotate-right 3s linear;
+}
+
+/* rotate loadint to left */
+@-webkit-keyframes rotate-left {
+    0% { -webkit-transform: rotate(0deg); }
+    50% { -webkit-transform: rotate(180deg); }
+    100% { -webkit-transform: rotate(180deg); }
+}
+@-moz-keyframes rotate-left {
+  	0% { -webkit-transform: rotate(0deg); }
+    50% { -webkit-transform: rotate(180deg); }
+    100% { -webkit-transform: rotate(180deg); }
+}
+@-o-keyframes rotate-left {
+  	0% { -webkit-transform: rotate(0deg); }
+    50% { -webkit-transform: rotate(180deg); }
+    100% { -webkit-transform: rotate(180deg); }
+}
+@keyframes rotate-left {
+  	0% { -webkit-transform: rotate(0deg); }
+    50% { -webkit-transform: rotate(180deg); }
+    100% { -webkit-transform: rotate(180deg); }
+}
+
+/* rotate loadint to right */
+@-webkit-keyframes rotate-right {
+    0% { -webkit-transform: rotate(0deg); }
+    50% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(180deg); }
+}
+
+
+
 #circle-menu {
 	position: absolute;
 	width: 860px;

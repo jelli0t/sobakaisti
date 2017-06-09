@@ -23,7 +23,15 @@
 			</div>
 			<ul class="header-navigation">
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li>
-				<li><a th:href="@{/arts}" th:text="#{nav.item.arts}" th:title="#{nav.item.arts}"></a></li>
+				<li><a th:href="@{/arts}" th:text="#{nav.item.arts}" th:title="#{nav.item.arts}"></a>
+<!-- 					<ul> -->
+<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+<!-- 					</ul> -->
+				</li>
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.authors}" th:title="#{nav.item.authors}"></a></li>
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.published}" th:title="#{nav.item.published}"></a></li>
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.shop}" th:title="#{nav.item.shop}"></a></li>
@@ -86,7 +94,7 @@
 						<a th:href="@{/arts/{art}/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 							<span class="circle circle-filter" 
 								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 
-								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? cosen-author : ''">Sobakaisti</span>
+								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
 							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
 						</a>
 					</li>
@@ -111,7 +119,7 @@
 						<a th:href="@{/arts/{art}/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 							<span class="circle circle-filter" 
 								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 
-								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? cosen-author : ''">Sobakaisti</span>
+								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
 							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
 						</a>
 					</li>

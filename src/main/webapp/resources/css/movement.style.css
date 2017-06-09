@@ -211,6 +211,22 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 }
 
 
+.header-navigation ul {
+	display:none;
+	position:absolute;
+	top:100%;
+	margin-left: 90px;
+	border: 1px solid red;
+	background:#fff;
+	padding:10px;
+	z-index: 999;
+}
+
+.header-navigation li:hover > ul
+{
+	display:block
+}
+
 
 /* button for resposive menu	*/
 .header-nav-menu > .header-nav-bttn {
@@ -275,17 +291,17 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	box-shadow: 0 2px 0 rgba(0,0,1,0.05);
 }
 .author-fullname-bubble:before {
-    content: "";
+    content: ' ';
     position: absolute;
     width: 0;
     height: 0;
     border: 8px solid transparent;
     border-bottom-color: #1fa0ae;
-    top: -16px;
+    top: -14px;
     left: 22px;
 }
 
-.cosen-author {
+.chosen-author {
 	border-color: #1fa0ae !important;
 	color: #1fa0ae !important;
 	opacity: 1.0 !important;

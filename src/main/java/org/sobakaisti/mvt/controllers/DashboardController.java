@@ -71,6 +71,8 @@ public class DashboardController {
 			Object[] errors = result.getFieldErrors().toArray();
 			return new ResponseEntity<Object[]>(errors, HttpStatus.BAD_REQUEST);			
 		}else{
+			String fullName = author.getFirstName() + " " + author.getLastName();
+			author.setSlug(StringUtil.makeSlugFromTitle(fullName));
 			authorDao.persistAuthor(author);
 			authors[0] = author;
 		}		

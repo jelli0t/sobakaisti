@@ -6,7 +6,13 @@
 </head>
 <body>
 <span class="test-char">m</span>
-<span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span>
+
+<div class="radial-loading">
+    <div class="circle left rotate"><span></span></div>
+    <div class="circle right rotate"><span></span></div>
+</div>
+
+<!-- <span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span> -->
 <ul id="circle-menu">
 	<li><span class="single-circle circle-menu-item">
 		<a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a>
