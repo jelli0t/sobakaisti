@@ -14,6 +14,8 @@ $(function() {
 		background(dimension,$circle);			
 	});
 	
+//	background(dimension,$circle);	
+	
 	$('.circle-menu-item').on('click', function(evt){
 		evt.preventDefault();
 		var url = $('a', this).attr('href');
@@ -43,6 +45,7 @@ $(function() {
 		console.log('coordinates ('+x+', '+y+'); angle: '+angle+'; index: '+index);
 		$('.radial-menu-item:nth-of-type('+index+')').css({transform: 'translate('+x+'px, '+y+'px)'});		  
 	});
+	
 });
 
 /**
@@ -60,14 +63,18 @@ var background = function(dimension,$circle){
 		$.each(data, function( i, val ){
 			li+= (i % 2 === 0) ? '<li class="rtl">'+val+'</li>' : '<li class="ltr">'+val+'</li>'; 
 		});
-		$('.bgd-list').append(li);
-		
+		$('.bgd-list').append(li);		
 	}).fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
 	    console.log( "Status: " + status );
 	    console.dir( xhr );
 	}).always(function( xhr, status ) {
 		console.log( "loaded: " + status );
+		
+		var $ul = $('#circle-menu');
+		
+		
+		
 //		$('li').animate({marginLeft: '0'},{
 //            duration: 3000,
 //            easing: 'linear'
@@ -78,5 +85,25 @@ var background = function(dimension,$circle){
 //        		opacity: '1.0'
 //        	}, 1000);        	
 //    	});
+		$('#circle-menu').delay(3200).queue(function() {
+			$circle.remove();
+            $(this).expandCircleMenu();
+            $(this).dequeue();
+        });
+		
 	});
 };	
+/**
+ * metoda prikazuje i siri menu na uvodnoj animaciji
+ * */
+$.fn.expandCircleMenu = function() {
+	$(this).show();
+	var fromLeft = 0;
+	$('li', this).each(function (i, item){	
+		$(this).animate({left: fromLeft+'px'},{
+			duration: 500,
+			easing: 'linear'
+		});
+		fromLeft += 110;
+	});	
+};

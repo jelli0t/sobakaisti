@@ -48,6 +48,27 @@ a:LINK, a:VISITED {
 	-khtml-border-radius: 2px;
 	z-index: 995;
 }
+/* circle general */
+.circle {
+	display: block;
+	width: 90px;
+	height: 90px;
+	border: 2px solid #434343;
+	-webkit-border-radius: 50%;
+  	-moz-border-radius: 50%;
+	border-radius: 50%;
+	text-transform: uppercase;
+	background-color: white;
+	line-height: 90px;
+	text-align: center;
+	font-weight: 700;
+	-webkit-background-clip: padding-box; 
+  	-moz-background-clip:    padding; 
+  	background-clip:         padding-box;
+	z-index: 999; 	
+}
+
+
 .intro-icon {
 	position: absolute;
 	top: 50%;
@@ -130,23 +151,23 @@ a:LINK, a:VISITED {
   	box-shadow: inset 0 0 0 100px rgba(204,204,204, 1);
 }
 
-.loader:after {
-	position: absolute;
-	content: '';
-	top: 50%;
-	left: 50%;
-	margin: -65px 0 0 -65px;
-	border: 5px solid #f9f9f9;
-	border-top: 5px solid #434343;
-	-webkit-border-radius: 100%;
-  	-moz-border-radius: 100%;
-  	border-radius: 100%;
-	width: 130px;
-	height: 130px;
-	box-sizing: border-box;
-	-webkit-animation: spin 2s linear infinite;
-	animation: spin 2s linear infinite;
-}
+/* .loader:after { */
+/* 	position: absolute; */
+/* 	content: ''; */
+/* 	top: 50%; */
+/* 	left: 50%; */
+/* 	margin: -65px 0 0 -65px; */
+/* 	border: 5px solid #f9f9f9; */
+/* 	border-top: 5px solid #434343; */
+/* 	-webkit-border-radius: 100%; */
+/*   	-moz-border-radius: 100%; */
+/*   	border-radius: 100%; */
+/* 	width: 130px; */
+/* 	height: 130px; */
+/* 	box-sizing: border-box; */
+/* 	-webkit-animation: spin 2s linear infinite; */
+/* 	animation: spin 2s linear infinite; */
+/* } */
 
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
@@ -243,26 +264,26 @@ a:LINK, a:VISITED {
 /* 	border: 1px solid red; */
 }
 
-.circle.left {
+.half-circle.left {
     position: absolute;
     clip: rect(0, 120px, 120px, 60px);
 }
 
-.circle.right {
+.half-circle.right {
     position: absolute;
     clip: rect(0px, 60px, 120px, 0px);
 }
 
-.circle span {
+.half-circle span {
     width: 108px;
     height: 108px;
     border-radius: 100%;
     position: absolute;
     opacity: 0.7;
-    border: 5px solid #343434;
+    border: 3px solid #343434;
 }
 
-.circle.left span {
+.half-circle.left span {
     clip: rect(0px, 60px, 120px, 0px);
     -webkit-animation: rotate-left 3s linear;
     -moz-animation:    rotate-left 3s linear; /* Fx 5+ */
@@ -270,7 +291,7 @@ a:LINK, a:VISITED {
 	animation: 		   rotate-left 3s linear;
 }
 
-.circle.right span {
+.half-circle.right span {
     clip: rect(0, 120px, 120px, 60px);
     -webkit-animation: rotate-right 3s linear;
     -moz-animation:    rotate-right 3s linear; /* Fx 5+ */
@@ -311,35 +332,34 @@ a:LINK, a:VISITED {
 
 #circle-menu {
 	position: absolute;
-	width: 860px;
+	display: none;
+	width: 660px;
+	height: 90px;
 	top:45%;
 	left: 50%;
-	margin-left: -430px;
-	margin-top:-50px;
+	margin: -45px 0 0 -330px;
 	z-index: 1001;
 	text-align: center;
 }
 #circle-menu > li {
-	display: inline;
-}
-#circle-menu > li > .circle-menu-item {
 	position: absolute;
 	display: inline-block;
-	opacity: 0.0;
+	margin: 0 auto;
+}
+#circle-menu > li > .circle-menu-item {
+	opacity: 1.0;
 	background-color: #fff;	
 	-webkit-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
 	-moz-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
 	box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
-	margin: 0 15px;
+/* 	margin: 0 15px; */
 	}
 
-.single-circle.mvt-init-circle {
-	display:block;
+.mvt-init-circle {
+	position: absolute;
 	top: 45%;
 	left: 50%;
-	margin: -50px 0 0 -50px;
-	background-color: #fff;
-	opacity: 1.0;
+	margin: -49px 0 0 -49px;
 }
 
 footer.intro-footer {

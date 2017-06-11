@@ -7,23 +7,24 @@
 <body>
 <span class="test-char">m</span>
 
-<div class="radial-loading">
-    <div class="circle left rotate"><span></span></div>
-    <div class="circle right rotate"><span></span></div>
-</div>
+	<div class="radial-loading">
+	    <div class="half-circle left rotate"><span></span></div>
+	    <div class="half-circle right rotate"><span></span></div>
+	</div>
+	<span class="circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span>
 
 <!-- <span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span> -->
 <ul id="circle-menu">
-	<li><span class="single-circle circle-menu-item">
+	<li><span class="circle circle-menu-item">
 		<a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a>
 	</span></li>
-	<li><span class="single-circle circle-menu-item">
+	<li><span class="circle circle-menu-item">
 		<a th:href="@{/arts}" th:text="#{nav.item.arts}">RADOVI</a>
 	</span></li>
-	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.authors}">AUTORI</span></li>
-	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.published}">IZDANJE</span></li>
-	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.shop}">DUĆAN</span></li>
-	<li><span class="single-circle circle-menu-item" th:text="#{nav.item.contact}">KONTAKT</span></li>
+	<li><span class="circle circle-menu-item" th:text="#{nav.item.authors}">AUTORI</span></li>
+	<li><span class="circle circle-menu-item" th:text="#{nav.item.published}">IZDANJE</span></li>
+	<li><span class="circle circle-menu-item" th:text="#{nav.item.shop}">DUĆAN</span></li>
+	<li><span class="circle circle-menu-item" th:text="#{nav.item.contact}">KONTAKT</span></li>
 </ul>
 <ul class="bgd-list"></ul>
 <footer class="intro-footer">
