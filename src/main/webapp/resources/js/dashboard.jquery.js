@@ -313,6 +313,7 @@ function makeSlugFromTitle($input){
  * Poziv ajax funkciji za cuvanje clanka
  * */
 $.fn.postArticle = function(){
+	var $form = $(this);
 	var json = $(this).serializeObject();
 	var uri = $(this).attr('action');
 	var csrf = getCsrfParams();

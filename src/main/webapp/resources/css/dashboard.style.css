@@ -85,9 +85,9 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 .validation-error {
 	display: none;
 	position: absolute;
-	width: 200px;	
-	right:-220px;	
-	left: auto;
+/* 	width: 200px;	 */
+/* 	right:-220px;	 */
+	right: -50px;
 	padding: 5px 10px;
 	margin-top: -30px;
 	-webkit-border-radius: 5px;
@@ -98,6 +98,7 @@ input[type="text"]:-moz-placeholder { color: #585858; }
   	color:#fff;
   	background-color: #DD381D;
   	opacity: 0.75;
+  	z-index: 999;
 }
 .validation-error:before {	
 	content: '';
