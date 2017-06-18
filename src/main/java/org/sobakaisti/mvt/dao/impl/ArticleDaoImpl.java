@@ -94,10 +94,22 @@ public class ArticleDaoImpl implements ArticleDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<Article> getArticlesSortedByDate() {
+	public List<Article> getArticlesSortedByDate(int resultsLimit) {
 		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc";
 		Session session = sessionFactory.getCurrentSession();
 		List<Article> articles = session.createQuery(HQL).list();
+		return articles;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Article> getArticlesSortedByDate(int index, int resultsLimit) {
+		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc";
+		Session session = sessionFactory.getCurrentSession();
+		List<Article> articles = session.createQuery(HQL)
+										.setFirstResult(index)
+										.setMaxResults(resultsLimit).list();
 		return articles;
 	}
 

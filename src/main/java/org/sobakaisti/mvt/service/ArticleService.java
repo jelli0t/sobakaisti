@@ -11,6 +11,7 @@ public interface ArticleService {
 	public static final double FONT_WIDTH = 7.0;		// (px) sirina jednog slova
 	public static final int ACTIVE = 1;
 	public static final int INACTIVE = 0;
+	public static final int ARTICLES_PER_LOAD = 5;
 	
 	public static enum Manifesto {
 		manifest, manifesto
@@ -25,8 +26,13 @@ public interface ArticleService {
 	 * */
 	public Article saveArticle(Article article);
 	
-	public List<Article> getArticlesOrderByDate();
+	/**
+	 * @param limitResults
+	 * */
+	public List<Article> getArticlesOrderByDate(int resultsLimit);
 	
+	public List<Article> getArticlesOrderByDate(int index, int resultsLimit);
+		
 	public boolean deleteArticleById(int id);
 	
 	/**
@@ -36,4 +42,5 @@ public interface ArticleService {
 	public String switchArticleStatus(int articleId);
 	
 	public List<Tag> getTagSerachResult(String phrase);
+	
 }

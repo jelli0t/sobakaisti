@@ -138,7 +138,7 @@ public class DashboardController {
 	
 	@RequestMapping(value="/articles", method=RequestMethod.GET)
 	public String displayAllArticles(Model model){
-		model.addAttribute("articles", articleService.getArticlesOrderByDate());
+		model.addAttribute("articles", articleService.getArticlesOrderByDate(15));
 		return "dashboard/dash_articles";
 	}
 	

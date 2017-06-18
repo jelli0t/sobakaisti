@@ -32,13 +32,13 @@ public class Author {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ID")
 	private int id;
-	
-	@Pattern(regexp="[a-zA-Z]{0,20}", message="{validation.warn.pattern}")
+
+	@Pattern(regexp = "^[\\p{L} .'-]+$", message="{validation.warn.pattern}")
 	@Size(min=2, max=20, message="{validation.warn.firstName}")
 	@Column(name="FIRST_NAME")
 	private String firstName;
 	
-	@Pattern(regexp="[a-zA-Z\\s\\.]{0,30}", message="{validation.warn.pattern}")
+	@Pattern(regexp = "^[\\p{L} .'-]+$", message="{validation.warn.pattern}")
 	@Size(min=2, max=30, message="{validation.warn.lastName}")
 	@Column(name="LAST_NAME")
 	private String lastName;

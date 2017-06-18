@@ -42,7 +42,12 @@ public interface ArticleDao {
 	public boolean saveArticle(Article article);
 	
 	
-	public List<Article> getArticlesSortedByDate();
+	public List<Article> getArticlesSortedByDate(int resultsLimit);
+	
+	/**
+	 * dohvata sve clanke sortirane po datumu uz paginacju i limit
+	 * */
+	public List<Article> getArticlesSortedByDate(int index, int resultsLimit);
 	
 	/**
 	 * Brise clanak na osnovu prosledjenog ID
@@ -60,4 +65,6 @@ public interface ArticleDao {
 	 * metoda koja pronalazi sve tagove na osnovu prosledjene fraze
 	 * */
 	public List<Tag> searchTagsByPhrase(String phrase);
+
+	
 }

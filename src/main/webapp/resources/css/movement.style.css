@@ -372,6 +372,47 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	margin: 0 15px;
 }
 
+
+.authors-container {
+	width: 100%;
+/* 	padding: 10px; */
+	text-align: center;
+}
+.authors-container > .author-signature-wrapper {
+	display: inline-block;
+/* 	width: 65px; */
+	font-size: 0.7em;
+	margin: 12px;
+	text-align: center;
+	opacity: 0.8;
+}
+.authors-container > .author-signature-wrapper:hover { opacity: 1.0; }
+.authors-container > .author-signature-wrapper .author-signature{
+	display: block;
+	margin: 0 auto 10px auto;
+}
+
+/* ARTS Content preview */
+
+.site-content-container {
+	position: relative;
+	max-width: 980px;
+	height:auto;
+	margin: 5% auto 80px auto;
+/* 	border: 1px solid gray; */
+
+}
+
+.article-prev-container {
+	display: inline-block;
+	position: relative;
+	width: 170px;
+/* 	padding: 15px; */
+	margin: 15px 22px 15px 0;
+/* 	border: 1px solid gray; */
+}
+
+
 /*	FOOTER	*/
 
 footer {

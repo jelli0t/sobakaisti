@@ -52,6 +52,13 @@ $(function() {
 	    }
 	}, '.circle-filter');
 	
+	$(window).scroll(function() {
+        if ($(document).height() <= ($(window).height() + $(window).scrollTop())) {
+//            alert('Bottom reached!');
+        	$(document).loadMoreArticlesPreviews();
+        }
+    });
+	
 });
 
 
@@ -63,3 +70,18 @@ function resizeTriangle(labelWidth){
 	}, 'fast');
 }
 
+$.fn.loadMoreArticlesPreviews = function() {
+	
+	$.ajax({
+		url: $('#load-content-link').attr('href'),
+		type : 'GET',
+		contentType: 'application/json; charset=utf-8'
+	}).done(function( data ) {
+		console.log('successful reach list: '+data.length);
+		
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})
+	
+}

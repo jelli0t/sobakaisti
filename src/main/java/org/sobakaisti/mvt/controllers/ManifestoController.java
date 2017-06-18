@@ -40,6 +40,7 @@ public class ManifestoController {
 		model.addAttribute("article", articleService.getArticleBySlug(MANIFESTO_SLUG, locale.getLanguage()));
 		//TODO obrisati dohvatanje cat
 		model.addAttribute(categoryService.findAllSortedSubcategories("literature", Category.CATEGORY_ARTS));
+		model.addAttribute("authorsForSignatures", authorDao.getAllAuthors());
 		return "manifesto";
 	}
 	

@@ -12,7 +12,17 @@
 		
 		</div>
 		
-		<h3 th:text="#{heading.members}"></h3>
+		<!-- Authors signatures container -->
+		<div class="authors-container" th:if="${authorsForSignatures != null}">
+		<h3 th:text="#{heading.members}">Members of Sobakaisti</h3>
+			<div th:each="author,itemStat : ${authorsForSignatures}" class="author-signature-wrapper">
+				<a th:href="@{/}" class="author-signature-bttn">
+					<img th:src="@{/resources/img/sbk_mvt_logo.png}" class="author-signature"
+						th:alt="${author.firstName}" th:title="${author.firstName + ' ' + author.lastName}">
+					<span class="author-fullname" th:text="${author.firstName + ' ' + author.lastName}"></span>
+				</a>
+			</div>		
+		</div>
 	</div>
 
 <footer th:replace="~{commons/mvt_footer :: mvt_footer}">

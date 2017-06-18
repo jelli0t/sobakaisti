@@ -94,8 +94,12 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public List<Article> getArticlesOrderByDate() {
-		return articleDao.getArticlesSortedByDate();
+	public List<Article> getArticlesOrderByDate(int resultsLimit) {
+		return articleDao.getArticlesSortedByDate(resultsLimit);
+	}
+	@Override
+	public List<Article> getArticlesOrderByDate(int index, int resultsLimit) {
+		return articleDao.getArticlesSortedByDate(index, resultsLimit);
 	}
 	
 	/**

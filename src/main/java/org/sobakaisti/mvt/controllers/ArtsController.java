@@ -6,8 +6,10 @@ package org.sobakaisti.mvt.controllers;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -29,6 +32,10 @@ public class ArtsController {
 	private CategoryService categoryService;
 	@Autowired
 	private AuthorDao authorDao;
+	@Autowired
+	private ArticleService articleService;
+	
+	private int index = 0;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String showArtsRadialMenu(){
@@ -43,6 +50,15 @@ public class ArtsController {
 		//TODO napista sve autore koji su relevantni za odabranu kat.
 		model.addAttribute("authors", authorDao.getAllAuthors());		
 		model.addAttribute("arts", subcategories);
+		
+		/* first articles to display */
+		index = 0;
+		List<Article> initialArticles = articleService.getArticlesOrderByDate(0, 9);
+		if(initialArticles != null && initialArticles.size() > 0){
+			model.addAttribute("initArticles", initialArticles);
+			index = initialArticles.size();
+			System.out.println("Idnex postavljam na: "+index);
+		}		
 		return "art";
 	}
 	
@@ -61,6 +77,16 @@ public class ArtsController {
 		}	
 		model.addAttribute("authors", authorDao.getAllAuthors());
 		return "art";
+	}
+	
+	@RequestMapping(value="/load_more_articles", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Article> loadMoreArticlesPreviews(){
+		// TODO osmisli counting za index i articles per load
+		List<Article> additionalArticles = articleService.getArticlesOrderByDate(index, 5);
+		System.out.println("Dohvatam "+additionalArticles.size()+" clanaka, pocev od: "+index);
+		index += ArticleService.ARTICLES_PER_LOAD;
+		return additionalArticles;
 	}
 
 }
