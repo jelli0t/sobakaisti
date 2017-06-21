@@ -10,12 +10,16 @@
 
 	<div class="article-top-container">
 		<h3 th:text="${initArticles[0].title}"></h3>
-		<div th:utext="${#strings.abbreviate(initArticles[0].content,320)}"></div>
-		
+		<div th:utext="${#strings.abbreviate(initArticles[0].content,320)}"></div>		
 	</div>
+	
 	<div class="article-prev-container" th:each="article,itemStat : ${initArticles}" th:unless="${itemStat.index == 0}">
-		<h3 th:text="${article.title}"></h3>
+		<h3 th:text="${article.title}" class="article-prev-title"></h3>
+		<div th:with="author=${article.author}" class="article-prev-author">
+			<a th:href="@{/}"><span th:text="${author.firstName + ' ' + author.lastName}"></span></a>
+		</div>
 		<div th:utext="${#strings.abbreviate(article.content,200)}"></div>
+		<div class="article-prev-footer"><a th:href="@{/{article}(article=${article.slug})}" th:title="${article.title}">Read more...</a></div>
 	</div>
 
 	<a th:href="@{/arts/load_more_articles}" style="display:none;" id="load-content-link"></a>

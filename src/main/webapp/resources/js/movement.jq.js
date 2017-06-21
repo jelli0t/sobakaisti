@@ -55,12 +55,14 @@ $(function() {
 	$(window).scroll(function() {
         if ($(document).height() <= ($(window).height() + $(window).scrollTop())) {
 //            alert('Bottom reached!');
+        	console.log('Bottom!');
         	$(document).loadMoreArticlesPreviews();
         }
     });
 	
 });
 
+var endReached = false;
 
 function resizeTriangle(labelWidth){
 	$('#triangle-container').css({'margin-left':-labelWidth});
@@ -70,15 +72,27 @@ function resizeTriangle(labelWidth){
 	}, 'fast');
 }
 
+/**
+ *  loads more article when scroll window to bottom
+ * */
 $.fn.loadMoreArticlesPreviews = function() {
+	if(endReached){
+		console.log('Kraj vec dostignut, izlazim iz funkcije.');
+		return;
+	}
 	
 	$.ajax({
 		url: $('#load-content-link').attr('href'),
 		type : 'GET',
-		contentType: 'application/json; charset=utf-8'
-	}).done(function( data ) {
-		console.log('successful reach list: '+data.length);
-		
+		dataType: 'html',
+	}).done(function( article ) {			
+		if (article) {
+			console.log('Uspesno dohvacen fragment, ');
+			$('.site-content-container').append(article);
+		}else {
+			console.log('Nema sta da dohvatim, document je prazan! ');
+			endReached = true;
+		}		
 	}).fail(function( xhr, status, errorThrown ) {
 	    console.log("Error: " + errorThrown );
 	    console.log( "Status: " + status );

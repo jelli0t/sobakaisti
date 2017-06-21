@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"></head>
+
+	<div th:fragment="artsArticlePreviews" th:unless="${#lists.isEmpty(additionalArticles)}" class="">    
+		<article th:each="article,itemStat : ${additionalArticles}" class="article-prev-container">
+			<h3 th:text="${article.title}" class="article-prev-title"></h3>
+			<div th:with="author=${article.author}" class="article-prev-author">
+				<a th:href="@{/}"><span th:text="${author.firstName + ' ' + author.lastName}"></span></a>
+			</div>
+			<div th:utext="${#strings.abbreviate(article.content,200)}"></div>
+			<div class="article-prev-footer"><a th:href="@{/{article}(article=${article.slug})}" th:title="${article.title}">Read more...</a></div>
+		</article>
+	</div>
+</html>

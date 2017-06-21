@@ -53,7 +53,7 @@ public class ArtsController {
 		
 		/* first articles to display */
 		index = 0;
-		List<Article> initialArticles = articleService.getArticlesOrderByDate(0, 9);
+		List<Article> initialArticles = articleService.getArticlesOrderByDate(0, 11);
 		if(initialArticles != null && initialArticles.size() > 0){
 			model.addAttribute("initArticles", initialArticles);
 			index = initialArticles.size();
@@ -79,14 +79,15 @@ public class ArtsController {
 		return "art";
 	}
 	
+	
 	@RequestMapping(value="/load_more_articles", method=RequestMethod.GET)
-	@ResponseBody
-	public List<Article> loadMoreArticlesPreviews(){
-		// TODO osmisli counting za index i articles per load
+	public String loadAdditionalArticlePreviewsFragment(Model model){		
 		List<Article> additionalArticles = articleService.getArticlesOrderByDate(index, 5);
-		System.out.println("Dohvatam "+additionalArticles.size()+" clanaka, pocev od: "+index);
-		index += ArticleService.ARTICLES_PER_LOAD;
-		return additionalArticles;
+		if(additionalArticles.size() > 0){
+			model.addAttribute("additionalArticles", additionalArticles);
+			index += ArticleService.ARTICLES_PER_LOAD;
+		}
+		return "commons/artArticlePreviews :: artsArticlePreviews";
 	}
 
 }

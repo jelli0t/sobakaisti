@@ -95,7 +95,7 @@ public class ArticleDaoImpl implements ArticleDao{
 	@Override
 	@Transactional
 	public List<Article> getArticlesSortedByDate(int resultsLimit) {
-		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc";
+		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc, a.id desc";
 		Session session = sessionFactory.getCurrentSession();
 		List<Article> articles = session.createQuery(HQL).list();
 		return articles;
@@ -105,7 +105,7 @@ public class ArticleDaoImpl implements ArticleDao{
 	@Override
 	@Transactional
 	public List<Article> getArticlesSortedByDate(int index, int resultsLimit) {
-		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc";
+		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc, a.id desc";
 		Session session = sessionFactory.getCurrentSession();
 		List<Article> articles = session.createQuery(HQL)
 										.setFirstResult(index)
