@@ -74,4 +74,16 @@ public class CategoryDaoImpl implements CategoryDao{
 		}
 	}
 
+	@Override
+	public Category findCategoryBySlug(String slug) {
+		final String HQL = "from Category c where c.slug =:slug";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Category category = (Category) session.createQuery(HQL).setString("slug", slug).uniqueResult();
+			return category;
+		} catch (HibernateException he) {
+			return null;
+		}		
+	}
+
 }

@@ -47,4 +47,12 @@ public class CategoryServiceImpl implements CategoryService{
 		return null;
 	}
 
+	@Override
+	public Category findCategoryBySlug(String slug) {
+		if(slug != null || !slug.equals("")){
+			return categoryDao.findCategoryBySlug(slug);
+		}
+		return null;
+	}
+
 }

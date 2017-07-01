@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/mvt_head :: mvt_head(~{::title})">
+	<title th:text="#{nav.item.published}">Izdanja</title>
+</head>
+<body>
+<nav th:replace="~{commons/navigation :: navigation}"></nav>
+
+<header class="header-content">
+	<!-- top half of header -->
+	<div class="header-content-tophalf">
+		<!-- site logo -->
+		<div class="logo-wrapper fleft header-logo">
+			<a th:href="@{/rs/movement}"><img alt="Pokret" th:src="@{/resources/img/sobakaisti_logo.jpg}" height="26"></a>
+		</div>
+		<!-- social networks -->
+		<div class="social-container fright header-social">
+			<span class="facebook-ico social-ico">
+				<a th:href="@{https://www.facebook.com/sobakaisti/}" target="_blank" title="Facebook"></a>
+			</span>
+			<span class="twitter-ico social-ico">
+				<a th:href="@{https://twitter.com/sobakaisti}" target="_blank" title="Twitter"></a>
+			</span>
+			<span class="youtube-ico social-ico"></span>
+			<span class="tumblr-ico social-ico">
+				<a th:href="@{http://sobakaisti.tumblr.com/}" target="_blank" title="Tumblr"></a>					
+			</span>
+		</div>
+	</div>
+	<!-- bottom half of the header -->
+	<div class="header-content-bottomhalf">
+		<!-- left autor filter div -->
+		<div class="header-author-filter fleft">
+			<ul th:if="${authors != null}" class="author-filter-list aright">
+				<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
+					<a th:href="@{/publications/{author}(author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+						<span class="circle circle-filter" 
+							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 
+							th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
+						<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- center indicator continer -->
+		<div class="header-page-indicator">
+			<span class="circle page-indikator-circle">
+				<span th:text="#{nav.item.published}" th:alt="#{nav.item.published}">MANIFEST</span>
+			</span>
+			
+		</div>			
+		<!-- right author filter div -->
+		<div class="header-author-filter fright">
+			<ul th:if="${authors != null}" class="author-filter-list aleft">
+				<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
+					<a th:href="@{/publications/{author}(author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+						<span class="circle circle-filter" 
+							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 
+							th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
+						<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- header sorting buttons -->
+	<div class="header-sorting-container" th:if="${arts != null}">
+		<a th:href="@{/publications/chronological/{author}(author=(${chosenAuthor != null} ? ${chosenAuthor.slug} : ''))}" 
+			class="sorting-bttn"><span th:text="#{button.label.chronological}">Hronoloski</span></a>
+		<span>&#124;</span>
+		<a th:href="@{/publications/popular/{author}(author=(${chosenAuthor != null} ? ${chosenAuthor.slug} : ''))}" 
+			class="sorting-bttn"><span th:text="#{button.label.popular}">Popularno</span></a>
+	</div>
+	
+</header>	
+
+<main class="main-content">
+	<ol th:if="${publications != null}">
+	<!-- List of articles previews -->
+		<li>
+			<article class="post-preview" th:each="post,itemStat : ${publications}">
+				<header>
+					<a class="post-preview-img"></a>
+					<a class="post-preview-title">
+						<h3></h3>
+					</a>
+				</header>
+				<div></div>
+				<footer>
+				</footer>
+			</article>
+		</li>
+	</ol>
+
+
+</main>
+
+<!-- ubaciti u footer -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/movement.jq.js}"></script>
+</body>
+</html>

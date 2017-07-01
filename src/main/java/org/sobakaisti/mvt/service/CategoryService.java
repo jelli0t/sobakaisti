@@ -12,6 +12,8 @@ import org.sobakaisti.mvt.models.Category;
  *
  */
 public interface CategoryService {
+	
+	public static final String PUBLICATIONS_SLUG = "publications";
 	/**
 	 * nadji sve kategorje po roditelju
 	 * */
@@ -21,4 +23,10 @@ public interface CategoryService {
 	 * 
 	 * */
 	public List<Category> findAllSortedSubcategories(String categorySlug, String parentCategorySlug);
+
+	/**
+	 * Pronalazi kategoriju po njenom slug-u
+	 * @param String
+	 * */
+	public Category findCategoryBySlug(String slug);
 }
