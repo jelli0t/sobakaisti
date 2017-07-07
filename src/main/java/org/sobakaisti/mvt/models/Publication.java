@@ -5,12 +5,15 @@ package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,6 +52,9 @@ public class Publication {
 	
 	@Column(name="active")
 	private byte active;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Author author;
 	
 	public int getId() {
 		return id;
@@ -92,4 +98,11 @@ public class Publication {
 	public void setPostDate(Calendar postDate) {
 		this.postDate = postDate;
 	}
+	public Author getAuthor() {
+		return author;
+	}
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+	
 }
