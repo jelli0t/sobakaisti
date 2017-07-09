@@ -13,6 +13,7 @@ import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
+import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,8 @@ public class DashboardController {
 	private ArticleService articleService; 
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private PublicationService publicationService;
 	
 	@ModelAttribute
 	public void prepare(Model model){
@@ -157,5 +160,14 @@ public class DashboardController {
 	public ResponseEntity<List<Tag>> searchArticleTags(@RequestParam("phrase") String phrase){
 		List<Tag> tags = articleService.getTagSerachResult(phrase);
 		return new ResponseEntity<List<Tag>>(tags, HttpStatus.OK);
+	}
+	
+	//	PUBLICATIONS
+	
+	@RequestMapping(value="/publications", method=RequestMethod.GET)
+	public String showPublicationsPage(Model model){
+		
+		model.addAttribute("publications", publicationService.findAllOrderedPublications());
+		return "dashboard/dash_publications";
 	}
 }

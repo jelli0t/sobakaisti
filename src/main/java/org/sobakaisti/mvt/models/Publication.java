@@ -53,6 +53,9 @@ public class Publication {
 	@Column(name="active")
 	private byte active;
 	
+	@Column(name="downloaded")
+	private int downloaded;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Author author;
 	
@@ -103,6 +106,12 @@ public class Publication {
 	}
 	public void setAuthor(Author author) {
 		this.author = author;
+	}
+	public int getDownloaded() {
+		return downloaded;
+	}
+	public void setDownloaded(int downloaded) {
+		this.downloaded = downloaded;
 	}
 	
 }

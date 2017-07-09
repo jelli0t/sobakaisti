@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
+	<title>Publications | Sobakaisti</title>	
+</head>
+<body>
+<!-- Top header of dashboard section -->
+<header th:replace="~{commons/dash_header :: dash_header}"></header>
+
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
+</section>
+<div class="dash-main-container">
+	<div class="listing">
+		<!-- Listing header -->
+		<div class="listing-header">
+			<!-- top table filter -->
+			<div class="listing-header-filter"></div>
+		</div>
+		
+		<!-- listing body -->
+		<div class="listing-body">
+			<ul>
+				<li class="list-item" th:each="pbl : ${publications}" th:id="'item-'+${pbl.id}">
+					<div class="item-status-td">
+						<a th:href="@{/sbk-admin/publications/change_status/{id}(id=${id})}" class="change-status-link" th:alt="${pbl.id}">
+							<img alt="status" th:src="@{'/resources/img/icons/active-'+${pbl.active}+'.svg'}" width="16" height="16" class="article-status-icon">
+						</a>
+					</div>
+					<div class="item-main-td">
+						<a th:href="@{/publications/{slug}(slug=${pbl.slug})}" 
+							th:text="${pbl.title}" th:title="${pbl.title}" th:alt="${pbl.title}"></a>
+<!-- 						<span th:each="tag, tagStat : ${pbl.tags}" class="label tag" th:unless="${tagStat.index} > 3" th:with="slug=${tag.slug}"> -->
+<!-- 							<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a> -->
+<!-- 						</span> -->
+						
+						<div class="item-main-subdiv" th:with="author=${pbl.author}">
+							<span th:text="#{label.publishedBy}">Objavljeno</span>
+							<span class="circle circle-tiny" 
+								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">Sobakaisti</span>
+							<span th:text="${author.firstName + ' ' + author.lastName}"></span>
+							<span th:text="#{label.onDay}">dana</span>
+							<span th:text="${#dates.format(pbl.postDate, 'dd. MMM. yyyy.')}"></span>							
+						</div>
+					</div>
+					
+					<div class="item-downloads-td"></div>
+					<div class="item-comments-td"></div>
+				</li>
+			</ul>
+		</div>
+	
+	</div>
+</div>
+
+</body>
+</html>
