@@ -21,8 +21,15 @@ ul {
 	list-style: none; 
 	margin: 0; 
 	padding: 0; 
-	box-sizing: content-box;
+	box-sizing: border-box;
 	}
+.fleft {
+	position: relative;
+	float: left !important;
+}
+.fright {
+	float: right !important;
+}
 
 .icon::BEFORE {
 	font-family: 'Pe-icon-7-stroke';
@@ -580,6 +587,95 @@ h6 {
 	padding: 0;
 	border: none;
 	width: auto;
+}
+
+/* TABLE LIST */
+.listing-container {
+	
+}
+.listing-tools {
+	display: table;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.listing-header {
+	padding: 7px;
+}
+.table-list {
+	position: relative;
+	display: block;
+	width: 720px;
+	height: auto;
+	border-left: 1px #e1e4e8 solid !important;
+	border-right: 1px #e1e4e8 solid !important;
+	border-bottom: 1px #e1e4e8 solid !important;
+}
+.list-item {
+	display: table;
+	width: 100%;
+	max-width: 720px;
+	list-style-type: none;
+    border-top: 1px solid #e1e4e8;
+    padding: 7px;
+    box-sizing: border-box;
+}
+.list-item > .td {
+	float: left;
+	margin: 0 7px;	
+}
+
+.item-main-td > .item-main-subdiv {
+	font-size: 12px !important;
+	color: #586069 !important;
+}
+.circle-tiny {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	border: 1px solid #434343;
+	-webkit-border-radius: 50%;
+  	-moz-border-radius: 50%;
+	border-radius: 50%;
+	text-transform: uppercase;
+	background-color: white;
+	line-height: 18px;
+	text-align: center;
+	font-size: 9px; 
+/* 	font-weight: 700; */
+	-webkit-background-clip: padding-box; 
+  	-moz-background-clip:    padding; 
+  	background-clip:         padding-box;
+	margin-left: 3px;
+	z-index: 999; 	
+	
+}
+
+.item-downloads-td > span {
+	padding: 0 3px;
+	width: 50px;
+}
+.item-downloads-td > span::before {
+	font-family: 'Pe-icon-7-stroke';
+	font-size: 16px;
+	content: '\e68b';
+	margin-right: 6px;
+}
+
+.item-comments-td > span {
+	padding: 0 3px;
+	width: 50px;
+}
+.item-comments-td > span::before {
+	font-family: 'Pe-icon-7-stroke';
+	font-size: 16px;
+	content: '\e668';
+	margin-right: 6px;
+}
+.listing-header {
+	background-color: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 3px 3px 0 0;
 }
 /* Loader */
 .loader,
