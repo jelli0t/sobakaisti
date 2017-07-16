@@ -72,22 +72,7 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 .input-wrapper input[type="text"].error-border { border-color: #DD381D !important;}
 .error-border { border-color: #DD381D !important;}
 
-.affirmative-message { background-color: #6bb951; }
-.negative-message { background-color: #DD381D; } 
-.response-message {
-	position: fixed;
-	width: 80%;
-	display: none;
-	padding: 5px 0;
-	text-align: center;
-	color: #fff;
-	font-size: 12px;
-	font-weight: 700;
-	-webkit-border-radius: 3px;
-  	-moz-border-radius: 3px;
-  	border-radius: 3px;
-  	box-shadow: 0 3px 12px rgba(27,31,35,0.15);
-}
+
 
 .validation-error {
 	display: none;
@@ -590,18 +575,34 @@ h6 {
 }
 
 /* TABLE LIST */
-.listing-container {
-	
-}
 .listing-tools {
 	display: table;
 	width: 100%;
 	margin-bottom: 10px;
 }
-
 .listing-header {
-	padding: 7px;
+	background-color: #f6f8fa;
+   	border: 1px solid #e1e4e8;
+    border-radius: 3px 3px 0 0;
+    padding: 11px 7px 10px 7px;
+	color: #586069 !important;
+	box-sizing: border-box;	
+	border-bottom-color: transparent;
 }
+.show-active-item {
+	font-size: 12px;
+	padding-left: 7px;
+	line-height: 14px;
+	color:  inherit;
+}
+.show-active-item > span { vertical-align: text-top; }
+.show-active-item:hover { color: #24292e; }
+.selected-link {
+	color: #24292e;
+	font-weight: 600;
+}
+.show-active-item > img { vertical-align: text-top; margin-right: 2px; }
+
 .table-list {
 	position: relative;
 	display: block;
@@ -620,20 +621,39 @@ h6 {
     padding: 7px;
     box-sizing: border-box;
 }
+.list-item:hover {
+	background-color: #f6f8fa;
+}
 .list-item > .td {
 	float: left;
+	font-size: 12px !important;
 	margin: 0 7px;	
 }
 
+
+.item-tools-td > .item-tool {opacity: 0;}
+.list-item:hover > .td + .item-tools-td > .item-tool {
+	opacity: 1;
+}
 .item-main-td > .item-main-subdiv {
 	font-size: 12px !important;
 	color: #586069 !important;
 }
+.item-main-td > .clickable-title {
+	font-size: 14px;
+	font-weight: normal;
+	color: #24292e;
+	margin-right: 13px;
+}
+.item-main-td > .clickable-title:hover { color: #0366d6 !important; }
+.clickable-author { color: #586069 !important; }
+.clickable-author:hover { color: #0366d6 !important; }
+
 .circle-tiny {
 	display: inline-block;
 	width: 18px;
 	height: 18px;
-	border: 1px solid #434343;
+	border: 1px solid #586069;
 	-webkit-border-radius: 50%;
   	-moz-border-radius: 50%;
 	border-radius: 50%;
@@ -641,14 +661,12 @@ h6 {
 	background-color: white;
 	line-height: 18px;
 	text-align: center;
-	font-size: 9px; 
-/* 	font-weight: 700; */
+	font-size: 9px;
 	-webkit-background-clip: padding-box; 
   	-moz-background-clip:    padding; 
   	background-clip:         padding-box;
 	margin-left: 3px;
 	z-index: 999; 	
-	
 }
 
 .item-downloads-td > span {
@@ -672,11 +690,8 @@ h6 {
 	content: '\e668';
 	margin-right: 6px;
 }
-.listing-header {
-	background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 3px 3px 0 0;
-}
+
+
 /* Loader */
 .loader,
 .loader:after {

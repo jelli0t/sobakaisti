@@ -56,15 +56,27 @@ public class Publication {
 	private Calendar postDate;
 	
 	@Column(name="active")
-	private byte active;
+	private int active;
 	
 	@Column(name="downloaded")
 	private int downloaded;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade =
+        {
+	        CascadeType.DETACH,
+	        CascadeType.MERGE,
+	        CascadeType.REFRESH,
+	        CascadeType.PERSIST
+        })
 	private Author author;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)	
+	@ManyToMany(cascade =
+        {
+	        CascadeType.DETACH,
+	        CascadeType.MERGE,
+	        CascadeType.REFRESH,
+	        CascadeType.PERSIST
+        }, fetch=FetchType.EAGER)	
 	@JoinTable(name = "publication_tag", joinColumns = {
 			@JoinColumn(name = "publication_id")},
 			inverseJoinColumns = { @JoinColumn(name = "tag_id")})
@@ -100,10 +112,11 @@ public class Publication {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public byte getActive() {
+		
+	public int getActive() {
 		return active;
 	}
-	public void setActive(byte active) {
+	public void setActive(int active) {
 		this.active = active;
 	}
 	public Calendar getPostDate() {

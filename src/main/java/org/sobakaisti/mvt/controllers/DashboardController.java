@@ -11,6 +11,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PublicationService;
@@ -166,8 +167,33 @@ public class DashboardController {
 	
 	@RequestMapping(value="/publications", method=RequestMethod.GET)
 	public String showPublicationsPage(Model model){
-		
+		/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
+		final int active = publicationService.countPublicationsByStatus(true);
+		final int nonActive = publicationService.countPublicationsByStatus(false);
+		model.addAttribute("activeCount", active);
+		model.addAttribute("nonActiveCount", nonActive);
 		model.addAttribute("publications", publicationService.findAllOrderedPublications());
+		model.addAttribute("isActive", true);
 		return "dashboard/dash_publications";
+	}
+	
+	@RequestMapping(value="/publications/status/{status}", method=RequestMethod.GET)
+	public String showPublicationByActiveStatus(@PathVariable("status") String status, Model model) {
+		if(status != null && !status.isEmpty()) {
+			List<Publication> publications = publicationService.findAllPublicationsByStatus(status);
+			model.addAttribute("publications", publications);
+			/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
+			final int active = publicationService.countPublicationsByStatus(true);
+			final int nonActive = publicationService.countPublicationsByStatus(false);
+			model.addAttribute("activeCount", active);
+			model.addAttribute("nonActiveCount", nonActive);
+			model.addAttribute("isActive", status.equals(PublicationService.ACTIVE_STATUS) ? true : false);
+		}
+		return "dashboard/dash_publications";
+	}
+	
+	@RequestMapping(value="/publication", method=RequestMethod.GET)
+	public String showNewPublicationPage(Model model){
+		return "dashboard/dash_publication";
 	}
 }

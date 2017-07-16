@@ -53,7 +53,7 @@ $(function() {
 //	});
 	
 	/**
-	 * Na klik ikonicu za brisanje poziva se dialog
+	 * Brisanje stavki
 	 * */
 	$(document).on('click','.delete-item', function(evt){
 		evt.preventDefault();		
@@ -129,8 +129,7 @@ $(function() {
 		evt.preventDefault();
 		$(this).parent('.tag').remove();
 	});
-	
-	
+		
 }); // End Of Ready
 
 
@@ -378,6 +377,7 @@ $.fn.deleteItem = function(removeMeta){
         }
 	}).done(function( json ) {
 		console.log("success: "+json);
+		$('.response-message').showResponseMessage(json, true);
 		/* uklanjam DOM el */
 		$(removeMeta.item).remove();
 	}).fail(function( xhr, status, errorThrown ) {

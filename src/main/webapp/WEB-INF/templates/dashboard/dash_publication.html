@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
+	<title>Publication</title>	
+</head>
+<body>
+<!-- Top header of dashboard section -->
+<header th:replace="~{commons/dash_header :: dash_header}"></header>
+
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
+</section>
+<div class="dash-main-container">
+	<!-- New publication input -->
+	<form action="">
+		<div>
+			<label th:text="#{label.author}">Autor</label>
+			<field>
+<!-- 				<button class="bttn bttn-select" th:text="#{label.author}"></button> -->
+<!-- 				<div class="select-menu-container"> -->
+<!-- 					<ul class="select-menu-list"> -->
+<!-- 						<li class="select-menu-option"> -->
+							
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+				
+				<select name="author" class="bttn bttn-default bttn-select">
+					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista
+					</option>
+				</select>
+			</field>
+		</div>
+	</form>
+</div>
+<footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
+</body>
+</html>
