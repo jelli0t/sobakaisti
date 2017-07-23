@@ -19,7 +19,7 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 @Service
 public class AmazonS3ServiceImpl implements AmazonS3Service{
 
-	private AWSCredentials credentials =  new BasicAWSCredentials("AKIAIEQFWWUTR5B6JC7A", "iuApCmHXHspg8VnY/XT5h8Lcg4p+Q4kzm1WpcsYw");	
+	private AWSCredentials credentials =  new BasicAWSCredentials("", "");	
 	
 	@Override
 	public boolean uploadFile(String fileName, MultipartFile multipartFile) {
