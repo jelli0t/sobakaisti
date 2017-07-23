@@ -10,29 +10,90 @@
 
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
-<div class="dash-main-container">
-	<!-- New publication input -->
-	<form action="">
-		<div>
-			<label th:text="#{label.author}">Autor</label>
-			<field>
-<!-- 				<button class="bttn bttn-select" th:text="#{label.author}"></button> -->
-<!-- 				<div class="select-menu-container"> -->
-<!-- 					<ul class="select-menu-list"> -->
-<!-- 						<li class="select-menu-option"> -->
-							
-<!-- 						</li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-				
+<!-- form -->
+<form th:action="@{/publications/upload}" id="publication-form" enctype="multipart/form-data">	
+	<div class="main-dash-content">
+		<!-- Right panel -->
+		<div class="right-container">
+			<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title">Objava</span>
+			</div>
+			<div class="panel-body">
+				<div class="select-wrapper">
 				<select name="author" class="bttn bttn-default bttn-select">
-					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista
-					</option>
+					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
+					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
 				</select>
-			</field>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
+				</div>
+				
+			</div>
+			<div class="panel-footer">
+				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
+			</div>
 		</div>
-	</form>
-</div>
+		
+		<!-- Tags selection -->
+		<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
+			</div>
+			<div class="panel-body">			
+			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button>
+				<!-- dropdown menu -->
+				<div class="select-menu-modal">
+					<div class="select-menu-header">
+						<span class="select-menu-title">Pretraga oznaka</span> 
+						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
+					</div>
+					<div class="select-menu-filters">
+						<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
+						<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}">
+					</div>					
+					<div class="search-result"></div>
+				</div>
+				<div class="selected-tags selected-result"></div>			
+			</div>			
+		</div>
+		</div>	
+		
+		<!-- Left content -->
+		<div class="left-container">
+			<div class="form-tr">
+				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" 
+					id="publication-title" class="title-input full-width" th:src="@{/publications/slug/new}">
+				<!-- validation error message -->
+				<div class="validation-error"></div>	
+				<!-- link preview -->
+				<div class="post-path-container">
+					<span class="post-path path-label">Putanja na sekciji Izdanja: </span>
+					<span class="post-path path-static">http://sobakaisti.org/bublications/</span>
+					<span class="post-path path-slug">
+						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" readonly>
+					</span>
+				</div>
+			</div>
+			<!-- Input file button -->
+			<div class="form-tr">
+				<input type="file" name="file" id="file" class="inputfile" />
+				<label for="file" id="upload-label">Odaberi dokument...</label>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
+			</div>
+			<!-- contet textarea -->	
+			<div class="article-input-wrapper form-tr">
+				<textarea name="content" id="article-content"></textarea>
+			</div>
+		</div>		
+	</div>
+<!-- end of the form -->
+</form>
+
+<script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.js}"></script>
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
 </body>
 </html>

@@ -137,8 +137,4 @@ public class ArticleServiceImpl implements ArticleService{
 		return null;
 	}
 
-	@Override
-	public List<Tag> getTagSerachResult(String phrase) {
-		return articleDao.searchTagsByPhrase(phrase);
-	}
 }

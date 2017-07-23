@@ -17,8 +17,10 @@
 	<h3>Uredi članak</h3>
 	<!-- Right container of article edit -->
 	<div class="article-left-container">		
-		<div class="article-input-wrapper">			
-			<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" id="article-title" placeholder="Insert title here" th:field="*{title}">
+		<div class="article-input-wrapper">
+			<!-- Article title -->	
+			<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" id="article-title" 
+					placeholder="Insert title here" th:field="*{title}" class="title-input">
 			<div class="validation-error"></div>
 			<div class="article-url-wrapper">
 				<span class="article-url-label">Preview link:</span> 

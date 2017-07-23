@@ -14,7 +14,7 @@
 	<div class="listing-container">
 		<!-- Top tool bar -->
 		<div class="listing-tools">
-			<a th:href="@{/sbk-admin/publications/new}" class="bttn bttn-primary fright">New publication</a>
+			<a th:href="@{/sbk-admin/publication}" class="bttn bttn-primary fright">New publication</a>
 		</div>
 	
 		<!-- Listing header -->
@@ -60,7 +60,7 @@
 									th:text="${author.firstName + ' ' + author.lastName}" class="clickable-author">Sobakaisti</a>
 							</span>
 							<span th:text="#{label.onDay}">dana</span>
-							<span th:text="${#dates.format(pbl.postDate, 'dd. MMM. yyyy. HH:mm')}"></span>							
+							<span th:text="${#dates.format(pbl.postDate, 'dd. MMM yyyy. HH:mm')}"></span>							
 						</div>
 					</div>
 					<!-- tags -->

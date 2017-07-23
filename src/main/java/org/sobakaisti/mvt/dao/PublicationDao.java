@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.dao;
 
 import java.util.List;
 
+import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
 
 /**
@@ -14,6 +15,18 @@ import org.sobakaisti.mvt.models.Publication;
 public interface PublicationDao {
 
 	public List<Publication> findAllOrderedPublications();
+
+	/**
+	 * Pronalazi sva izdanaj po Autoru
+	 * @param author
+	 * */
+	public List<Publication> findAllPublicationByAuthor(Author author);
+	
+	/**
+	 * Cuva Publication objekat kao ekvivalent uploadovanom fiajlu
+	 * @param publication
+	 * */
+	public boolean savePublication(Publication publication);
 	
 	/**
 	 * Brise izdanje na osnovu ID-a
@@ -35,4 +48,16 @@ public interface PublicationDao {
 	 * @param int status
 	 * */
 	public List<Publication> findAllPublicationsByStatus(int status);
+	
+	/**
+	 * Broji broj ponavljanja zadatog slug-a
+	 * @param slug
+	 * TODO napravi univerzalnu metodu
+	 * */
+	public int countSlugDuplicates(String slug);
+	
+	/**
+	 *  Pronalazi sve autore koji su objavili izdanja
+	 * */
+	public List<Author> findAllPublicationsAuthors();
 }

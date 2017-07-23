@@ -5,7 +5,9 @@ package org.sobakaisti.mvt.service;
 
 import java.util.List;
 
+import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author jelles
@@ -18,7 +20,25 @@ public interface PublicationService {
 	
 	public List<Publication> findAllOrderedPublications();
 	
+	/**
+	 * Dohvata sva izdanja zadatog autora
+	 * @param author
+	 * */
+	public List<Publication> findAllOrderedPublicationsByAuthor(Author author);
+	
 	public List<Publication> findAllPublicationsByStatus(String status);
+	
+	/**
+	 * Kreira i uploaduje Publication objekat od prosledjenih parametara
+	 * @param title
+	 * @param slug
+	 * @param content
+	 * @param authorId
+	 * @param tagIds
+	 * @param file
+	 * */
+	public boolean createAndUploadPublication(String title, String slug, String content, int authorId, int[] tagIds, MultipartFile file);
+	
 	/**
 	 * Brise izdanje za zadati ID
 	 * @param int
@@ -37,5 +57,9 @@ public interface PublicationService {
 	 * */
 	public int countPublicationsByStatus(boolean isActive);
 	
+	/**
+	 *  Pronalazi sve autore koji su objavili izdanja
+	 * */
+	public List<Author> findAllPublicationsAuthors();
 	
 }

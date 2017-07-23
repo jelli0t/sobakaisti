@@ -149,17 +149,5 @@ public class ArticleDaoImpl implements ArticleDao{
 		return -1;
 	}
 
-	@Override
-	@Transactional
-	public List<Tag> searchTagsByPhrase(String phrase) {
-		Session session = sessionFactory.getCurrentSession();
-		final String HQL = "from Tag t where t.tag like :phrase";
-		List<Tag> tags = new ArrayList<Tag>();
-		try {
-			tags = session.createQuery(HQL).setString("phrase", phrase+"%").list();
-			return tags;
-		} catch (Exception e) {
-			return tags;
-		}	
-	}
+	
 }

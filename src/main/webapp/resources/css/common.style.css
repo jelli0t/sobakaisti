@@ -216,3 +216,130 @@ a:link, a:VISITED {
   	border-radius: 3px;
   	box-shadow: 0 3px 12px rgba(27,31,35,0.15);
 }
+
+/* Dashboard main container */
+.main-dash-content {
+	position: relative;
+	margin: 70px 3% 40px 220px;
+/* 	border:  1px solid green; */
+	height: auto;
+    overflow: hidden;
+}
+.main-dash-content > .left-container {
+	width: auto;
+    overflow: hidden;
+}
+.main-dash-content > .right-container {
+	float: right;
+    width: 221px;
+    margin-left: 2em;
+/* 	border: 1px solid blue; */
+}
+
+.small-panel {
+    position: relative;
+    width: 220px;
+    margin-bottom: 25px;
+    color: #586069;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(27,31,35,0.15);
+    border-radius: 3px;
+/*     box-shadow: 0 1px 1px rgba(27,31,35,0.15); */
+}
+.panel-header {
+	padding: 8px 10px;
+    line-height: 16px;
+    background: #f6f8fa;
+    font-size: 12px;
+    border-bottom: 1px solid #e1e4e8;
+}
+.panel-header > .panel-title {
+    font-weight: 600;
+    color: #24292e;
+}
+.panel-body, .panel-footer {
+	padding: 12px;
+}
+
+/* input test */
+.form-tr {
+	margin: 0 0 16px 0;
+}
+.title-input {
+	border: 1px solid #c2c9d4;
+    border-radius: 3px;
+    background-color: #fff;
+    padding: 7.5px;
+    width: 100%;
+	font-size: 16px !important;
+	color: #24292e !important;
+}
+.title-input:focus {
+    border-color: #2188ff;
+   	outline: none;
+   	box-shadow: inset 0 1px 2px rgba(27,31,35,0.075), 0 0 0 0.2em rgba(3,102,214,0.3);
+}
+
+.post-path-container {
+	font-size: 10px;    
+    margin-top: 9px;
+    color: #24292e !important;
+}
+.post-path-container > .post-path {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	line-height: 14px;
+}
+.post-path-container > .path-label {
+	font-weight: 600;
+/* 	font-stretch: narrower; */
+}
+.path-static, .path-slug {
+	background-color: #fffbcc;
+	font-family: monospace;
+	margin-left: -1px;
+	border-spacing: 0px;
+}
+#slug {
+	width: auto;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-color: transparent;
+	font-size: 10px; 
+	color: #24292e !important;
+}
+/* file upload button */
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+	border: 1px solid #c2c9d4;
+    border-radius: 3px;
+    background-color: #fff;
+    padding: 7px 14px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #24292e;
+    display: inline-block;
+    cursor: pointer;
+}
+label::before {
+	font-family: 'fpslineicons';
+	content: '\e90f';
+	margin-right: 7px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    border-color: #6bb951;
+    color: #6bb951;
+}

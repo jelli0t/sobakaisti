@@ -41,6 +41,4 @@ public interface ArticleService {
 	 * */
 	public String switchArticleStatus(int articleId);
 	
-	public List<Tag> getTagSerachResult(String phrase);
-	
 }

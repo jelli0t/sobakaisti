@@ -18,14 +18,14 @@ $(function() {
 		$(this).next('.dropdown-menu').toggle();
 	});	 
 
-	$('#author-form input').focusin(function(){
-		$input = $(this);
-		hideErrorMessageBox($input);
+	/* sakriva poruke o validaciji za svako polje forme */
+	$('form input, form select').focusin(function(){
+		$(this).removeValidationAlert();
 	});
 	
-	$('#article-title').on('focusout', function(){
-		var $input = $(this);		
-		makeSlugFromTitle($input);
+	/* na focusout iz title polja napravi slug od unetog stringa */
+	$('.title-input').on('focusout', function(){
+		$(this).makeSlugFromTitle();
 	});
 	
 	
@@ -42,15 +42,6 @@ $(function() {
 		}
 		$('#post-article-form').postArticle();
 	});
-	
-	/* Delete item */
-//	$(document).on('click','.delete-item', function(evt){
-//		evt.preventDefault();
-//		uri = $(this).attr('href');
-//		$authorBox = $(this).closest('.author-box');	
-//		callAnchor('delete');		
-//		hideAllDropdowns();
-//	});
 	
 	/**
 	 * Brisanje stavki
@@ -103,18 +94,39 @@ $(function() {
 		$(this).displaySelectedCategories();
 	});
 	
-	
+	/* tag search event */
 	$(document).on('keyup', '.search-field', function(evt) {
 		evt.preventDefault();
 		var value = $(this).val();
-		if(value.length > 1) {
-			$(this).ajaxSearch();
-		}		
+		var key = evt.which;
+		var $searchField = $(this);
+		if(key === 13) {
+			$searchField.addNewTag();
+		} else if(value.length > 1) {
+			$searchField.ajaxSearch();
+		}			
+	});
+	
+	/* pri odabiru fajla iz file systema na label se postavlja ime fajla */
+	$('input[type=file]').on('change', function(){
+		var filename = $(this).val().split('\\').pop();
+		$('#upload-label').removeValidationAlert();
+		$('#upload-label').html(filename);
+	});
+
+	/**
+	 * Klick na Submit forme
+	 * */
+	$("#publication-form").submit(function(evt){
+		evt.preventDefault();
+		console.log('Submitovao sam formu');
+		$(this).submitFormData();
 	});
 	
 	$('.bttn-close').on('click', function(evt){
 		evt.preventDefault();
 		console.log('close!');
+		$('.search-result').empty();
 		$(this).parent().parent('.select-menu-modal').hide();
 	});
 	
@@ -129,6 +141,7 @@ $(function() {
 		evt.preventDefault();
 		$(this).parent('.tag').remove();
 	});
+		
 		
 }); // End Of Ready
 
@@ -279,35 +292,38 @@ function showErrorMessageBox(field, message){
 	$input.next('.validation-error').text(message).show();
 }
 
-function hideErrorMessageBox($input){
-	$input.removeClass('error-border');
-	$input.next('.validation-error').hide();
+/**
+ * Pravi ajax poziv za kreiranje slug-a od naslova
+ * */
+$.fn.makeSlugFromTitle = function() {
+	var title = $(this).val();
+	var csrf = getCsrfParams();
+	var uri = $(this).attr('src');
+	/* ako polje title nije prazno naravi ajax poziv */
+	if(title !== '') {
+		$.ajax({
+			url: uri,
+			type : 'PUT',
+			contentType: 'application/json; charset=utf-8',
+			data: title,
+			dataType : 'text',
+			beforeSend: function(xhr) {
+	            xhr.setRequestHeader(csrf[0], csrf[1]);
+	        }
+		}).done(function( data ) {
+			console.dir('successful converted title to slug: '+data);
+			$('#slug').val(data);
+			$('#slug').attr('size', data.length);
+		}).fail(function( xhr, status, errorThrown ) {
+		    console.log("Error: " + errorThrown );
+		    console.log( "Status: " + status );
+		    $('#article-slug').val('');	    
+		})
+	} else {
+		console.log('Input polje title je prazno!!');
+	}	
 }
 
-function makeSlugFromTitle($input){
-	var title = $input.val()!==''?$input.val():'NO_DATA';
-	
-	var csrf = getCsrfParams();	
-	var uri = $('#slug-href').attr('href');
-	$.ajax({
-		url: uri,
-		type : 'POST',
-		contentType: 'application/json; charset=utf-8',
-		data: title,
-		dataType : 'text',
-		beforeSend: function(xhr) {
-            xhr.setRequestHeader(csrf[0], csrf[1]);
-        }
-	}).done(function( data ) {
-		console.dir('successful converted slug to: '+data);
-		$('#article-slug').val(data);
-		$('#article-slug').attr('size', data.length);
-	}).fail(function( xhr, status, errorThrown ) {
-	    console.log("Error: " + errorThrown );
-	    console.log( "Status: " + status );
-	    $('#article-slug').val('');	    
-	})
-}
 /*
  * Poziv ajax funkciji za cuvanje clanka
  * */
@@ -461,16 +477,19 @@ $.fn.displaySelectedCategories = function() {
 	}
 }
 
+//TODO sa metodom ispod napravi univerzalnu metodu za tagove
+//TODO resi prikaz rezultata
 $.fn.ajaxSearch = function() {
 	var csrf = getCsrfParams();	
 	var uri = $(this).attr('src');
 	var value = $(this).val();
 	console.log('uri: '+uri+"; val: "+value);
 	$.ajax({
-	    url: uri,
-	    type: 'GET',
-	    data: { 'phrase': value},
+	    url: uri+'search',
+	    type: 'PUT',
+	    data: value,
 	    contentType: 'application/json; charset=utf-8',
+	    dataType: 'json',
 	    beforeSend: function(xhr) {
             xhr.setRequestHeader(csrf[0], csrf[1]);
         }
@@ -492,3 +511,104 @@ $.fn.ajaxSearch = function() {
 		console.log( "After all: " + status );
 	});
 }
+
+/*
+ * kreira novi Tag na osnovu unete fraze
+ * */
+$.fn.addNewTag = function() {
+	var csrf = getCsrfParams();	
+	var uri = $(this).attr('src');
+	var value = $(this).val();
+	
+	$.ajax({
+	    url: uri+'add',
+	    type: 'PUT',
+	    data: value,
+	    contentType: 'application/json; charset=utf-8',
+	    dataType: 'json',
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	})
+	.done(function( tag ) {
+		console.log("success: "+tag.tag);
+		var span = '<span class="label tag founded-tag" id="tag-'+tag.id+'">'+tag.tag+'<input type="hidden" name="tags" value="'+tag.id+'"></span>';
+		$('.search-result').empty().append(span);
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	})
+	.always(function( xhr, status ) {
+		console.log( "After all: " + status );
+	});
+}
+
+/***/
+$.fn.submitFormData = function() {
+	$('#overlay').toggle();
+	var $form = $(this);
+	var csrf = getCsrfParams();	
+	var uri = $(this).attr('action');
+	console.log("URI: "+uri);
+	var data = new FormData($(this)[0]);
+	
+	for (var value of data.values()) {
+		   console.log(value); 
+		}
+	$.ajax({
+	    url: uri,
+	    type: 'POST',
+	    enctype: 'multipart/form-data',
+	    data: data,
+	    cache: false,
+        processData: false, 
+        contentType: false,
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	})
+	.done(function( data ) {
+		console.log("success: "+data);	
+		$('.response-message').showResponseMessage(data, true);
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	    /* extract error message for fields */
+	    var err = xhr.responseJSON;
+	    console.log(err);
+	    if(err.fieldName === 'title'){
+	    	console.log(err.errorMessage);
+	    	var $input = $('input[name=title]', $form);
+	    	$input.addClass('error-border');
+	    	$input.next('.validation-error').text(err.errorMessage).show();
+	    }else if(err.fieldName === 'author'){
+	    	console.log(err.errorMessage);
+	    	var $input = $('select[name=author]', $form);
+	    	$input.addClass('error-border');
+	    	$input.next('.validation-error').text(err.errorMessage).show();
+	    }
+	    else if(err.fieldName === 'file'){
+	    	console.log(err.errorMessage);
+	    	var $input = $('input[name=file]', $form);
+	    	$('#upload-label').addClass('error-border');
+	    	$('#upload-label').next('.validation-error').text(err.errorMessage).show();
+	    }
+	})
+	.always(function( xhr, status ) {
+		$('#overlay').toggle();
+		console.log( "After all: " + status );
+	});
+}
+
+/*
+ * Uklanja poruke o validaciji polja.
+ * */
+$.fn.removeValidationAlert = function() {
+	$(this).removeClass('error-border');
+	$(this).next('.validation-error').empty().hide();
+}
+

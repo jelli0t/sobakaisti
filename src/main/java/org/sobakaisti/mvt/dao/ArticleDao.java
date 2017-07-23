@@ -60,11 +60,5 @@ public interface ArticleDao {
 	 *  public / draft
 	 * */
 	public int switchArticleStatus(int articleId);
-	
-	/**
-	 * metoda koja pronalazi sve tagove na osnovu prosledjene fraze
-	 * */
-	public List<Tag> searchTagsByPhrase(String phrase);
-
-	
+		
 }

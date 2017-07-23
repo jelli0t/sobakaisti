@@ -156,12 +156,7 @@ public class DashboardController {
 		return new ResponseEntity<String>("Greska promeni statusa.", HttpStatus.SERVICE_UNAVAILABLE);
 	}
 	
-	@RequestMapping(value="/article/tag/search", method=RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<List<Tag>> searchArticleTags(@RequestParam("phrase") String phrase){
-		List<Tag> tags = articleService.getTagSerachResult(phrase);
-		return new ResponseEntity<List<Tag>>(tags, HttpStatus.OK);
-	}
+	
 	
 	//	PUBLICATIONS
 	
