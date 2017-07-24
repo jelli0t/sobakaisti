@@ -110,13 +110,14 @@ public class PublicationsController {
             @RequestParam(name="file", required = false) MultipartFile file,
             @RequestParam(name="content", required = false) String content,
             @RequestParam(name="author", required = false) int author,
-            @RequestParam(name="tags", required = false) int[] tags
+            @RequestParam(name="tags", required = false) int[] tags,
+            @RequestParam(name="featuredImg", required = false) MultipartFile featuredImg
 			) {
 		System.out.println("Pogodio sam metodu uploadPublication()");
 		System.out.println("Uploadovao sam file: "+file.getOriginalFilename());
 		System.out.println("Body: "+content);
 		System.out.println("Author id: "+author);
-//		System.out.println("Tags count: "+tags != null ? tags.length : 0);
+		System.out.println("Featured img: "+featuredImg.getOriginalFilename());
 		
 		Validation validation = validator.validatePostFields(title, slug, author, file);
 		

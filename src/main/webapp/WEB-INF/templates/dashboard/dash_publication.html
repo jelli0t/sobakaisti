@@ -58,7 +58,22 @@
 				<div class="selected-tags selected-result"></div>			
 			</div>			
 		</div>
-		</div>	
+		
+		<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span>
+			</div>
+			<div class="panel-body">
+				<!-- Input file button -->				
+				<input type="file" name="featuredImg"  id="img-file" class="inputfile input-img" />
+				<label for="img-file" class="upload-img-label">Odaberi sliku...</label>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
+				<!-- Featured IMG preview -->
+				<div class="featured-img-prev" id="img-prev"></div>
+			</div>
+		</div>
+		</div>	 <!-- end of right sidebar -->
 		
 		<!-- Left content -->
 		<div class="left-container">
@@ -78,8 +93,8 @@
 			</div>
 			<!-- Input file button -->
 			<div class="form-tr">
-				<input type="file" name="file" id="file" class="inputfile" />
-				<label for="file" id="upload-label">Odaberi dokument...</label>
+				<input type="file" name="file" id="publication-file" class="inputfile" />
+				<label for="publication-file" id="upload-label">Odaberi dokument...</label>
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 			</div>

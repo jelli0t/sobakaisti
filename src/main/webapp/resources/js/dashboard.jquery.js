@@ -110,8 +110,12 @@ $(function() {
 	/* pri odabiru fajla iz file systema na label se postavlja ime fajla */
 	$('input[type=file]').on('change', function(){
 		var filename = $(this).val().split('\\').pop();
-		$('#upload-label').removeValidationAlert();
-		$('#upload-label').html(filename);
+		$(this).next('label').removeValidationAlert();
+		$(this).next('label').html(filename);
+		
+		if($(this).hasClass('input-img')){
+			$(this).showUploadedImgPreview();
+		}
 	});
 
 	/**
@@ -603,6 +607,38 @@ $.fn.submitFormData = function() {
 		console.log( "After all: " + status );
 	});
 }
+
+$.fn.showUploadedImgPreview = function() {
+	
+	var imgPath = $(this)[0].value;
+	var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+	if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+		if (typeof (FileReader) != "undefined") {
+			var image_holder = $("#img-prev");
+		   
+		    image_holder.empty();
+		
+		    var reader = new FileReader();
+		    reader.onload = function (e) {
+		        $("<img />", {
+		        "src": e.target.result,
+		        "class": "thumb-image"
+		        }).appendTo(image_holder);
+		
+		    }
+		    image_holder.show();
+		    reader.readAsDataURL($(this)[0].files[0]);
+		} else {
+		    alert("This browser does not support FileReader.");
+		}
+	 }else {
+		 var $input = $(this).next('label');
+		 $input.empty();
+		 $input.addClass('error-border');
+		 $input.next('.validation-error').text('Nije podrzan format fotografije!').show();
+	 }
+}
+
 
 /*
  * Uklanja poruke o validaciji polja.

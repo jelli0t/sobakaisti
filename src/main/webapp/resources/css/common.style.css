@@ -343,3 +343,19 @@ label::before {
     border-color: #6bb951;
     color: #6bb951;
 }
+
+.upload-img-label {
+	width: 160px !important;
+	overflow: hidden;
+	font-size: 12px !important;
+	padding: 5px 10px;
+}
+.featured-img-prev {
+	width: 180px;
+	height: auto;
+	margin: 10px auto 0 auto;
+}
+.featured-img-prev > img {
+	width: 180px !important;
+	margin: 0;
+}
