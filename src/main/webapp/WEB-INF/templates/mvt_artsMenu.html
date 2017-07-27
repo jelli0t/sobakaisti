@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/intro_head :: intro_head(~{::title})">
-	<title>Radovi</title>
+	<title th:text="#{nav.item.arts}">Radovi</title>
 </head>
 <body>
+	<!-- Basic header with basic navigation -->
+	<header class="basic-header">
+		<!-- Back to Movement icon -->
+		<div class="logo-shotcut-container shotcut-container">
+			<a th:href="@{/movement}"><img th:src="@{/resources/img/icons/sobakaisti_dog.svg}" class="basic-nav-icon" th:alt="#{nav.item.movement}"></a>
+			<span class="basic-nav-hover left-nav-hover" th:text="#{hover.title.backToMovement}"></span>
+		</div>
+		<!-- Back to Intro icon -->
+		<div class="intro-shotcut-container shotcut-container">
+			<a th:href="@{/}"><img th:src="@{/resources/img/icons/dog_house.svg}" class="basic-nav-icon" th:alt="#{nav.item.intro}"></a>
+			<span class="basic-nav-hover right-nav-hover" th:text="#{hover.title.backToIntro}"></span>
+			
+		</div>
+	</header>
+
 
 	<div class="radial-menu-container">
 		<div class="circle-wrapper">
-			<div class="circle">RADOVI</div>
-			<a href="" class="radial-menu-item"></a>
-			<a href="" class="radial-menu-item"></a>
-			<a href="" class="radial-menu-item"></a>
-			<a href="" class="radial-menu-item"></a>
-			<a href="" class="radial-menu-item"></a>
+			<div class="circle" th:text="#{nav.item.arts}" th:title="#{nav.item.arts}">RADOVI</div>
+			<!-- Photography radial menu item -->
+			<a th:href="@{/arts/photography}" class="radial-menu-item">
+				<img th:src="@{/resources/img/icons/photography_menu.svg}" th:title="#{label.arts.photography}" th:alt="#{label.arts.photography}">
+			</a>
+			<!-- Video radial menu item -->
+			<a th:href="@{/arts/video}" class="radial-menu-item">
+				<img th:src="@{/resources/img/icons/video_menu.svg}" th:title="#{label.arts.video}" th:alt="#{label.arts.video}">
+			</a>
+			<!-- paintings radial menu item -->
+			<a th:href="@{/arts/paintings}" class="radial-menu-item">
+				<img th:src="@{/resources/img/icons/paintings_menu.svg}" th:title="#{label.arts.paintings}" th:alt="#{label.arts.paintings}">
+			</a>
+			<!-- Music radial menu item -->
+			<a th:href="@{/arts/music}" class="radial-menu-item">
+				<img th:src="@{/resources/img/icons/music_menu.svg}" th:title="#{label.arts.music}" th:alt="#{label.arts.music}">
+			</a>
+			<!-- Literature radial menu item -->
+			<a th:href="@{/arts/literature}" class="radial-menu-item">
+				<img th:src="@{/resources/img/icons/literature_menu.svg}" th:title="#{label.arts.literature}" th:alt="#{label.arts.literature}">
+			</a>
 		</div>
 		
 	</div>
