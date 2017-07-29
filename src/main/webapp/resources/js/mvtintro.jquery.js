@@ -16,15 +16,16 @@ $(function() {
 	
 //	background(dimension,$circle);	
 	
-	$('.circle-menu-item').on('click', function(evt){
+	$('.circle-menu-link').on('click', function(evt){
 		evt.preventDefault();
-		var url = $('a', this).attr('href');
+		var url = $(this).attr('href');
+		alert('URL: '+url);
 		$(this).css({'position' : 'fixed'}).animate({
 			top: '8%',
 			left: '50%',
 			marginLeft:'-50px'
         }, {
-        	duration: 500,
+        	duration: 300,
 	        easing: 'swing'
         }).promise().done(function(){
         	window.location.href = (url!=null ? url:'');

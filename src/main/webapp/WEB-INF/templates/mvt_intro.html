@@ -15,35 +15,41 @@
 
 <!-- <span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span> -->
 <ul id="circle-menu">
+	<!-- Manifesto menu item -->
 	<li>
-		<span class="circle circle-menu-item">
-			<a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">Manifest</a>
-		</span>
+		<a th:href="@{/manifesto}" th:title="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}" class="circle-menu-link">
+			<span class="circle circle-menu-item" th:text="#{nav.item.manifesto}">Manifest</span>
+		</a>		
 	</li>
+	<!-- Arts menu item -->
 	<li>
-		<span class="circle circle-menu-item">
-			<a th:href="@{/arts}" th:text="#{nav.item.arts}" th:title="#{nav.item.arts}" th:alt="#{nav.item.arts}">RADOVI</a>
-		</span>
+		<a th:href="@{/arts}" th:title="#{nav.item.arts}" th:alt="#{nav.item.arts}" class="circle-menu-link">
+			<span class="circle circle-menu-item" th:text="#{nav.item.arts}">RADOVI</span>
+		</a>		
 	</li>
+	<!-- Authors menu item -->
 	<li>
-		<span class="circle circle-menu-item" th:text="#{nav.item.authors}">
-			<a th:href="@{/authors}" th:text="#{nav.item.authors}" th:title="#{nav.item.authors}" th:alt="#{nav.item.authors}">AUTORI</a>
-		</span>
+		<a th:href="@{/authors}" th:title="#{nav.item.authors}" th:alt="#{nav.item.authors}" class="circle-menu-link">
+			<span class="circle circle-menu-item" th:text="#{nav.item.authors}">AUTORI</span>
+		</a>		
 	</li>
+	<!-- Publication menu item -->
 	<li>
-		<span class="circle circle-menu-item" th:text="#{nav.item.published}">
-			<a th:href="@{/publication}" th:text="#{nav.item.published}" th:title="#{nav.item.published}" th:alt="#{nav.item.published}">IZDANJA</a>
-		</span>
+		<a th:href="@{/publications}" th:title="#{nav.item.publications}" th:alt="#{nav.item.publications}" class="circle-menu-link">
+			<span class="circle circle-menu-item" th:text="#{nav.item.publications}">IZDANJA</span>
+		</a>		
 	</li>
+	<!-- Shop menu item -->
 	<li>
-		<span class="circle circle-menu-item" th:text="#{nav.item.shop}">
-			<a th:href="@{/shop}" th:text="#{nav.item.shop}" th:title="#{nav.item.shop}" th:alt="#{nav.item.shop}">DUĆAN</a>
-		</span>
+		<a th:href="@{/shop}" th:title="#{nav.item.shop}" th:alt="#{nav.item.shop}" class="circle-menu-link">
+			<span class="circle circle-menu-item" th:text="#{nav.item.shop}">SHOP</span>
+		</a>	
 	</li>
+	<!-- Contact menu item -->
 	<li>
-		<span class="circle circle-menu-item" th:text="#{nav.item.contact}">
-			<a th:href="@{/contact}" th:text="#{nav.item.contact}" th:title="#{nav.item.contact}" th:alt="#{nav.item.contact}">KONTAKT</a>
-		</span>
+		<a th:href="@{/contact}" th:title="#{nav.item.contact}" th:alt="#{nav.item.contact}" class="circle-menu-link">
+			<span class="circle circle-menu-item" th:text="#{nav.item.contact}">KONTAKT</span>
+		</a>
 	</li>
 </ul>
 <ul class="bgd-list"></ul>

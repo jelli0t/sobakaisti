@@ -63,12 +63,12 @@ a:LINK, a:VISITED {
 	line-height: 90px;
 	text-align: center;
 	font-weight: 700;
+	font-size:12px;
 	-webkit-background-clip: padding-box; 
   	-moz-background-clip:    padding; 
   	background-clip:         padding-box;
 	z-index: 999; 	
 }
-
 
 .intro-icon {
 	position: absolute;
@@ -260,7 +260,7 @@ a:LINK, a:VISITED {
 	position: absolute;
 	top: 45%;
 	left: 50%;
-	margin: -60px 0 0 -60px;
+	margin: -51px 0 0 -51px;
 	width: 120px;
 	height: 120px;
 /* 	border: 1px solid red; */
@@ -350,18 +350,31 @@ a:LINK, a:VISITED {
 }
 #circle-menu > li > .circle-menu-item {
 	opacity: 1.0;
-	background-color: #fff;	
+	background-color: #fff;
 	-webkit-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
 	-moz-box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
 	box-shadow: 0px 0px 10px 12px rgba(255,255,255,0.75);
 /* 	margin: 0 15px; */
+	-webkit-transition: transform .2s ease;
+    -moz-transition: transform .2s ease;
+    -ms-transition: transform .2s ease;
+    -o-transition: transform .2s ease;
+    transition: transform .2s ease;
 	}
+	
+.circle-menu-item:hover {
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1); 
+	-moz-transform: scale(1.1);
+	transform: scale(1.1);
+} 
+
 
 .mvt-init-circle {
 	position: absolute;
 	top: 45%;
 	left: 50%;
-	margin: -49px 0 0 -49px;
+	margin: -40px 0 0 -40px;
 }
 
 footer.intro-footer {
@@ -548,18 +561,32 @@ header.basic-header {
 /*   	width: 160px; */
 /*   } */
   
-  .single-circle {
-	width: 80px;
-	height: 80px;
-	margin: 0 0 0 -40px;
-	line-height: 80px;
-	font-size: 10px !important;
-	border-width: 1px;
+  .single-circle, .circle-menu-item {
+		width: 80px;
+		height: 80px;
+		margin: 0 0 0 -40px;
+		line-height: 80px;
+		font-size: 10px !important;
+		border-width: 1px;
   }	
-  
-  .single-circle.mvt-init-circle {
+  .circle-menu-item {
+  		margin: 0 !important;
+  }
+  .mvt-init-circle {
+  		width: 80px;
+		height: 80px;
+		line-height: 80px;
 		margin: -40px 0 0 -40px;
+		font-size: 11px !important;
+		border-width: 1px;
 	}
+	.radial-loading {
+		margin: -51px 0 0 -51px;
+		width: 100px;
+		height: 100px;
+	/* 	border: 1px solid red; */
+	}
+	
 	
 	.loader:after {
 		margin: -55px 0 0 -55px;

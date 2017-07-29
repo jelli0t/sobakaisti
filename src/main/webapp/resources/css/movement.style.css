@@ -24,7 +24,7 @@ div {
 a {
 	text-decoration: none;
 	color: #343434;
-	outline: 0;
+	outline: none;
 }
 ul { list-style: none; }
 
@@ -79,22 +79,24 @@ ul { list-style: none; }
   	background-clip:         padding-box;
 	z-index: 999; 	
 }
-
+.circle > a {
+	display: block;
+}
 .single-circle {
 /* 	opacity: 0.0; */
 	position: absolute;
 	top: 8%;
 	left: 50%;
-	width: 100px;
-	height: 100px;
-	margin: 0 0 0 -50px;
+	width: 90px;
+	height: 90px;
+	margin: 0 0 0 -45px;
 	border: 2px solid #434343;
 	-webkit-border-radius: 100%;
   	-moz-border-radius: 100%;
   	border-radius: 100%;
   	text-transform: uppercase;
 	text-align: center;
-	line-height: 100px;
+	line-height: 90px;
 	font-weight: 700;
 }
 
@@ -626,6 +628,14 @@ footer .footer-container .footer-row {
 		margin: 0 0 0 -45px;
 		line-height: 80px;
 		font-size: 0.8em;
+	}
+	
+	.circle {
+		width: 80px;
+		height: 80px;
+		border: 1px solid #434343;
+		line-height: 80px;
+		font-size: 12px;
 	}
 }
 
