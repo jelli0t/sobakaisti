@@ -19,7 +19,6 @@ $(function() {
 	$('.circle-menu-link').on('click', function(evt){
 		evt.preventDefault();
 		var url = $(this).attr('href');
-		alert('URL: '+url);
 		$(this).css({'position' : 'fixed'}).animate({
 			top: '8%',
 			left: '50%',
@@ -86,7 +85,8 @@ var background = function(dimension,$circle){
 //        		opacity: '1.0'
 //        	}, 1000);        	
 //    	});
-		$('#circle-menu').delay(3200).queue(function() {
+		$('#circle-menu').delay(3000).queue(function() {
+			$('#loading-container').detach();
 			$circle.remove();
             $(this).expandCircleMenu();
             $(this).dequeue();

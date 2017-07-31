@@ -6,11 +6,22 @@
 </head>
 <body>
 <span class="test-char">m</span>
-
-	<div class="radial-loading">
-	    <div class="half-circle left rotate"><span></span></div>
-	    <div class="half-circle right rotate"><span></span></div>
+	<!-- Back to Movement icon -->
+	<span class="intro-shortcut-container">
+		<a th:href="@{/}" th:title="#{hover.title.backToIntro}" class="intro-shortcut-link">
+			<img th:alt="#{hover.title.backToIntro}" th:src="@{/resources/img/icons/dog_house.svg}">
+		</a>
+	</span>
+	<!-- Circle loading -->
+	<div id="loading-container">
+	    <div id="halfclip">
+	        <div class="halfcircle" id="clipped">
+	        </div>
+	    </div>
+	    <div class="halfcircle" id="fixed">
+	    </div>
 	</div>
+	
 	<span class="circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span>
 
 <!-- <span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span> -->
