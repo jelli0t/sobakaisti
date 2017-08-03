@@ -3,6 +3,7 @@
  */
 package org.sobakaisti.mvt.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
@@ -44,38 +45,21 @@ public class ArtsController {
 	
 	@RequestMapping(value="/{category}", method=RequestMethod.GET)
 	public String showLiteratureHome(Model model, @PathVariable String category){
-		List<Category> subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
-		Category chosenArt = subcategories != null ? subcategories.get(0) : null;
-		model.addAttribute("chosenArt", chosenArt);
-		//TODO napista sve autore koji su relevantni za odabranu kat.
-		model.addAttribute("authors", authorDao.getAllAuthors());		
-		model.addAttribute("arts", subcategories);
-		
-		/* first articles to display */
-		index = 0;
-		List<Article> initialArticles = articleService.getArticlesOrderByDate(0, 11);
-		if(initialArticles != null && initialArticles.size() > 0){
-			model.addAttribute("initArticles", initialArticles);
-			index = initialArticles.size();
-			System.out.println("Idnex postavljam na: "+index);
-		}		
+		model = populateModelFromParameters(model, category, "");
 		return "art";
 	}
 	
-	@RequestMapping(value="/{category}/{author}", method=RequestMethod.GET)
+	@RequestMapping(value="/{category}/by/{author}", method=RequestMethod.GET)
 	public String showArtsHomeFilteredByAuthor(Model model, 
 			@PathVariable String category, @PathVariable String author) {
-		Author chosenAuthor = authorDao.findAuthorBySlug(author);
-		if(category != null) {
-			List<Category> subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
-			Category chosenArt = subcategories != null ? subcategories.get(0) : null;
-			model.addAttribute("chosenArt", chosenArt);
-			model.addAttribute("arts", subcategories);
-		}		
-		if(chosenAuthor != null) {
-			model.addAttribute("chosenAuthor", chosenAuthor);
-		}	
-		model.addAttribute("authors", authorDao.getAllAuthors());
+		model = populateModelFromParameters(model, category, author);
+		return "art";
+	}
+	
+	@RequestMapping(value="/popular/{art}/by/{author}", method=RequestMethod.GET)
+	public String showPopularArticlesPreview(Model model, 
+			@PathVariable String category, @PathVariable String author) {
+		model = populateModelFromParameters(model, category, author);
 		return "art";
 	}
 	
@@ -88,6 +72,45 @@ public class ArtsController {
 			index += ArticleService.ARTICLES_PER_LOAD;
 		}
 		return "commons/artArticlePreviews :: artsArticlePreviews";
+	}
+	
+	/**
+	 * pomocna metoda koja popunjava Model pre renderovanja strane
+	 * */
+	private Model populateModelFromParameters(Model model, String category, String authorSlug) {
+		List<Category> subcategories = null;
+		Category chosenArt = null;
+		List<Author> authors  = null;
+		Author chosenAuthor = null;
+		List<Article> initArticles = null;
+		
+		if(category !=null && !category.isEmpty()) {
+			subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
+			chosenArt = (subcategories != null && !subcategories.isEmpty()) ? subcategories.get(0) : null;
+			authors = articleService.findAllArticlesAuthorsByCategory(chosenArt);
+			
+			model.addAttribute("chosenArt", chosenArt);
+			model.addAttribute("authors", authors);		
+			model.addAttribute("arts", subcategories);
+		}
+		/* ako je prosledjeni autor slug nije prazan nadji autora */
+		if(authorSlug != null && !authorSlug.isEmpty()) {
+			for(Author a : authors) {
+				if(a.getSlug().equals(authorSlug)) {
+					chosenAuthor = a;
+					break;
+				}
+			}
+			model.addAttribute("chosenAuthor", chosenAuthor);
+		}
+		/* ako je odabran autor dohvati samo njegove clanke */
+		if(chosenAuthor != null) {
+			initArticles = articleService.findArticlesBundleForCategoryByAuthor(chosenArt, chosenAuthor, 0, ArticleService.INIT_ARTICLES_BUNDLE_SIZE, true);
+		}else {
+			initArticles = articleService.findAriclesBundleByCategory(chosenArt, 0, ArticleService.INIT_ARTICLES_BUNDLE_SIZE, true);
+		}
+		model.addAttribute("initArticles", initArticles);
+		return model;
 	}
 
 }

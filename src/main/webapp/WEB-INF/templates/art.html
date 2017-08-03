@@ -8,7 +8,7 @@
 
 <div class="site-content-container">
 
-	<div class="article-top-container">
+	<div class="article-top-container" th:if="${initArticles != null}">
 		<h3 th:text="${initArticles[0].title}"></h3>
 		<div th:utext="${#strings.abbreviate(initArticles[0].content,320)}"></div>		
 	</div>

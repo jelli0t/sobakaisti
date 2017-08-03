@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,5 +75,4 @@ public class AuthorDaoImpl implements AuthorDao {
 			return null;
 		}		
 	}
-	
 }

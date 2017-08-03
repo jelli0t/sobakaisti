@@ -137,4 +137,25 @@ public class ArticleServiceImpl implements ArticleService{
 		return null;
 	}
 
+	@Override
+	public List<Author> findAllArticlesAuthorsByCategory(Category category) {
+		return articleDao.findAllArticlesAuthorsByCategory(category);
+	}
+	
+	@Override
+	public List<Article> findAllArticlesForCategory(Category category, boolean isActive) {
+		// TODO Auto-generated method stub
+		return articleDao.findAllArticlesForCategory(category, isActive);
+	}
+	
+	@Override
+	public List<Article> findAriclesBundleByCategory(Category category, int from, int size, boolean isActive){
+		return articleDao.findAriclesBundleByCategory(category, from, size, isActive);
+	}
+	
+	@Override
+	public List<Article> findArticlesBundleForCategoryByAuthor(Category category, Author author, int from, int size, boolean isActive) {
+		return articleDao.findArticlesBundleForCategoryByAuthor(category, author, from, size, isActive);
+	}
+	
 }

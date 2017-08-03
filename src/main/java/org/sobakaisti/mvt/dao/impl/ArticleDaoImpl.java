@@ -3,12 +3,16 @@ package org.sobakaisti.mvt.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.IntroArticle;
 import org.sobakaisti.mvt.models.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,5 +153,91 @@ public class ArticleDaoImpl implements ArticleDao{
 		return -1;
 	}
 
+	@Override
+	@Transactional
+	public List<Author> findAllArticlesAuthorsByCategory(Category category) {		
+		String hql = "select distinct ar.author from Article ar where ar.id in (select a.id from Article a join a.categories c where c.id = :id and a.active = 1)";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			List<Author> authors = session.createQuery(hql).setInteger("id", category.getId()).list();	//.setParameterList("categories", categories).list();
+			System.out.println("Dohvatio sam: "+authors.size()+" autora za "+category.getName()+" katekoriju!");
+			return authors;
+		} catch (Exception e) {
+			System.err.println("Exception: "+e.getMessage());
+			return new ArrayList<Author>(0);
+		}
+	}
 	
+	@Override
+	@Transactional
+	public List<Article> findAllArticlesForCategory(Category category, boolean isActive) {
+		String HQL = "select a from Article a join a.categories c where c.id = :id and a.active = :active"
+					+" and a.postDate is not null order by date(a.postDate) desc, a.id desc";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			List<Article> articles = session.createQuery(HQL)
+									.setInteger("id", category.getId())
+									.setInteger("active", isActive ? 1 : 0)
+									.list();
+			System.out.println("Dohvatio sam: "+articles.size()+" clanaka za "+category.getName()+" katekoriju!");
+			
+			return articles;
+		} catch (Exception e) {
+			System.err.println("Exception: "+e.getMessage());
+			return new ArrayList<Article>(0);
+		}
+	}
+	
+	@Override
+	@Transactional
+	public List<Article> findAriclesBundleByCategory(Category category, int from, int size, boolean isActive) {
+		String HQL = "select a from Article a join a.categories c where c.id = :id"
+				+(isActive ? " and a.active = :active" : "")
+				+" and a.postDate is not null order by date(a.postDate) desc, a.id desc";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			List<Article> articles = session.createQuery(HQL)
+									.setInteger("id", category.getId())
+									.setInteger("active", isActive ? 1 : 0)
+									.setFirstResult(from)
+									.setMaxResults(size)
+									.list();
+			System.out.println("Dohvatio sam: "+articles.size()+" clanaka za "+category.getName()+" katekoriju!");
+			
+			return articles;
+		} catch (Exception e) {
+			System.err.println("Exception: "+e.getMessage());
+			return new ArrayList<Article>(0);
+		}
+	}
+	
+	@Override
+	@Transactional
+	public List<Article> findArticlesBundleForCategoryByAuthor(Category category, Author author, int from, int size,
+			boolean isActive) {
+		String HQL = "select a from Article a join a.categories c where c.id = :id"
+				+(author != null ? " and a.author = :author" : "")
+				+(isActive ? " and a.active = :active" : "")
+				+" and a.postDate is not null order by date(a.postDate) desc, a.id desc";
+		try {
+			Session session = sessionFactory.getCurrentSession();			
+			Query query = session.createQuery(HQL);			
+			query.setInteger("id", category.getId());
+			if(author != null)
+				query.setParameter("author", author);
+			query.setInteger("active", isActive ? 1 : 0);
+			@SuppressWarnings("unchecked")
+			List<Article> articles = query.setFirstResult(from).setMaxResults(size).list();
+			
+			System.out.println("Dohvatio sam: "+articles.size()+" clanaka od "+author.getLastName()+", za "+category.getName()+" katekoriju!");
+			
+			return articles;
+		} catch (Exception e) {
+			System.err.println("Exception: "+e.getMessage());
+			return new ArrayList<Article>(0);
+		}
+	}
 }

@@ -3,6 +3,8 @@ package org.sobakaisti.mvt.service;
 import java.util.List;
 
 import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Tag;
 
 public interface ArticleService {
@@ -12,6 +14,8 @@ public interface ArticleService {
 	public static final int ACTIVE = 1;
 	public static final int INACTIVE = 0;
 	public static final int ARTICLES_PER_LOAD = 5;
+	public static final int INIT_ARTICLES_BUNDLE_SIZE = 9;
+	public static final int ARTICLES_PREV_ROW_SIZE = 4;
 	
 	public static enum Manifesto {
 		manifest, manifesto
@@ -40,5 +44,21 @@ public interface ArticleService {
 	 * @return poruka o promeni statusa
 	 * */
 	public String switchArticleStatus(int articleId);
+	
+	/**
+	 * Pronalazi sve clanke za datu kategoriju.
+	 * */
+	public List<Article> findAllArticlesForCategory(Category category, boolean isActive);
+	
+	/**
+	 * Nalazi sve autore koji su pisali u datoj kategoriji
+	 * */
+	public List<Author> findAllArticlesAuthorsByCategory(Category category);
+
+	 
+	public List<Article> findAriclesBundleByCategory(Category category, int from, int size, boolean isActive);
+
+	public List<Article> findArticlesBundleForCategoryByAuthor(Category category, Author author, int from, int size,
+			boolean isActive);
 	
 }

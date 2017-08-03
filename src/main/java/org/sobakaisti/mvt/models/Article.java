@@ -49,7 +49,7 @@ public class Article {
 	@Column(name="active")
 	private int active;
 	
-	@ManyToOne(cascade =
+	@ManyToOne(fetch = FetchType.EAGER, cascade =
         {
                 CascadeType.DETACH,
                 CascadeType.MERGE,

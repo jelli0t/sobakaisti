@@ -6,6 +6,8 @@ package org.sobakaisti.mvt.dao;
 import java.util.List;
 
 import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Tag;
 
 /**
@@ -60,5 +62,30 @@ public interface ArticleDao {
 	 *  public / draft
 	 * */
 	public int switchArticleStatus(int articleId);
+	
+	/**
+	 * Pronalazi sve clanke za datu kategoriju.
+	 * */
+	public List<Article> findAllArticlesForCategory(Category category, boolean isActive);
+
+	List<Author> findAllArticlesAuthorsByCategory(Category category);
+
+	/**
+	 * Dohvata grupu clanaka na osnovu prosledjene kategorije od zadatog ideksa i broja max rezultata
+	 * @param category
+	 * @param from	pocetni index
+	 * @param size	velicina niza
+	 * @param isActive 	samo aktivne
+	 * */
+	public List<Article> findAriclesBundleByCategory(Category category, int from, int size, boolean isActive);
 		
+	/**
+	 * Dohvata grupu clanaka na osnovu prosledjene kategorije za Autora, od zadatog ideksa i broja max rezultata
+	 * @param category
+	 * @param author	autor clanaka
+	 * @param from	pocetni index
+	 * @param size	velicina niza
+	 * @param isActive 	samo aktivne
+	 * */
+	public List<Article> findArticlesBundleForCategoryByAuthor(Category category, Author author, int from, int size, boolean isActive);
 }
