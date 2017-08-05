@@ -84,6 +84,9 @@ public class Article {
 				inverseJoinColumns={@JoinColumn(name="category_id")})
 	private List<Category> categories;
 	
+	@Column(name="featured_img")
+	private String featuredImage;
+	
 	public int getId() {
 		return id;
 	}
@@ -143,5 +146,12 @@ public class Article {
 	}
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
-	}	
+	}
+	public String getFeaturedImage() {
+		return featuredImage;
+	}
+	public void setFeaturedImage(String featuredImage) {
+		this.featuredImage = featuredImage;
+	}
+	
 }

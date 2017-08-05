@@ -9,20 +9,67 @@
 <div class="site-content-container">
 
 	<div class="article-top-container" th:if="${initArticles != null}">
-		<h3 th:text="${initArticles[0].title}"></h3>
-		<div th:utext="${#strings.abbreviate(initArticles[0].content,320)}"></div>		
-	</div>
-	
-	<div class="article-prev-container" th:each="article,itemStat : ${initArticles}" th:unless="${itemStat.index == 0}">
-		<h3 th:text="${article.title}" class="article-prev-title"></h3>
-		<div th:with="author=${article.author}" class="article-prev-author">
-			<a th:href="@{/}"><span th:text="${author.firstName + ' ' + author.lastName}"></span></a>
+		<div class="top-post-prev-img">
+			<a class="post-prev-img"></a>
 		</div>
-		<div th:utext="${#strings.abbreviate(article.content,200)}"></div>
-		<div class="article-prev-footer"><a th:href="@{/{article}(article=${article.slug})}" th:title="${article.title}">Read more...</a></div>
+		<article>			
+			<header>				
+				<a th:href="@{/arts/{slug}(slug=${initArticles[0].slug})}" 
+					class="post-prev-title top-post-prev-title" th:text="${initArticles[0].title}" th:alt="${initArticles[0].title}" th:title="${initArticles[0].title}"></a>
+			</header>
+			<div th:if="${initArticles[0].content != null}" th:utext="${#strings.abbreviate(initArticles[0].content,320)}" 
+				class="post-prev-content top-post-prev-content"></div>
+			<footer class="post-prev-footer" th:with="author=${initArticles[0].author}">
+				<div class="post-prev-avatar">
+					<span class="circle circle-small" 
+						th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+				</div>
+				<div class="post-prev-author-details">
+					<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" 
+							th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+					</address>
+					<time class="post-prev-date" th:text="${#dates.format(initArticles[0].postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+				</div>
+				<div class="post-prev-meta">
+					<span class="post-prev-comment-count">999</span>
+				</div>
+			</footer>
+		</article>
 	</div>
 
-	<a th:href="@{/arts/load_more_articles}" style="display:none;" id="load-content-link"></a>
+	<ul th:if="${initArticles != null}" class="post-prev-list">
+	<!-- List of articles previews -->
+		<li class="post-prev-item" th:each="article,itemStat : ${initArticles}" th:unless="${itemStat.index == 0}">
+			<article>
+				<header>
+					<a class="post-prev-img" th:if="${article.featuredImage != null}">
+						<img alt="" th:src="@{/resources/img/{img}(img=${article.featuredImage})}">
+					</a>
+					<a th:href="@{/arts/{slug}(slug=${article.slug})}" 
+						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
+				</header>
+				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div>
+				<footer class="post-prev-footer" th:with="author=${article.author}">
+					<div class="post-prev-avatar">
+						<span class="circle circle-small" 
+							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+					</div>
+					<div class="post-prev-author-details">
+						<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" 
+								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+						</address>
+						<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+					</div>
+					<div class="post-prev-meta">
+						<span class="post-prev-comment-count">999</span>
+					</div>
+				</footer>
+			</article>
+		</li>
+	</ul>
+	<a th:href="@{/arts/{art}/{author}/more(art=${arts[0].slug}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" style="display:none;" id="load-content-link"></a>
 </div>		
 
 

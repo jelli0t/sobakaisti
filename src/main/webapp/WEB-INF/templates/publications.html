@@ -60,16 +60,17 @@
 						<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
 					</a>
 				</li>
+				<li></li>
 			</ul>
 		</div>
 	</div>
 	<!-- header sorting buttons -->
 	<div class="header-sorting-container" th:if="${arts != null}">
 		<a th:href="@{/publications/chronological/{author}(author=(${chosenAuthor != null} ? ${chosenAuthor.slug} : ''))}" 
-			class="sorting-bttn"><span th:text="#{button.label.chronological}">Hronoloski</span></a>
+			class="sorting-bttn"><span th:text="#{button.label.chronological}" th:classappend="${popular} ? inactive : ''">Hronoloski</span></a>
 		<span>&#124;</span>
 		<a th:href="@{/publications/popular/{author}(author=(${chosenAuthor != null} ? ${chosenAuthor.slug} : ''))}" 
-			class="sorting-bttn"><span th:text="#{button.label.popular}">Popularno</span></a>
+			class="sorting-bttn"><span th:text="#{button.label.popular}" th:classappend="${popular} ? '' : inactive">Popularno</span></a>
 	</div>
 	
 </header>	

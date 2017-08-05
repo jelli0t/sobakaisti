@@ -2,14 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"></head>
 
-	<div th:fragment="artsArticlePreviews" th:unless="${#lists.isEmpty(additionalArticles)}" class="">    
-		<article th:each="article,itemStat : ${additionalArticles}" class="article-prev-container">
-			<h3 th:text="${article.title}" class="article-prev-title"></h3>
-			<div th:with="author=${article.author}" class="article-prev-author">
-				<a th:href="@{/}"><span th:text="${author.firstName + ' ' + author.lastName}"></span></a>
-			</div>
-			<div th:utext="${#strings.abbreviate(article.content,200)}"></div>
-			<div class="article-prev-footer"><a th:href="@{/{article}(article=${article.slug})}" th:title="${article.title}">Read more...</a></div>
-		</article>
-	</div>
+	<th:block th:fragment="artsArticlePreviews" th:unless="${#lists.isEmpty(initArticles)}" >
+	 	<li class="post-prev-item" th:each="article,itemStat : ${initArticles}">
+			<article>
+				<header>
+					<a class="post-prev-img"></a>
+					<a th:href="@{/arts/{slug}(slug=${article.slug})}" 
+						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
+				</header>
+				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div>
+				<footer class="post-prev-footer" th:with="author=${article.author}">
+					<div class="post-prev-avatar">
+						<span class="circle circle-small" 
+							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+					</div>
+					<div class="post-prev-author-details">
+						<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+							<a th:href="@{/arts/{art}/by/{author}(art=${art}, author=${author.slug})}" 
+								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+						</address>
+						<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+					</div>
+					<div class="post-prev-meta">
+						<span class="post-prev-comment-count">999</span>
+					</div>
+				</footer>
+			</article>
+		</li>
+	  </th:block>
 </html>
