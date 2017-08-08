@@ -18,6 +18,7 @@ import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class ArticleServiceImpl implements ArticleService{
 		System.out.println("Params: Dimensions: "+width+"x"+height+"; Char width: "+charWidth+"; karaktera za popunjavanje: "+charsToFill
 				+ " Chars x Rows: "+charsPerRow+"x"+rowsPerPage);
 		
-		List<String> row = new ArrayList<>(rowsPerPage);
+		List<String> row = new ArrayList<String>(rowsPerPage);
 		
 		if(!content.equals("")){
 			for(int i=0, j=0; i<rowsPerPage; i++){				
@@ -136,7 +137,23 @@ public class ArticleServiceImpl implements ArticleService{
 		}
 		return null;
 	}
+	
+	@Override
+	public int countArticlesByStatus(boolean isActive) {
+		return articleDao.countArticlesByStatus(isActive);
+	}
 
+	@Override
+	public List<Article> findAllArticlesByStatus(String status) {
+		List<Article> articles;
+		if(status.equals(ACTIVE_STATUS)) {
+			articles = articleDao.findAllArticlesByStatus(1);
+		}else {
+			articles = articleDao.findAllArticlesByStatus(0);
+		}
+		return articles;
+	}
+	
 	@Override
 	public List<Author> findAllArticlesAuthorsByCategory(Category category) {
 		return articleDao.findAllArticlesAuthorsByCategory(category);

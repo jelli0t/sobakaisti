@@ -45,7 +45,7 @@ public class UserCredentialValidator {
     public void checkIfInputExists(String field, String value){
     	switch (field) {
 		case "sbk_username":
-			this.massage = "Korisni�ko ime je zauzeto";
+			this.massage = "Korisnicko ime je zauzeto";
 			break;
 		case "email":
 			this.massage = "Nalog sa E-mail adresom već postoji";

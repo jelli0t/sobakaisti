@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="chosenArt=${chosenArt}">
+<head th:replace="commons/mvt_head :: mvt_head(~{::title})">
+	<title th:text="${article.title}">Literature</title>
+	<!-- fb graf linkovi -->
+</head>
+<body>
+<header th:replace="~{commons/mvt_header :: mvt_header}"></header>
+
+<div class="site-content-container">
+</div>		
+
+
+<!-- <footer th:replace="~{commons/mvt_footer :: mvt_footer}"> -->
+<!-- </footer> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/movement.jq.js}"></script>
+</body>
+</html>

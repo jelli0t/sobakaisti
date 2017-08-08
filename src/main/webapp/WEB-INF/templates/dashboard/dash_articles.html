@@ -12,63 +12,151 @@
 </section>
 
 <div class="dash-main-container">
-<div class="articles-listing">
+<!-- <div class="articles-listing"> -->
 		
-	<table>
-		<thead>
-			<tr class="table-header">
-				<th class="th-xs"></th>
-				<th class="th-xl" th:text="#{label.article}">Article</th>				
-				<th class="th-m" th:text="#{label.categories}">Kategorija</th>
-				<th class="th-l" th:text="#{label.tags}">Oznaka</th>
-				<th class="th-s" th:text="#{label.comments}"></th>
-				<th class="th-s"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="article : ${articles}" th:class="table-row" th:id="'item-'+${article.id}">
-				<td th:with="id=${article.id}" class="article-status-td">
-					<a th:href="@{/sbk-admin/article/change_status/{id}(id=${id})}" class="change-status-link" th:alt="${article.id}">
-						<img alt="status" th:src="@{'/resources/img/icons/active-'+${article.active}+'.svg'}" width="16" height="16" class="article-status-icon">
-					</a>
-				</td>
-				<td th:with="slug=${article.slug}">
-					<a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="title-link" th:text="${article.title}"></a>
-					<div>
-					<span class="artice-meta" th:text="#{label.author}">autor</span>
-					<span class="artice-meta" th:text="${article.author.firstName}+' '+${article.author.lastName}"></span>
-					<span class="artice-meta">napisan</span>
-					<span class="artice-meta" th:text="${#dates.format(article.postDate, 'dd. MMM. yyyy.')}"></span>
-					</div>					
-				</td>
-				<td>
-					<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}">
-						<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a>
-					</span>
-				</td>
-				<td>					
-					<span th:each="tag, tagStat : ${article.tags}" class="label tag" th:unless="${tagStat.index} > 5" th:with="slug=${tag.slug}">
-						<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
-					</span>
-				</td>
-				<td>
+<!-- 	<table> -->
+<!-- 		<thead> -->
+<!-- 			<tr class="table-header"> -->
+<!-- 				<th class="th-xs"></th> -->
+<!-- 				<th class="th-xl" th:text="#{label.article}">Article</th>				 -->
+<!-- 				<th class="th-m" th:text="#{label.categories}">Kategorija</th> -->
+<!-- 				<th class="th-l" th:text="#{label.tags}">Oznaka</th> -->
+<!-- 				<th class="th-s" th:text="#{label.comments}"></th> -->
+<!-- 				<th class="th-s"></th> -->
+<!-- 			</tr> -->
+<!-- 		</thead> -->
+<!-- 		<tbody> -->
+<!-- 			<tr th:each="article : ${articles}" th:class="table-row" th:id="'item-'+${article.id}"> -->
+<!-- 				<td th:with="id=${article.id}" class="article-status-td"> -->
+<!-- 					<a th:href="@{/sbk-admin/article/change_status/{id}(id=${id})}" class="change-status-link" th:alt="${article.id}"> -->
+<!-- 						<img alt="status" th:src="@{'/resources/img/icons/active-'+${article.active}+'.svg'}" width="16" height="16" class="article-status-icon"> -->
+<!-- 					</a> -->
+<!-- 				</td> -->
+<!-- 				<td th:with="slug=${article.slug}"> -->
+<!-- 					<a th:href="@{/sbk-admin/sobakaisti/{slug}(slug=${slug})}" class="title-link" th:text="${article.title}"></a> -->
+<!-- 					<div> -->
+<!-- 					<span class="artice-meta" th:text="#{label.author}">autor</span> -->
+<!-- 					<span class="artice-meta" th:text="${article.author.firstName}+' '+${article.author.lastName}"></span> -->
+<!-- 					<span class="artice-meta">napisan</span> -->
+<!-- 					<span class="artice-meta" th:text="${#dates.format(article.postDate, 'dd. MMM. yyyy.')}"></span> -->
+<!-- 					</div>					 -->
+<!-- 				</td> -->
+<!-- 				<td> -->
+<!-- 					<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}"> -->
+<!-- 						<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a> -->
+<!-- 					</span> -->
+<!-- 				</td> -->
+<!-- 				<td>					 -->
+<!-- 					<span th:each="tag, tagStat : ${article.tags}" class="label tag" th:unless="${tagStat.index} > 5" th:with="slug=${tag.slug}"> -->
+<!-- 						<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a> -->
+<!-- 					</span> -->
+<!-- 				</td> -->
+<!-- 				<td> -->
 					
-				</td>				
-				<td>
-					<ul class="article-operations" th:with="id=${article.id}">
-						<li><a th:href="@{/sbk-admin/article/edit/{id}(id=${id})}" class="tool-icon edit-link" title="Izmeni">
-							<img alt="x" th:src="@{/resources/img/icons/edit.svg}" width="16" height="16"/>
-						</a></li>
-						<li><a th:href="@{/sbk-admin/article/delete/{id}(id=${id})}" class="tool-icon delete-item" th:alt="${article.id}" title="Obriši članak">
-							<img alt="x" th:src="@{/resources/img/icons/trash.svg}" width="16" height="16"/>
-						</a></li>
-					</ul>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+<!-- 				</td>				 -->
+<!-- 				<td> -->
+<!-- 					<ul class="article-operations" th:with="id=${article.id}"> -->
+<!-- 						<li><a th:href="@{/sbk-admin/article/edit/{id}(id=${id})}" class="tool-icon edit-link" title="Izmeni"> -->
+<!-- 							<img alt="x" th:src="@{/resources/img/icons/edit.svg}" width="16" height="16"/> -->
+<!-- 						</a></li> -->
+<!-- 						<li><a th:href="@{/sbk-admin/article/delete/{id}(id=${id})}" class="tool-icon delete-item" th:alt="${article.id}" title="Obriši članak"> -->
+<!-- 							<img alt="x" th:src="@{/resources/img/icons/trash.svg}" width="16" height="16"/> -->
+<!-- 						</a></li> -->
+<!-- 					</ul> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
+<!-- 		</tbody> -->
+<!-- 	</table> -->
+<!-- </div> -->
 
+
+<div class="listing-container">
+		<!-- Top tool bar -->
+		<div class="listing-tools">
+			<a th:href="@{/sbk-admin/articles/new}" class="bttn bttn-primary fright">New article</a>
+		</div>
+	
+		<!-- Listing header -->
+		<div class="listing-header">			
+			<div class="td">
+				<!-- Broj aktivnih izdanja -->
+				<a th:href="@{/sbk-admin/articles/status/active}" class="show-active-item" th:classappend="${isActive} ? selected-link : ''">
+					<img alt="status" th:src="@{'/resources/img/icons/active-1.svg'}" width="14" height="14" class="article-status-icon">
+					<span th:text="${activeCount}"></span>
+					<span>aktivnih</span>
+				</a>
+				<!-- Broj neaktivnih izdanja -->
+				<a th:href="@{/sbk-admin/articles/status/nonactive}" class="show-active-item" th:classappend="${!isActive} ? selected-link : ''">
+					<img alt="status" th:src="@{'/resources/img/icons/active-0.svg'}" width="14" height="14" class="article-status-icon">
+					<span th:text="${nonActiveCount}"></span>
+					<span>neaktivnih</span>
+				</a>
+			</div>			
+			<!-- top table filter -->
+			<div class="listing-header-filter"></div>
+		</div>
+		
+		<!-- listing body -->
+		<div class="listing-body">
+			<ul class="table-list">
+				<li class="list-item" th:each="article : ${articles}" th:id="'item-'+${article.id}">
+					<div class="item-status-td fleft td">
+						<a th:href="@{/sbk-admin/article/change_status/{id}(id=${article.id})}" class="change-status-link" th:alt="${article.id}">
+							<img alt="status" th:src="@{'/resources/img/icons/active-'+${article.active}+'.svg'}" width="16" height="16" class="article-status-icon">
+						</a>
+					</div>
+					<div class="item-main-td fleft td">
+						<a th:href="@{/articles/{slug}(slug=${article.slug})}" class="clickable-title" 
+							th:text="${article.title}" th:title="${article.title}" th:alt="${article.title}"></a>
+						
+						
+						<div class="item-main-subdiv td" th:with="author=${article.author}">
+							<span th:text="#{label.publishedBy}">Objavljeno</span>
+<!-- 							<span class="circle circle-tiny"  -->
+<!-- 								th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span> -->
+<!-- 							<span> -->
+								<a th:href="@{/articles/by/{slug}(slug=${author.slug})}" 
+									th:text="${author.firstName + ' ' + author.lastName}" class="clickable-author">Sobakaisti</a>
+							<span th:text="#{label.onDay}">dana</span>
+							<span th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></span>							
+						</div>
+					</div>
+					<!-- categories -->
+					<div class="td category-td">
+						<span th:each="category : ${article.categories}" class="label category" th:with="slug=${category.slug}">
+							<a th:href="@{/category/{slug}(slug=${slug})}" class="" th:text="${category.name}"></a>
+						</span>
+					</div>
+					<!-- tags -->
+					<div class="td tags-td">
+						<span th:each="tag, tagStat : ${article.tags}" class="label tag" th:unless="${tagStat.index} > 2" th:with="slug=${tag.slug}">
+							<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
+						</span>
+					</div>
+					<!-- tools -->
+					<div class="item-tools-td td fright">
+						<a th:href="@{/articles/edit/{id}(id=${article.id})}" class="edit-item item-tool"
+							th:title="#{tool.label.edit}" th:alt="${article.id}">
+<!-- 								<img alt="Pokret" th:src="@{/resources/img/icons/pencil.svg}" height="15"> -->
+							</a>
+						<a th:href="@{/articles/delete/{id}(id=${article.id})}" class="delete-item item-tool"
+							th:title="#{tool.label.delete}" th:alt="${article.id}">
+<!-- 								<img alt="Pokret" th:src="@{/resources/img/icons/trashcan.svg}" height="15"> -->
+							</a>
+					</div>
+					<!-- comments -->
+					<div class="item-comments-td td fright">
+						<span th:text="${article.active}" title="Komentara">Comments</span>
+					</div>
+					<!-- downloads counter -->
+					<div class="item-downloads-td td fright">
+<!-- 						<span th:text="${article.downloaded}">Preuzeto</span> -->
+					</div>
+				</li>
+			</ul>
+		</div>
+	
+	</div>
 </div>
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>

@@ -104,7 +104,7 @@ public class DashboardController {
 		return "dashboard/dash_article";
 	}
 	
-	@RequestMapping(value="/articles/new/slug", method=RequestMethod.POST)
+	@RequestMapping(value="/slug/new", method=RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<String> createNewArticleSlugFromTitle(@RequestBody String title){
 		System.out.println("title: "+title);
@@ -118,6 +118,7 @@ public class DashboardController {
 			return new ResponseEntity<String>("Neuspesna konverzija u slug", HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
+		
 	
 	@RequestMapping(value="/articles/new/save", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
@@ -141,8 +142,30 @@ public class DashboardController {
 	}
 	
 	@RequestMapping(value="/articles", method=RequestMethod.GET)
-	public String displayAllArticles(Model model){
+	public String displayAllArticles(Model model){		
+		/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
+		final int active = articleService.countArticlesByStatus(true);
+		final int nonActive = articleService.countArticlesByStatus(false);
+		model.addAttribute("activeCount", active);
+		model.addAttribute("nonActiveCount", nonActive);
 		model.addAttribute("articles", articleService.getArticlesOrderByDate(15));
+		model.addAttribute("isActive", true);
+		
+		return "dashboard/dash_articles";
+	}
+	
+	@RequestMapping(value="/articles/status/{status}", method=RequestMethod.GET)
+	public String showArticlesByActiveStatus(@PathVariable("status") String status, Model model) {
+		if(status != null && !status.isEmpty()) {
+			List<Article> articles = articleService.findAllArticlesByStatus(status);
+			model.addAttribute("articles", articles);
+			/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
+			final int active = articleService.countArticlesByStatus(true);
+			final int nonActive = articleService.countArticlesByStatus(false);
+			model.addAttribute("activeCount", active);
+			model.addAttribute("nonActiveCount", nonActive);
+			model.addAttribute("isActive", status.equals(ArticleService.ACTIVE_STATUS) ? true : false);
+		}
 		return "dashboard/dash_articles";
 	}
 	

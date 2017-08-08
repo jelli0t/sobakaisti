@@ -308,7 +308,7 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	padding: 0;
 	vertical-align: top;
 }
-.header-page-indicator > .page-indikator-circle {
+.header-page-indicator > a > .page-indikator-circle {
 	margin: 0 auto;
 }
 .author-filter-list {
@@ -413,17 +413,18 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	float: left;
 	width: 320px;
 	height: 180px;
+	overflow: hidden;
 }
 .article-top-container > article {
 	position: relative;
-	width: auto !important;
+	width: auto;
 	margin-left: 320px;
 	height: 180px;
 } 
-.article-top-container > article > footer {
-/* 	bottom: 20px; */
+.full-width {
+	width: 100% !important;
+	margin: 0 !important;
 }
-
 .article-prev-container {
 /* 	display: inline-block; */
 	position: relative;
@@ -479,6 +480,7 @@ h3.article-prev-title {
     background-color: #f8f8f8;
     opacity: 0.9;
 }
+.post-prev-img:hover {opacity: 1.0;}
 .post-prev-img > img {
 	width: 220px;
 /* 	height: 120px; */
@@ -492,7 +494,7 @@ h3.article-prev-title {
 	color: #24292e;
 }
 .post-prev-title:hover {color: #00729d;}
-.top-post-prev-title { font-size: 16px !important; }
+.top-post-prev-title { font-size: 16px !important; font-weight: 600; }
 .post-prev-content {
 	width: 100%;
     font-size: 12px;
@@ -502,7 +504,13 @@ h3.article-prev-title {
     padding: 7px 15px;
     overflow: hidden;
 }
-.top-post-prev-content { font-size: 14px !important;  line-height: 18px;}
+.top-post-prev-content {
+	font-size: 14px !important;
+	line-height: 18px;
+	max-height: 120px;
+	overflow: hidden;
+}
+	
 .post-prev-footer {
 	font-size: 10px;
     position: absolute;

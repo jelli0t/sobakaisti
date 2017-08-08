@@ -17,6 +17,8 @@ public interface ArticleService {
 	public static final int INIT_ARTICLES_BUNDLE_SIZE = 9;
 	public static final int ARTICLES_PREV_ROW_SIZE = 4;
 	
+	public static final String ACTIVE_STATUS = "active";
+	
 	public static enum Manifesto {
 		manifest, manifesto
 	}
@@ -60,5 +62,19 @@ public interface ArticleService {
 
 	public List<Article> findArticlesBundleForCategoryByAuthor(Category category, Author author, int from, int size,
 			boolean isActive);
+
+	/**
+	 * TODO podici na veci nivo hijerarhije pa naslediti
+	 * Pronalazi sve clanke na osnovu izabranog statusa
+	 * @param status 
+	 * */
+	public List<Article> findAllArticlesByStatus(String status);
+
+	/**
+	 * TODO podici na visi nivo hijer.
+	 * Broji sve clanke na osnovu statusa
+	 * @param isActive
+	 * */
+	public int countArticlesByStatus(boolean isActive);
 	
 }

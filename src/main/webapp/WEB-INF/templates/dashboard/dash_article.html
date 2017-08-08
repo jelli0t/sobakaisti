@@ -11,64 +11,150 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 
-<div class="dash-main-container">
-<div class="response-message"></div>
-<form action="#" th:action="@{/sbk-admin/articles/new/save}" th:object="${article}" method="POST" id="post-article-form"> 
-	<h3>Uredi članak</h3>
-	<!-- Right container of article edit -->
-	<div class="article-left-container">		
-		<div class="article-input-wrapper">
-			<!-- Article title -->	
-			<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" id="article-title" 
-					placeholder="Insert title here" th:field="*{title}" class="title-input">
-			<div class="validation-error"></div>
-			<div class="article-url-wrapper">
-				<span class="article-url-label">Preview link:</span> 
-				<span class="article-url-path article-url">http://sobakaisti.org/movement/</span>
-				<span class="article-url-slug article-url"><input type="text" name="slug" readonly="readonly" id="article-slug" th:field="*{slug}"/></span>			
-			</div>
-			<input type="hidden" value="rs" name="lang" >
-		</div>
+<!-- <div class="dash-main-container"> -->
+<!-- <form action="#" th:action="@{/sbk-admin/articles/new/save}" th:object="${article}" method="POST" id="post-article-form">  -->
+<!-- 	<h3>Uredi članak</h3> -->
+<!-- 	<!-- Right container of article edit --> -->
+<!-- 	<div class="article-left-container">		 -->
+<!-- 		<div class="article-input-wrapper"> -->
+<!-- 			<!-- Article title -->	 -->
+<!-- 			<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" id="article-title"  -->
+<!-- 					placeholder="Insert title here" th:field="*{title}" class="title-input"> -->
+<!-- 			<div class="validation-error"></div> -->
+<!-- 			<div class="article-url-wrapper"> -->
+<!-- 				<span class="article-url-label">Preview link:</span>  -->
+<!-- 				<span class="article-url-path article-url">http://sobakaisti.org/movement/</span> -->
+<!-- 				<span class="article-url-slug article-url"><input type="text" name="slug" readonly="readonly" id="article-slug" th:field="*{slug}"/></span>			 -->
+<!-- 			</div> -->
+<!-- 			<input type="hidden" value="rs" name="lang" > -->
+<!-- 		</div> -->
 		
-		<!-- URL preview of Article -->
-		<div class="article-input-wrapper">
+<!-- 		<!-- URL preview of Article --> -->
+<!-- 		<div class="article-input-wrapper"> -->
 			 
-		</div>
+<!-- 		</div> -->
 		
-		<div class="article-input-wrapper">
-			<textarea name="content" id="article-content"></textarea>
-		</div>
-	</div>
+<!-- 		<div class="article-input-wrapper"> -->
+<!-- 			<textarea name="content" id="article-content"></textarea> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
-	<div class="article-right-container">
-		<div class="panel side-panel">
-			<div class="panel-element panel-heading">
-				<h6>Objava</h6>
+<!-- 	<div class="article-right-container"> -->
+<!-- 		<div class="panel side-panel"> -->
+<!-- 			<div class="panel-element panel-heading"> -->
+<!-- 				<h6>Objava</h6> -->
+<!-- 			</div> -->
+<!-- 			<div class="panel-element panel-body"> -->
+<!-- 				<div class="select-wrapper"> -->
+<!-- 				<select th:field="*{author}" name="author" class="bttn bttn-default bttn-select"> -->
+				<!-- <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista
+					</option>  -->
+<!-- 				</select> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="panel-element"> -->
+<!-- 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a> -->
+<!-- 				<a href="javascript:;" id="post-bttn" class="bttn bttn-sm bttn-primary float-right" th:alt="Publish">Objavi</a> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+		
+<!-- 		<!-- Kategorije | desno --> -->
+<!-- 		<div class="panel side-panel"> -->
+<!-- 			<div class="panel-element panel-heading"> -->
+<!-- 				<h6>Kategorija</h6> -->
+<!-- 			</div> -->
+<!-- 			<div class="panel-element panel-body"> -->
+<!-- 			<div class="select-wrapper"> -->
+<!-- 				<button class="bttn bttn-default bttn-select" type="button">Kategorije</button> -->
+<!-- 				dropdown menu -->
+<!-- 				<div class="select-menu-modal"> select-content-box -->
+<!-- 					<div class="select-menu-header"> -->
+<!-- 						<span class="select-menu-title">Odaberi kategoriju</span>  -->
+<!-- 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="select-menu-body">				 -->
+<!-- 					<label th:each="category : ${categories}" class="checkboxes-label"> -->
+<!-- 						<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}"/> <span th:text="${category.name}"></span> -->
+<!-- 					</label> -->
+<!-- 					</div> -->
+<!-- 				</div>			 -->
+<!-- 			</div> -->
+<!-- 			<div class="selected-categories selected-result"></div>				 -->
+<!-- 			</div>			 -->
+<!-- 		</div> -->
+		
+<!-- 		<!-- Oznake | desno --> -->
+<!-- 		<div class="panel side-panel"> -->
+<!-- 			<div class="panel-element panel-heading"> -->
+<!-- 				<h6>Oznake</h6> -->
+<!-- 			</div> -->
+<!-- 			<div class="panel-element panel-body"> -->
+<!-- 			<div class="select-wrapper"> -->
+<!-- 				<button class="bttn bttn-default bttn-select" type="button">Oznake</button> -->
+<!-- 				dropdown menu -->
+<!-- 				<div class="select-menu-modal"> -->
+<!-- 					<div class="select-menu-header"> -->
+<!-- 						<span class="select-menu-title">Pretraga oznaka</span>  -->
+<!-- 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="select-menu-filters"> -->
+<!-- 						<input type="text" class="search-field" th:src="@{/sbk-admin/article/tag/search}"> -->
+<!-- 					</div>					 -->
+<!-- 					<div class="search-result"></div> -->
+<!-- 				</div>			 -->
+<!-- 			</div> -->
+<!-- 			<div class="selected-tags selected-result"></div>				 -->
+<!-- 			</div>			 -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<!-- hidden polje za activ vrednost --> -->
+<!-- 	<input type="hidden" name="active" value="0"> -->
+<!-- </form>	 -->
+
+<!-- <div class="overlay" id="loading"> -->
+<!-- 	<div class="loader"> -->
+<!-- 		<img alt="Pokret" th:src="@{/resources/img/Logo-SOBAKA.png}" width="24" height="24"> -->
+<!-- 	</div> -->
+<!-- </div> -->
+<!-- </div> -->
+
+
+	
+	<!-- Form -->
+	<form th:action="@{/publications/upload}" id="article-form" enctype="multipart/form-data" onsubmit="return false;">	
+	<div class="main-dash-content">
+		<!-- Right panel -->
+		<div class="right-container">
+			<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title">Objava</span>
 			</div>
-			<div class="panel-element panel-body">
+			<div class="panel-body">
 				<div class="select-wrapper">
-				<select th:field="*{author}" name="author" class="bttn bttn-default bttn-select">
-					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista
-					</option>
+				<select name="author" class="bttn bttn-default bttn-select">
+					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
+					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
 				</select>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
 				</div>
+				
 			</div>
-			<div class="panel-element">
+			<div class="panel-footer">
 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
-				<a href="javascript:;" id="post-bttn" class="bttn bttn-sm bttn-primary float-right" th:alt="Publish">Objavi</a>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
 			</div>
 		</div>
 		
-		<!-- Kategorije | desno -->
-		<div class="panel side-panel">
-			<div class="panel-element panel-heading">
-				<h6>Kategorija</h6>
+	<!-- Kategorije | desno  -->
+		<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title" th:text="#{label.categories}">kategorije</span>
 			</div>
-			<div class="panel-element panel-body">
-			<div class="select-wrapper">
+			<div class="panel-body">
 				<button class="bttn bttn-default bttn-select" type="button">Kategorije</button>
 				<!-- dropdown menu -->
-				<div class="select-menu-modal"> <!-- select-content-box -->
+				<div class="select-menu-modal">
 					<div class="select-menu-header">
 						<span class="select-menu-title">Odaberi kategoriju</span> 
 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
@@ -79,47 +165,74 @@
 					</label>
 					</div>
 				</div>			
-			</div>
-			<div class="selected-categories selected-result"></div>				
+				<div class="selected-categories selected-result"></div>				
 			</div>			
 		</div>
 		
-		<!-- Oznake | desno -->
-		<div class="panel side-panel">
-			<div class="panel-element panel-heading">
-				<h6>Oznake</h6>
+		<!-- Tags selection -->
+		<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
 			</div>
-			<div class="panel-element panel-body">
-			<div class="select-wrapper">
-				<button class="bttn bttn-default bttn-select" type="button">Oznake</button>
+			<div class="panel-body">			
+			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button>
 				<!-- dropdown menu -->
-				<div class="select-menu-modal">
+				<div class="select-menu-modal" id="tags-modal">
 					<div class="select-menu-header">
 						<span class="select-menu-title">Pretraga oznaka</span> 
 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
 					</div>
 					<div class="select-menu-filters">
-						<input type="text" class="search-field" th:src="@{/sbk-admin/article/tag/search}">
+						<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
+						<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}">
 					</div>					
 					<div class="search-result"></div>
-				</div>			
-			</div>
-			<div class="selected-tags selected-result"></div>				
+				</div>
+				<div class="selected-tags selected-result"></div>			
 			</div>			
 		</div>
+		
+		<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span>
+			</div>
+			<div class="panel-body">
+				<!-- Input file button -->				
+				<input type="file" name="featuredImg" id="img-file" class="inputfile input-img" />
+				<label for="img-file" class="upload-img-label file-upload-label">Odaberi sliku...</label>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
+				<!-- Featured IMG preview -->
+				<div class="featured-img-prev" id="img-prev"></div>
+			</div>
+		</div>
+		</div>	 <!-- end of right sidebar -->
+		
+		<!-- Left content -->
+		<div class="left-container">
+			<div class="form-tr">
+				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" 
+					id="publication-title" class="title-input full-width" th:src="@{/sbk-admin/slug/new}">
+				<!-- validation error message -->
+				<div class="validation-error"></div>	
+				<!-- link preview -->
+				<div class="post-path-container">
+					<span class="post-path path-label">Putanja do članka: </span>
+					<span class="post-path path-static">http://sobakaisti.org/movement</span>
+					<span class="post-path path-slug">
+						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" readonly>
+					</span>
+				</div>
+			</div>			
+			<!-- contet textarea -->	
+			<div class="article-input-wrapper form-tr">
+				<textarea name="content" id="article-content"></textarea>
+			</div>
+		</div>		
 	</div>
-	<!-- hidden polje za activ vrednost -->
-	<input type="hidden" name="active" value="0">
-</form>	
+<!-- end of the form -->
+</form>
 	
-
-<div class="overlay" id="loading">
-	<div class="loader">
-		<img alt="Pokret" th:src="@{/resources/img/Logo-SOBAKA.png}" width="24" height="24">
-	</div>
-</div>
-</div>
-
 
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>

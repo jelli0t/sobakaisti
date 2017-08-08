@@ -11,7 +11,7 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 <!-- form -->
-<form th:action="@{/publications/upload}" id="publication-form" enctype="multipart/form-data">	
+<form th:action="@{/publications/upload}" id="new-post-form" name="new-post-form" enctype="multipart/form-data">	
 	<div class="main-dash-content">
 		<!-- Right panel -->
 		<div class="right-container">
@@ -32,7 +32,7 @@
 			</div>
 			<div class="panel-footer">
 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
+				<button type="button" id="submit-bttn" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
 			</div>
 		</div>
 		
@@ -44,7 +44,7 @@
 			<div class="panel-body">			
 			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button>
 				<!-- dropdown menu -->
-				<div class="select-menu-modal">
+				<div class="select-menu-modal" id="tags-modal">
 					<div class="select-menu-header">
 						<span class="select-menu-title">Pretraga oznaka</span> 
 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
@@ -66,7 +66,7 @@
 			<div class="panel-body">
 				<!-- Input file button -->				
 				<input type="file" name="featuredImg"  id="img-file" class="inputfile input-img" />
-				<label for="img-file" class="upload-img-label">Odaberi sliku...</label>
+				<label for="img-file" class="upload-img-label file-upload-label">Odaberi sliku...</label>
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 				<!-- Featured IMG preview -->
@@ -94,7 +94,7 @@
 			<!-- Input file button -->
 			<div class="form-tr">
 				<input type="file" name="file" id="publication-file" class="inputfile" />
-				<label for="publication-file" id="upload-label">Odaberi dokument...</label>
+				<label for="publication-file" id="upload-label" class="file-upload-label">Odaberi dokument...</label>
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 			</div>

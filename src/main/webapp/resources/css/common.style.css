@@ -320,7 +320,7 @@ a:link, a:VISITED {
 	position: absolute;
 	z-index: -1;
 }
-.inputfile + label {
+.inputfile + .file-upload-label {
 	border: 1px solid #c2c9d4;
     border-radius: 3px;
     background-color: #fff;
@@ -332,14 +332,14 @@ a:link, a:VISITED {
     display: inline-block;
     cursor: pointer;
 }
-label::before {
+.file-upload-label::before {
 	font-family: 'fpslineicons';
 	content: '\e90f';
 	margin-right: 7px;
 }
 
-.inputfile:focus + label,
-.inputfile + label:hover {
+.inputfile:focus + .file-upload-label,
+.inputfile + .file-upload-label:hover {
     border-color: #6bb951;
     color: #6bb951;
 }

@@ -14,6 +14,7 @@ import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.IntroArticle;
+import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -153,6 +154,40 @@ public class ArticleDaoImpl implements ArticleDao{
 		return -1;
 	}
 
+	//TODO napravi metodu univerzalnom i podigni je u superklasu
+	@Override
+	@Transactional
+	public int countArticlesByStatus(boolean isActive) {
+		int count = 0;
+		String HQL = "select count(a.id) from Article a where a.active = :status";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			int status = isActive ? 1 : 0;
+			Long result = (Long) session.createQuery(HQL).setInteger("status", status).uniqueResult();
+			count = result.intValue();
+		} catch (Exception e) {
+			System.out.println("Uhvati exception: "+e.getMessage());
+			return count;
+		}
+		return count;
+	}
+	
+	@Override
+	@Transactional
+	public List<Article> findAllArticlesByStatus(int status) {
+		String HQL = "FROM Article a WHERE a.postDate is not null and a.active = :status order by date(a.postDate) desc, a.id desc";	
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			List<Article> articles = session.createQuery(HQL).setInteger("status", status).list();
+			System.out.println("Pronsao "+articles.size()+" clanaka sa statusom: "+status);
+			return articles;
+		} catch (Exception e) {
+			System.err.println("Exception: "+e.getMessage());
+			return new ArrayList<Article>(0);
+		}		
+	}
+	
 	@Override
 	@Transactional
 	public List<Author> findAllArticlesAuthorsByCategory(Category category) {		

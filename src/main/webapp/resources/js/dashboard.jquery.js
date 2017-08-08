@@ -3,7 +3,7 @@ $(function() {
 	
 	// TODO staviti vam ready(), proba
 	var removeMeta = new Object();		
-	var shared = $('#hidden-settings').prepare();
+//	var shared = $('#hidden-settings').prepare();
 	
 	/*	Adds Author	*/
 	$('#submit-author').on('click', function(){
@@ -94,17 +94,38 @@ $(function() {
 		$(this).displaySelectedCategories();
 	});
 	
+	
 	/* tag search event */
-	$(document).on('keyup', '.search-field', function(evt) {
-		evt.preventDefault();
+	$(document).on('keyup', '.search-field', function(e) {
+		e.preventDefault();
 		var value = $(this).val();
-		var key = evt.which;
-		var $searchField = $(this);
-		if(key === 13) {
-			$searchField.addNewTag();
-		} else if(value.length > 1) {
-			$searchField.ajaxSearch();
-		}			
+//		var key = evt.which;
+//		var $searchField = $(this);
+//		if(key === 13) {
+//			evt.preventDefault();
+//			$searchField.addNewTag();
+//		} else if(value.length > 1) {
+//			$searchField.ajaxSearch();
+//		}
+		
+		var keyCode = e.keyCode || e.which;
+		if (keyCode === 13) { 
+			console.log('Pritisnuo Enter!');
+			$(this).addNewTag();
+			return false;
+		}else if(value.length > 1) {			
+			console.log('Uneo tekst veci od 2 karaktera!');
+			$(this).ajaxSearch();
+			return false;
+		}
+	});
+	
+	/**
+	 * zatvara selektovani tag na 'x'
+	 * */
+	$('.selected-result').on('click', 'span.close-tag-bttn', function(e){
+		e.preventDefault();
+		$(this).parent().remove();
 	});
 	
 	/* pri odabiru fajla iz file systema na label se postavlja ime fajla */
@@ -119,12 +140,12 @@ $(function() {
 	});
 
 	/**
-	 * Klick na Submit forme
+	 * Submit forme
 	 * */
-	$("#publication-form").submit(function(evt){
+	$("#submit-bttn").on('click', function(evt){
 		evt.preventDefault();
 		console.log('Submitovao sam formu');
-		$(this).submitFormData();
+		$('form[name="new-post-form"]').submitFormData();
 	});
 	
 	$('.bttn-close').on('click', function(evt){
@@ -134,10 +155,12 @@ $(function() {
 		$(this).parent().parent('.select-menu-modal').hide();
 	});
 	
+	
 	$(document).on('click', '.founded-tag', function(evt){
 		evt.preventDefault();
 		console.log('Kliknuo na tag.');
-		$tag = $(this).append(shared.removeButton.clone()).removeClass('founded-tag');		
+//		$tag = $(this).append(shared.removeButton.clone()).removeClass('founded-tag');		
+		$tag = $(this).append('<span class="close-tag-bttn"></span>').removeClass('founded-tag');
 		$('.selected-tags').append($tag);
 	});
 	
@@ -474,7 +497,9 @@ $.fn.displaySelectedCategories = function() {
 	var value = $(this).attr('title');
 	if($(this).is(':checked')) {
 		console.log('Odabrana kategorija: '+value); 
-		var $category = '<span class="label category" id="cat_'+value+'">'+value+'</span>';
+		var $category = '<span class="label category" id="cat_'+value+'">'+value
+						+'<span class="close-tag-bttn"></span>'
+						+'</span>';
 		$('.selected-categories').append($category);
 	}else {
 		$('#cat_'+value).remove();
@@ -535,9 +560,14 @@ $.fn.addNewTag = function() {
         }
 	})
 	.done(function( tag ) {
+		$('#tags-modal').toggle();
 		console.log("success: "+tag.tag);
-		var span = '<span class="label tag founded-tag" id="tag-'+tag.id+'">'+tag.tag+'<input type="hidden" name="tags" value="'+tag.id+'"></span>';
-		$('.search-result').empty().append(span);
+		var span = '<span class="label tag" id="tag-'+tag.id+'">'+tag.tag+'<input type="hidden" name="tags" value="'+tag.id+'">'
+					+'<span class="close-tag-bttn"></span>'
+					+'</span>';
+//		$('.search-result').empty().append(span);
+		$('.selected-tags').append(span);
+		
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );

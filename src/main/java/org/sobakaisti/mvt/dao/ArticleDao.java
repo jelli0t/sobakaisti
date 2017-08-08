@@ -88,4 +88,16 @@ public interface ArticleDao {
 	 * @param isActive 	samo aktivne
 	 * */
 	public List<Article> findArticlesBundleForCategoryByAuthor(Category category, Author author, int from, int size, boolean isActive);
+
+	/**
+	 * TODO podici na veci nivo hijerarhije pa naslediti
+	 * Dohvata sve clanke na osnovu prosledjenog statusa
+	 * @param status
+	 * */
+	List<Article> findAllArticlesByStatus(int status);
+
+	/**
+	 * Broji clanke na osnovu statusa
+	 * */
+	int countArticlesByStatus(boolean isActive);
 }
