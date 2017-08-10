@@ -588,9 +588,17 @@ $.fn.submitFormData = function() {
 	console.log("URI: "+uri);
 	var data = new FormData($(this)[0]);
 	
+	for (var key of data.keys()) {
+		if(key === 'content'){
+			console.log('Uhvatio polje content!');
+			data.set('content', tinyMCE.activeEditor.getContent() || '');
+			break;
+		}		
+	}
 	for (var value of data.values()) {
-		   console.log(value); 
-		}
+	   console.log(value); 
+	}	
+
 	$.ajax({
 	    url: uri,
 	    type: 'POST',

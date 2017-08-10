@@ -275,4 +275,20 @@ public class ArticleDaoImpl implements ArticleDao{
 			return new ArrayList<Article>(0);
 		}
 	}
+	
+	@Override
+	public int countSlugDuplicates(String slug) {
+		int count = 0;
+		String HQL = "select count(a.id) from Article a where a.slug like :slug";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Long result = (Long) session.createQuery(HQL).setString("slug", slug+"%").uniqueResult();
+			count = result.intValue();
+			System.out.println("Pronasao sam "+count+" duplikata slug-ova na Artiklima");
+		} catch (Exception e) {
+			System.out.println("Uhvati exception: "+e.getMessage());
+			return count;
+		}
+		return count;
+	}
 }

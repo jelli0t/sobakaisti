@@ -55,4 +55,12 @@ public class CategoryServiceImpl implements CategoryService{
 		return null;
 	}
 
+	@Override
+	public List<Category> findListOfCategoriesByIdsArray(int[] ids) {
+		List<Integer> categoriesIds = new ArrayList<Integer>(ids.length);
+		for(int i=0; i < ids.length; i++) {
+			categoriesIds.add(ids[i]);
+		}
+		return categoriesIds.size() > 0 ? categoryDao.findListOfCategoriesByIds(categoriesIds) : null;
+	}
 }

@@ -29,4 +29,11 @@ public interface CategoryService {
 	 * @param String
 	 * */
 	public Category findCategoryBySlug(String slug);
+
+	/**
+	 * TODO podigni u nadklasu 
+	 * Nalazi listu objekata na osnovu niza njihovih ID-eva
+	 * @param ids
+	 * */
+	List<Category> findListOfCategoriesByIdsArray(int[] ids);
 }

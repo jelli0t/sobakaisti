@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -85,5 +86,18 @@ public class CategoryDaoImpl implements CategoryDao{
 			return null;
 		}		
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Category> findListOfCategoriesByIds(List<Integer> ids) {
+		String HQL = "from Category c where c.id in (:ids)";
+		List<Category> items = new ArrayList<Category>(ids.size());
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			items = session.createQuery(HQL).setParameterList("ids", ids).list();			
+		} catch (Exception e) {
+			return null;
+		}
+		return items;
+	}
 }

@@ -100,4 +100,11 @@ public interface ArticleDao {
 	 * Broji clanke na osnovu statusa
 	 * */
 	int countArticlesByStatus(boolean isActive);
+
+	/**
+	 * TODO podici u nadklasu 
+	 * proverava da li ima duplikata za trazeni slug
+	 * @param slug
+	 * */
+	public int countSlugDuplicates(String slug);
 }

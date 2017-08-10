@@ -6,6 +6,7 @@ import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Tag;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ArticleService {
 
@@ -76,5 +77,12 @@ public interface ArticleService {
 	 * @param isActive
 	 * */
 	public int countArticlesByStatus(boolean isActive);
+
+	/**
+	 * TODO sa publication upload metodom razmotri sjedinjavanje
+	 * upload articles
+	 * */
+	boolean createAndUploadArticle(String title, String slug, String content, int authorId, int[] categoriesIds,
+			int[] tagIds, MultipartFile file);
 	
 }

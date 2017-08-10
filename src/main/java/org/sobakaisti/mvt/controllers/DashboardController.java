@@ -15,6 +15,8 @@ import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PublicationService;
+import org.sobakaisti.mvt.validation.Validation;
+import org.sobakaisti.mvt.validation.Validator;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author jelles
@@ -47,6 +50,8 @@ public class DashboardController {
 	private CategoryDao categoryDao;
 	@Autowired
 	private PublicationService publicationService;
+	@Autowired
+	private Validator validator;
 	
 	@ModelAttribute
 	public void prepare(Model model){
@@ -177,6 +182,38 @@ public class DashboardController {
 			return new ResponseEntity<String>(message, HttpStatus.OK);
 		}		
 		return new ResponseEntity<String>("Greska promeni statusa.", HttpStatus.SERVICE_UNAVAILABLE);
+	}
+	
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Object> postArticle(
+			@RequestParam(name="title", required = false) String title,
+			@RequestParam(name="slug", required = false) String slug,
+            @RequestParam(name="content", required = false) String content,
+            @RequestParam(name="author", required = false) int author,
+            @RequestParam(name="categories", required = false) int[] categories,
+            @RequestParam(name="tags", required = false) int[] tags,
+            @RequestParam(name="featuredImg", required = false) MultipartFile featuredImg
+			) {
+		System.out.println("Pogodio sam metodu uploadPublication()");
+		System.out.println("Body: "+content);
+		System.out.println("Author id: "+author);
+		System.out.println("Featured img: "+featuredImg.getOriginalFilename());
+		
+		Validation validation = validator.validatePostFields(title, slug, author, featuredImg);
+		
+		if(!validation.hasErrors()) {
+			boolean published = articleService.createAndUploadArticle(title, slug, content, author, categories, tags, featuredImg);
+			if(published) {
+				return new ResponseEntity<Object>("Successful submit!!", HttpStatus.OK);
+			}else {
+				validation.setHasErrors(true);
+				validation.setErrorMessage("Greska pri upload-u datoteke!");
+				return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
+			}			
+		}else {			
+			return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
+		}
 	}
 	
 	

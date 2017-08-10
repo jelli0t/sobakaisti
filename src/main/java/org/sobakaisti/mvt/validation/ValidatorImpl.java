@@ -36,7 +36,7 @@ public class ValidatorImpl implements Validator {
 		if(file == null || file.isEmpty()) {
 			validation.setHasErrors(true);
 			validation.setFieldName(FILE_FIELD_NAME);
-			validation.setErrorMessage("Niste selektovali datoteku ua upload!");
+			validation.setErrorMessage("Niste selektovali datoteku za upload!");
 			return validation;
 		}
 		/* ako je fajl preko 20Mb */

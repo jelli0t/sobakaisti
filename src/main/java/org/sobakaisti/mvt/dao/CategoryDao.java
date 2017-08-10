@@ -36,4 +36,6 @@ public interface CategoryDao {
 	 * @param String
 	 * */
 	public Category findCategoryBySlug(String slug);
+
+	List<Category> findListOfCategoriesByIds(List<Integer> ids);
 }

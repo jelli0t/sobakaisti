@@ -121,7 +121,7 @@
 
 	
 	<!-- Form -->
-	<form th:action="@{/publications/upload}" id="article-form" enctype="multipart/form-data" onsubmit="return false;">	
+	<form th:action="@{/sbk-admin/upload}" id="new-post-form" name="new-post-form" enctype="multipart/form-data">	
 	<div class="main-dash-content">
 		<!-- Right panel -->
 		<div class="right-container">
@@ -142,7 +142,7 @@
 			</div>
 			<div class="panel-footer">
 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
+				<button type="button" id="submit-bttn" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
 			</div>
 		</div>
 		

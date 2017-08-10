@@ -21,8 +21,11 @@ import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
+import org.sobakaisti.mvt.service.CategoryService;
+import org.sobakaisti.mvt.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author jelles
@@ -37,6 +40,10 @@ public class ArticleServiceImpl implements ArticleService{
 	private AuthorDao authorDao;
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private CategoryService categoryService;
+	@Autowired
+	private TagService tagService;
 	
 	private int charsPerRow;
 	private int rowsPerPage;
@@ -94,6 +101,46 @@ public class ArticleServiceImpl implements ArticleService{
 		}
 	}
 
+	@Override
+	public boolean createAndUploadArticle(String title, String slug, String content, int authorId, int[] categoriesIds, int[] tagIds,
+			MultipartFile file) {
+		Article article = new Article();
+		article.setTitle(title);
+		article.setSlug(addSuffixIfDuplicateExist(slug));
+		article.setContent(content != null ? content : "");
+		article.setPostDate(Calendar.getInstance());
+		article.setActive(1);
+		/* ako je prosledjen ID autora pronadji ga i postavi ga kao autora izdanja */
+		if(authorId > 0) {
+			Author author = authorDao.getAuthorById(authorId);
+			article.setAuthor(author);
+		}
+		/* ako ima odabranih Tagova dodaj ih na publication obj. */
+		if(tagIds != null && tagIds.length > 0) {
+			article.setTags(tagService.findListOfTagsByIdsArray(tagIds));
+		}
+		/* ako ima odabranih categorija nadji ih i dodeli clanku */
+		if(categoriesIds != null && categoriesIds.length > 0) {
+			article.setCategories(categoryService.findListOfCategoriesByIdsArray(categoriesIds));
+		}
+		
+		if(!file.isEmpty()) {
+			String fileName = file.getOriginalFilename();
+			article.setFeaturedImage(fileName);
+		}
+		return articleDao.saveArticle(article);
+	}
+
+
+	private String addSuffixIfDuplicateExist(String slug) {
+		int duplicates = articleDao.countSlugDuplicates(slug);
+		/* ako ima ponavljanja dodaj broj kao sufiks */
+		if(duplicates > 0) {
+			slug += ("-" + duplicates);
+		}		
+		return slug;
+	}
+	
 	@Override
 	public List<Article> getArticlesOrderByDate(int resultsLimit) {
 		return articleDao.getArticlesSortedByDate(resultsLimit);
