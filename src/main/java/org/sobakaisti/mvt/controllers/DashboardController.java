@@ -193,19 +193,17 @@ public class DashboardController {
             @RequestParam(name="author", required = false) int author,
             @RequestParam(name="categories", required = false) int[] categories,
             @RequestParam(name="tags", required = false) int[] tags,
-            @RequestParam(name="featuredImg", required = false) MultipartFile featuredImg
+            @RequestParam(name="featuredImg", required = false) MultipartFile featuredImg,
+            @RequestParam(name="active") int active
 			) {
-		System.out.println("Pogodio sam metodu uploadPublication()");
-		System.out.println("Body: "+content);
-		System.out.println("Author id: "+author);
-		System.out.println("Featured img: "+featuredImg.getOriginalFilename());
-		
-		Validation validation = validator.validatePostFields(title, slug, author, featuredImg);
+		Validation validation = validator.basicPostValidation(title, slug, author);
+		if(!validation.hasErrors())
+			validation = validator.featuredImageFileValidation(featuredImg);
 		
 		if(!validation.hasErrors()) {
-			boolean published = articleService.createAndUploadArticle(title, slug, content, author, categories, tags, featuredImg);
+			boolean published = articleService.createAndUploadArticle(title, slug, content, author, categories, tags, featuredImg, active);
 			if(published) {
-				return new ResponseEntity<Object>("Successful submit!!", HttpStatus.OK);
+				return new ResponseEntity<Object>("Uspesno ste "+(active == 1 ? "publikovali":"sacuvali kao nacrt")+" clanak.", HttpStatus.OK);
 			}else {
 				validation.setHasErrors(true);
 				validation.setErrorMessage("Greska pri upload-u datoteke!");
@@ -215,7 +213,6 @@ public class DashboardController {
 			return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
-	
 	
 	
 	//	PUBLICATIONS

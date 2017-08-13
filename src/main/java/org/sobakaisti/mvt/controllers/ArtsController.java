@@ -100,6 +100,12 @@ public class ArtsController {
 		return "commons/artArticlePreviews :: artsArticlePreviews";
 	}
 	
+	@RequestMapping(value="/footer", method=RequestMethod.GET)
+	public String loadingFooter() {
+		return "commons/mvt_footer :: mvt_main_footer";
+	}
+	
+	
 	/**
 	 * pomocna metoda koja popunjava Model pre renderovanja strane
 	 * */

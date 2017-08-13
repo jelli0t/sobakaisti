@@ -11,6 +11,9 @@
 	font-weight: normal;
 	font-style: normal;
 }
+html, body {
+	height: 100% !important;
+}
 html, body, div, img, ul, ol {
 	margin: 0;
 	padding: 0;
@@ -397,8 +400,9 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 .site-content-container {
 	position: relative;
 	max-width: 980px;
-	height:auto;
-	margin: 5% auto 80px auto;
+	min-height: 100%;
+    height: inherit;
+	margin: 5% auto 50px auto;
 /* 	border: 1px solid gray; */
 }
 .article-top-container {
@@ -442,6 +446,7 @@ h3.article-prev-title {
 .article-prev-footer a:link { color: #1fa0ae !important; }
 
 /* GRID POST PREVIEWS */
+.post-prev-list {position: relative;}
 .post-prev-item {
 	position: relative;
 	display: block;
@@ -514,10 +519,10 @@ h3.article-prev-title {
 .post-prev-footer {
 	font-size: 10px;
     position: absolute;
-    bottom: 8px;
+    bottom: 0;
     left: 0;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 14px 7px 14px;
     color: #8e8e8e;
     background-color: #fff;
 	-webkit-box-shadow: 0px -16px 15px 0px rgba(255,255,255,1);
@@ -593,11 +598,11 @@ address > a:hover {
 
 /*	FOOTER	*/
 
-footer {
-	position: relative;
-	width: 100%;
-	height: auto;
-}
+/* footer { */
+/* 	position: relative; */
+/* 	width: 100%; */
+/* 	height: auto; */
+/* } */
 footer .footer-container {
 	position: relative;
 	max-width: 500;
@@ -619,6 +624,10 @@ footer .footer-container .footer-row {
 	height: 24px;
 	margin: 0 5px;
 	border: 1px solid #343434;
+   	-o-border-radius:50%;
+	-ms-border-radius:50%;
+	-webkit-border-radius:50%;
+	-moz-border-radius:50%;
 	border-radius: 50%;
 	background-color: transparent;
 	background-repeat: no-repeat;
@@ -655,6 +664,105 @@ footer .footer-container .footer-row {
 .footer-nav li a:HOVER {
 	color: #1fa0ae;
 }
+
+/* MAIN FOOTER */
+.mvt-main-footer {
+	position: relative;
+	display: block;
+	width: 100%;
+	background-color: #242729;
+    font-size: 11px;
+    line-height: 1.26666667;
+    color: #6a737c;
+    box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	margin: 0;
+	clear: both;
+}
+.mvt-footer-container {
+	margin: 0 auto;
+    padding: 38px 10px 32px 10px;
+    max-width: 980px;
+    min-height: 180px;
+/*     border: 1px solid #6a737c; */
+}
+
+.mvt-footer-container > .footer-td {
+	position: relative;
+	float: left;
+	display: inline-block;
+	padding: 0 32px 0 0;
+/* 	border: 1px solid gray; */
+}
+.mvt-footer-container > .footer-td > .footer-td-title {
+	text-transform: uppercase;
+    font-weight: bold;
+    margin: 0 0 12px 0;
+    color: #bbc0c4;
+    padding-right: 12px;
+    max-height: 24px;
+    line-height: 1;
+    font-size: 12px;
+}
+.main-footer-nav > .footer-nav-list {
+	margin: 0;
+    list-style: none;
+    white-space: nowrap;
+    color: inherit;
+}
+.main-footer-nav > .footer-nav-list > li > a { 
+	color: #848d95;
+    line-height: 1.5;
+    display: inline-block;
+    text-decoration: none;	
+}
+.main-footer-nav > .footer-nav-list > li > a:hover { color: #bbc0c4;}
+
+.main-footer-copyright {
+	position: relative;
+	float: right;
+	display: inline-block;
+	text-align: right;
+}
+.social-container .social-footer-ico {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin: 0 3px;
+	border: 1px solid #fff;
+	-o-border-radius:50%;
+	-ms-border-radius:50%;
+	-webkit-border-radius:50%;
+	-moz-border-radius:50%;
+	border-radius: 50%;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: top right;
+	background-size: 12px 12px;
+	background-position: center;
+	opacity: 0.6;
+}
+.social-container > .social-footer-ico:hover { opacity: 0.9; }
+.social-container .social-footer-ico > a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.social-container .facebook-footer-ico { background-image:  url('../img/social/facebook-white.svg'); }
+.social-container .twitter-footer-ico { background-image: url('../img/social/twitter-white.svg'); }
+.social-container .youtube-footer-ico { background-image: url('../img/social/youtube-white.svg'); }
+.social-container .tumblr-footer-ico { background-image: url('../img/social/tumblr-white.svg'); }
+
+.main-footer-copyright > p {	
+	color: #bbc0c4;
+    line-height: 1.5;
+    border-bottom: 0;
+}
+.main-footer-copyright > p > a {
+	color: #848d95;
+}
+/* RESPONSIVE */
 
 @media only screen and (max-width: 1024px) {
 /* 	.single-circle { */

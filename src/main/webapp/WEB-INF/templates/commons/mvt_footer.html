@@ -34,4 +34,59 @@
 		<div><span>Copyright &copy;</span> <span>2017.</span></div>		
 	</div>
 </footer>
+
+
+<footer th:fragment="mvt_main_footer" class="mvt-main-footer">
+	<div class="mvt-footer-container">
+		<!-- footer logo container -->
+		<div class="main-footer-logo footer-td">
+			<a th:href="@{/rs/movement}" title="Sobakaisti">
+				<img alt="Sobakaisti" th:src="@{/resources/img/icons/sobakaisti_full_logo.svg}" width="130px">
+			</a>
+		</div>
+		<!-- footer movement navigation -->
+		<nav class="main-footer-nav footer-td">
+			<h5 th:text="#{nav.item.movement}" class="footer-td-title">Pokret</h5>
+			<ul class="footer-nav-list">
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.arts}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.authors}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.published}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.shop}"></a></li>
+				<li><a th:href="@{/manifesto}" th:text="#{nav.item.contact}"></a></li>
+			</ul>
+		</nav>
+		
+		<nav class="main-footer-authors footer-td">
+			<h5 th:text="#{nav.item.authors}" class="footer-td-title">Autori</h5>
+			<ul class="footer-nav-list">
+				
+			</ul>
+		</nav>
+		
+		<div class="main-footer-copyright">
+			<div class="social-container">
+				<span class="facebook-footer-ico social-footer-ico">
+					<a th:href="@{https://www.facebook.com/sobakaisti/}" target="_blank" title="Facebook"></a>
+				</span>
+				<span class="twitter-footer-ico social-footer-ico">
+					<a th:href="@{https://twitter.com/sobakaisti}" target="_blank" title="Twitter"></a>
+				</span>
+				<span class="youtube-footer-ico social-footer-ico"></span>
+				<span class="tumblr-footer-ico social-footer-ico">
+					<a th:href="@{http://sobakaisti.tumblr.com/}" target="_blank" title="Tumblr"></a>					
+				</span>
+			</div>
+			<ul></ul>
+			<p>site design / logo © 2017 Sobakaisti; <br> info: <a href="mailto:info@sobakaisti.org">info@sobakaisti.org</a>
+				<br><a th:href="@{/movement/sitemap}" th:title="#{nav.item.sitemap}" th:text="#{nav.item.sitemap}">Mapa sajta</a>
+			</p>
+		</div>
+	</div>
+	
+	<!-- scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" th:src="@{/resources/js/movement.jq.js}"></script>
+</footer>
+
 </html>

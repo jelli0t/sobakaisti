@@ -98,16 +98,7 @@ $(function() {
 	/* tag search event */
 	$(document).on('keyup', '.search-field', function(e) {
 		e.preventDefault();
-		var value = $(this).val();
-//		var key = evt.which;
-//		var $searchField = $(this);
-//		if(key === 13) {
-//			evt.preventDefault();
-//			$searchField.addNewTag();
-//		} else if(value.length > 1) {
-//			$searchField.ajaxSearch();
-//		}
-		
+		var value = $(this).val();		
 		var keyCode = e.keyCode || e.which;
 		if (keyCode === 13) { 
 			console.log('Pritisnuo Enter!');
@@ -132,20 +123,26 @@ $(function() {
 	$('input[type=file]').on('change', function(){
 		var filename = $(this).val().split('\\').pop();
 		$(this).next('label').removeValidationAlert();
-		$(this).next('label').html(filename);
-		
+		$(this).next('label').html(filename);	
 		if($(this).hasClass('input-img')){
 			$(this).showUploadedImgPreview();
 		}
 	});
 
 	/**
-	 * Submit forme
+	 * Submit forme. Objavljivanje ili Draft
 	 * */
-	$("#submit-bttn").on('click', function(evt){
+	$('#submit-bttn, a#save-draft-bttn').on('click', function(evt){
 		evt.preventDefault();
-		console.log('Submitovao sam formu');
-		$('form[name="new-post-form"]').submitFormData();
+		var active = 0;
+		if ($(this).is('#submit-bttn')) {
+			console.log('[Submit] Radim objavljivanje.');
+			active = 1;
+		} else if ($(this).is('a#save-draft-bttn')) {
+			console.log('[Submit] Radim cuvanje nacrta.');
+			active = 0;
+		} 		
+		$('form[name="new-post-form"]').submitFormData(active);
 	});
 	
 	$('.bttn-close').on('click', function(evt){
@@ -168,7 +165,13 @@ $(function() {
 		evt.preventDefault();
 		$(this).parent('.tag').remove();
 	});
-		
+	
+	/* Reset featured img polja */
+	$('#img-prev').on('click', '.reset-img-input', function(){
+		$('#img-file').val('');
+		$('#img-file').next('label').html('Odaberi sliku...');
+		$('#img-prev').empty();
+	});
 		
 }); // End Of Ready
 
@@ -580,25 +583,22 @@ $.fn.addNewTag = function() {
 }
 
 /***/
-$.fn.submitFormData = function() {
+$.fn.submitFormData = function(active) {
 	$('#overlay').toggle();
 	var $form = $(this);
 	var csrf = getCsrfParams();	
 	var uri = $(this).attr('action');
-	console.log("URI: "+uri);
+	console.log("[URI]: "+uri);
+	/* popunjavam FormData podacima sa forme */
 	var data = new FormData($(this)[0]);
-	
+	data.append('active', active);
 	for (var key of data.keys()) {
 		if(key === 'content'){
-			console.log('Uhvatio polje content!');
 			data.set('content', tinyMCE.activeEditor.getContent() || '');
 			break;
 		}		
 	}
-	for (var value of data.values()) {
-	   console.log(value); 
-	}	
-
+	console.log('[Post] Radim '+(active===1 ? 'publikovanje':'čuvanje nacrta')+' članka "'+data.get('title')+'".');
 	$.ajax({
 	    url: uri,
 	    type: 'POST',
@@ -639,6 +639,12 @@ $.fn.submitFormData = function() {
 	    	$('#upload-label').addClass('error-border');
 	    	$('#upload-label').next('.validation-error').text(err.errorMessage).show();
 	    }
+	    else if(err.fieldName === 'featuredImg'){
+	    	console.log(err.errorMessage);
+	    	var $input = $('input[name=featuredImg]', $form);
+	    	$('.upload-img-label').addClass('error-border');
+	    	$('.upload-img-label').next('.validation-error').text(err.errorMessage).show();
+	    }
 	})
 	.always(function( xhr, status ) {
 		$('#overlay').toggle();
@@ -666,6 +672,7 @@ $.fn.showUploadedImgPreview = function() {
 		    }
 		    image_holder.show();
 		    reader.readAsDataURL($(this)[0].files[0]);
+		    image_holder.append('<span class="reset-img-input" title="Ukloni sliku"></span>');
 		} else {
 		    alert("This browser does not support FileReader.");
 		}

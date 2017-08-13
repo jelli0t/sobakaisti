@@ -85,11 +85,15 @@
 			</div>
 			<!-- center indicator continer -->
 			<div class="header-page-indicator">
-				<a th:href="@{/arts/{art}(art=${arts[0].slug})}">
+				<a th:href="@{/arts/{art}(art=${arts[0].slug})}" th:if="${arts != null}">
 					<span class="circle page-indikator-circle">
-						<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:if="${arts != null}" 
-							th:title="${arts[0].name}">
+						<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:title="${arts[0].name}">
 						<span th:if="${arts == null}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
+					</span>
+				</a>
+				<a th:href="@{/manifesto}" th:if="${arts == null}">
+					<span class="circle page-indikator-circle">
+						<span th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
 					</span>
 				</a>
 				<!-- Arts subcategories -->

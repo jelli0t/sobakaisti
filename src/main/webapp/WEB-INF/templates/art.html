@@ -80,12 +80,9 @@
 		</li>
 	</ul>
 	<a th:href="@{/arts/{art}/{author}/more(art=${arts[0].slug}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" style="display:none;" id="load-content-link"></a>
+	<a th:href="@{/arts/footer}" style="display:none;" id="load-footer-link"></a>	
 </div>		
 
-
-<!-- <footer th:replace="~{commons/mvt_footer :: mvt_footer}"> -->
-<!-- </footer> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{/resources/js/movement.jq.js}"></script>
+<footer th:replace="~{commons/mvt_footer :: mvt_main_footer}"></footer>
 </body>
 </html>

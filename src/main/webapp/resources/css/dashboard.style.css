@@ -87,7 +87,31 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 input[type="text"].error-border { border-color: #DD381D !important;}
 .error-border { border-color: #DD381D !important;}
 
-
+.reset-img-input {
+	position: absolute;
+	right: 27px;
+	margin-top: 5px;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	background-color: #fff;
+	color: #DD381D;	
+	-webkit-border-radius: 50%;
+  	-moz-border-radius: 50%;
+  	border-radius: 50%;
+	cursor: pointer;
+	z-index: 999;
+}
+.reset-img-input::before {
+	font-family: 'Pe-icon-7-stroke';
+	font-size: 18px;
+	font-weight: 700;
+	content: '\e680'; 	
+}
+.reset-img-input:hover {
+	background-color: #DD381D !important;
+	color: #fff !important;
+}
 .validation-error {
 	display: none;
 	position: relative;

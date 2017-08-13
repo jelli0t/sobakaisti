@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/mvt_head :: mvt_head(~{::title})">
+	<title th:text="#{nav.item.sitemap}">Mapa sajta</title>
+</head>
+<body>
+<nav th:replace="~{commons/navigation :: navigation}"></nav>
+
+<div class="site-content-container"></div>
+
+<footer th:replace="~{commons/mvt_footer :: mvt_main_footer}"></footer>
+</body>
+</html>

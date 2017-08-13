@@ -277,9 +277,11 @@ public class ArticleDaoImpl implements ArticleDao{
 	}
 	
 	@Override
+	@Transactional
 	public int countSlugDuplicates(String slug) {
 		int count = 0;
 		String HQL = "select count(a.id) from Article a where a.slug like :slug";
+		System.out.println("Pokusavam da prebrojim br duplikata za slug: "+slug);
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Long result = (Long) session.createQuery(HQL).setString("slug", slug+"%").uniqueResult();

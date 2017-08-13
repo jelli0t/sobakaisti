@@ -1,8 +1,7 @@
 $(function() {
 	var labelWidth = $('.triangle-label').width();
 	resizeTriangle(labelWidth/2);
-	
-	
+		
 	var winHeight = $(window).height(), 
     docHeight = $(document).height(),
     $progressBar = $('progress'),
@@ -52,9 +51,9 @@ $(function() {
 	    }
 	}, '.circle-filter');
 	
+	/* kad dohvati dno strane ucitaj jos */
 	$(window).scroll(function() {
         if ($(document).height() <= ($(window).height() + $(window).scrollTop())) {
-//            alert('Bottom reached!');
         	console.log('Bottom!');
         	$(document).loadMoreArticlesPreviews();
         }
@@ -76,20 +75,24 @@ function resizeTriangle(labelWidth){
  *  loads more article when scroll window to bottom
  * */
 $.fn.loadMoreArticlesPreviews = function() {
-	if(endReached){
+	if(endReached){		
 		console.log('Kraj vec dostignut, izlazim iz funkcije.');
 		return;
 	}
+	var uri = $('#load-content-link').attr('href');
+	if(typeof uri == 'undefined') return;
 	
 	$.ajax({
-		url: $('#load-content-link').attr('href'),
+		url: uri,
 		type : 'GET',
 		dataType: 'html',
 	}).done(function( article ) {			
 		if (article) {
 			console.log('Uspesno dohvacen fragment, ');
+			$('.site-content-container').adjustContentHeight();
 			$('.site-content-container').append(article);
 		}else {
+//			alert('Visina dokumenta '+$(document).height());			
 			console.log('Nema sta da dohvatim, document je prazan! ');
 			endReached = true;
 		}		
@@ -99,3 +102,32 @@ $.fn.loadMoreArticlesPreviews = function() {
 	})
 	
 }
+
+$.fn.adjustContentHeight = function() {
+	var height = $(document).height() - $('.mvt-main-footer').height();
+	console.log('doc height: '+height);
+	$(this).css({'height': height+'px'});
+}
+
+/**
+ * Load footer
+ * */
+$.fn.loadFooterAtEnd = function(height) {
+	$.ajax({
+		url: $('#load-footer-link').attr('href'),
+		type : 'GET',
+		dataType: 'html',
+	}).done(function( footer ) {			
+		if (footer) {
+			console.log('Uspesno dohvacen footer');
+			$('body').append(footer).css({'height':(height-220)+'px'});
+		}else {
+			console.log('Nema sta da dohvatim, document je prazan! ');
+			endReached = true;
+		}		
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})
+}
+

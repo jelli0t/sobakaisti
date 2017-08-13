@@ -51,4 +51,9 @@ public class HomeController {
 				
 		return rows;
 	}
+	
+	@RequestMapping(value="/movement/sitemap", method=RequestMethod.GET )
+	public String showSiteMap() {
+		return "sitemap";
+	}
 }

@@ -83,6 +83,6 @@ public interface ArticleService {
 	 * upload articles
 	 * */
 	boolean createAndUploadArticle(String title, String slug, String content, int authorId, int[] categoriesIds,
-			int[] tagIds, MultipartFile file);
+			int[] tagIds, MultipartFile file, int active);
 	
 }
