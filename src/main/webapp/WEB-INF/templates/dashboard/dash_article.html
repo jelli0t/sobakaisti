@@ -133,7 +133,8 @@
 				<div class="select-wrapper">
 				<select name="author" class="bttn bttn-default bttn-select">
 					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
-					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
+					<option th:each="author : ${authors}" th:value="${author.id}" 
+						th:text="${author.firstName}+' '+${author.lastName}"  th:selected="${article.author}">sobakaista</option>
 				</select>
 				<!-- validation error message -->
 				<div class="validation-error"></div>
@@ -161,11 +162,18 @@
 					</div>
 					<div class="select-menu-body">				
 					<label th:each="category : ${categories}" class="checkboxes-label">
-						<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}"/> <span th:text="${category.name}"></span>
+						<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}"
+							th:checked="${article.categories != null ? category.id == article.categories[0].id : false}"/> 
+						<span th:text="${category.name}"></span>
 					</label>
 					</div>
 				</div>			
-				<div class="selected-categories selected-result"></div>				
+				<div class="selected-categories selected-result">
+					<!-- kategorije na editingu -->
+					<label th:each="category : ${article.categories}" class="checkboxes-label" th:if="${article.categories != null}">
+						<span class="label category" th:id="${'cat_'+category.slug}"><span th:text="${category.name}"></span><span class="bttn-close-white close-cat-bttn"></span></span>
+					</label>
+				</div>				
 			</div>			
 		</div>
 		
@@ -188,7 +196,18 @@
 					</div>					
 					<div class="search-result"></div>
 				</div>
-				<div class="selected-tags selected-result"></div>			
+				<div class="selected-tags selected-result">
+					<span class="label tag" th:id="${'tag_'+tag.slug}" th:each="tag : ${article.tags}" th:if="${article.tags != null}">
+						<span th:text="${tag.tag}"></span>
+						<span class="bttn-close-white close-tag-bttn"></span>
+												
+					</span>
+					<label tabindex="0" class="label tag" th:each="tag : ${article.tags}" th:if="${article.tags != null}">
+						<input type="hidden" name="tags" th:value="${tag.id}">
+						<span th:text="${tag.tag}"></span>
+						<span class="bttn-close-white close-tag-bttn"></span>
+					</label>
+				</div>			
 			</div>			
 		</div>
 		
@@ -212,7 +231,7 @@
 		<div class="left-container">
 			<div class="form-tr">
 				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" 
-					id="publication-title" class="title-input full-width" th:src="@{/sbk-admin/slug/new}">
+					id="publication-title" class="title-input full-width" th:src="@{/sbk-admin/slug/new}" th:value="${article.title}">
 				<!-- validation error message -->
 				<div class="validation-error"></div>	
 				<!-- link preview -->
@@ -226,7 +245,7 @@
 			</div>			
 			<!-- contet textarea -->	
 			<div class="article-input-wrapper form-tr">
-				<textarea name="content" id="article-content"></textarea>
+				<textarea name="content" id="article-content" th:value="${article.content}"></textarea>
 			</div>
 		</div>		
 	</div>

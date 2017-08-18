@@ -214,6 +214,12 @@ public class DashboardController {
 		}
 	}
 	
+	@RequestMapping(value="/article/edit/{id}", method=RequestMethod.GET)
+	public String editArticleById(Model model, @PathVariable("id") int id) {
+		model.addAttribute("categories", categoryDao.findAllCategories());
+		model.addAttribute("article", articleService.findById(id));
+		return "dashboard/dash_article";
+	}
 	
 	//	PUBLICATIONS
 	

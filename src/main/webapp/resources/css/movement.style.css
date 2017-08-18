@@ -595,6 +595,7 @@ address > a:hover {
 	margin-right: 6px;
 	vertical-align: middle;
 }
+.fadein { display: none;}
 
 /*	FOOTER	*/
 

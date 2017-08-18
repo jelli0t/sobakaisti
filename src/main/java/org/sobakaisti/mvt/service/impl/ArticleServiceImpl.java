@@ -50,6 +50,11 @@ public class ArticleServiceImpl implements ArticleService{
 	private int charsToFill;
 	
 	@Override
+	public Article findById(int id) {		
+		return articleDao.findArticleById(id);
+	}
+	
+	@Override
 	public List<String> getRowsFromArticleWithDimension(int width, int height, double charWidth, String lang) {
 		charsPerRow = (int) Math.floor(width / charWidth);
 		rowsPerPage = (int) Math.floor(height / LINE_HEIGHT);
@@ -221,5 +226,5 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> findArticlesBundleForCategoryByAuthor(Category category, Author author, int from, int size, boolean isActive) {
 		return articleDao.findArticlesBundleForCategoryByAuthor(category, author, from, size, isActive);
 	}
-	
+		
 }

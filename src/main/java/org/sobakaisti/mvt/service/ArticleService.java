@@ -29,6 +29,11 @@ public interface ArticleService {
 	public Article getArticleBySlug(String slug, String lang);
 	
 	/**
+	 * Pronalazi entitet po prosledjenom ID-u
+	 * */
+	public Article findById(int id);
+	
+	/**
 	 * Metoda cuva novi 
 	 * */
 	public Article saveArticle(Article article);

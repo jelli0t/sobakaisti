@@ -42,14 +42,8 @@ ul {
 .mail-icon::BEFORE { content: '\e639';}
 .website-icon::BEFORE { content: '\e641';}
 
-span.close-tag-bttn::before {
-	font-family: 'Pe-icon-7-stroke';
-	font-size: 16px;
-	content: '\e680'; 
-	color: #fff;	
-	vertical-align: middle;
-}
-span.close-tag-bttn {
+/* White close button */
+span.bttn-close-white {
 	display: inline; 
 	cursor: pointer;
 	margin: 0;
@@ -57,7 +51,14 @@ span.close-tag-bttn {
 	opacity: 0.9;
 	line-height: 12px;
 }
-span.close-tag-bttn:hover { opacity: 1.0; }
+span.bttn-close-white::before {
+	font-family: 'Pe-icon-7-stroke';
+	font-size: 16px;
+	content: '\e680'; 
+	color: #fff;	
+	vertical-align: middle;
+}
+span.bttn-close-white:hover { opacity: 1.0; }
 
 input[type="text"], input[type="date"], textarea, select {
     color: #858585;

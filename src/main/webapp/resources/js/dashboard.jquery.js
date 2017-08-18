@@ -114,8 +114,14 @@ $(function() {
 	/**
 	 * zatvara selektovani tag na 'x'
 	 * */
-	$('.selected-result').on('click', 'span.close-tag-bttn', function(e){
+	$('.selected-result').on('click', 'span.close-tag-bttn, span.close-cat-bttn', function(e){
 		e.preventDefault();
+		/* ako uklanjam kategoriju... */
+		if($(this).is('span.close-cat-bttn')){			
+			var checkbox_id = $(this).parent().attr('id');
+			/* odcekiram checkbox sa nadjenim id */
+			$('#'+checkbox_id).prop('checked', false);
+		}
 		$(this).parent().remove();
 	});
 	
@@ -155,9 +161,8 @@ $(function() {
 	
 	$(document).on('click', '.founded-tag', function(evt){
 		evt.preventDefault();
-		console.log('Kliknuo na tag.');
-//		$tag = $(this).append(shared.removeButton.clone()).removeClass('founded-tag');		
-		$tag = $(this).append('<span class="close-tag-bttn"></span>').removeClass('founded-tag');
+		console.log('Kliknuo na tag.');		
+		$tag = $(this).append('<span class="bttn-close-white close-tag-bttn"></span>').removeClass('founded-tag');
 		$('.selected-tags').append($tag);
 	});
 	

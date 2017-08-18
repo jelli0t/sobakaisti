@@ -4,7 +4,7 @@
 
 	<th:block th:fragment="artsArticlePreviews" th:unless="${#lists.isEmpty(initArticles)}" >
 	 	<li class="post-prev-item" th:each="article,itemStat : ${initArticles}">
-			<article>
+			<article class="fadein">
 				<header>
 					<a class="post-prev-img"></a>
 					<a th:href="@{/arts/{slug}(slug=${article.slug})}" 
