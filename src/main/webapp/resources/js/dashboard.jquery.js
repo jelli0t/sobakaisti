@@ -161,7 +161,7 @@ $(function() {
 	
 	$(document).on('click', '.founded-tag', function(evt){
 		evt.preventDefault();
-		console.log('Kliknuo na tag.');		
+		console.log('Kliknuo na tag.');
 		$tag = $(this).append('<span class="bttn-close-white close-tag-bttn"></span>').removeClass('founded-tag');
 		$('.selected-tags').append($tag);
 	});
@@ -177,7 +177,7 @@ $(function() {
 		$('#img-file').next('label').html('Odaberi sliku...');
 		$('#img-prev').empty();
 	});
-		
+	
 }); // End Of Ready
 
 
@@ -535,7 +535,7 @@ $.fn.ajaxSearch = function() {
 		console.log("success: "+tags);
 		var span = '';
 		$.each(tags, function(i){
-			span += '<span class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tags" value="'+tags[i].id+'"></span>';
+			span += '<label class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tags" value="'+tags[i].id+'"></label>';
 		});
 		$('.search-result').empty().append(span);
 	})
@@ -570,9 +570,9 @@ $.fn.addNewTag = function() {
 	.done(function( tag ) {
 		$('#tags-modal').toggle();
 		console.log("success: "+tag.tag);
-		var span = '<span class="label tag" id="tag-'+tag.id+'">'+tag.tag+'<input type="hidden" name="tags" value="'+tag.id+'">'
-					+'<span class="close-tag-bttn"></span>'
-					+'</span>';
+		var span = '<label class="label tag" id="tag-'+tag.id+'">'+tag.tag+'<input type="hidden" name="tags" value="'+tag.id+'">'
+					+'<span class="bttn-close-white close-tag-bttn"></span>'
+					+'</label>';
 //		$('.search-result').empty().append(span);
 		$('.selected-tags').append(span);
 		

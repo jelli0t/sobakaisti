@@ -107,7 +107,7 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public boolean createAndUploadArticle(String title, String slug, String content, int authorId, int[] categoriesIds, int[] tagIds,
+	public boolean createAndUploadArticle(int id, String title, String slug, String content, int authorId, int[] categoriesIds, int[] tagIds,
 			MultipartFile file, int active) {
 		Article article = new Article();
 		article.setTitle(title);
@@ -115,6 +115,9 @@ public class ArticleServiceImpl implements ArticleService{
 		article.setContent(content != null ? content : "");
 		article.setPostDate(Calendar.getInstance());
 		article.setActive(active);
+		if(id != 0){
+			article.setId(id);
+		}
 		/* ako je prosledjen ID autora pronadji ga i postavi ga kao autora izdanja */
 		if(authorId > 0) {
 			Author author = authorDao.getAuthorById(authorId);

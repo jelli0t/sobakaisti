@@ -87,7 +87,7 @@ public interface ArticleService {
 	 * TODO sa publication upload metodom razmotri sjedinjavanje
 	 * upload articles
 	 * */
-	boolean createAndUploadArticle(String title, String slug, String content, int authorId, int[] categoriesIds,
+	boolean createAndUploadArticle(int id, String title, String slug, String content, int authorId, int[] categoriesIds,
 			int[] tagIds, MultipartFile file, int active);
 	
 }

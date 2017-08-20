@@ -72,8 +72,8 @@
 		<div class="header-content-bottomhalf">
 			<!-- left autor filter div -->
 			<div class="header-author-filter">
-				<ul th:if="${authors != null}" class="author-filter-list aright">
-					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
+				<ul th:if="${authors != null}" class="author-filter-list">
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}" class="left-author">
 						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 							<span class="circle circle-filter" 
 								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 
@@ -104,8 +104,8 @@
 			</div>			
 			<!-- right author filter div -->
 			<div class="header-author-filter">
-				<ul th:if="${authors != null}" class="author-filter-list aleft">
-					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
+				<ul th:if="${authors != null}" class="author-filter-list">
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}" class="right-author">
 						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 							<span class="circle circle-filter" 
 								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'" 

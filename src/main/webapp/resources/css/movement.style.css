@@ -254,17 +254,22 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 	width: 100%;	
 }
 .header-content-bottomhalf {
+	display: table;
 	text-align: center;
-	margin: 0 auto;	
+/* 	margin: 0 auto;	 */
+	width: 100%;
 	height: auto;
+	border: 1px solid red;
 }
 
 .header-author-filter {
-	display: inline-block;
+	display: table-cell;
+/* 	display: inline-block; */
 /* 	max-width: 280px; */
-	width: 33%;
+/* 	width: 33%; */
 	height: 90px;
 	padding: 0 15px;
+	border: 1px solid red;
 }
 .author-fullname-bubble {
 	display: none;
@@ -304,7 +309,8 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 
 .header-page-indicator {
 	position: relative;
-	display:inline-block;
+	display: table-cell;
+/* 	display:inline-block; */
 	width: 160px;
 /* 	border: 1px solid blue; */
 	height: 90px;
@@ -317,13 +323,19 @@ progress::-moz-progress-bar {background-color: #1fa0ae; }
 .author-filter-list {
 	height: 90px;
 	line-height: 90px;
+	vertical-align: middle;
 }
 .author-filter-list > li {
-	display: inline-block;
-	vertical-align: middle;
-	line-height: normal;
+/* 	display: inline-block; */
+/* 	vertical-align: middle; */
+/* 	line-height: normal; */
 }
-
+.author-filter-list > .right-author {
+	float: left;
+}
+.author-filter-list > .left-author {
+	float: right;
+}
 .circle-filter {
 	width: 38px;
 	height: 38px;

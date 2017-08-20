@@ -88,7 +88,7 @@ public class ArticleDaoImpl implements ArticleDao{
 	public boolean saveArticle(Article article) {
 		Session session = sessionFactory.getCurrentSession();
 		try{
-			session.save(article);
+			session.saveOrUpdate(article);
 			return true;
 		}catch (HibernateError he) {
 			return false;

@@ -187,6 +187,7 @@ public class DashboardController {
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Object> postArticle(
+			@RequestParam(name="id", required = false) int id,
 			@RequestParam(name="title", required = false) String title,
 			@RequestParam(name="slug", required = false) String slug,
             @RequestParam(name="content", required = false) String content,
@@ -201,7 +202,7 @@ public class DashboardController {
 			validation = validator.featuredImageFileValidation(featuredImg);
 		
 		if(!validation.hasErrors()) {
-			boolean published = articleService.createAndUploadArticle(title, slug, content, author, categories, tags, featuredImg, active);
+			boolean published = articleService.createAndUploadArticle(id, title, slug, content, author, categories, tags, featuredImg, active);
 			if(published) {
 				return new ResponseEntity<Object>("Uspesno ste "+(active == 1 ? "publikovali":"sacuvali kao nacrt")+" clanak.", HttpStatus.OK);
 			}else {

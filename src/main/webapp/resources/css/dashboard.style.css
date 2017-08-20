@@ -47,7 +47,6 @@ span.bttn-close-white {
 	display: inline; 
 	cursor: pointer;
 	margin: 0;
-	margin-right: -3px;
 	opacity: 0.9;
 	line-height: 12px;
 }
@@ -935,6 +934,10 @@ h6 {
 	background-color: #207de5;
     color: #fff;
 }
+.label > input {
+	display: inline;
+}
+.lael > span { display: inline;}
 
 .label a:link, .label a:VISITED {
 	color: #fff;
