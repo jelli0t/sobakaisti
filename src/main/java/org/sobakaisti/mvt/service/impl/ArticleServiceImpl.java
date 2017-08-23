@@ -83,6 +83,11 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
+	public Article findArticleBySlug(String slug) {
+		return articleDao.findArticleBySlug(slug.trim());
+	}
+	
+	@Override
 	public Article getArticleBySlug(String slug, String lang) {
 		Article article = (Article) articleDao.getArticleBySlugTitle(slug, lang);
 		return article;
@@ -230,4 +235,8 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleDao.findArticlesBundleForCategoryByAuthor(category, author, from, size, isActive);
 	}
 		
+	@Override
+	public List<Article> findRelatedLatestArticles(Article exclude) {		
+		return articleDao.findRelatedLatestArticles(exclude, RELATED_ARTICLES_BUNDLE_SIZE);
+	}
 }

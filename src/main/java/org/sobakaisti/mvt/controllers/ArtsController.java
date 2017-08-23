@@ -3,6 +3,7 @@
  */
 package org.sobakaisti.mvt.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.sobakaisti.mvt.models.Article;
@@ -105,6 +106,22 @@ public class ArtsController {
 		return "commons/mvt_footer :: mvt_main_footer";
 	}
 	
+	
+	/* ARTICLES */
+	@RequestMapping(value="/{category}/{article}", method=RequestMethod.GET)
+	public String showArticleBySlug(@PathVariable("category") String category,  @PathVariable("article") String article, Model model) {
+		if(article != null && !article.isEmpty()) {
+			List<Category> arts = new ArrayList<Category>(1);
+			arts.add(categoryService.findCategoryBySlug(category));
+			System.out.println("Cat: "+category+"; Art_slug: "+article);
+			Article fullArticle = articleService.findArticleBySlug(article);
+			
+			model.addAttribute("arts", arts);
+			model.addAttribute("article", fullArticle);
+			model.addAttribute("initArticles", articleService.findRelatedLatestArticles(fullArticle));
+		}
+		return "article";
+	}
 	
 	/**
 	 * pomocna metoda koja popunjava Model pre renderovanja strane

@@ -107,4 +107,11 @@ public interface ArticleDao {
 	 * @param slug
 	 * */
 	public int countSlugDuplicates(String slug);
+
+	Article findArticleBySlug(String slug);
+	
+	/**
+	 * Dohvata srodne clanke
+	 * */
+	public List<Article> findRelatedLatestArticles(Article exclude, int size);
 }

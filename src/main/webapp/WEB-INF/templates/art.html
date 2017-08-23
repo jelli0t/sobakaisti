@@ -18,7 +18,7 @@
 		<article th:classappend="${initArticles[0].featuredImage != null} ? '' : full-width">			
 			<header>
 				<!-- Top article title -->				
-				<a th:href="@{/arts/{slug}(slug=${initArticles[0].slug})}" 
+				<a th:href="@{/arts/{art}/{slug}(art=${arts[0].slug}, slug=${initArticles[0].slug})}" 
 					class="post-prev-title top-post-prev-title" th:text="${initArticles[0].title}" th:alt="${initArticles[0].title}" th:title="${initArticles[0].title}"></a>
 			</header>
 			<!-- Top article preview body -->
@@ -56,7 +56,7 @@
 						<img alt="" th:src="@{/resources/img/{img}(img=${article.featuredImage})}">
 					</a>
 					<!-- Article title -->
-					<a th:href="@{/arts/{slug}(slug=${article.slug})}" 
+					<a th:href="@{/arts/{art}/{slug}(art=${arts[0].slug}, slug=${article.slug})}" 
 						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
 				</header>
 				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div>

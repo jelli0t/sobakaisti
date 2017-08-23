@@ -82,6 +82,20 @@ public class ArticleDaoImpl implements ArticleDao{
 			return null;
 		}		
 	}
+	
+	@Override
+	@Transactional
+	public Article findArticleBySlug(String slug) {
+		String hql = "from Article a where a.slug = :slug";
+		try{
+			Session session = sessionFactory.getCurrentSession();
+			Article article = (Article) session.createQuery(hql).setString("slug", slug).uniqueResult();
+			return article;
+		}catch (HibernateException he) {
+			System.err.println("Greska: "+he.getMessage());
+			return null;
+		}	
+	}
 
 	@Override
 	@Transactional
@@ -292,5 +306,44 @@ public class ArticleDaoImpl implements ArticleDao{
 			return count;
 		}
 		return count;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Article> findRelatedLatestArticles(Article exclude, int size) {
+		String selectByAuthor = "from Article a where a.author.id = :authorId and a.id <> :id order by date(a.postDate) desc";
+		String selectByCategoy = "select a from Article a join a.categories c where c.id = :cid and a.id != :aid and a.author.id <> :authorId order by date(a.postDate) desc";
+		
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			List<Article> relatedByAuthor = (List<Article>) session.createQuery(selectByAuthor)
+											.setInteger("authorId", exclude.getAuthor().getId())
+											.setInteger("id", exclude.getId())
+											.setMaxResults(size/2).list();
+
+			int founded = relatedByAuthor.size();
+			int secondMaxResult = founded < (size/2) ? size-founded : size/2;
+			
+			System.out.println("relatedByAuthor size: "+founded);
+			
+			List<Article> relatedByCat = session.createQuery(selectByCategoy)
+										.setInteger("cid", exclude.getCategories().get(0).getId())
+										.setInteger("aid", exclude.getId())
+										.setInteger("authorId", exclude.getAuthor().getId())
+										.setMaxResults(secondMaxResult).list();
+			
+			System.out.println("relatedByCat size: "+relatedByCat.size());
+			
+			if(relatedByAuthor != null && !relatedByAuthor.isEmpty()) {
+				relatedByAuthor.addAll(relatedByCat);
+				return relatedByAuthor;
+			}else {
+				return relatedByCat;
+			}			
+		} catch (Exception e) {
+			System.err.println("Greska pri dvostrukom selektu: "+e.getMessage());
+			return null;
+		}			
 	}
 }

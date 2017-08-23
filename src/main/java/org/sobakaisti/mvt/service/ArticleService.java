@@ -16,6 +16,7 @@ public interface ArticleService {
 	public static final int INACTIVE = 0;
 	public static final int ARTICLES_PER_LOAD = 5;
 	public static final int INIT_ARTICLES_BUNDLE_SIZE = 9;
+	public static final int RELATED_ARTICLES_BUNDLE_SIZE = 8;
 	public static final int ARTICLES_PREV_ROW_SIZE = 4;
 	
 	public static final String ACTIVE_STATUS = "active";
@@ -89,5 +90,12 @@ public interface ArticleService {
 	 * */
 	boolean createAndUploadArticle(int id, String title, String slug, String content, int authorId, int[] categoriesIds,
 			int[] tagIds, MultipartFile file, int active);
+
+	Article findArticleBySlug(String slug);
+	
+	/**
+	 * Pronalazi srodne clanke
+	 * */
+	public List<Article> findRelatedLatestArticles(Article exclude);
 	
 }
