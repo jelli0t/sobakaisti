@@ -114,4 +114,9 @@ public interface ArticleDao {
 	 * Dohvata srodne clanke
 	 * */
 	public List<Article> findRelatedLatestArticles(Article exclude, int size);
+
+	/**
+	 * pronalazi prethodni i sledeci clanak
+	 * */
+	public List<Article> findNextAndPreviousArticle(Article article);
 }

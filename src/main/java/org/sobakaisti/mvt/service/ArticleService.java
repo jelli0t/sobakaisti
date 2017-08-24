@@ -97,5 +97,7 @@ public interface ArticleService {
 	 * Pronalazi srodne clanke
 	 * */
 	public List<Article> findRelatedLatestArticles(Article exclude);
+
+	public List<Article> findNextAndPreviousArticle(Article article);
 	
 }

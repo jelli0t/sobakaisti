@@ -662,6 +662,17 @@ address > a:hover {
 .post > .post-body iframe {
 	width: 100%;
 }
+.side-article-prev {
+	position: absolute;
+	border: 1px solid red;
+}
+.side-article-prev.left-article-prev {
+	left: 0;
+}
+.side-article-prev.right-article-prev {
+	right: 0;
+}
+
 /*	FOOTER	*/
 
 /* footer { */

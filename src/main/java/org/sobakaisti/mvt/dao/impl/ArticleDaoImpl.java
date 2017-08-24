@@ -346,4 +346,38 @@ public class ArticleDaoImpl implements ArticleDao{
 			return null;
 		}			
 	}
+	
+	@Override
+	@Transactional
+	public List<Article> findNextAndPreviousArticle(Article article){
+		Article nextArticle = new Article();
+		Article previousArticle = new Article();
+		List<Article> bothArticles = new ArrayList<Article>(2);
+		
+		String nextSelect = "select a from Article a join a.categories c where a.id <> :aid "
+				+ "and (a.author.id = :authorId or c.id = :cid) and a.postDate >= :postDate and active = 1 order by a.postDate asc";
+		String prevSelect = "select a from Article a join a.categories c where a.id <> :aid "
+				+ "and (a.author.id = :authorId or c.id = :cid) and a.postDate <= :postDate and active = 1 order by a.postDate desc";
+	
+		try {
+			Session session = sessionFactory.getCurrentSession();			
+			nextArticle = (Article) session.createQuery(nextSelect).setInteger("aid", article.getId())
+						.setInteger("authorId", article.getAuthor().getId())
+						.setInteger("cid", article.getCategories().get(0).getId())
+						.setCalendar("postDate", article.getPostDate())
+						.setMaxResults(1).uniqueResult();
+			previousArticle = (Article) session.createQuery(prevSelect).setInteger("aid", article.getId())
+						.setInteger("authorId", article.getAuthor().getId())
+						.setInteger("cid", article.getCategories().get(0).getId())
+						.setCalendar("postDate", article.getPostDate())
+						.setMaxResults(1).uniqueResult();
+		} catch (Exception e) {
+			System.out.println("Error: "+e.getMessage());
+		}
+		bothArticles.add(0, nextArticle);
+		bothArticles.add(1, previousArticle);
+		return bothArticles;
+	}
+	
+	
 }

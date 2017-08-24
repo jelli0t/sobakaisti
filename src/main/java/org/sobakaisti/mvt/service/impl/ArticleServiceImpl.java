@@ -239,4 +239,9 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> findRelatedLatestArticles(Article exclude) {		
 		return articleDao.findRelatedLatestArticles(exclude, RELATED_ARTICLES_BUNDLE_SIZE);
 	}
+	
+	@Override
+	public List<Article> findNextAndPreviousArticle(Article article) {
+		return articleDao.findNextAndPreviousArticle(article);
+	}
 }
