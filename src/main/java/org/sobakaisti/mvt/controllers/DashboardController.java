@@ -3,7 +3,9 @@
  */
 package org.sobakaisti.mvt.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -255,4 +257,8 @@ public class DashboardController {
 	public String showNewPublicationPage(Model model){
 		return "dashboard/dash_publication";
 	}
+	
+	
+
+
 }

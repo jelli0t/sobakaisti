@@ -73,15 +73,48 @@
 		</li>
 	</ul>
 </div>		
+
 <!-- Next an previous article -->
-<!-- <div th:if="${sideArticles != null && sideArticles[0] != null}" class="side-article-prev left-article-prev"> -->
-<!-- 	<span th:text="${sideArticles[0].title}"></span>	 -->
-<!-- </div> -->
 
-<!-- <div th:if="${sideArticles != null && sideArticles[1] != null}" class="side-article-prev right-article-prev"> -->
-<!-- 	<span th:text="${sideArticles[1].title}"></span>	 -->
-<!-- </div> -->
+	<article th:if="${sideArticles != null && sideArticles[0] != null}" class="side-article-prev left-article-prev" th:with="article=${sideArticles[0]}">
+		<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" id="side-post-link-next" class="side-post-overflow-link">&#xe687;</a>	
+		<header>	
+			<!-- Article title -->
+			<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" 
+				class="side-post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
+		</header>
+		<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, 110)}" class="side-post-prev-content"></div>
+		<footer class="side-post-prev-footer" th:with="author=${article.author}" th:if="article.author != null">
+			<div class="side-post-prev-author-details">
+				<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" 
+						th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+				</address>
+				<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy.')}"></time>
+			</div>
+		</footer>
+	</article>	
 
+	<!-- right (next) post -->
+	<article th:if="${sideArticles != null && sideArticles[1] != null}" class="side-article-prev right-article-prev" th:with="article=${sideArticles[1]}">
+		<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" id="side-post-link-prev" class="side-post-overflow-link">&#xe685;</a>	
+		<header>	
+			<!-- Article title -->
+			<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" 
+				class="side-post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
+		</header>
+		<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, 110)}" class="side-post-prev-content"></div>
+		<footer class="side-post-prev-footer" th:with="author=${article.author}" th:if="article.author != null">
+			<div class="side-post-prev-author-details">
+				<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" 
+						th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+				</address>
+				<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy.')}"></time>
+			</div>
+		</footer>
+	</article>
+	
 <footer th:replace="~{commons/mvt_footer :: mvt_main_footer}"></footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" th:src="@{/resources/js/movement.jq.js}"></script>

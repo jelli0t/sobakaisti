@@ -106,10 +106,9 @@
 						</a>
 					</div>
 					<div class="item-main-td fleft td">
-						<a th:href="@{/articles/{slug}(slug=${article.slug})}" class="clickable-title" 
-							th:text="${article.title}" th:title="${article.title}" th:alt="${article.title}"></a>
-						
-						
+						<a th:href="@{/arts/{category}/{slug}(category=${article.categories[0].slug}, slug=${article.slug})}" class="clickable-title" 
+							th:text="${article.title}" th:title="${article.title}" th:alt="${article.title}" target="_blank"></a>
+												
 						<div class="item-main-subdiv td" th:with="author=${article.author}">
 							<span th:text="#{label.publishedBy}">Objavljeno</span>
 <!-- 							<span class="circle circle-tiny"  -->
@@ -139,7 +138,7 @@
 							th:title="#{tool.label.edit}" th:alt="${article.id}">
 <!-- 								<img alt="Pokret" th:src="@{/resources/img/icons/pencil.svg}" height="15"> -->
 							</a>
-						<a th:href="@{/articles/delete/{id}(id=${article.id})}" class="delete-item item-tool"
+						<a th:href="@{/sbk-admin/article/delete/{id}(id=${article.id})}" class="delete-item item-tool"
 							th:title="#{tool.label.delete}" th:alt="${article.id}">
 <!-- 								<img alt="Pokret" th:src="@{/resources/img/icons/trashcan.svg}" height="15"> -->
 							</a>

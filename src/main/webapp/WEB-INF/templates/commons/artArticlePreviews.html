@@ -7,7 +7,7 @@
 			<article class="fadein">
 				<header>
 					<a class="post-prev-img"></a>
-					<a th:href="@{/arts/{slug}(slug=${article.slug})}" 
+					<a th:href="@{/arts/{category}/{slug}(category=${article.categories[0].slug}, slug=${article.slug})}" 
 						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
 				</header>
 				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div>

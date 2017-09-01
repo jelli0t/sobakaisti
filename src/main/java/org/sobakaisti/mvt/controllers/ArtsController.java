@@ -115,10 +115,12 @@ public class ArtsController {
 			arts.add(categoryService.findCategoryBySlug(category));
 			System.out.println("Cat: "+category+"; Art_slug: "+article);
 			Article fullArticle = articleService.findArticleBySlug(article);
-			model.addAttribute("sideArticles", articleService.findNextAndPreviousArticle(fullArticle));
+			List<Article> recommended = articleService.findRelatedLatestArticles(fullArticle);
+//			model.addAttribute("sideArticles", articleService.findNextAndPreviousArticle(fullArticle));
+			model.addAttribute("sideArticles", articleService.choosePrevAndNextArticle(fullArticle, recommended));
 			model.addAttribute("arts", arts);
 			model.addAttribute("article", fullArticle);
-			model.addAttribute("initArticles", articleService.findRelatedLatestArticles(fullArticle));
+			model.addAttribute("initArticles", recommended);
 		}
 		return "article";
 	}

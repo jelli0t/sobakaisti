@@ -312,8 +312,8 @@ public class ArticleDaoImpl implements ArticleDao{
 	@Override
 	@Transactional
 	public List<Article> findRelatedLatestArticles(Article exclude, int size) {
-		String selectByAuthor = "from Article a where a.author.id = :authorId and a.id <> :id order by date(a.postDate) desc";
-		String selectByCategoy = "select a from Article a join a.categories c where c.id = :cid and a.id != :aid and a.author.id <> :authorId order by date(a.postDate) desc";
+		String selectByAuthor = "from Article a where a.author.id = :authorId and a.id <> :id order by date(a.postDate) desc, a.id desc";
+		String selectByCategoy = "select a from Article a join a.categories c where c.id = :cid and a.id != :aid and a.author.id <> :authorId order by date(a.postDate) desc, a.id desc";
 		
 		try {
 			Session session = sessionFactory.getCurrentSession();

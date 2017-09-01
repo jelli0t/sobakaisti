@@ -27,6 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mysql.fabric.xmlrpc.base.Data;
+
 /**
  * @author jelles
  *
@@ -243,5 +245,33 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public List<Article> findNextAndPreviousArticle(Article article) {
 		return articleDao.findNextAndPreviousArticle(article);
+	}
+	
+	@Override
+	public List<Article> choosePrevAndNextArticle(Article article, List<Article> recommended) {
+		List<Article> prevAndNext = new ArrayList<Article>(2);
+		Article nextArticle = null;
+		Article previousArticle = null;
+		Calendar postDate = article.getPostDate();
+		for(Article art : recommended) {			
+			if(art.getAuthor().getId() == art.getAuthor().getId()) {
+				if(art.getPostDate().after(postDate)) {
+					nextArticle = art;	
+				}else if(art.getPostDate().before(postDate)){
+					previousArticle = art;
+					break;
+				}	
+			}else {
+				if(art.getPostDate().after(postDate)) {
+					nextArticle = art;	
+				}else if(art.getPostDate().before(postDate)){
+					previousArticle = art;
+					break;
+				}	
+			}						
+		}
+		prevAndNext.add(0, nextArticle);
+		prevAndNext.add(1, previousArticle);
+		return prevAndNext;
 	}
 }

@@ -55,6 +55,7 @@ $(function() {
 		$(this).confirmationDispatcher(removeMeta, function (confirmed) {
 		    if (confirmed) {
 		    	/* potvrdjeno brisanje pozivam delete ajax funkciju */
+		    console.log('potvrdjujem brisanje!');
 		    	$(this).deleteItem(removeMeta);
 		    } else {
 		    	callAnchor('');

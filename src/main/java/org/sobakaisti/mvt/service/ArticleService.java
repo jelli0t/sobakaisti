@@ -100,4 +100,9 @@ public interface ArticleService {
 
 	public List<Article> findNextAndPreviousArticle(Article article);
 	
+	/**
+	 * Izdvaja predlog za prethodni i sledeci clanak na sigle_post pageu
+	 * */
+	public List<Article> choosePrevAndNextArticle(Article article, List<Article> recommended);
+	
 }
