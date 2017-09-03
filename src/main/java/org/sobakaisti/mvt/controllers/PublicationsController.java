@@ -94,7 +94,7 @@ public class PublicationsController {
 	public ResponseEntity<String> createNewSlugFromTitle(@RequestBody String title){
 		System.out.println("title: "+title);		
 		try{
-			String slug = StringUtil.makeSlugFromTitle(title);
+			String slug = StringUtil.makeSlug(title);
 			return new ResponseEntity<String>(slug, HttpStatus.OK);
 		}catch (Exception e) {
 			return new ResponseEntity<String>("Neuspesna konverzija u slug", HttpStatus.SERVICE_UNAVAILABLE);

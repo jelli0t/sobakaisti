@@ -35,7 +35,7 @@ public class TagServiceImpl implements TagService {
 	public Tag findOrCreateTagFromPhrase(String phrase) {
 		if(phrase != null && !phrase.isEmpty()) {
 			phrase = phrase.trim();
-			final String slug = StringUtil.makeSlugFromTitle(phrase.toLowerCase());
+			final String slug = StringUtil.makeSlug(phrase);
 			Tag tag = new Tag();
 			tag.setTag(phrase);
 			tag.setSlug(slug);

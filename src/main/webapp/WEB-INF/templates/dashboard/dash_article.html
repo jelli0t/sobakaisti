@@ -31,6 +31,31 @@
 				<div class="validation-error"></div>
 				</div>
 				
+				<div class="publication-date-wrapper">
+					<label>Objavljeno</label>
+					<!-- months -->
+					<select name="month" class="date-time-field">
+						<option th:each="month, item : ${date.months}" th:value="${item.index}" 
+						th:text="${month}" th:selected="${date.month == item.index}">MM</option>				
+					</select>
+					<!-- date -->
+					<select name="date" class="date-time-field">
+						<option th:each="dom, item : ${#numbers.sequence(1, date.maxDate)}" th:value="${dom}" 
+						th:text="${dom}" th:selected="${date.date == item.count}">dd</option>			
+					</select>
+					<!-- year -->
+					<select name="year" class="date-time-field">
+						<option th:each="year : ${#numbers.sequence(date.minYear, date.maxYear)}" 
+						th:value="${year}" th:text="${year}" th:selected="${date.year == year}">yyyy</option>				
+					</select>
+					
+					<!-- Hour -->
+					<select name="hour" class="date-time-field">
+						<option th:each="hour, item : ${#numbers.sequence(1, 24)}" th:value="${hour}" 
+						th:text="${#numbers.formatInteger(hour, 2)}" th:selected="${date.hour == hour}">HH</option>			
+					</select>
+					<input name="minute" th:value="${#numbers.formatInteger(date.minute, 2)}">
+				</div>
 			</div>
 			<div class="panel-footer">
 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>

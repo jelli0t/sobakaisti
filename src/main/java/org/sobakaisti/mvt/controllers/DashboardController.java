@@ -19,6 +19,7 @@ import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
+import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -83,7 +84,7 @@ public class DashboardController {
 			return new ResponseEntity<Object[]>(errors, HttpStatus.BAD_REQUEST);			
 		}else{
 			String fullName = author.getFirstName() + " " + author.getLastName();
-			author.setSlug(StringUtil.makeSlugFromTitle(fullName));
+			author.setSlug(StringUtil.makeSlug(fullName));
 			authorDao.persistAuthor(author);
 			authors[0] = author;
 		}		
@@ -108,6 +109,7 @@ public class DashboardController {
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
 	public String createNewArticle(Model model){
 		model.addAttribute("categories", categoryDao.findAllCategories());
+		model.addAttribute("date", new CalendarUtil());
 		return "dashboard/dash_article";
 	}
 	
@@ -119,7 +121,7 @@ public class DashboardController {
 			return new ResponseEntity<String>("Naslov poruke je prazan!", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		try{
-			String slug = StringUtil.makeSlugFromTitle(title);
+			String slug = StringUtil.makeSlug(title);
 			return new ResponseEntity<String>(slug, HttpStatus.OK);
 		}catch (Exception e) {
 			return new ResponseEntity<String>("Neuspesna konverzija u slug", HttpStatus.SERVICE_UNAVAILABLE);

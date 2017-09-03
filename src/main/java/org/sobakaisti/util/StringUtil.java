@@ -5,7 +5,10 @@ package org.sobakaisti.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * @author jelles
@@ -13,11 +16,11 @@ import java.util.Map;
  */
 public class StringUtil {
 
+	public static final Set<Character> SPECIAL_CHARS = initializeSpecialCharSet();
 	public static final char[] UNFRIENDLY_CHARS = {'?', '&', '#', '!', '-', '%', '*', ':', ';', ',', '.', '+', '/', '@', '(', ')', '"'};
-	public static final Map<Character, Character> cyrToAscii = initializeBasicCyrMap();
 	
 	// Pattern.matches(".*\\p{InCyrillic}.*", text)
-	
+	@Deprecated
 	public static String makeSlugFromTitle(String title){
 		title = title.trim().toLowerCase();
 		title = removeUnfriendlyChars(title);
@@ -31,6 +34,7 @@ public class StringUtil {
 		return title;
 	}
 	
+	@Deprecated
 	public static String toASCII(String value) throws UnsupportedEncodingException{
 		value = value.toLowerCase();
 		byte bytes[] = value.getBytes("UTF-8");
@@ -68,6 +72,7 @@ public class StringUtil {
 	 *  Metoda uklanja karaktere nepredvidjene za url
 	 *  @param sirov string za obradu
 	 * */
+	@Deprecated
 	public static String removeUnfriendlyChars(String value){
 		char[] chars = value.toCharArray();
 		StringBuffer sb = new StringBuffer();
@@ -86,22 +91,37 @@ public class StringUtil {
 		return sb.toString();
 	}
 	
-	
-	
-	public static String generateUrlFriendlyString(String input) {
-		Map<Character, Character> charsMap = cyrToAscii;
-		input = input.toLowerCase();
-		char[] output = new char[input.length()];
-		for(int i=0; i < input.length(); i++) {
-			char temp = input.charAt(i);
-			output[i] = charsMap.containsKey(temp) ? charsMap.get(temp).charValue() : 0; 
-		}
-		System.out.println("output: "+ new String(output));
-		return new String(output);
+	/**
+	 * Uzima sirov string i od njega pravi URL friendly strng - slug
+	 * */
+	public static String makeSlug(String input){
+		input = input.trim().toLowerCase();		
+		boolean isCyrilic = Pattern.matches(".*\\p{InCyrillic}.*", input);
+		return generateUrlFriendlyString(input, isCyrilic);
 	}
 	
+	/**
+	 * Generise URL friendly string - slug
+	 * */
+	public static String generateUrlFriendlyString(String input, boolean isCyrilic) {
+		final Map<Character, Character> charSubstituteMap = isCyrilic ? initializeBasicCyrMap() : initializeSerbinLatinMap();
+		StringBuilder output = new StringBuilder();		
+		for(int i=0; i < input.length(); i++) {
+			char temp = input.charAt(i);
+			if(SPECIAL_CHARS.contains(temp))
+				continue;			
+			output.append(charSubstituteMap.containsKey(temp) ? charSubstituteMap.get(temp).charValue() : temp); 
+		}
+		System.out.println("output: "+ new String(output));
+		return output.toString();
+	}
+	
+	/**
+	 * Inicijalizuje mapu za konverziju cirilicnih karaktera u ASCII
+	 * */
 	private static Map<Character, Character> initializeBasicCyrMap() {
-		Map<Character, Character> basicCyr = new HashMap<Character, Character>(30);
+		Map<Character, Character> basicCyr = new HashMap<Character, Character>(31);
+		basicCyr.put('\u0020', '\u002D');	// space to -
 		basicCyr.put('\u0430', 'a');
 		basicCyr.put('\u0431', 'b');
 		basicCyr.put('\u0432', 'v');
@@ -135,5 +155,57 @@ public class StringUtil {
 		return basicCyr;
 	}
     
+	/**
+	 * Inicijalizuje mapu za zamenu specijalnih karaktera
+	 * */
+	private static Set<Character> initializeSpecialCharSet() {
+		Set<Character> spetialsChars = new HashSet<Character>();		
+		spetialsChars.add('\u003A');	// :
+		spetialsChars.add('\u003B');	// ;
+		spetialsChars.add('\u003C');	// <
+		spetialsChars.add('\u003D');	// =
+		spetialsChars.add('\u003E');	// >
+		spetialsChars.add('\u003F');	// ?		
+		spetialsChars.add('\u0040');	// @
+		spetialsChars.add('\u0021');	// !
+		spetialsChars.add('\u0022');	// "
+		spetialsChars.add('\u0023');	// #
+		spetialsChars.add('\u0024');	// $		
+		spetialsChars.add('\u0025');	// %		
+		spetialsChars.add('\u0026');	// &
+		spetialsChars.add('\'');	// '
+		spetialsChars.add('\u0028');	// (
+		spetialsChars.add('\u0029');	// )		
+		spetialsChars.add('\u002A');	// *		
+		spetialsChars.add('\u002B');	// +
+		spetialsChars.add('\u002C');	// ,
+		spetialsChars.add('\u002D');	// -
+		spetialsChars.add('\u002E');	// .		
+		spetialsChars.add('\u002F');	// /			
+		spetialsChars.add('\u007B');	// {		
+		spetialsChars.add('\u007C');	// |
+		spetialsChars.add('\u007D');	// }
+		spetialsChars.add('\u007E');	// ~		
+		spetialsChars.add('\u005B');	// [		
+		spetialsChars.add('\\');	// \
+		spetialsChars.add('\u005D');	// 		
+		spetialsChars.add('\u005E');	// ^
+		spetialsChars.add('\u0060');	// `		
+		return spetialsChars;
+	}
+	
+	/**
+	 * Inicijalizuje mapu za konverziju srpskih latinicnih karaktera
+	 * */
+	private static Map<Character, Character> initializeSerbinLatinMap() {
+		Map<Character, Character> serbianChars = new HashMap<Character, Character>();
+		serbianChars.put('\u0020', '\u002D');	// space to -
+		serbianChars.put('\u0107', 'c');
+		serbianChars.put('\u010D', 'c');
+		serbianChars.put('\u0111', 'd');
+		serbianChars.put('\u0161', 's');
+		serbianChars.put('\u017E', 'z');		
+		return serbianChars;
+	}
 	
 }
