@@ -9,6 +9,7 @@ import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Tag;
+import org.sobakaisti.util.Pagination;
 
 /**
  * @author jelles
@@ -44,7 +45,7 @@ public interface ArticleDao {
 	public boolean saveArticle(Article article);
 	
 	
-	public List<Article> getArticlesSortedByDate(int resultsLimit);
+	public List<Article> getArticlesSortedByDate(Pagination pagination);
 	
 	/**
 	 * dohvata sve clanke sortirane po datumu uz paginacju i limit
@@ -119,4 +120,9 @@ public interface ArticleDao {
 	 * pronalazi prethodni i sledeci clanak
 	 * */
 	public List<Article> findNextAndPreviousArticle(Article article);
+	
+	/**
+	 * Formira objekat za paginaciju
+	 * */
+	public Pagination createPostPagination(Pagination pagination, boolean includeNonactive);
 }

@@ -16,6 +16,7 @@ import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.IntroArticle;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
+import org.sobakaisti.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,10 +114,12 @@ public class ArticleDaoImpl implements ArticleDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<Article> getArticlesSortedByDate(int resultsLimit) {
-		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc, a.id desc";
+	public List<Article> getArticlesSortedByDate(Pagination pagination) {
+		String HQL = "from Article a where a.postDate is not null and a.active = 1 order by date(a.postDate) desc, a.id desc";
 		Session session = sessionFactory.getCurrentSession();
-		List<Article> articles = session.createQuery(HQL).list();
+		List<Article> articles = session.createQuery(HQL)
+										.setFirstResult(pagination.getInitialItem())
+										.setMaxResults(pagination.getItemsPerPage()).list();
 		return articles;
 	}
 	
@@ -130,6 +133,23 @@ public class ArticleDaoImpl implements ArticleDao{
 										.setFirstResult(index)
 										.setMaxResults(resultsLimit).list();
 		return articles;
+	}
+	
+	@Override
+	@Transactional
+	public Pagination createPostPagination(Pagination pagination, boolean includeNonactive) {
+		String HQL = "select count(a) from Article a where a.postDate is not null" 
+					+(includeNonactive ? "" : " and a.active = 1") 
+					+" order by date(a.postDate) desc, a.id desc";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Long count = (Long) session.createQuery(HQL).uniqueResult();
+			pagination.setMaxItems(count.intValue());
+			System.out.println("Ima ukupno "+count.longValue()+" postova");
+		} catch (Exception e) {
+			System.err.println("Greska pri brojanju postova! "+e.getMessage());
+		}
+		return pagination;
 	}
 
 	@Override
@@ -378,6 +398,8 @@ public class ArticleDaoImpl implements ArticleDao{
 		bothArticles.add(1, previousArticle);
 		return bothArticles;
 	}
+
+	
 	
 	
 }

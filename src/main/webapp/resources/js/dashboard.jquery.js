@@ -179,6 +179,10 @@ $(function() {
 		$('#img-prev').empty();
 	});
 	
+	$('#new-post-form select[name=month]').change(function() {
+		$(this).updateDateSelect();
+	});
+	
 }); // End Of Ready
 
 
@@ -588,7 +592,9 @@ $.fn.addNewTag = function() {
 	});
 }
 
-/***/
+/**
+ * Submit new post!
+ * */
 $.fn.submitFormData = function(active) {
 	$('#overlay').toggle();
 	var $form = $(this);
@@ -597,7 +603,9 @@ $.fn.submitFormData = function(active) {
 	console.log("[URI]: "+uri);
 	/* popunjavam FormData podacima sa forme */
 	var data = new FormData($(this)[0]);
+	var postDate = $form.makeDateObject(data);
 	data.append('active', active);
+	data.append('postDate', postDate);
 	for (var key of data.keys()) {
 		if(key === 'content'){
 			data.set('content', tinyMCE.activeEditor.getContent() || '');
@@ -697,5 +705,57 @@ $.fn.showUploadedImgPreview = function() {
 $.fn.removeValidationAlert = function() {
 	$(this).removeClass('error-border');
 	$(this).next('.validation-error').empty().hide();
+}
+
+$.fn.makeDateObject = function(formData) {
+	var postDate = new Date();
+	/* iterate trough form fields */
+	for (var key of formData.keys()) {
+		switch (key) {
+		case 'month':
+			postDate.setMonth(formData.get(key));
+			break;
+		case 'date':
+			postDate.setDate(formData.get(key));
+			break;
+		case 'year':
+			postDate.setFullYear(formData.get(key));
+			break;
+		case 'hour':
+			postDate.setHours(formData.get(key));
+			break;
+		case 'minute':
+			postDate.setMinutes(formData.get(key));
+			break;
+		}
+	}
+	console.log('Post date: '+postDate);
+	return postDate;
+}
+
+/**
+ * Updajtuje broj dana za selektovan mesec
+ * */
+$.fn.updateDateSelect = function() {
+	var uri = $(this).attr('src');
+	var month = $(this).val();
+	$.ajax({
+	    url: uri+''+month,
+	    type: 'GET',	   
+	    dataType: 'json'
+	})
+	.done(function( days ) {
+		console.log("Max days per month: "+days);	
+		/* update date select according to month */
+		$dateSelect = $('#new-post-form select[name=date]').empty();
+		for(var i=1; i <= days; i++){
+			$dateSelect.append($('<option>', {value: i, text: i}, '</option>'));			
+		}
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	})
 }
 

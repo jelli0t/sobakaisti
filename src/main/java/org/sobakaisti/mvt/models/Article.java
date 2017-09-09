@@ -18,7 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
+
+import org.sobakaisti.util.CalendarUtil;
 
 @Entity
 @Table(name="article")
@@ -87,6 +90,9 @@ public class Article {
 	@Column(name="featured_img")
 	private String featuredImage;
 	
+	@Transient
+	private CalendarUtil postDateMeta;
+	
 	public int getId() {
 		return id;
 	}
@@ -153,5 +159,12 @@ public class Article {
 	public void setFeaturedImage(String featuredImage) {
 		this.featuredImage = featuredImage;
 	}
-	
+	/* meta podaci za postDate */
+	public CalendarUtil getPostDateMeta() {
+		if(this.postDate != null) {
+			return new CalendarUtil(this.postDate);
+		} else {
+			return new CalendarUtil();
+		}
+	}	
 }

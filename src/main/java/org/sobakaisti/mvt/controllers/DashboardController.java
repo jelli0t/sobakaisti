@@ -3,9 +3,12 @@
  */
 package org.sobakaisti.mvt.controllers;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,6 +23,7 @@ import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
 import org.sobakaisti.util.CalendarUtil;
+import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -109,7 +113,6 @@ public class DashboardController {
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
 	public String createNewArticle(Model model){
 		model.addAttribute("categories", categoryDao.findAllCategories());
-		model.addAttribute("date", new CalendarUtil());
 		return "dashboard/dash_article";
 	}
 	
@@ -150,14 +153,26 @@ public class DashboardController {
 		return new ResponseEntity<String>("Greska pri brisanju.", HttpStatus.SERVICE_UNAVAILABLE);
 	}
 	
-	@RequestMapping(value="/articles", method=RequestMethod.GET)
-	public String displayAllArticles(Model model){		
+	@RequestMapping(value = {"/articles", "/articles/{page}"}, method=RequestMethod.GET)
+	public String displayAllArticles(@PathVariable Optional<Integer> page, Model model){	
+		Pagination pagination;
+		if(page.isPresent()) {
+			System.out.println("Page: "+page.get().intValue());
+			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
+		}else {
+			System.out.println("Page ne postoji, prva je strana!");
+			pagination = new Pagination();
+		}
 		/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
 		final int active = articleService.countArticlesByStatus(true);
 		final int nonActive = articleService.countArticlesByStatus(false);
+		pagination = articleService.createPostsPagination(pagination);
+		
+		System.out.println("Pagination: "+pagination);
 		model.addAttribute("activeCount", active);
 		model.addAttribute("nonActiveCount", nonActive);
-		model.addAttribute("articles", articleService.getArticlesOrderByDate(15));
+		model.addAttribute("articles", articleService.getArticlesOrderByDate(pagination));
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("isActive", true);
 		
 		return "dashboard/dash_articles";
@@ -194,6 +209,7 @@ public class DashboardController {
 			@RequestParam(name="id", required = false) int id,
 			@RequestParam(name="title", required = false) String title,
 			@RequestParam(name="slug", required = false) String slug,
+			@RequestParam(name="postDate", required = false) Date postDate,
             @RequestParam(name="content", required = false) String content,
             @RequestParam(name="author", required = false) int author,
             @RequestParam(name="categories", required = false) int[] categories,
@@ -206,7 +222,7 @@ public class DashboardController {
 			validation = validator.featuredImageFileValidation(featuredImg);
 		
 		if(!validation.hasErrors()) {
-			boolean published = articleService.createAndUploadArticle(id, title, slug, content, author, categories, tags, featuredImg, active);
+			boolean published = articleService.createAndUploadArticle(id, title, slug, postDate, content, author, categories, tags, featuredImg, active);
 			if(published) {
 				return new ResponseEntity<Object>("Uspesno ste "+(active == 1 ? "publikovali":"sacuvali kao nacrt")+" clanak.", HttpStatus.OK);
 			}else {
@@ -221,8 +237,9 @@ public class DashboardController {
 	
 	@RequestMapping(value="/article/edit/{id}", method=RequestMethod.GET)
 	public String editArticleById(Model model, @PathVariable("id") int id) {
+		Article editable = articleService.findById(id);
 		model.addAttribute("categories", categoryDao.findAllCategories());
-		model.addAttribute("article", articleService.findById(id));
+		model.addAttribute("article", editable);
 		return "dashboard/dash_article";
 	}
 	
@@ -260,7 +277,12 @@ public class DashboardController {
 		return "dashboard/dash_publication";
 	}
 	
-	
+	@RequestMapping(value="/datetime/update/date/{month}", method=RequestMethod.GET)
+	@ResponseBody
+	public int updateDateListAccordingToMonth(@PathVariable("month") int month) {	
+		System.out.println("Broj meseca: "+month);
+		return CalendarUtil.getMaxDatePerMonth(month);
+	}
 
 
 }

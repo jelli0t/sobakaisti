@@ -808,8 +808,54 @@ h6 {
 	content: '\e668';
 	margin-right: 6px;
 }
+.listing-footer {
+	padding: 26px;
+	text-align: center;
+}
 
-
+/* pagination */
+.pagination {
+	display: inline-block;
+}
+.pagination > .page-link {
+	position: relative;
+    float: left;
+    padding: 7px 12px;
+    margin-left: -1px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    color: #0366d6;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #fff;
+    border: 1px solid #e1e4e8;
+}
+.pagination > .page-link:first-of-type {
+	margin-left: 0;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.pagination > .page-link:last-of-type {
+	border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.pagination > .selected-link {
+	color: #fff;
+    background-color: #0366d6;
+    border-color: #0366d6;
+}
+.pagination > .disabled-link {
+	pointer-events: none !important;
+	color: #d1d5da;
+    cursor: default;
+    background-color: #fafbfc;
+}
 
 /* Loader */
 .loader,
@@ -1002,3 +1048,36 @@ h6 {
 .selected-result { padding: 10px 0; }
 
 .founded-tag { cursor: pointer; }
+
+.publication-date-wrapper {
+	margin: 10px 0 18px;
+}
+.publication-date-wrapper > label {
+	display: block;
+	font-size: 12px;
+}
+
+.date-time-field {
+	float: left;
+    padding: 2px 3px;
+    font-size: 12px;
+/*     font-weight: 600; */
+    line-height: 20px;
+    color: #24292e;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid rgba(27,31,35,0.2);   
+    border-radius: 3px;
+    margin: 3px 4px 3px 0;
+    cursor: pointer;
+    box-sizing: border-box;    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+}
+.date-time-field:hover {
+	border-color: #2188ff;
+}
+.date-time-field.date-minute-field { width: 25px !important; }
+.date-time-field.date-hour-field { margin-left: 6px;}

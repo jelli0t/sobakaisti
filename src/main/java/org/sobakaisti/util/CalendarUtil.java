@@ -2,6 +2,7 @@ package org.sobakaisti.util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,9 @@ public class CalendarUtil {
 	public int hour;
 	public int minute;
 	
+	/**
+	 * Defaultni konstruktor setuje polja po trenutnom vremenu
+	 * */
 	public CalendarUtil() {
 		Calendar now = Calendar.getInstance();
 		this.month = now.get(Calendar.MONTH);
@@ -27,8 +31,21 @@ public class CalendarUtil {
 		this.year = now.get(Calendar.YEAR);
 		this.hour = now.get(Calendar.HOUR_OF_DAY);
 		this.minute = now.get(Calendar.MINUTE);
-		this.maxDate = now.getMaximum(Calendar.DATE);
+		this.maxDate = now.getActualMaximum(Calendar.DATE);
 	}
+	
+	/**
+	 * Konstruktor koji setuje polja na osnovu prosledjenog datuma
+	 * @param then
+	 * */
+	public CalendarUtil(Calendar then) {
+		this.month = then.get(Calendar.MONTH);
+		this.date = then.get(Calendar.DATE);
+		this.year = then.get(Calendar.YEAR);
+		this.hour = then.get(Calendar.HOUR_OF_DAY);
+		this.minute = then.get(Calendar.MINUTE);
+		this.maxDate = then.getActualMaximum(Calendar.DATE);
+	}	
 	
 	static {
 		months.add(0, "Jan");
@@ -44,4 +61,25 @@ public class CalendarUtil {
 		months.add(10, "Nov");
 		months.add(11, "Dec");
 	}
+	
+	/**
+	 * Konvertuje Date objekat u Calendar
+	 * */
+	public static Calendar dateToCalendar(Date date) {
+		Calendar calendar = Calendar.getInstance();		
+		calendar.setTime(date);	
+		return calendar;		
+	}
+	
+	/**
+	 * vraca max broj dana u zadatom mesecu
+	 * @param month
+	 * */
+	public static int getMaxDatePerMonth(int month) {
+		Calendar calendar = Calendar.getInstance();	
+		calendar.set(Calendar.MONTH, month);
+		System.out.println("new date: "+calendar.getTime());
+		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
+	
 }

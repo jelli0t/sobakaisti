@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -23,6 +24,8 @@ import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.mvt.service.TagService;
+import org.sobakaisti.util.CalendarUtil;
+import org.sobakaisti.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,13 +117,13 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public boolean createAndUploadArticle(int id, String title, String slug, String content, int authorId, int[] categoriesIds, int[] tagIds,
+	public boolean createAndUploadArticle(int id, String title, String slug, Date postDate, String content, int authorId, int[] categoriesIds, int[] tagIds,
 			MultipartFile file, int active) {
 		Article article = new Article();
 		article.setTitle(title);
 		article.setSlug(addSuffixIfDuplicateExist(slug));
 		article.setContent(content != null ? content : "");
-		article.setPostDate(Calendar.getInstance());
+		article.setPostDate(CalendarUtil.dateToCalendar(postDate));
 		article.setActive(active);
 		if(id != 0){
 			article.setId(id);
@@ -157,12 +160,17 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 	
 	@Override
-	public List<Article> getArticlesOrderByDate(int resultsLimit) {
-		return articleDao.getArticlesSortedByDate(resultsLimit);
+	public List<Article> getArticlesOrderByDate(Pagination pagination) {
+		return articleDao.getArticlesSortedByDate(pagination);
 	}
 	@Override
 	public List<Article> getArticlesOrderByDate(int index, int resultsLimit) {
 		return articleDao.getArticlesSortedByDate(index, resultsLimit);
+	}
+	
+	@Override
+	public Pagination createPostsPagination(Pagination pagination) {
+		return articleDao.createPostPagination(pagination, false);
 	}
 	
 	/**

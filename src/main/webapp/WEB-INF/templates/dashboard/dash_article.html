@@ -31,10 +31,10 @@
 				<div class="validation-error"></div>
 				</div>
 				
-				<div class="publication-date-wrapper">
+				<div class="publication-date-wrapper" th:if="${article.postDateMeta != null}" th:with="date=${article.postDateMeta}">
 					<label>Objavljeno</label>
 					<!-- months -->
-					<select name="month" class="date-time-field">
+					<select name="month" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}">
 						<option th:each="month, item : ${date.months}" th:value="${item.index}" 
 						th:text="${month}" th:selected="${date.month == item.index}">MM</option>				
 					</select>
@@ -50,11 +50,11 @@
 					</select>
 					
 					<!-- Hour -->
-					<select name="hour" class="date-time-field">
-						<option th:each="hour, item : ${#numbers.sequence(1, 24)}" th:value="${hour}" 
+					<select name="hour" class="date-time-field date-hour-field">
+						<option th:each="hour, item : ${#numbers.sequence(0, 23)}" th:value="${hour}" 
 						th:text="${#numbers.formatInteger(hour, 2)}" th:selected="${date.hour == hour}">HH</option>			
 					</select>
-					<input name="minute" th:value="${#numbers.formatInteger(date.minute, 2)}">
+					<input name="minute" th:value="${#numbers.formatInteger(date.minute, 2)}" class="date-time-field date-minute-field" size="2">
 				</div>
 			</div>
 			<div class="panel-footer">
