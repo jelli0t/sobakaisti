@@ -36,7 +36,27 @@
 				</a>
 			</div>			
 			<!-- top table filter -->
-			<div class="listing-header-filter"></div>
+			<div class="listing-header-filter">
+				<div class="filter-bttn-container">
+					<button type="button" class="bttn bttn-select" th:text="#{nav.item.authors}">Autori</button>
+					<!-- dropdown menu -->
+					<div class="select-menu-modal">
+						<div class="select-menu-header">
+							<span class="select-menu-title">Filtriraj po autoru</span> 
+							<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
+						</div>
+						<div class="select-menu-body">	
+							<ul>
+								<li th:each="author : ${authors}">
+									<span class="circle circle-tiny" 
+										th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
+									<span th:text="${author.firstName +' '+ author.lastName}"></span>
+								</li>
+							</ul>
+						</div>
+					</div>	
+				</div>
+			</div>
 		</div>
 		
 		<!-- listing body -->
@@ -101,7 +121,7 @@
 		<!-- Listing footer -->
 		<div class="listing-footer">
 			<!-- pagination container -->
-			<div class="pagination" th:if="${pagination != null}">
+			<div class="pagination" th:if="${pagination != null && pagination.maxPages > 1}">
 				<a th:href="@{/sbk-admin/articles/{page}(page=${pagination.currentPage - 1})}" class="prev-page-link page-link" 
 					th:classappend="${pagination.currentPage > 1} ? '' : disabled-link">Prethodna</a>
 					

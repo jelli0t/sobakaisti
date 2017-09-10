@@ -37,4 +37,6 @@ public interface AuthorDao {
 	
 	public void deleteAuthor(int id);
 		
+	
+	
 }

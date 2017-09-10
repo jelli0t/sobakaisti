@@ -172,6 +172,7 @@ public class DashboardController {
 		model.addAttribute("activeCount", active);
 		model.addAttribute("nonActiveCount", nonActive);
 		model.addAttribute("articles", articleService.getArticlesOrderByDate(pagination));
+		model.addAttribute("authors", authorDao.getAllAuthors());
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("isActive", true);
 		
