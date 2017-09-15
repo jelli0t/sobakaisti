@@ -697,11 +697,20 @@ h6 {
 	background-color: #f6f8fa;
    	border: 1px solid #e1e4e8;
     border-radius: 3px 3px 0 0;
-    padding: 11px 7px 10px 7px;
+/*     padding: 11px 7px 10px 7px; */
 	color: #586069 !important;
 	box-sizing: border-box;	
 	border-bottom-color: transparent;
 }
+.listing-header > .td {
+	display: inline-block;
+	float: left;
+	padding: 9px 7px 8px 7px;
+}
+.listing-header > .td > .filter-bttn-container {
+	display: inline-block;
+}
+
 .show-active-item {
 	font-size: 12px;
 	padding-left: 7px;
