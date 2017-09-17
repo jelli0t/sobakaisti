@@ -36,24 +36,27 @@
 				</a>
 			</div>			
 			<!-- top table filter -->
-			<div class="td">
+			<div class="td filter-container">
 				<div class="filter-bttn-container">
-					<a href="javascript:;" class="bttn bttn-select-simple" th:text="#{nav.item.authors}">Autori</a>
+					<button type="button" class="bttn bttn-select-simple" th:text="#{nav.item.authors}">Autori</button>
 					<!-- dropdown menu -->
 					<div class="select-menu-modal">
 						<div class="select-menu-header">
 							<span class="select-menu-title">Filtriraj po autoru</span> 
 							<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
 						</div>
-						<div class="select-menu-body">	
-							<ul>
-								<li th:each="author : ${authors}">
-									<span class="circle circle-tiny" 
-										th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
-									<span th:text="${author.firstName +' '+ author.lastName}"></span>
-								</li>
-							</ul>
-						</div>
+						<ul>
+							<li th:each="author : ${authors}" class="menu-modal-item">
+								<a th:href="@{/sbk-admin/articles/by/{slug}(slug=${author.slug})}">
+								<span class="circle circle-tiny" 
+									th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
+								<span th:text="${author.firstName +' '+ author.lastName}"></span>
+								</a>
+							</li>
+						</ul>
+<!-- 						<div class="select-menu-body">	 -->
+						
+<!-- 						</div> -->
 					</div>	
 				</div>
 			</div>
@@ -77,7 +80,7 @@
 <!-- 							<span class="circle circle-tiny"  -->
 <!-- 								th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span> -->
 <!-- 							<span> -->
-								<a th:href="@{/articles/by/{slug}(slug=${author.slug})}" 
+								<a th:href="@{/sbk-admin/articles/by/{slug}(slug=${author.slug})}" 
 									th:text="${author.firstName + ' ' + author.lastName}" class="clickable-author">Sobakaisti</a>
 							<span th:text="#{label.onDay}">dana</span>
 							<span th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></span>							
@@ -114,6 +117,9 @@
 					<div class="item-downloads-td td fright">
 <!-- 						<span th:text="${article.downloaded}">Preuzeto</span> -->
 					</div>
+				</li>
+				<li class="list-item" th:if="${#lists.isEmpty(articles)}">
+					<h3>Nema postova za odabrane kriterijume.</h3>
 				</li>
 			</ul>
 		</div>

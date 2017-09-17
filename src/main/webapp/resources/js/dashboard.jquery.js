@@ -86,7 +86,7 @@ $(function() {
 	/*
 	 * klik na select button
 	 * */	
-	$(document).on('click', '.bttn-select', function(evt){
+	$(document).on('click', '.bttn-select, .bttn-select-simple', function(evt){
 		evt.preventDefault();			
 		$(this).next('.select-menu-modal').toggle();
 	});

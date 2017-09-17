@@ -2,12 +2,14 @@ package org.sobakaisti.mvt.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
+import org.sobakaisti.util.PostFilter;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ArticleService {
@@ -42,11 +44,12 @@ public interface ArticleService {
 	public Article saveArticle(Article article);
 	
 	/**
-	 * @param limitResults
+	 * pronalazi listu clanaka na osnovu prosledjenog filtera 
+	 * i sortirano po datumu objave opadajucim redosledom
+	 * @param pagination
+	 * @param filter
 	 * */
-	public List<Article> getArticlesOrderByDate(Pagination pagination);
-	
-	public List<Article> getArticlesOrderByDate(int index, int resultsLimit);
+	public List<Article> getArticlesOrderByDate(Pagination pagination, PostFilter filter);
 		
 	public boolean deleteArticleById(int id);
 	
@@ -109,7 +112,17 @@ public interface ArticleService {
 
 	/**
 	 * Paginacija postova
+	 * @param pagination
+	 * @param filter
 	 * */
-	Pagination createPostsPagination(Pagination pagination);
+	Pagination createPostsPagination(Pagination pagination, PostFilter filter);
+	
+	/**
+	 * Priprema listu atributa za model objekat, pomocu koje renderuje stranu
+	 * @param pagination
+	 * @param status
+	 * @param authorSlug
+	 * */
+	Map<String, Object> prepareModelAttributesForArticles(Pagination pagination, String status, String authorSlug);
 	
 }

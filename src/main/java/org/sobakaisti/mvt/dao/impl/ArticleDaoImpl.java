@@ -17,6 +17,7 @@ import org.sobakaisti.mvt.models.IntroArticle;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
+import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,36 +115,42 @@ public class ArticleDaoImpl implements ArticleDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<Article> getArticlesSortedByDate(Pagination pagination) {
-		String HQL = "from Article a where a.postDate is not null and a.active = 1 order by date(a.postDate) desc, a.id desc";
-		Session session = sessionFactory.getCurrentSession();
-		List<Article> articles = session.createQuery(HQL)
-										.setFirstResult(pagination.getInitialItem())
-										.setMaxResults(pagination.getItemsPerPage()).list();
+	public List<Article> getArticlesSortedByDate(Pagination pagination, PostFilter filter) {
+		List<Article> articles;
+		String HQL = "from Article a where a.postDate is not null" 
+					 +(filter.isActive() ? " and a.active = 1" : " and a.active = 0")
+					 +(filter.isNonactiveInlude() ? " or a.active = 0" : "")
+					 +(filter.hasAuthor() ? " and a.author = :author" : "")
+					 +" order by date(a.postDate) desc, a.id desc";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query query = session.createQuery(HQL);
+			if(filter.hasAuthor())
+				query.setParameter("author", filter.getAuthor());
+			articles = query.setFirstResult(pagination.getInitialItem())
+							.setMaxResults(pagination.getItemsPerPage())
+							.list();
+		} catch (Exception e) {
+			articles = new ArrayList<Article>(0);
+		}		
 		return articles;
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<Article> getArticlesSortedByDate(int index, int resultsLimit) {
-		String HQL = "FROM Article a WHERE a.postDate is not null order by date(a.postDate) desc, a.id desc";
-		Session session = sessionFactory.getCurrentSession();
-		List<Article> articles = session.createQuery(HQL)
-										.setFirstResult(index)
-										.setMaxResults(resultsLimit).list();
-		return articles;
-	}
 	
 	@Override
 	@Transactional
-	public Pagination createPostPagination(Pagination pagination, boolean includeNonactive) {
-		String HQL = "select count(a) from Article a where a.postDate is not null" 
-					+(includeNonactive ? "" : " and a.active = 1") 
+	public Pagination createPostPagination(Pagination pagination, PostFilter filter) {
+		String HQL = "select count(a) from Article a where a.postDate is not null"
+					+(filter.isActive() ? " and a.active = 1" : " and a.active = 0")
+					+(filter.isNonactiveInlude() ? " or a.active = 0" : "") 
+					+(filter.hasAuthor() ? " and a.author = :author" : "")
 					+" order by date(a.postDate) desc, a.id desc";
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			Long count = (Long) session.createQuery(HQL).uniqueResult();
+			Query query = session.createQuery(HQL);
+			if(filter.hasAuthor())
+				query.setParameter("author", filter.getAuthor());
+			Long count = (Long) query.uniqueResult();
 			pagination.setMaxItems(count.intValue());
 			System.out.println("Ima ukupno "+count.longValue()+" postova");
 		} catch (Exception e) {

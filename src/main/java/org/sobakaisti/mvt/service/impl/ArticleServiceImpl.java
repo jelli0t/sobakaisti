@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.transaction.Transactional;
@@ -26,6 +28,7 @@ import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.mvt.service.TagService;
 import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.Pagination;
+import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -160,17 +163,13 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 	
 	@Override
-	public List<Article> getArticlesOrderByDate(Pagination pagination) {
-		return articleDao.getArticlesSortedByDate(pagination);
+	public List<Article> getArticlesOrderByDate(Pagination pagination, PostFilter filter) {
+		return articleDao.getArticlesSortedByDate(pagination, filter);
 	}
+
 	@Override
-	public List<Article> getArticlesOrderByDate(int index, int resultsLimit) {
-		return articleDao.getArticlesSortedByDate(index, resultsLimit);
-	}
-	
-	@Override
-	public Pagination createPostsPagination(Pagination pagination) {
-		return articleDao.createPostPagination(pagination, false);
+	public Pagination createPostsPagination(Pagination pagination, PostFilter filter) {
+		return articleDao.createPostPagination(pagination, filter);
 	}
 	
 	/**
@@ -281,5 +280,35 @@ public class ArticleServiceImpl implements ArticleService{
 		prevAndNext.add(0, nextArticle);
 		prevAndNext.add(1, previousArticle);
 		return prevAndNext;
+	}
+	
+	@Override
+	public Map<String, Object> prepareModelAttributesForArticles(Pagination pagination, 
+																String status, String authorSlug) {
+		Map<String, Object> modelAttributes = new HashMap<String, Object>();
+		boolean isActive = true;
+		Author author = null;
+		/* ako je prosledjen status */
+		if(status != null)
+			isActive = status.equals(ArticleService.ACTIVE_STATUS) ? true : false;
+		/* ako je prosledjen autor */
+		if(authorSlug != null)
+			author = authorDao.findAuthorBySlug(authorSlug);
+			
+		PostFilter filter = new PostFilter(isActive, false, author);
+		pagination = this.createPostsPagination(pagination, filter);
+		/* count active / nonactive posts */
+		final int active = this.countArticlesByStatus(true);
+		final int nonActive = this.countArticlesByStatus(false);
+		/* dohvata listu clanaka */
+		final List<Article> articles = this.getArticlesOrderByDate(pagination, filter);
+	
+		modelAttributes.put("activeCount", active);
+		modelAttributes.put("nonActiveCount", nonActive);
+		modelAttributes.put("articles", articles);
+		modelAttributes.put("pagination", pagination);
+		modelAttributes.put("isActive", isActive);
+		
+		return modelAttributes;
 	}
 }
