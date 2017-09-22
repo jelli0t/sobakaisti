@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"></head>
+<header th:fragment="mobile_header(title)" class="m-header">
+	<div class="m-header-container">
+		<!-- Header logo -->
+		<div class="m-logo-container">
+			<a th:href="@{/movement}" th:title="#{nav.item.sobakaisti}">
+				<img alt="Sobakaisti" th:src="@{/resources/img/icons/sobakaisti_dog.svg}">
+			</a>
+		</div>
+		<!-- Header page title -->
+		<div class="m-title-container">
+			<span th:replace="${title}"></span>
+		</div>
+		<!-- Navigation icon -->
+		<div class="m-nav-container">
+			<a>
+			 	<img alt="" src="">
+			</a>
+		</div>
+	</div>
+</header>
+</html>
