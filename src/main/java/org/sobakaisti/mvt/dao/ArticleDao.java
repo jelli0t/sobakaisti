@@ -25,6 +25,7 @@ public interface ArticleDao {
 	 * */
 	public Article getArticleBySlugTitle(String slug, String lang);
 
+	@Deprecated
 	public String getArticleById(int id);
 	
 	/**

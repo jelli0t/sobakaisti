@@ -196,6 +196,7 @@ public class ArticleDaoImpl implements ArticleDao{
 	}
 
 	//TODO napravi metodu univerzalnom i podigni je u superklasu
+	@Deprecated
 	@Override
 	@Transactional
 	public int countArticlesByStatus(boolean isActive) {
@@ -317,6 +318,7 @@ public class ArticleDaoImpl implements ArticleDao{
 		}
 	}
 	
+	@Deprecated
 	@Override
 	@Transactional
 	public int countSlugDuplicates(String slug) {

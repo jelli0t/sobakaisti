@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.util.Pagination;
+import org.sobakaisti.util.PostFilter;
 
 /**
  * @author NEKS Office
@@ -60,4 +62,11 @@ public interface PublicationDao {
 	 *  Pronalazi sve autore koji su objavili izdanja
 	 * */
 	public List<Author> findAllPublicationsAuthors();
+
+	/**
+	 * TODO podici u nadklasu!
+	 * Kreira pomocni objekat za paginaciju pregleda postova
+	 * @param
+	 * */
+	Pagination createPostPagination(Pagination pagination, PostFilter filter);
 }

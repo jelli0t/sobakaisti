@@ -8,11 +8,14 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.util.Pagination;
+import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -161,5 +164,28 @@ public class PublicationDaoImpl implements PublicationDao {
 		} catch (Exception e) {
 			return null;
 		}	
+	}
+	
+	
+	@Override
+	@Transactional
+	public Pagination createPostPagination(Pagination pagination, PostFilter filter) {
+		String HQL = "select count(p) from Publication p where p.postDate is not null"
+					+(filter.isActive() ? " and p.active = 1" : " and p.active = 0")
+					+(filter.isNonactiveInlude() ? " or p.active = 0" : "") 
+					+(filter.hasAuthor() ? " and p.author = :author" : "")
+					+" order by date(p.postDate) desc, p.id desc";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query query = session.createQuery(HQL);
+			if(filter.hasAuthor())
+				query.setParameter("author", filter.getAuthor());
+			Long count = (Long) query.uniqueResult();
+			pagination.setMaxItems(count.intValue());
+			System.out.println("Ima ukupno "+count.longValue()+" postova");
+		} catch (Exception e) {
+			System.err.println("Greska pri brojanju postova! "+e.getMessage());
+		}
+		return pagination;
 	}
 }

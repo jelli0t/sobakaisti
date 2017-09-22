@@ -690,6 +690,9 @@ h6 {
 /* TABLE LIST */
 .listing-container {
 	display: table;
+	max-width: 780px;
+/* 	width: 100%; */
+	table-layout: fixed;
 	border-collapse: collapse;
 /* 	border: 1px solid red; */
 }
@@ -700,7 +703,7 @@ h6 {
 	height: 50px;
 }
 .listing-header {
-	display: table-row;
+	display: table-row;	
 	background-color: #f6f8fa;
    	border: 1px solid #e1e4e8;
     border-radius: 3px 3px 0 0;
@@ -717,6 +720,9 @@ h6 {
 .listing-header > .filter-container {
 	width: 50%;
 	float: right;
+	margin-right: 15px;
+	max-width: 780px;
+	text-align: right;
 } 
 .listing-header > .td > .filter-bttn-container {
 	display: inline-block;
@@ -739,17 +745,14 @@ h6 {
 /* tbody */
 .table-list {
 	position: relative;
-	display: table-row-group;
-	width: 780px;
-	height: auto;
+	display: table-row-group;	
+	table-layout: fixed;
 	border-left: 1px #e1e4e8 solid !important;
 	border-right: 1px #e1e4e8 solid !important;
 	border-bottom: 1px #e1e4e8 solid !important;
 }
 .list-item {
 	display: table-row;
-/* 	width: 100%; */
-	max-width: 780px;
 	list-style-type: none;
     border-top: 1px solid #e1e4e8;
 /*     padding: 7px; */
@@ -1035,6 +1038,7 @@ h6 {
     border: 1px solid rgba(27,31,35,0.15);
     border-radius: 3px;
     box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+    text-align: left !important;
     z-index: 999;
 }
 .select-menu-modal::before {

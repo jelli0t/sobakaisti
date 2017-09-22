@@ -272,8 +272,14 @@ public class DashboardController {
 	
 	//	PUBLICATIONS
 	
-	@RequestMapping(value="/publications", method=RequestMethod.GET)
-	public String showPublicationsPage(Model model){
+	@RequestMapping(value = {"/publications", "/publications/{page}"}, method=RequestMethod.GET)
+	public String showPublicationsPage(@PathVariable("page") Optional<Integer> page, Model model) {		
+		if(page.isPresent()) {
+			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
+		}else {
+			pagination = new Pagination();
+		}	
+		
 		/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
 		final int active = publicationService.countPublicationsByStatus(true);
 		final int nonActive = publicationService.countPublicationsByStatus(false);
@@ -296,6 +302,12 @@ public class DashboardController {
 			model.addAttribute("nonActiveCount", nonActive);
 			model.addAttribute("isActive", status.equals(PublicationService.ACTIVE_STATUS) ? true : false);
 		}
+		return "dashboard/dash_publications";
+	}
+	
+	@RequestMapping(value="/publications/by/{authorSlug}", method=RequestMethod.GET)
+	public String showpublicationsByAuthor(@PathVariable("authorSlug") String authorSlug, Model model) {
+		
 		return "dashboard/dash_publications";
 	}
 	
