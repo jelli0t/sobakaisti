@@ -10,8 +10,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 	protected Class<T> generic; 
 	
 	@Autowired
-	private SessionFactory sessionFactory;
+	protected SessionFactory sessionFactory;
 
 	@SuppressWarnings("unchecked")
 	public PostDaoImpl() {
@@ -45,7 +46,8 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 			return null;
 		}
 	}
-
+	
+	
 	@Override
 	@Transactional
 	public List<T> findAllPostsByActiveStatus(int status) {
@@ -143,4 +145,76 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 		}		
 		return posts;
 	}
+
+	@Override
+	public List<Author> findAllPostsAuthors() {
+		String HQL = "select distinct t.author from "+generic.getName()+" t where t.active = 1";	
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			List<Author> authors = session.createQuery(HQL).list();
+			return authors;
+		} catch (Exception e) {
+			return null;
+		}	
+	}
+
+	@Override
+	public T save(T t) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(generic.getName(), t);
+			return t;
+		} catch (Exception e) {
+			return null;
+		}	
+	}
+	
+	@Override
+	@Transactional
+	public int switchActiveStatus(int id) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			T t = (T) session.load(Publication.class, id);
+			if(t != null){
+				int active = t.getActive();
+				switch (active) {
+				case 0:
+					t.setActive(1);			
+					break;
+				case 1:
+					t.setActive(0);
+					break;
+				default:
+					return -1;
+				}
+				session.update(generic.getName(), t);
+				return t.getActive();
+			}else {
+				return -1;
+			}
+		}catch (Exception e) {
+			return -1;
+		}		
+	}
+
+	@Override
+	public boolean delete(int id) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			T t = (T) session.get(generic.getClass(), id);
+			if(t != null) {
+				session.delete(t);
+				return true;
+			} else {
+				session.close();
+				return false;
+			}			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 }

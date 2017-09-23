@@ -5,25 +5,51 @@ package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+
 /**
  * @author jelli0t
  *
  */
+@MappedSuperclass
 public abstract class Post {
 	
 	public static final int ACTIVE = 1;
 	public static final int NONACTIVE = 0;
 
-	protected long id;
-	protected String title;	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private int id;
+	
+	@Size(min=2, max=120, message="{validation.warn.title.size}")
+	@Column(name="title")
+	protected String title;
+	
+	@Column(name="slug")
 	protected String slug;
-	protected Calendar postDate;
+	
+	@Column(name="post_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Calendar postDate;	
+
+	@Column(name="lang")
+	private String lang;
+	
+	@Column(name="active")
 	protected int active;
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -43,5 +69,20 @@ public abstract class Post {
 	}
 	public void setPostDate(Calendar postDate) {
 		this.postDate = postDate;
-	}	
+	}
+	public String getLang() {
+		return lang;
+	}
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
+	public int getActive() {
+		return active;
+	}
+	public void setActive(int active) {
+		this.active = active;
+	}
+	
+	
+	
 }

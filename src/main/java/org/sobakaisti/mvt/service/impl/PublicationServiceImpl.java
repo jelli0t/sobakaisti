@@ -3,7 +3,6 @@
  */
 package org.sobakaisti.mvt.service.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.service.TagService;
+import org.sobakaisti.util.Pagination;
+import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,25 +35,32 @@ public class PublicationServiceImpl implements PublicationService {
 	
 	@Override
 	public List<Publication> findAllOrderedPublications() {
-		return publicationDao.findAllOrderedPublications();
+		PostFilter filter = new PostFilter();
+		Pagination pagination = publicationDao.createPostPagination(new Pagination(), filter);
+		
+		return publicationDao.findPostsSortedByDate(pagination, filter);
 	}
 
 	@Override
 	public List<Publication> findAllOrderedPublicationsByAuthor(Author author) {
-			return publicationDao.findAllPublicationByAuthor(author);
+		
+		PostFilter filter = new PostFilter(true, false, author);
+		Pagination pagination = publicationDao.createPostPagination(new Pagination(), filter);
+		
+		return publicationDao.findPostsSortedByDate(pagination, filter);
 	}
 	
 	@Override
 	public boolean deletePublicationById(int id) {
 		//TODO uvesti metodu koja uklanja item sa amazona
-		return publicationDao.deletePublicatinById(id);
+		return publicationDao.delete(id);
 	}
 	
 	//TODO umesto hardcodovanih poruka dohvati ih is resursa!
 	//TODO podigni metodu u eku univerzalniju nadklasu za sve postove!!
 	@Override
 	public String switchPublicationStatus(int id) {
-		int status = publicationDao.switchPublicationStatus(id);
+		int status = publicationDao.switchActiveStatus(id);
 		if(status == ArticleService.ACTIVE){
 			return "Uspesno ste publikovali Izdanje.";
 		}else if(status == ArticleService.INACTIVE) {
@@ -64,18 +72,24 @@ public class PublicationServiceImpl implements PublicationService {
 	@Override
 	public int countPublicationsByStatus(boolean isActive) {
 		// TODO Auto-generated method stub
-		return publicationDao.countPublicationsByStatus(isActive);
+		return publicationDao.countPostsByActiveStatus(isActive);
 	}
 
 	@Override
 	public List<Publication> findAllPublicationsByStatus(String status) {
-		List<Publication> publications;
-		if(status.equals(ACTIVE_STATUS)) {
-			publications = publicationDao.findAllPublicationsByStatus(1);	
-		}else {
-			publications = publicationDao.findAllPublicationsByStatus(0);
-		}
-		return publications;
+//		List<Publication> publications;
+		PostFilter filter = new PostFilter();
+		filter.setActive(status.equals(ACTIVE_STATUS));
+		Pagination pagination = publicationDao.createPostPagination(new Pagination(), filter);
+		
+//		if(status.equals(ACTIVE_STATUS)) {			
+//			publications = publicationDao.findAllPublicationsByStatus(1);	
+//		}else {
+//			publications = publicationDao.findAllPublicationsByStatus(0);
+//		}
+//		return publications;
+		
+		return publicationDao.findPostsSortedByDate(pagination, filter);
 	}
 
 	@Override
@@ -101,7 +115,7 @@ public class PublicationServiceImpl implements PublicationService {
 			String filePath = file.getOriginalFilename();
 			publication.setPath(filePath);
 		}
-		return publicationDao.savePublication(publication);
+		return publicationDao.save(publication) != null ? true : false;
 	}
 
 
@@ -116,7 +130,7 @@ public class PublicationServiceImpl implements PublicationService {
 
 	@Override
 	public List<Author> findAllPublicationsAuthors() {
-		return publicationDao.findAllPublicationsAuthors();
+		return publicationDao.findAllPostsAuthors();
 	}
 
 	

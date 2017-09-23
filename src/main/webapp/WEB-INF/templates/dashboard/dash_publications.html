@@ -60,59 +60,58 @@
 		</div>
 		
 		<!-- listing body -->
-		<div class="listing-body">
-			<ul class="table-list">
-				<li class="list-item" th:each="pbl : ${publications}" th:id="'item-'+${pbl.id}">
-					<div class="item-status-td fleft td">
-						<a th:href="@{/publications/change_status/{id}(id=${pbl.id})}" class="change-status-link" th:alt="${pbl.id}">
-							<img alt="status" th:src="@{'/resources/img/icons/active-'+${pbl.active}+'.svg'}" width="16" height="16" class="article-status-icon">
-						</a>
-					</div>
-					<div class="item-main-td fleft td">
-						<a th:href="@{/publications/{slug}(slug=${pbl.slug})}" class="clickable-title" 
-							th:text="${pbl.title}" th:title="${pbl.title}" th:alt="${pbl.title}"></a>
-						
-						
-						<div class="item-main-subdiv td" th:with="author=${pbl.author}">
-							<span th:text="#{label.publishedBy}">Objavljeno</span>
-							<span class="circle circle-tiny" 
-								th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
-							<span>
-								<a th:href="@{/publications/by/{slug}(slug=${author.slug})}" 
-									th:text="${author.firstName + ' ' + author.lastName}" class="clickable-author">Sobakaisti</a>
-							</span>
-							<span th:text="#{label.onDay}">dana</span>
-							<span th:text="${#dates.format(pbl.postDate, 'dd. MMM yyyy. HH:mm')}"></span>							
-						</div>
-					</div>
-					<!-- tags -->
-					<div class="td">
-						<span th:each="tag, tagStat : ${pbl.tags}" class="label tag" th:unless="${tagStat.index} > 3" th:with="slug=${tag.slug}">
-							<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
+		<ul class="listing-body">
+			<li class="list-item" th:each="pbl : ${publications}" th:id="'item-'+${pbl.id}">
+				<div class="item-status-td fleft td">
+					<a th:href="@{/publications/change_status/{id}(id=${pbl.id})}" class="change-status-link" th:alt="${pbl.id}">
+						<img alt="status" th:src="@{'/resources/img/icons/active-'+${pbl.active}+'.svg'}" width="16" height="16" class="article-status-icon">
+					</a>
+				</div>
+				<div class="item-main-td fleft td">
+					<a th:href="@{/publications/{slug}(slug=${pbl.slug})}" class="clickable-title" 
+						th:text="${pbl.title}" th:title="${pbl.title}" th:alt="${pbl.title}"></a>
+					
+					
+					<div class="item-main-subdiv td" th:with="author=${pbl.author}">
+						<span th:text="#{label.publishedBy}">Objavljeno</span>
+<!-- 						<span class="circle circle-tiny"  -->
+<!-- 							th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti
+							</span> -->
+						<span>
+							<a th:href="@{/publications/by/{slug}(slug=${author.slug})}" 
+								th:text="${author.firstName + ' ' + author.lastName}" class="clickable-author">Sobakaisti</a>
 						</span>
+						<span th:text="#{label.onDay}">dana</span>
+						<span th:text="${#dates.format(pbl.postDate, 'dd. MMM yyyy. HH:mm')}"></span>							
 					</div>
-					<!-- tools -->
-					<div class="item-tools-td td fright">
-						<a th:href="@{/publications/edit/{id}(id=${pbl.id})}" class="edit-item item-tool"
-							th:title="#{tool.label.edit}" th:alt="${pbl.id}">
+				</div>
+				<!-- tags -->
+				<div class="td">
+					<span th:each="tag, tagStat : ${pbl.tags}" class="label tag" th:unless="${tagStat.index} > 3" th:with="slug=${tag.slug}">
+						<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
+					</span>
+				</div>
+				<!-- tools -->
+				<div class="item-tools-td td fright">
+					<a th:href="@{/publications/edit/{id}(id=${pbl.id})}" class="edit-item item-tool"
+						th:title="#{tool.label.edit}" th:alt="${pbl.id}">
 <!-- 								<img alt="Pokret" th:src="@{/resources/img/icons/pencil.svg}" height="15"> -->
-							</a>
-						<a th:href="@{/publications/delete/{id}(id=${pbl.id})}" class="delete-item item-tool"
-							th:title="#{tool.label.delete}" th:alt="${pbl.id}">
+						</a>
+					<a th:href="@{/publications/delete/{id}(id=${pbl.id})}" class="delete-item item-tool"
+						th:title="#{tool.label.delete}" th:alt="${pbl.id}">
 <!-- 								<img alt="Pokret" th:src="@{/resources/img/icons/trashcan.svg}" height="15"> -->
-							</a>
-					</div>
-					<!-- comments -->
-					<div class="item-comments-td td fright">
-						<span th:text="${pbl.downloaded}" title="Komentara">Comments</span>
-					</div>
-					<!-- downloads counter -->
-					<div class="item-downloads-td td fright">
-						<span th:text="${pbl.downloaded}">Preuzeto</span>
-					</div>
-				</li>
-			</ul>
-		</div>
+						</a>
+				</div>
+				<!-- comments -->
+				<div class="item-comments-td td fright">
+					<span th:text="${pbl.downloaded}" title="Komentara">Comments</span>
+				</div>
+				<!-- downloads counter -->
+				<div class="item-downloads-td td fright">
+					<span th:text="${pbl.downloaded}">Preuzeto</span>
+				</div>
+			</li>
+		</ul>
 	
 		<!-- Listing footer -->
 		<div class="listing-footer">

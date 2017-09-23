@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.dao;
 
 import java.util.List;
 
+import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
@@ -20,6 +21,18 @@ public interface PostDao<T extends Post> {
 	 * @param id
 	 * */
 	public T find(int id);
+	
+	/**
+	 * Radi save ili update prosledjenog entiteta
+	 * @param t
+	 * */
+	public T save(T t);
+	
+	/**
+	 *  Brise post sa prosledjenim ID
+	 *  @param id
+	 * */
+	public boolean delete(int id);
 	
 	/**
 	 * Pronalazi sve postove koji su u prosledjenom statusu
@@ -54,6 +67,18 @@ public interface PostDao<T extends Post> {
 	 * @param slug
 	 * */
 	public int countSlugDuplicates(String slug);
+
+	/**
+	 *  Pronalazi sve autore koji su objavili postove.
+	 * */
+	public List<Author> findAllPostsAuthors();
+
+	/**
+	 *  Menja vrednost na polju active za Post sa prosledjenim ID
+	 *  @param id
+	 *  @return izmenjenu vrednost na active
+	 * */
+	public int switchActiveStatus(int id);
 
 	
 }

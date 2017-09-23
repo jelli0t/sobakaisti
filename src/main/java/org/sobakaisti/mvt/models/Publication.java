@@ -32,33 +32,14 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name="publication")
-public class Publication {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
-	private int id;
-	
-	@Size(min=2, max=120, message="{validation.warn.title.size}")
-	@Column(name="title")
-	private String title;
+public class Publication extends Post {	
 	
 	@Lob
 	@Column(name="content")
 	private String content;
 	
-	@Column(name="slug")
-	private String slug;
-	
 	@Column(name="path")
 	private String path;
-		
-	@Column(name="post_date")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar postDate;
-	
-	@Column(name="active")
-	private int active;
 	
 	@Column(name="downloaded")
 	private int downloaded;
@@ -84,29 +65,11 @@ public class Publication {
 			inverseJoinColumns = { @JoinColumn(name = "tag_id")})
 	private List<Tag> tags;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}	
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getSlug() {
-		return slug;
-	}
-	public void setSlug(String slug) {
-		this.slug = slug;
 	}
 	public String getPath() {
 		return path;
@@ -115,18 +78,6 @@ public class Publication {
 		this.path = path;
 	}
 		
-	public int getActive() {
-		return active;
-	}
-	public void setActive(int active) {
-		this.active = active;
-	}
-	public Calendar getPostDate() {
-		return postDate;
-	}
-	public void setPostDate(Calendar postDate) {
-		this.postDate = postDate;
-	}
 	public Author getAuthor() {
 		return author;
 	}
