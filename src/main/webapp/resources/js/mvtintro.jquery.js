@@ -56,14 +56,14 @@ var background = function(dimension,$circle){
 		url: window.location.href+'/load_background',
 		type : 'GET',
 		contentType: 'application/json; charset=utf-8',
-		data: dimension
+		data: dimension,
+		dataType: 'html'
 	}).done(function( data ) {
-//		console.log("SUCCESS: ", data);
-		var li = '';
-		$.each(data, function( i, val ){
-			li+= (i % 2 === 0) ? '<li class="rtl">'+val+'</li>' : '<li class="ltr">'+val+'</li>'; 
-		});
-		$('.bgd-list').append(li);		
+		if(data) {
+			$('.bgd-list').append(data);
+		} else {
+			console.log('Data ne postoji!');
+		}		
 	}).fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
 	    console.log( "Status: " + status );
@@ -85,7 +85,7 @@ var background = function(dimension,$circle){
 //        		opacity: '1.0'
 //        	}, 1000);        	
 //    	});
-		$('#circle-menu').delay(3000).queue(function() {
+		$('#circle-menu').delay(2500).queue(function() {
 			$('#loading-container').detach();
 			$circle.remove();
             $(this).expandCircleMenu();

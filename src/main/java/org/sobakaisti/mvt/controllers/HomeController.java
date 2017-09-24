@@ -42,15 +42,16 @@ public class HomeController {
 	}	
 	
 	@RequestMapping(value="/{lang}/movement/load_background", method=RequestMethod.GET)
-	@ResponseBody
-	public List<String> organizeBackground(@RequestParam("width") int width, 
+	public String loadIntroBackground(@RequestParam("width") int width, 
 										@RequestParam("height") int height, 
 										@RequestParam("charWidth") double charWidth, 
-										@PathVariable("lang") String lang, Model model){
+										@PathVariable("lang") String lang, Model model) {
 		List<String> rows = articleService.getRowsFromArticleWithDimension(width, height, charWidth, lang);
-				
-		return rows;
+		model.addAttribute("backgroundLines", rows);
+		
+		return "commons/fragments :: introBackground";
 	}
+	
 	
 	@RequestMapping(value="/movement/sitemap", method=RequestMethod.GET )
 	public String showSiteMap() {

@@ -29,4 +29,12 @@
 		</article>
 	</th:block>
 	
+	
+	<!-- Intro backgrount text animated -->
+	<th:block th:fragment="introBackground" >
+	
+		<li th:each="line, item : ${backgroundLines}" th:class="${item.odd}? 'ltr' : 'rtl'" th:text="${line}"></li>
+	
+	</th:block>
+	
 </html>

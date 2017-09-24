@@ -1078,8 +1078,12 @@ h6 {
 	color: #fff !important;
     background-color: #0366d6;
 }
+.menu-modal-author {
+	margin-left: 7px;
+}
 
-.search-field { line-height: 11px !important; 
+.search-field { 
+	line-height: 11px !important; 
 	box-sizing: content-box;
 	width: 100%;
 	}

@@ -14,15 +14,7 @@ a:LINK, a:VISITED {
 	text-decoration: none;
 	outline: 0;
 }
-.test-char {
-	position: absolute;
-	top:0;
-	left:0;
-	font-family: 'Droid Sans Mono';
-	font-size: 12px;
-	opacity: 0;
-	z-index: 989;
-}
+
 .hemisphere {
 	position: fixed;
 	top: 0;
@@ -200,7 +192,8 @@ a:LINK, a:VISITED {
 .bgd-list {
 	position: static;
     width: 100%;
-	font-family: 'Droid Sans Mono', 'NotoMono';
+/* 	font-family: 'Droid Sans Mono', 'NotoMono'; */
+ 	font-family: 'Lucida Console', Monaco, monospace;
 	font-size: 12px;
 	font-weight: normal;
 	opacity: 0.3;
@@ -218,20 +211,20 @@ a:LINK, a:VISITED {
 .ltr {
 /* 	 margin-left: -100%; */
 	text-align: left;
-	-webkit-animation: leftToRight 3s ease-in-out; /* Safari 4+ */
-	-moz-animation:   leftToRight 3s ease-in-out; /* Fx 5+ */
-	-o-animation:     leftToRight 3s ease-in-out; /* Opera 12+ */
-	animation:        leftToRight 3s ease-in-out; /* IE 10+, Fx 29+ */
+	-webkit-animation: leftToRight 2s ease-in-out; /* Safari 4+ */
+	-moz-animation:   leftToRight 2s ease-in-out; /* Fx 5+ */
+	-o-animation:     leftToRight 2s ease-in-out; /* Opera 12+ */
+	animation:        leftToRight 2s ease-in-out; /* IE 10+, Fx 29+ */
 }
 
 .rtl {
 	float:right;
 	text-align: right;
 	margin-left: 100%;
-	-webkit-animation: rightToLeft 3s ease-in-out; /* Safari 4+ */
-	-moz-animation:    rightToLeft 3s ease-in-out; /* Fx 5+ */
-	-o-animation:      rightToLeft 3s ease-in-out; /* Opera 12+ */
-	animation:         rightToLeft 3s ease-in-out; /* IE 10+, Fx 29+ */
+	-webkit-animation: rightToLeft 2s ease-in-out; /* Safari 4+ */
+	-moz-animation:    rightToLeft 2s ease-in-out; /* Fx 5+ */
+	-o-animation:      rightToLeft 2s ease-in-out; /* Opera 12+ */
+	animation:         rightToLeft 2s ease-in-out; /* IE 10+, Fx 29+ */
 }
 
 /* LEFT TO RIGHT ANIMATION */
