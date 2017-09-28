@@ -4,10 +4,13 @@
 package org.sobakaisti.mvt.service.impl;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.PublicationDao;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
@@ -134,4 +137,34 @@ public class PublicationServiceImpl implements PublicationService {
 	}
 
 	
+	
+	@Override
+	public Map<String, Object> prepareModelAttributesForArticles(Pagination pagination, 
+																String status, String authorSlug) {
+		Map<String, Object> modelAttributes = new HashMap<String, Object>();
+		boolean isActive = true;
+		Author author = null;
+		/* ako je prosledjen status */
+		if(status != null)
+			isActive = status.equals(ArticleService.ACTIVE_STATUS) ? true : false;
+		/* ako je prosledjen autor */
+		if(authorSlug != null)
+			author = authorDao.findAuthorBySlug(authorSlug);
+			
+		PostFilter filter = new PostFilter(isActive, false, author);
+		pagination = publicationDao.createPostPagination(pagination, filter);
+		/* count active / nonactive posts */
+		final int active = publicationDao.countPostsByActiveStatus(true);
+		final int nonActive = publicationDao.countPostsByActiveStatus(false);
+		/* dohvata listu clanaka */
+		final List<Publication> publications = publicationDao.findPostsSortedByDate(pagination, filter);
+	
+		modelAttributes.put("activeCount", active);
+		modelAttributes.put("nonActiveCount", nonActive);
+		modelAttributes.put("publications", publications);
+		modelAttributes.put("pagination", pagination);
+		modelAttributes.put("isActive", isActive);
+		
+		return modelAttributes;
+	}
 }

@@ -4,9 +4,11 @@
 package org.sobakaisti.mvt.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.util.Pagination;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -61,5 +63,14 @@ public interface PublicationService {
 	 *  Pronalazi sve autore koji su objavili izdanja
 	 * */
 	public List<Author> findAllPublicationsAuthors();
+
+	/**
+	 *  TODO podici u abstarktnu klasu
+	 *  kreira mapu za popunjavanje modela
+	 *  @param pagination
+	 *  @param status
+	 *  @param authorSlug
+	 * */
+	public Map<String, Object> prepareModelAttributesForArticles(Pagination pagination, String status, String authorSlug);
 	
 }

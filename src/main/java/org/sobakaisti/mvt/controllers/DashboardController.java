@@ -159,14 +159,38 @@ public class DashboardController {
 	 * Prikazuje listu clanaka
 	 * @param page 	page index
 	 * */
-	@RequestMapping(value = {"/articles", "/articles/{page}"}, method=RequestMethod.GET)
-	public String displayAllArticles(@PathVariable Optional<Integer> page, Model model){	
-		/* ako je odabrana strana */
-		if(page.isPresent()) {
-			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
-		}else {
-			pagination = new Pagination();
+//	@RequestMapping(value = {"/articles", "/articles/{page}"}, method=RequestMethod.GET)
+//	public String displayAllArticles(@PathVariable Optional<Integer> page, Model model){	
+//		/* ako je odabrana strana */
+//		if(page.isPresent()) {
+//			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
+//		}else {
+//			pagination = new Pagination();
+//		}
+//		/* priprema model atribute za renderovanje strane */
+//		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, null, null);
+//		for(String key : modelAttributes.keySet()) {
+//			model.addAttribute(key, modelAttributes.get(key));
+//		}
+//		return "dashboard/dash_articles";
+//	}
+	
+	@Deprecated
+	@RequestMapping(value = "/articles", method=RequestMethod.GET)
+	public String displayAllArticles(Model model){	
+		/* priprema model atribute za renderovanje strane */
+		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(new Pagination(), null, null);
+		for(String key : modelAttributes.keySet()) {
+			model.addAttribute(key, modelAttributes.get(key));
 		}
+		return "dashboard/dash_articles";
+	}
+	
+	@Deprecated
+	@RequestMapping(value = "/articles/{page}", method=RequestMethod.GET)
+	public String displayAllArticles(@PathVariable int page, Model model){	
+		/* ako je odabrana strana */
+		pagination = new Pagination(0, page, Pagination.DEFAULT_ITEMS_PER_PAGE);		
 		/* priprema model atribute za renderovanje strane */
 		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, null, null);
 		for(String key : modelAttributes.keySet()) {
@@ -175,20 +199,44 @@ public class DashboardController {
 		return "dashboard/dash_articles";
 	}
 	
+	
 	/**
 	 * Prikazuje listu clanaka filtrirnih po odbranom statusu
 	 * @param page 		page index
 	 * @param status	active/nonactive
 	 * */
-	@RequestMapping(value = {"/articles/status/{status}", "/articles/{page}/status/{status}"}, 
-					method=RequestMethod.GET)
-	public String showArticlesByActiveStatus(@PathVariable Optional<Integer> page, @PathVariable("status") String status, Model model) {
-		if(page.isPresent()) {
-			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
-		}else {
-			pagination = new Pagination();
-		}		
+//	@RequestMapping(value = {"/articles/status/{status}", "/articles/{page}/status/{status}"}, 
+//					method=RequestMethod.GET)
+//	public String showArticlesByActiveStatus(@PathVariable Optional<Integer> page, @PathVariable("status") String status, Model model) {
+//		if(page.isPresent()) {
+//			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
+//		}else {
+//			pagination = new Pagination();
+//		}		
+//		/* priprema model atribute za renderovanje strane */
+//		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, status, null);
+//		for(String key : modelAttributes.keySet()) {
+//			model.addAttribute(key, modelAttributes.get(key));
+//		}		
+//		return "dashboard/dash_articles";
+//	}
+	
+	@Deprecated
+	@RequestMapping(value = "/articles/status/{status}", method=RequestMethod.GET)
+	public String showArticlesByActiveStatus(@PathVariable("status") String status, Model model) {	
 		/* priprema model atribute za renderovanje strane */
+		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles( new Pagination(), status, null);
+		for(String key : modelAttributes.keySet()) {
+			model.addAttribute(key, modelAttributes.get(key));
+		}		
+		return "dashboard/dash_articles";
+	}
+	
+	@Deprecated
+	@RequestMapping(value = "/articles/{page}/status/{status}", method=RequestMethod.GET)
+	public String showArticlesByActiveStatus(@PathVariable int page, @PathVariable("status") String status, Model model) {
+		pagination = new Pagination(0, page, Pagination.DEFAULT_ITEMS_PER_PAGE);		
+		///* priprema model atribute za renderovanje strane */
 		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, status, null);
 		for(String key : modelAttributes.keySet()) {
 			model.addAttribute(key, modelAttributes.get(key));
@@ -196,22 +244,49 @@ public class DashboardController {
 		return "dashboard/dash_articles";
 	}
 	
+	
 	/**
 	 * Prikazuje listu clanaka filtriranih prema odabranom autoru
 	 * @param page	br.strane
 	 * @param authorSlug
 	 * @param model
 	 * */
-	@RequestMapping(value = {"/articles/by/{authorSlug}", "/articles/{page}/by/{authorSlug}"}, 
-			method=RequestMethod.GET)
-	public String showArticlesFlteredByAuthor(@PathVariable Optional<Integer> page, 
+//	@RequestMapping(value = {"/articles/by/{authorSlug}", "/articles/{page}/by/{authorSlug}"}, 
+//			method=RequestMethod.GET)
+//	public String showArticlesFlteredByAuthor(@PathVariable Optional<Integer> page, 
+//											  @PathVariable("authorSlug") String authorSlug, 
+//											  Model model) {		
+//		if(page.isPresent()) {
+//			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
+//		}else {
+//			pagination = new Pagination();
+//		}
+//		/* priprema model atribute za renderovanje strane */
+//		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, null, authorSlug);
+//		for(String key : modelAttributes.keySet()) {
+//			model.addAttribute(key, modelAttributes.get(key));
+//		}
+//		return "dashboard/dash_articles";
+//	}
+	
+	@Deprecated
+	@RequestMapping(value = "/articles/by/{authorSlug}", 	method=RequestMethod.GET)
+	public String showArticlesFlteredByAuthor(@PathVariable("authorSlug") String authorSlug,  Model model) {		
+		/* priprema model atribute za renderovanje strane */
+		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(new Pagination(), null, authorSlug);
+		for(String key : modelAttributes.keySet()) {
+			model.addAttribute(key, modelAttributes.get(key));
+		}
+		return "dashboard/dash_articles";
+	}
+	
+	@Deprecated
+	@RequestMapping(value = "/articles/{page}/by/{authorSlug}", method=RequestMethod.GET)
+	public String showArticlesFlteredByAuthor(@PathVariable int page, 
 											  @PathVariable("authorSlug") String authorSlug, 
 											  Model model) {		
-		if(page.isPresent()) {
-			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
-		}else {
-			pagination = new Pagination();
-		}
+
+		pagination = new Pagination(0, page, Pagination.DEFAULT_ITEMS_PER_PAGE);
 		/* priprema model atribute za renderovanje strane */
 		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, null, authorSlug);
 		for(String key : modelAttributes.keySet()) {
@@ -272,35 +347,53 @@ public class DashboardController {
 	
 	//	PUBLICATIONS
 	
-	@RequestMapping(value = {"/publications", "/publications/{page}"}, method=RequestMethod.GET)
-	public String showPublicationsPage(@PathVariable("page") Optional<Integer> page, Model model) {		
-		if(page.isPresent()) {
-			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
-		}else {
-			pagination = new Pagination();
-		}	
-		
-		/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
-		final int active = publicationService.countPublicationsByStatus(true);
-		final int nonActive = publicationService.countPublicationsByStatus(false);
-		model.addAttribute("activeCount", active);
-		model.addAttribute("nonActiveCount", nonActive);
-		model.addAttribute("publications", publicationService.findAllOrderedPublications());
-		model.addAttribute("isActive", true);
+//	TODO za finalnu produkciju
+//	@RequestMapping(value = {"/publications", "/publications/{page}"}, method=RequestMethod.GET)
+//	public String showPublicationsPage(@PathVariable("page") Optional<Integer> page, Model model) {		
+//		if(page.isPresent()) {
+//			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
+//		}else {
+//			pagination = new Pagination();
+//		}		
+//		/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
+//		final int active = publicationService.countPublicationsByStatus(true);
+//		final int nonActive = publicationService.countPublicationsByStatus(false);
+//		model.addAttribute("activeCount", active);
+//		model.addAttribute("nonActiveCount", nonActive);
+//		model.addAttribute("publications", publicationService.findAllOrderedPublications());
+//		model.addAttribute("isActive", true);
+//		return "dashboard/dash_publications";
+//	}
+	
+	//TODO za java 1.7
+	@RequestMapping(value = "/publications", method=RequestMethod.GET)
+	public String showPublicationsPage(Model model) {	
+		Map<String, Object> modelAttributes = publicationService.prepareModelAttributesForArticles(new Pagination(), null, null);
+		for(String key : modelAttributes.keySet()) {
+			model.addAttribute(key, modelAttributes.get(key));
+		}
 		return "dashboard/dash_publications";
 	}
+	
+	//TODO za java 1.7
+	@RequestMapping(value = "/publications/{page}", method=RequestMethod.GET)
+	public String showPublicationsPage(@PathVariable("page") int page, Model model) {			
+		pagination = new Pagination(0, page, Pagination.DEFAULT_ITEMS_PER_PAGE);				
+		Map<String, Object> modelAttributes = publicationService.prepareModelAttributesForArticles(pagination, null, null);
+		for(String key : modelAttributes.keySet()) {
+			model.addAttribute(key, modelAttributes.get(key));
+		}
+		return "dashboard/dash_publications";
+	}
+	
 	
 	@RequestMapping(value="/publications/status/{status}", method=RequestMethod.GET)
 	public String showPublicationByActiveStatus(@PathVariable("status") String status, Model model) {
 		if(status != null && !status.isEmpty()) {
-			List<Publication> publications = publicationService.findAllPublicationsByStatus(status);
-			model.addAttribute("publications", publications);
-			/* dohvata broj aktivnih odnosno neaktivnih izdanja */		
-			final int active = publicationService.countPublicationsByStatus(true);
-			final int nonActive = publicationService.countPublicationsByStatus(false);
-			model.addAttribute("activeCount", active);
-			model.addAttribute("nonActiveCount", nonActive);
-			model.addAttribute("isActive", status.equals(PublicationService.ACTIVE_STATUS) ? true : false);
+			Map<String, Object> modelAttributes = publicationService.prepareModelAttributesForArticles( new Pagination(), status, null);
+			for(String key : modelAttributes.keySet()) {
+				model.addAttribute(key, modelAttributes.get(key));
+			}
 		}
 		return "dashboard/dash_publications";
 	}

@@ -83,11 +83,21 @@ a:LINK, a:VISITED {
 	margin: -50px 0 0 60%;
 	text-align: right;
 	transform-origin: 0 50%;
+	
+	-webkit-transition: 400ms ease-in-out;
+    -moz-transition: 400ms ease-in-out;
+    -o-transition: 400ms ease-in-out;
+    transition: 400ms ease-in-out;
 }
 .game-lang-container {
 	margin: -50px 20% 0 10%;
 	text-align: left;
 	transform-origin: 100% 50%;
+	
+	-webkit-transition: 400ms ease-in-out;
+    -moz-transition: 400ms ease-in-out;
+    -o-transition: 400ms ease-in-out;
+    transition: 400ms ease-in-out;
 }
 .single-circle {
 	opacity: 0.0;
@@ -96,14 +106,15 @@ a:LINK, a:VISITED {
 	height: 100px;
 	margin: 0 0 0 -50px;
 	border: 2px solid #434343;
-	-webkit-border-radius: 100%;
-  	-moz-border-radius: 100%;
-  	border-radius: 100%;
+	-webkit-border-radius: 50%;
+  	-moz-border-radius: 50%;
+  	border-radius: 50%;
   	text-transform: uppercase;
 	text-align: center;
 	line-height: 100px;
 	font-size: 14px !important;
 	font-weight: 700;
+	overflow: hidden;
 
 	-webkit-transition: box-shadow 0.6s ease-in-out;
 	-moz-transition: box-shadow 0.6s ease-in-out; 

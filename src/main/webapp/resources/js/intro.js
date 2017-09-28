@@ -35,12 +35,13 @@ var iconAnimation = function() {
 var singleCircleAnimation = function() {
 	
 	$('.left-hemisphere .single-circle').animate({left: '80%', opacity: '1.0'}, {	// left: 80%
-        duration: 500       
+        duration: 500,
+        easing: 'swing'
     }).promise().done(function(){
     	for(i=0, deg=0; i<8; i++, deg-=45){
     		var id = '.mvt-langwrapper-'+i;
     		$(id).css({
-    			transition: '.4s linear',
+//    			transition: '.4s ease-in-out',
                 transform: 'rotate(' + deg + 'deg)'
             });
     		$(id+' .single-circle').css({
@@ -54,12 +55,13 @@ var singleCircleAnimation = function() {
  * */
 var gameCircleAnimation = function() {
 	$('.right-hemisphere .single-circle').animate({left: '20%', opacity: '1.0'}, {
-        duration: 500       
+        duration: 500,
+        easing: 'swing'     
     }).promise().done(function(){
     	for(i=0, deg=0; i<8; i++, deg+=45){
     		var id = '.game-langwrapper-'+i;
     		$(id).css({
-    			transition: '.4s linear',
+//    			transition: '.4s linear',
                 transform: 'rotate(' + deg + 'deg)'
             });
     		$(id+' .single-circle').css({
