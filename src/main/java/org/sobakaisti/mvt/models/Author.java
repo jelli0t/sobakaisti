@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * Model klasa koja reprezentuje autore (Sobakaiste)
  */
 @Entity
-@Table(name="AUTHOR")
+@Table(name="author")
 public class Author {
 	
 	@Id

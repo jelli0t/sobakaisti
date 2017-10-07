@@ -18,6 +18,8 @@ import org.sobakaisti.util.PostFilter;
  */
 public interface ArticleDao {
 	
+	public static final String INTRO_ARTICLE_SLUG = "manifesto";
+	
 	/**
 	 * Metoda pronalazi i vraca clanak po Naslovu na zadatom jeziku
 	 * @param title		Naslov clanka
@@ -38,6 +40,13 @@ public interface ArticleDao {
 	 * @param langCode	Kod jezika (rs, en, it, fr...)
 	 * */
 	public String getintroArticleByLanguage(String langCode);
+	
+	/**
+	 * Vraca sam sadrzaj clanka koji sluzi kao pozadina intro animacije
+	 * prosledjujemo languag code
+	 * @param langCode
+	 * */
+	public String findIntroArticle(String langCode);
 	
 	/**
 	 * Metoda cuva clanak

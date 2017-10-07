@@ -45,7 +45,7 @@
 						</div>
 						<ul>
 							<li th:each="author : ${authors}" class="menu-modal-item">
-								<a th:href="@{/publications/by/{slug}(slug=${author.slug})}">
+								<a th:href="@{/sbk-admin/publications/by/{slug}(slug=${author.slug})}">
 								<span class="circle circle-tiny" 
 									th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
 								<span th:text="${author.firstName +' '+ author.lastName}"></span>

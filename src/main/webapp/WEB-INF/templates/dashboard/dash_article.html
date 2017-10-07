@@ -11,8 +11,9 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 
-	<!-- Form -->
-	<form th:action="@{/sbk-admin/upload}" id="new-post-form" name="new-post-form" enctype="multipart/form-data">	
+	<!-- Form /sbk-admin/upload -->
+	<form th:action="@{/sbk-admin/article/post}" id="new-post-form" name="new-post-form" 
+			enctype="multipart/form-data" th:object="${post}" method="post">	
 	<div class="main-dash-content">
 		<!-- Right panel -->
 		<div class="right-container">
@@ -79,7 +80,7 @@
 					<div class="select-menu-body">				
 					<label th:each="category : ${categories}" class="checkboxes-label">
 						<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}"
-							th:checked="${article.categories != null ? category.id == article.categories[0].id : false}"/> 
+							th:checked="${article.categories != null ? category.id == article.categories[0].id : false}" th:field="*{categories}"/> 
 						<span th:text="${category.name}"></span>
 					</label>
 					</div>
@@ -141,10 +142,11 @@
 		<!-- Left content -->
 		<div class="left-container">
 			<!-- ID posta -->
-			<input type="hidden" name="id" th:value="${article.id}">
+			<input type="hidden" name="id" th:value="${article.id}" th:field="*{id}">
 			<div class="form-tr">
 				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" 
-					id="publication-title" class="title-input full-width" th:src="@{/sbk-admin/slug/new}" th:value="${article.title}">
+					id="publication-title" class="title-input full-width" th:src="@{/sbk-admin/slug/new}" th:value="${article.title}"
+					th:field="*{title}" >
 				<!-- validation error message -->
 				<div class="validation-error"></div>	
 				<!-- link preview -->
@@ -165,6 +167,13 @@
 <!-- end of the form -->
 </form>
 	
+	
+	<form action="#" th:action="@{/sbk-admin/post}" th:object="${post}" method="post">
+    	<p>Id: <input type="text" th:field="*{id}" /></p>
+    	<p>Title: <input type="text" th:field="*{title}" /></p>
+        <p>title: <input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>

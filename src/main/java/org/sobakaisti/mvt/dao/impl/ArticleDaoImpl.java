@@ -68,6 +68,25 @@ public class ArticleDaoImpl implements ArticleDao{
 			return "";
 		}
 	}
+	
+	@Override
+	@Transactional
+	public String findIntroArticle(String langCode) {
+		String HQL = "FROM Article a WHERE a.slug = :slug and a.lang=:langCode";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Article introArticle = (Article) session.createQuery(HQL)
+									.setString("slug", ArticleDao.INTRO_ARTICLE_SLUG)
+									.setString("langCode", langCode)
+									.uniqueResult();
+			if(introArticle != null) {
+				return introArticle.getContent();
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
+	}
 
 	@Override
 	@Transactional
@@ -407,6 +426,9 @@ public class ArticleDaoImpl implements ArticleDao{
 		bothArticles.add(1, previousArticle);
 		return bothArticles;
 	}
+	
+
+	
 
 	
 	

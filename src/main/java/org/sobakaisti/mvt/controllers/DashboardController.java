@@ -16,6 +16,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
@@ -25,6 +26,7 @@ import org.sobakaisti.mvt.validation.Validator;
 import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
+import org.sobakaisti.util.PostRequest;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -117,6 +119,16 @@ public class DashboardController {
 		model.addAttribute("categories", categoryDao.findAllCategories());
 		return "dashboard/dash_article";
 	}
+	
+	@RequestMapping(value="/article/post", method=RequestMethod.POST)
+	public String postArticle(@ModelAttribute(name="post") PostRequest post, Model model) {
+		
+		System.out.println("UPLOAD: "+ post);
+		
+		return "dashboard/dash_article";		
+	}
+	
+	
 	
 	@RequestMapping(value="/slug/new", method=RequestMethod.PUT)
 	@ResponseBody
@@ -400,7 +412,12 @@ public class DashboardController {
 	
 	@RequestMapping(value="/publications/by/{authorSlug}", method=RequestMethod.GET)
 	public String showpublicationsByAuthor(@PathVariable("authorSlug") String authorSlug, Model model) {
-		
+		if(authorSlug != null && !authorSlug.isEmpty()) {
+			Map<String, Object> modelAttributes = publicationService.prepareModelAttributesForArticles( new Pagination(), null, authorSlug);
+			for(String key : modelAttributes.keySet()) {
+				model.addAttribute(key, modelAttributes.get(key));
+			}
+		}
 		return "dashboard/dash_publications";
 	}
 	
