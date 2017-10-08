@@ -120,12 +120,20 @@ public class DashboardController {
 		return "dashboard/dash_article";
 	}
 	
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public String showTestPage(Model model){
+		
+		model.addAttribute("post", new PostRequest());
+		return "dashboard/dash_test";
+	}
+	
+	
 	@RequestMapping(value="/article/post", method=RequestMethod.POST)
-	public String postArticle(@ModelAttribute(name="post") PostRequest post, Model model) {
+	public String postArticle(@ModelAttribute(value="post") PostRequest post, Model model) {
 		
 		System.out.println("UPLOAD: "+ post);
-		
-		return "dashboard/dash_article";		
+		model.addAttribute("post", post);
+		return "dashboard/dash_test";		
 	}
 	
 	
