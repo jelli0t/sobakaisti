@@ -167,14 +167,6 @@
 <!-- end of the form -->
 </form>
 	
-	
-	<form action="#" th:action="@{/sbk-admin/post}" th:object="${post}" method="post">
-    	<p>Id: <input type="text" th:field="*{id}" /></p>
-    	<p>Title: <input type="text" th:field="*{title}" /></p>
-        <p>title: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
 <script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>

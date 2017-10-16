@@ -5,13 +5,17 @@ package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -45,6 +49,16 @@ public abstract class Post {
 	
 	@Column(name="active")
 	protected int active;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },
+        targetEntity = Author.class)
+	private Author author;	
 	
 	public int getId() {
 		return id;
@@ -82,7 +96,11 @@ public abstract class Post {
 	public void setActive(int active) {
 		this.active = active;
 	}
-	
-	
-	
+	public Author getAuthor() {
+		return author;
+	}
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+		
 }

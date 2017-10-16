@@ -44,15 +44,6 @@ public class Publication extends Post {
 	@Column(name="downloaded")
 	private int downloaded;
 	
-	@ManyToOne(cascade =
-        {
-	        CascadeType.DETACH,
-	        CascadeType.MERGE,
-	        CascadeType.REFRESH,
-	        CascadeType.PERSIST
-        })
-	private Author author;
-	
 	@ManyToMany(cascade =
         {
 	        CascadeType.DETACH,
@@ -78,12 +69,6 @@ public class Publication extends Post {
 		this.path = path;
 	}
 		
-	public Author getAuthor() {
-		return author;
-	}
-	public void setAuthor(Author author) {
-		this.author = author;
-	}
 	public int getDownloaded() {
 		return downloaded;
 	}

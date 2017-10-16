@@ -124,12 +124,14 @@ public class DashboardController {
 	public String showTestPage(Model model){
 		
 		model.addAttribute("post", new PostRequest());
+		model.addAttribute("categories", categoryDao.findAllCategories());
+		
 		return "dashboard/dash_test";
 	}
 	
 	
 	@RequestMapping(value="/article/post", method=RequestMethod.POST)
-	public String postArticle(@ModelAttribute(value="post") PostRequest post, Model model) {
+	public String postArticle(@ModelAttribute("post") PostRequest post, Model model) {
 		
 		System.out.println("UPLOAD: "+ post);
 		model.addAttribute("post", post);

@@ -10,6 +10,7 @@ import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
+import org.sobakaisti.util.PostRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ArticleService {
@@ -125,4 +126,8 @@ public interface ArticleService {
 	 * */
 	Map<String, Object> prepareModelAttributesForArticles(Pagination pagination, String status, String authorSlug);
 	
+	/**
+	 * konvertuje PostRequest sa forme u konkreta article objekat
+	 * */
+	public Article getArticleFromPostRequest(PostRequest postRequest);
 }

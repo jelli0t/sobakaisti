@@ -29,6 +29,7 @@ import org.sobakaisti.mvt.service.TagService;
 import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
+import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -310,5 +311,16 @@ public class ArticleServiceImpl implements ArticleService{
 		modelAttributes.put("isActive", isActive);
 		
 		return modelAttributes;
+	}
+
+	@Override
+	public Article getArticleFromPostRequest(PostRequest postRequest) {
+		Article article = new Article();
+		
+		if(postRequest.getId() != 0) {
+			article.setId(postRequest.getId());
+		}
+		
+		return null;
 	}
 }

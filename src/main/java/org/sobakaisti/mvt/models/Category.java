@@ -91,4 +91,14 @@ public class Category {
 		category += name!=null?"name: "+name:"";
 		return category+"}";
 	}
+	
+	@Override
+	 public boolean equals(Object obj) {
+        if (obj instanceof Category) {
+            return id == ((Category)obj).getId();
+        }
+        return false;
+    }
+	 
+	 
 }
