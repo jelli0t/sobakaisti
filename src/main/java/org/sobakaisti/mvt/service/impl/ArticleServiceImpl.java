@@ -4,6 +4,7 @@
 package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -21,6 +22,7 @@ import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
@@ -320,6 +322,16 @@ public class ArticleServiceImpl implements ArticleService{
 		if(postRequest.getId() != 0) {
 			article.setId(postRequest.getId());
 		}
+		/* naslov clanka */
+		article.setTitle(postRequest.getTitle());
+		/**
+		 * pronalazi listu categorija na osnovu niza ID-eva
+		 * */
+		List<Category> categories = categoryService.findListOfCategoriesByIdsArray(postRequest.getCategoriesIds());
+		article.setCategories(categories);
+		
+		
+		
 		
 		return null;
 	}
