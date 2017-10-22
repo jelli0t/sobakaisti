@@ -436,6 +436,16 @@ public class DashboardController {
 		return "dashboard/dash_publication";
 	}
 	
+	@RequestMapping(value="/submit", method = RequestMethod.POST)
+	public String submitPublication(@ModelAttribute PostRequest postRequest, Model model) {
+		
+		Publication publication = publicationService.processAndSavePostRequest(postRequest);
+		model.addAttribute("publication", publication);
+		
+		return "redirect:/publication";
+	}
+	
+	
 	@RequestMapping(value="/datetime/update/date/{month}", method=RequestMethod.GET)
 	@ResponseBody
 	public int updateDateListAccordingToMonth(@PathVariable("month") int month) {	

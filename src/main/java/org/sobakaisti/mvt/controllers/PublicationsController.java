@@ -6,12 +6,7 @@ package org.sobakaisti.mvt.controllers;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
-import org.sobakaisti.mvt.dao.CategoryDao;
-import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
-import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.Publication;
-import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
@@ -47,12 +42,12 @@ public class PublicationsController {
 		
 	@ModelAttribute
 	public void prepare(Model model){
-		model.addAttribute("authors", publicationService.findAllPublicationsAuthors());
+		model.addAttribute("authors", publicationService.findAllPostsAuthors());
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String showPublicationHomepage(Model model) {		
-		model.addAttribute("publications", publicationService.findAllOrderedPublications());
+		model.addAttribute("publications", publicationService.findAllPostOrderedByDate());
 		return "publications";
 	}
 	
@@ -60,7 +55,7 @@ public class PublicationsController {
 	public String showPublicationsByAuthor(@PathVariable("author") String author, Model model) {
 		if(author != null && !author.isEmpty()) {
 			Author chosenAuthor = authorDao.findAuthorBySlug(author);
-			model.addAttribute("publications", publicationService.findAllOrderedPublicationsByAuthor(chosenAuthor));
+			model.addAttribute("publications", publicationService.findAllOrderedPostsByAuthor(chosenAuthor));
 			model.addAttribute("chosenAuthor", chosenAuthor);
 			return "publications";
 		}else {
@@ -71,7 +66,7 @@ public class PublicationsController {
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> deletePublicationById(@PathVariable("id") int id){
-		boolean isDeleted = publicationService.deletePublicationById(id);
+		boolean isDeleted = publicationService.delete(id);
 		if(isDeleted)
 			return new ResponseEntity<String>("Uspesno obrisano izdanje.", HttpStatus.OK);
 		
@@ -82,7 +77,7 @@ public class PublicationsController {
 	@RequestMapping(value="/change_status/{id}", method=RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<String> switchPublicationStatus(@PathVariable("id") int id) {	
-		String message = publicationService.switchPublicationStatus(id);
+		String message = publicationService.switchPostStatus(id);
 		if(message != null){
 			return new ResponseEntity<String>(message, HttpStatus.OK);
 		}		
@@ -134,4 +129,5 @@ public class PublicationsController {
 			return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
+	
 }

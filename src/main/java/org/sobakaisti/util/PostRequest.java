@@ -64,9 +64,6 @@ public class PostRequest extends Post{
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-	
-	
-	
 
 	public Category[] getCategoryArray() {
 		return categoryArray;

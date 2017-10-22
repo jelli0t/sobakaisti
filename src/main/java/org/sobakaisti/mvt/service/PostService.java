@@ -3,10 +3,79 @@
  */
 package org.sobakaisti.mvt.service;
 
+import java.util.List;
+
+import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.util.PostRequest;
+
 /**
  * @author jelli0t
  *
  */
-public interface PostService {
+public interface PostService<T extends Post> {
+	
+	public static final String ACTIVE_STATUS = "active";
+	public static final String NONACTIVE_STATUS = "nonactive";
+	
+	/**
+	 * Pronalazi sve objave sortirane po datumu objavljivnja
+	 * Metoda kreira podrazumevani PostFilter koji filtrira samo 
+	 * aktivne objave. 
+	 * */
+	public List<T> findAllPostOrderedByDate();
+	
+	/**
+	 * Pronalazi sve objave od zadatog autora, sortirane po datumu objavljivnja
+	 * Metoda kreira PostFilter sa autorom kao parametrom i statusom active = 1
+	 * @param author
+	 * */
+	public List<T> findAllOrderedPostsByAuthor(Author author);
+	
+	/**
+	 * Pronalazi sve objave u  active statusu kog prosledjujemo kao String
+	 * @param status
+	 * */
+	public List<T> findAllPostsByStatus(String status);
+	
+	/**
+	 * Brise Post objekat sa zadatim ID.
+	 * @param id
+	 * */
+	public boolean delete(int id);
+	
+	/**
+	 * Broji sve objave na osnovu statusa
+	 * @param isActive
+	 * */
+	public int countPostsByStatus(boolean isActive);
+
+	/**
+	 * Menja vrednost active polja na Post derivatima.
+	 * @param id
+	 * */
+	public String switchPostStatus(int id);
+
+	/**
+	 * Pronalazi sve autore koje su objavili neki Post
+	 * */
+	public List<Author> findAllPostsAuthors();
+
+	/**
+	 * Dodaje sufiks na proslednjeni slug ukoliko isti vec postoji.
+	 * Sufiks predstavlja broj ponavljanja slug-a u tabeli
+	 * @param slug
+	 * */
+	public String addSuffixIfDuplicateExist(String slug);
+	
+	/**
+	 * Procesuira PostRequest objekat sa submitovane forme i
+	 * konvertuje u odgovarajucu podklasu Post-a a zatim cuva
+	 * tu objavu.
+	 * @param postRequest
+	 * */
+	public T processAndSavePostRequest(PostRequest postRequest);
+	
+	
 
 }

@@ -4,6 +4,7 @@ import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.PostService;
+import org.sobakaisti.mvt.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -17,14 +18,14 @@ public abstract class PostFactory {
     private static final PublicationPostFactory PUBLICATION_FACTORY = new PublicationPostFactory();
     
     @Autowired
-    protected PostService postService;
+    protected TagService tagService;
     
     /**
      * Kreira konkretnu implementaciju PostFactory u zavisnosti od tipa
      * prosledjenog objekta. 
      * @param clazz
      * */
-    protected static PostFactory getFactory(Class<? extends Post> clazz) {
+    public static PostFactory getFactory(Class<? extends Post> clazz) {
     	if(clazz.isInstance(Article.class)) {
     		return ARTICLE_FACTORY;
     	} 
@@ -38,14 +39,8 @@ public abstract class PostFactory {
      * Obradjuje PostRequest objekat iz requesta sa forme za novi Post
      * @param postRequest
      * */
-    abstract protected Post processPostRequest(PostRequest postRequest);
+    abstract public Post processPostRequest(PostRequest postRequest);
 
-	public PostService getPostService() {
-		return postService;
-	}
 	
-	public void setPostService(PostService postService) {
-		this.postService = postService;
-	}
     
 }
