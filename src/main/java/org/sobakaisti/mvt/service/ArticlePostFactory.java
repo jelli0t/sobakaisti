@@ -1,7 +1,10 @@
-package org.sobakaisti.util;
+package org.sobakaisti.mvt.service;
 
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.util.PostRequest;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ArticlePostFactory extends PostFactory{
 
 	@Override

@@ -1,9 +1,9 @@
-package org.sobakaisti.util;
+package org.sobakaisti.mvt.service;
 
 
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
-import org.sobakaisti.mvt.service.PublicationService;
+import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,8 @@ public class PublicationPostFactory extends PostFactory {
 		/* postavljamo naslov */
 		publication.setTitle(postRequest.getTitle());
 		/* postavlja slug, uz proveru da li vec isti postoji */
+		System.out.println(postRequest.getSlug() != null ? postRequest.getSlug() : "nema sluga!");
+		
 		publication.setSlug(publicationService.addSuffixIfDuplicateExist(postRequest.getSlug()));
 		/* postavlja autora */
 		publication.setAuthor(postRequest.getAuthor());
@@ -41,7 +43,7 @@ public class PublicationPostFactory extends PostFactory {
 			String filePath = postRequest.getPublication().getOriginalFilename();
 			publication.setPath(filePath);
 		}
-		
+		System.out.println(publication);
 		return publication;
 	}
 

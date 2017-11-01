@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<form th:action="@{/sbk-admin/article/post}" name="new-post-form" 
+	<form th:action="@{/sbk-admin/submit}" name="new-post-form" 
 			 th:object="${post}" method="post">
 			 <!-- enctype="multipart/form-data" -->
 	
@@ -16,6 +16,10 @@
 			Title:
 			<input type="text" name="title" th:field="*{title}">
 		</p>	
+		<p>
+			slug:
+			<input type="text" name="slug" th:field="*{slug}">
+		</p>
 		
 		<p>
 			Author:

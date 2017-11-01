@@ -82,4 +82,12 @@ public class Publication extends Post {
 		this.tags = tags;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("publication : {");
+		sb.append(this.getId() != 0 ? "id:"+this.getId()+", " : "");
+		sb.append(this.getTitle() != null ? "title:"+this.getTitle()+", " : "");
+		sb.append(this.getAuthor() != null ? "author:"+this.getAuthor().getFullName()+"" : "");
+		return sb.toString();
+	}
 }

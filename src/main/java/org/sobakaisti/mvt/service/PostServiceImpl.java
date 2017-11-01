@@ -8,10 +8,11 @@ import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.Pagination;
-import org.sobakaisti.util.PostFactory;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 public class PostServiceImpl<T extends Post> implements PostService<T> {
 	
@@ -19,6 +20,9 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	protected PostDao<T> postDao;	
 	@Autowired
 	protected AuthorDao authorDao;
+	
+	@Autowired
+	protected PublicationPostFactory publicationPostFactory;
 	
 	private Class<T> t;
 	
@@ -96,12 +100,15 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	@Override
 	public T processAndSavePostRequest(PostRequest postRequest) {
 		try {
-			PostFactory factory = PostFactory.getFactory(t);		
+//			PostFactory factory = PostFactory.getFactory(t);
+			PostFactory factory = publicationPostFactory.getFactory(t);
+			System.out.println("Dohvatio factory pozivam processPostRequest()");
 			@SuppressWarnings("unchecked")
 			T post = (T) factory.processPostRequest(postRequest);
 			return postDao.save(post);
 		} catch (Exception e) {
 			System.err.println("Neuspelo procesiranje postRequesta: "+e.getMessage());
+			e.printStackTrace();
 			return null;
 		}		
 	}

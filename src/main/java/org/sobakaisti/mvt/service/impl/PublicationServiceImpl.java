@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
+import org.sobakaisti.mvt.dao.PostDaoImpl;
 import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;

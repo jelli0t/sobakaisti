@@ -442,7 +442,7 @@ public class DashboardController {
 		Publication publication = publicationService.processAndSavePostRequest(postRequest);
 		model.addAttribute("publication", publication);
 		
-		return "redirect:/publication";
+		return "redirect:/sbk-admin/publication";
 	}
 	
 	

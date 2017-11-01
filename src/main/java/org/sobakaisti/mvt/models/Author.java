@@ -141,6 +141,17 @@ public class Author {
 		this.slug = slug;
 	}
 	
+	/**
+	 * Sabira ime i prezima i vraca kao jedan String
+	 * @return string
+	 * */
+	public String getFullName() {
+		StringBuilder fullName = new StringBuilder();
+		fullName.append(this.firstName != null ? this.firstName : "");
+		fullName.append(this.lastName != null ? " "+this.lastName : "");
+		return fullName.toString();
+	}
+	
 	@Override
 	public String toString() {
 		return "[Autor: "+firstName+" "+lastName+", "+birthplace+", "+email+"]";
