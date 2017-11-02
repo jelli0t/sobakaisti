@@ -4,7 +4,8 @@
 package org.sobakaisti.mvt.service;
 
 import java.util.List;
-
+import org.sobakaisti.mvt.models.Article;
+import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.PostRequest;
@@ -17,6 +18,9 @@ public interface PostService<T extends Post> {
 	
 	public static final String ACTIVE_STATUS = "active";
 	public static final String NONACTIVE_STATUS = "nonactive";
+	/* Full class names */
+	public static final String ARTICLE_CLASS_NAME = Article.class.getName();
+	public static final String PUBLICATION_CLASS_NAME = Publication.class.getName();
 	
 	/**
 	 * Pronalazi sve objave sortirane po datumu objavljivnja
