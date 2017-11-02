@@ -5,6 +5,7 @@ import org.sobakaisti.util.PostRequest;
 import org.springframework.stereotype.Service;
 
 @Service
+@Qualifier("articlePostFactory")
 public class ArticlePostFactory extends PostFactory{
 
 	@Override
