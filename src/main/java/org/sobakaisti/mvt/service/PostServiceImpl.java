@@ -1,7 +1,9 @@
 package org.sobakaisti.mvt.service;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.PostDao;
@@ -11,15 +13,17 @@ import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class PostServiceImpl<T extends Post> implements PostService<T> {
 	
 	@Autowired
 	protected PostDao<T> postDao;	
 	@Autowired
-	protected AuthorDao authorDao;	
+	protected AuthorDao authorDao;
+	@Autowired
+	protected TagService tagService;
+	
 	@Autowired
 	@Qualifier("publicationPostFactory")
 	protected PostFactory publicationPostFactory;
@@ -108,7 +112,6 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 		try {
 			PostFactory factory = postFactoriesMap.get(t.getClass().getName());
 //			PostFactory factory = publicationPostFactory.getFactory(t);
-			System.out.println("Dohvatio factory pozivam processPostRequest()");
 			@SuppressWarnings("unchecked")
 			T post = (T) factory.processPostRequest(postRequest);
 			return postDao.save(post);

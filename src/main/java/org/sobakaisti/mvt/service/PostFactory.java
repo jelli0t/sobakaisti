@@ -16,11 +16,11 @@ public abstract class PostFactory {
 //	private static final ArticlePostFactory ARTICLE_FACTORY = new ArticlePostFactory();
 //    private static final PublicationPostFactory PUBLICATION_FACTORY = new PublicationPostFactory();
     
-    @Autowired
-    protected ArticlePostFactory articlePostFactory;
-    
-    @Autowired
-    protected PublicationPostFactory publicationPostFactory;
+//    @Autowired
+//    protected ArticlePostFactory articlePostFactory;
+//    
+//    @Autowired
+//    protected PublicationPostFactory publicationPostFactory;
     
     @Autowired
     protected TagService tagService;
@@ -31,21 +31,21 @@ public abstract class PostFactory {
      * @param clazz
      * */
     public PostFactory getFactory(Class<? extends Post> clazz) {
-    	System.out.println("Clazz: "+clazz.getSimpleName());
-
-    	if(Publication.class.isAssignableFrom(clazz)) {
-    		System.out.println("Pravim instacu PublicationPostFactory.class isAssgnableFrom");
-    		return publicationPostFactory;
-    	}
-    	
-    	if(clazz.isInstance(Article.class)) {
-    		return articlePostFactory;
-    	} 
-    	else if(clazz.isInstance(Publication.class)) {
-    		System.out.println("Pravim instacu PublicationPostFactory.class");
-    		return publicationPostFactory;
-    	}
-    	
+//    	System.out.println("Clazz: "+clazz.getSimpleName());
+//
+//    	if(Publication.class.isAssignableFrom(clazz)) {
+//    		System.out.println("Pravim instacu PublicationPostFactory.class isAssgnableFrom");
+//    		return publicationPostFactory;
+//    	}
+//    	
+//    	if(clazz.isInstance(Article.class)) {
+//    		return articlePostFactory;
+//    	} 
+//    	else if(clazz.isInstance(Publication.class)) {
+//    		System.out.println("Pravim instacu PublicationPostFactory.class");
+//    		return publicationPostFactory;
+//    	}
+//    	
     	System.out.println("Nista ne instanciram vracam null!");
     	return null;
     }

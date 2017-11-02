@@ -32,10 +32,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 
 	@Autowired
 	private PublicationDao publicationDao;
-	@Autowired
-	private AuthorDao authorDao;
-	@Autowired
-	private TagService tagService;
+	
 	
 	@Override
 	public boolean createAndUploadPublication(String title, String slug, String content, int authorId, int[] tagIds,
