@@ -19,18 +19,24 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	@Autowired
 	protected PostDao<T> postDao;	
 	@Autowired
-	protected AuthorDao authorDao;
-	
+	protected AuthorDao authorDao;	
 	@Autowired
-	protected PublicationPostFactory publicationPostFactory;
+	@Qualifier("publicationPostFactory")
+	protected PostFactory publicationPostFactory;
+	@Autowired
+	@Qualifier("articlePostFactory")
+	protected PostFactory articlePostFactory;
 	
 	private Class<T> t;
+	private Map<String, PostFactory> postFactoriesMap;
 	
 	@SuppressWarnings("unchecked")
 	public PostServiceImpl() {
 		super();
 		this.t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
+		postFactoriesMap = new HashMap<String, PostFactory>(2);
+		postFactoriesMap.put(ARTICLE_CLASS_NAME, articlePostFactory);
+		postFactoriesMap.put(PUBLICATION_CLASS_NAME, publicationPostFactory);
 	}
 
 	@SuppressWarnings("unchecked")
