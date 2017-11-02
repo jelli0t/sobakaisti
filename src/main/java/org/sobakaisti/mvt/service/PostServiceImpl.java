@@ -106,8 +106,8 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	@Override
 	public T processAndSavePostRequest(PostRequest postRequest) {
 		try {
-//			PostFactory factory = PostFactory.getFactory(t);
-			PostFactory factory = publicationPostFactory.getFactory(t);
+			PostFactory factory = postFactoriesMap.get(t.getClass().getName());
+//			PostFactory factory = publicationPostFactory.getFactory(t);
 			System.out.println("Dohvatio factory pozivam processPostRequest()");
 			@SuppressWarnings("unchecked")
 			T post = (T) factory.processPostRequest(postRequest);
