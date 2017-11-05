@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Author;
@@ -22,22 +24,26 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	@Autowired
 	protected AuthorDao authorDao;
 	@Autowired
-	protected TagService tagService;
-	
+	protected TagService tagService;	
+	/*
+	 * Post factory instances
+	 * */
 	@Autowired
-	@Qualifier("publicationPostFactory")
 	protected PostFactory publicationPostFactory;
 	@Autowired
-	@Qualifier("articlePostFactory")
 	protected PostFactory articlePostFactory;
 	
 	private Class<T> t;
-	private Map<String, PostFactory> postFactoriesMap;
+	protected Map<String, PostFactory> postFactoriesMap;
 	
 	@SuppressWarnings("unchecked")
 	public PostServiceImpl() {
 		super();
 		this.t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+	
+	@PostConstruct
+	private void init() {
 		postFactoriesMap = new HashMap<String, PostFactory>(2);
 		postFactoriesMap.put(ARTICLE_CLASS_NAME, articlePostFactory);
 		postFactoriesMap.put(PUBLICATION_CLASS_NAME, publicationPostFactory);
@@ -109,15 +115,14 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 
 	@Override
 	public T processAndSavePostRequest(PostRequest postRequest) {
-		try {
-			PostFactory factory = postFactoriesMap.get(t.getClass().getName());
-//			PostFactory factory = publicationPostFactory.getFactory(t);
+		try { 
+			PostFactory factory = postFactoriesMap.get(t.getName());
+			System.out.println("factory: "+factory);
 			@SuppressWarnings("unchecked")
 			T post = (T) factory.processPostRequest(postRequest);
 			return postDao.save(post);
 		} catch (Exception e) {
 			System.err.println("Neuspelo procesiranje postRequesta: "+e.getMessage());
-			e.printStackTrace();
 			return null;
 		}		
 	}

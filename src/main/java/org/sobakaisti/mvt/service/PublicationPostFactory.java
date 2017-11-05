@@ -1,6 +1,8 @@
 package org.sobakaisti.mvt.service;
 
 
+import java.util.Calendar;
+
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.util.PostRequest;
@@ -9,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("publicationPostFactory")
 public class PublicationPostFactory extends PostFactory {
 	
 	@Autowired
@@ -17,6 +18,7 @@ public class PublicationPostFactory extends PostFactory {
 	
 	@Override
 	public Post processPostRequest(PostRequest postRequest) {
+		System.out.println("Procesuiramo postRequest: "+postRequest);
 		Publication publication = new Publication();
 		/* ako ima ID */
 		if(postRequest.getId() != 0)
@@ -28,9 +30,11 @@ public class PublicationPostFactory extends PostFactory {
 		
 		publication.setSlug(publicationService.addSuffixIfDuplicateExist(postRequest.getSlug()));
 		/* postavlja autora */
-		publication.setAuthor(postRequest.getAuthor());
+		if(postRequest.getAuthor() != null) {
+			publication.setAuthor(authorDao.getAuthorById(postRequest.getAuthor().getId()));
+		}
 		/* postavlja datum objave */
-		publication.setPostDate(postRequest.getPostDate());
+		publication.setPostDate(Calendar.getInstance());
 		/* avtive status */
 		publication.setActive(postRequest.getActive());
 		/* postavljamo sadrzaj publikacije */
@@ -41,10 +45,13 @@ public class PublicationPostFactory extends PostFactory {
 			publication.setTags(tagService.findListOfTagsByIdsArray(postRequest.getTagIds()));
 		}
 		/* postavlja ime file-a */
-		if(!postRequest.getPublication().isEmpty()) {
+		if(postRequest.getPublication() != null) {
 			String filePath = postRequest.getPublication().getOriginalFilename();
 			publication.setPath(filePath);
 		}
+		/* set language*/
+		publication.setLang("rs");
+		
 		System.out.println(publication);
 		return publication;
 	}

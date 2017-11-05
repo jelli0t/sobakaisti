@@ -1,227 +1,172 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Test</title>
+
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
+	<title>Publication</title>	
 </head>
 <body>
+<!-- Top header of dashboard section -->
+<header th:replace="~{commons/dash_header :: dash_header}"></header>
 
-	<form th:action="@{/sbk-admin/submit}" name="new-post-form" 
-			 th:object="${post}" method="post">
-			 <!-- enctype="multipart/form-data" -->
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
+</section>
+
+<!-- 	<form th:action="@{/sbk-admin/submit}" name="new-post-form"  -->
+<!-- 			 th:object="${post}" method="post"> -->
+<!-- 			 enctype="multipart/form-data" -->
 	
-		<input type="hidden" name="id" th:field="*{id}">
+<!-- 		<input type="hidden" name="id" th:field="*{id}"> -->
 		
-		<p>
-			Title:
-			<input type="text" name="title" th:field="*{title}">
-		</p>	
-		<p>
-			slug:
-			<input type="text" name="slug" th:field="*{slug}">
-		</p>
+<!-- 		<p> -->
+<!-- 			Title: -->
+<!-- 			<input type="text" name="title" th:field="*{title}"> -->
+<!-- 		</p>	 -->
+<!-- 		<p> -->
+<!-- 			slug: -->
+<!-- 			<input type="text" name="slug" th:field="*{slug}"> -->
+<!-- 		</p> -->
 		
-		<p>
-			Author:
-			<select name="author" class="bttn bttn-default bttn-select" th:field="*{author.id}">
-				<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
-				<option th:each="author : ${authors}" th:value="${author.id}" 
-					th:text="${author.firstName}+' '+${author.lastName}" th:selected="${article.author}">sobakaista</option>
-			</select>
-		</p>
+<!-- 		<p> -->
+<!-- 			Author: -->
+<!-- 			<select name="author" class="bttn bttn-default bttn-select" th:field="*{author.id}"> -->
+<!-- 				<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option> -->
+<!-- 				<option th:each="author : ${authors}" th:value="${author.id}"  -->
+<!-- 					th:text="${author.firstName}+' '+${author.lastName}" th:selected="${article.author}">sobakaista</option> -->
+<!-- 			</select> -->
+			
+<!-- 		</p> -->
 		
-		<p>
-			<label th:each="category, item : ${categories}" class="checkboxes-label">
-				<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}"
-					th:field="*{categoriesIds}"/> 
-<!-- 					th:checked="${article.categories != null ? category.id == article.categories[0].id : false}"  -->
-				<span th:text="${category.name}"></span>
-			</label>
-		</p>
-		
-		<p>
-<!-- 			Categories: -->
+<!-- 		<p> -->
 <!-- 			<label th:each="category, item : ${categories}" class="checkboxes-label"> -->
 <!-- 				<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}" -->
-<!-- 					th:checked="${article.categories != null ? category.id == article.categories[0].id : false}"  -->
-<!-- 					th:field="*{categoryList[__${item.index}__].id}"/>  -->
+<!-- 					th:field="*{categoriesIds}"/>  -->
+<!-- <!-- 					th:checked="${article.categories != null ? category.id == article.categories[0].id : false}"  --> -->
 <!-- 				<span th:text="${category.name}"></span> -->
 <!-- 			</label> -->
-		</p>
+<!-- 		</p> -->
+	
 		
-		<p>
-			Content:
-			<input type="text" name="content" th:field="*{content}">
-		</p>	
+<!-- 		<p> -->
+<!-- 			Content: -->
+<!-- 			<input type="text" name="content" th:field="*{content}"> -->
+<!-- 		</p>	 -->
 		
-		<p>
-			<button type="submit">Post</button>
-		</p>
+<!-- 		<p> -->
+<!-- 			<button type="submit">Post</button> -->
+<!-- 		</p> -->
 			
-	</form>
-	
-	
-	
-	<!-- Form /sbk-admin/upload enctype="multipart/form-data" -->
-<!-- 	<form th:action="@{/sbk-admin/article/post}" id="new-post-form" name="new-post-form"  -->
-<!-- 		th:object="${post}" method="post">	 -->
-<!-- 	<div class="main-dash-content"> -->
-<!-- 		<!-- Right panel --> -->
-<!-- 		<div class="right-container"> -->
-<!-- 			<div class="small-panel"> -->
-<!-- 			<div class="panel-header"> -->
-<!-- 				<span class="panel-title">Objava</span> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-body"> -->
-<!-- 				<div class="select-wrapper"> -->
-<!-- 				<select name="author" class="bttn bttn-default bttn-select"> -->
-<!-- 					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option> -->
-<!-- 					<option th:each="author : ${authors}" th:value="${author.id}"  -->
-<!-- 						th:text="${author.firstName}+' '+${author.lastName}" th:selected="${article.author}" -->
-<!-- 						th:filed="*{author}">sobakaista</option> -->
-<!-- 				</select> -->
-<!-- 				validation error message -->
-<!-- 				<div class="validation-error"></div> -->
-<!-- 				</div> -->
-				
-<!-- 				<div class="publication-date-wrapper" th:if="${article.postDateMeta != null}" th:with="date=${article.postDateMeta}"> -->
-<!-- 					<label>Objavljeno</label> -->
-<!-- 					months -->
-<!-- 					<select name="month" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}"> -->
-<!-- 						<option th:each="month, item : ${date.months}" th:value="${item.index}"  -->
-<!-- 						th:text="${month}" th:selected="${date.month == item.index}">MM</option>				 -->
-<!-- 					</select> -->
-<!-- 					date -->
-<!-- 					<select name="date" class="date-time-field"> -->
-<!-- 						<option th:each="dom, item : ${#numbers.sequence(1, date.maxDate)}" th:value="${dom}"  -->
-<!-- 						th:text="${dom}" th:selected="${date.date == item.count}">dd</option>			 -->
-<!-- 					</select> -->
-<!-- 					year -->
-<!-- 					<select name="year" class="date-time-field"> -->
-<!-- 						<option th:each="year : ${#numbers.sequence(date.minYear, date.maxYear)}"  -->
-<!-- 						th:value="${year}" th:text="${year}" th:selected="${date.year == year}">yyyy</option>				 -->
-<!-- 					</select> -->
-					
-<!-- 					Hour -->
-<!-- 					<select name="hour" class="date-time-field date-hour-field"> -->
-<!-- 						<option th:each="hour, item : ${#numbers.sequence(0, 23)}" th:value="${hour}"  -->
-<!-- 						th:text="${#numbers.formatInteger(hour, 2)}" th:selected="${date.hour == hour}">HH</option>			 -->
-<!-- 					</select> -->
-<!-- 					<input name="minute" th:value="${#numbers.formatInteger(date.minute, 2)}" class="date-time-field date-minute-field" size="2"> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-footer"> -->
-<!-- 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a> -->
-<!-- <!-- 				<button type="button" id="submit-bttn" class="bttn bttn-sm bttn-primary float-right">Objavi</button> --> -->
-<!-- 				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-		
-<!-- 	<!-- Kategorije | desno  --> -->
-<!-- 		<div class="small-panel"> -->
-<!-- 			<div class="panel-header"> -->
-<!-- 				<span class="panel-title" th:text="#{label.categories}">kategorije</span> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-body"> -->
-<!-- 				<button class="bttn bttn-select" type="button">Kategorije</button> -->
-<!-- 				dropdown menu -->
-<!-- 				<div class="select-menu-modal"> -->
-<!-- 					<div class="select-menu-header"> -->
-<!-- 						<span class="select-menu-title">Odaberi kategoriju</span>  -->
-<!-- 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a> -->
-<!-- 					</div> -->
-<!-- 					<div class="select-menu-body">				 -->
-<!-- 					<label th:each="category, item : ${categories}" class="checkboxes-label"> -->
-<!-- 						<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}" -->
-<!-- 							th:checked="${article.categories != null ? category.id == article.categories[0].id : false}"  -->
-<!-- 							th:field="*{categories[item.index]}"/>  -->
-<!-- 						<span th:text="${category.name}"></span> -->
-<!-- 					</label> -->
-<!-- 					</div> -->
-<!-- 				</div>			 -->
-<!-- 				<div class="selected-categories selected-result"> -->
-<!-- 					kategorije na editingu -->
-<!-- 					<label th:each="category : ${article.categories}" class="checkboxes-label" th:if="${article.categories != null}"> -->
-<!-- 						<span class="label category" th:id="${'cat_'+category.slug}"><span th:text="${category.name}"></span><span class="bttn-close-white close-cat-bttn"></span></span> -->
-<!-- 					</label> -->
-<!-- 				</div>				 -->
-<!-- 			</div>			 -->
-<!-- 		</div> -->
-		
-<!-- 		<!-- Tags selection --> -->
-<!-- 		<div class="small-panel"> -->
-<!-- 			<div class="panel-header"> -->
-<!-- 				<span class="panel-title" th:text="#{label.tags}">Oznake</span> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-body">			 -->
-<!-- 			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button> -->
-<!-- 				dropdown menu -->
-<!-- 				<div class="select-menu-modal" id="tags-modal"> -->
-<!-- 					<div class="select-menu-header"> -->
-<!-- 						<span class="select-menu-title">Pretraga oznaka</span>  -->
-<!-- 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a> -->
-<!-- 					</div> -->
-<!-- 					<div class="select-menu-filters"> -->
-<!-- 						na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
-<!-- 						<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}"> -->
-<!-- 					</div>					 -->
-<!-- 					<div class="search-result"></div> -->
-<!-- 				</div> -->
-<!-- 				<div class="selected-tags selected-result"> -->
-<!-- 					<label tabindex="0" class="label tag" th:id="${'tag-'+tag.id}" th:each="tag, item : ${article.tags}" th:if="${article.tags != null}"> -->
-<!-- 						<input type="hidden" name="tags" th:value="${tag.id}" th:field="*{tags[item.index]}"> -->
-<!-- 						<span th:text="${tag.tag}"></span> -->
-<!-- 						<span class="bttn-close-white close-tag-bttn"></span> -->
-<!-- 					</label> -->
-<!-- 				</div>			 -->
-<!-- 			</div>			 -->
-<!-- 		</div> -->
-		
-<!-- 		<div class="small-panel"> -->
-<!-- 			<div class="panel-header"> -->
-<!-- 				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-body"> -->
-<!-- 				Input file button				 -->
-<!-- 				<input type="file" name="featuredImg" id="img-file" class="inputfile input-img" /> -->
-<!-- 				<label for="img-file" class="upload-img-label file-upload-label">Odaberi sliku...</label> -->
-<!-- 				validation error message -->
-<!-- 				<div class="validation-error"></div> -->
-<!-- 				Featured IMG preview -->
-<!-- 				<div class="featured-img-prev" id="img-prev"></div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		</div>	 end of right sidebar -->
-		
-<!-- 		<!-- Left content --> -->
-<!-- 		<div class="left-container"> -->
-<!-- 			<!-- ID posta --> -->
-<!-- 			<input type="hidden" name="id" th:value="${article.id}" th:field="*{id}"> -->
-<!-- 			<div class="form-tr"> -->
-<!-- 				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov"  -->
-<!-- 					id="publication-title" class="title-input full-width" th:src="@{/sbk-admin/slug/new}" th:value="${article.title}" -->
-<!-- 					th:field="*{title}" > -->
-<!-- 				validation error message -->
-<!-- 				<div class="validation-error"></div>	 -->
-<!-- 				link preview -->
-<!-- 				<div class="post-path-container"> -->
-<!-- 					<span class="post-path path-label">Putanja do članka: </span> -->
-<!-- 					<span class="post-path path-static">http://sobakaisti.org/movement/</span> -->
-<!-- 					<span class="post-path path-slug"> -->
-<!-- 						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" th:value="${article.slug}" readonly> -->
-<!-- 					</span> -->
-<!-- 				</div> -->
-<!-- 			</div>			 -->
-<!-- 			<!-- contet textarea -->	 -->
-<!-- 			<div class="article-input-wrapper form-tr"> -->
-<!-- 				<textarea name="content" id="article-content"></textarea> -->
-<!-- 			</div> -->
-<!-- 		</div>		 -->
-<!-- 	</div> -->
-<!-- <!-- end of the form --> -->
-<!-- </form> -->
+<!-- 	</form> -->
 	
 	
 
+<!-- form -->
+<form th:action="@{/sbk-admin/submit}" id="new-post-form" name="new-post-form" 
+	th:object="${post}" method="post" >	
+<!-- enctype="multipart/form-data"  -->
+	
+	<input type="hidden" name="id" th:field="*{id}">
+		
+	<div class="main-dash-content">
+		<!-- Right panel -->
+		<div class="right-container">
+			<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title">Objava</span>
+			</div>
+			<div class="panel-body">
+				<div class="select-wrapper">
+				<!-- Author selection -->
+				<select name="author" class="bttn bttn-default bttn-select" th:field="*{author.id}">
+					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
+					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
+				</select>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
+				</div>
+				
+			</div>
+			<div class="panel-footer">
+				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
+<!-- 				<button type="button" id="submit-bttn" class="bttn bttn-sm bttn-primary float-right">Objavi</button> -->
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
+			</div>
+		</div>
+		
+		<!-- Tags selection -->
+		<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
+			</div>
+			<div class="panel-body">			
+			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button>
+				<!-- dropdown menu -->
+				<div class="select-menu-modal" id="tags-modal">
+					<div class="select-menu-header">
+						<span class="select-menu-title">Pretraga oznaka</span> 
+						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
+					</div>
+					<div class="select-menu-filters">
+						<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
+						<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}">
+					</div>					
+					<div class="search-result"></div>
+				</div>
+				<div class="selected-tags selected-result"></div>			
+			</div>			
+		</div>
+		
+		<div class="small-panel">
+			<div class="panel-header">
+				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span>
+			</div>
+			<div class="panel-body">
+				<!-- Input file button -->				
+				<input type="file" name="featuredImg"  id="img-file" class="inputfile input-img" />
+				<label for="img-file" class="upload-img-label file-upload-label">Odaberi sliku...</label>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
+				<!-- Featured IMG preview -->
+				<div class="featured-img-prev" id="img-prev"></div>
+			</div>
+		</div>
+		</div>	 <!-- end of right sidebar -->
+		
+		<!-- Left content -->
+		<div class="left-container">
+			<div class="form-tr">
+				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" th:field="*{title}" 
+					id="publication-title" class="title-input full-width" th:src="@{/publications/slug/new}">
+				<!-- validation error message -->
+				<div class="validation-error"></div>	
+				<!-- link preview -->
+				<div class="post-path-container">
+					<span class="post-path path-label">Putanja na sekciji Izdanja: </span>
+					<span class="post-path path-static">http://sobakaisti.org/bublications/</span>
+					<span class="post-path path-slug">
+						<input type="text" name="slug" th:field="*{slug}" class="path-slug-input" size="0" id="slug" readonly>
+					</span>
+				</div>
+			</div>
+			<!-- Input file button -->
+<!-- 			<div class="form-tr"> -->
+<!-- 				<input type="file" name="file" id="publication-file" class="inputfile" /> -->
+<!-- 				<label for="publication-file" id="upload-label" class="file-upload-label">Odaberi dokument...</label> -->
+<!-- 				validation error message -->
+<!-- 				<div class="validation-error"></div> -->
+<!-- 			</div> -->
+			<!-- contet textarea -->	
+			<div class="article-input-wrapper form-tr">
+				<textarea name="content" th:field="*{content}" id="article-content"></textarea>
+			</div>
+		</div>		
+	</div>
+	
+	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<!-- end of the form -->
+</form>
+
+<script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.js}"></script>
+<footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
 </body>
 </html>

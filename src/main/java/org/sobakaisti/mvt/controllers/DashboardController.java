@@ -437,7 +437,10 @@ public class DashboardController {
 	}
 	
 	@RequestMapping(value="/submit", method = RequestMethod.POST)
-	public String submitPublication(@ModelAttribute PostRequest postRequest, Model model) {
+	public String submitPublication(@ModelAttribute PostRequest postRequest, 
+									@RequestParam(name="featuredImg", required = false) MultipartFile featuredImg,
+									@RequestParam(name="file", required = false) MultipartFile file,
+									Model model) {
 		
 		Publication publication = publicationService.processAndSavePostRequest(postRequest);
 		model.addAttribute("publication", publication);
@@ -453,5 +456,18 @@ public class DashboardController {
 		return CalendarUtil.getMaxDatePerMonth(month);
 	}
 
+	
+	@RequestMapping(value="/media/upload", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> uploadMediaFile(@RequestParam(name="file", required = false) MultipartFile file) {
+		PostRequest postRequest = null;
+		if(file != null) {
+			postRequest = new PostRequest();
+			postRequest.setPublication(file);
+		}
+		
+		
+		return null;
+	}
 
 }

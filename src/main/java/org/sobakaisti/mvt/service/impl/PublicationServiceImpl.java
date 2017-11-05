@@ -14,6 +14,7 @@ import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
+import org.sobakaisti.mvt.service.PostFactory;
 import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.service.TagService;
@@ -32,8 +33,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 
 	@Autowired
 	private PublicationDao publicationDao;
-	
-	
+
 	@Override
 	public boolean createAndUploadPublication(String title, String slug, String content, int authorId, int[] tagIds,
 			MultipartFile file) {

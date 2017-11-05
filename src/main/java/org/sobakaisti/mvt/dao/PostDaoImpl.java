@@ -47,6 +47,18 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 		}
 	}
 	
+	@Override
+	@Transactional
+	public T save(T t) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(generic.getName(), t);
+			return t;
+		} catch (Exception e) {
+			System.err.println("Greska: "+e.getMessage());
+			return null;
+		}	
+	}
 	
 	@Override
 	@Transactional
@@ -159,16 +171,7 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 		}	
 	}
 
-	@Override
-	public T save(T t) {
-		try {
-			Session session = sessionFactory.getCurrentSession();
-			session.saveOrUpdate(generic.getName(), t);
-			return t;
-		} catch (Exception e) {
-			return null;
-		}	
-	}
+	
 	
 	@Override
 	@Transactional
