@@ -437,10 +437,7 @@ public class DashboardController {
 	}
 	
 	@RequestMapping(value="/submit", method = RequestMethod.POST)
-	public String submitPublication(@ModelAttribute PostRequest postRequest, 
-									@RequestParam(name="featuredImg", required = false) MultipartFile featuredImg,
-									@RequestParam(name="file", required = false) MultipartFile file,
-									Model model) {
+	public String submitPublication(@ModelAttribute PostRequest postRequest, Model model) {
 		
 		Publication publication = publicationService.processAndSavePostRequest(postRequest);
 		model.addAttribute("publication", publication);

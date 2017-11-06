@@ -14,10 +14,7 @@ public class PostRequest extends Post{
 	private int[] tagIds;
 	private MultipartFile publication;
 	private MultipartFile featuredImg;
-	
-	private List<Category> categories = new ArrayList<>();
-	private Category[] categoryArray = null;
-		
+			
 	public String getContent() {
 		return content;
 	}
@@ -57,21 +54,6 @@ public class PostRequest extends Post{
 		this.featuredImg = featuredImg;
 	}
 	
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
-
-	public Category[] getCategoryArray() {
-		return categoryArray;
-	}
-
-	public void setCategoryArray(Category[] categoryArray) {
-		this.categoryArray = categoryArray;
-	}
 
 	@Override
 	public String toString() {
@@ -81,8 +63,6 @@ public class PostRequest extends Post{
 		sb.append(getAuthor() != null ? "author:"+getAuthor().getId()+", " : "");
 		sb.append(getSlug() != null ? "slug:"+getSlug()+", " : "");
 		sb.append(getCategoriesIds() != null ? "categories_size: "+getCategoriesIds().length+", " : "");
-		sb.append(categories != null ? "categories_list_size: "+categories.size()+", " : "");
-		sb.append(categoryArray != null ? "categories_array_size: "+categoryArray.length+", " : "");
 
 		sb.append("active:"+getActive());
 		return sb.append('}').toString();

@@ -12,8 +12,9 @@
 </section>
 
 <!-- 	<form th:action="@{/sbk-admin/submit}" name="new-post-form"  -->
-<!-- 			 th:object="${post}" method="post"> -->
-<!-- 			 enctype="multipart/form-data" -->
+<!-- 			 th:object="${post}" method="post" id="new-post-form"> -->
+<!-- 	<div class="main-dash-content"> 		  -->
+<!-- <!-- 			 enctype="multipart/form-data" --> -->
 	
 <!-- 		<input type="hidden" name="id" th:field="*{id}"> -->
 		
@@ -38,8 +39,10 @@
 		
 <!-- 		<p> -->
 <!-- 			<label th:each="category, item : ${categories}" class="checkboxes-label"> -->
-<!-- 				<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}" -->
-<!-- 					th:field="*{categoriesIds}"/>  -->
+<!-- <!-- 				<input type="text" th:field="*{categories[__${item.index}__]"/> --> -->
+<!-- 				<input type="checkbox" th:field="*{categories[__${item.index}__]}" value="on"/>  -->
+<!-- <!-- 				<input type="checkbox" name="categories" th:value="${category}" th:title="${category.name}" th:id="${'cat_'+category.slug}" --> -->
+<!-- <!-- 					th:field="*{categories}"/>  --> -->
 <!-- <!-- 					th:checked="${article.categories != null ? category.id == article.categories[0].id : false}"  --> -->
 <!-- 				<span th:text="${category.name}"></span> -->
 <!-- 			</label> -->
@@ -54,7 +57,8 @@
 <!-- 		<p> -->
 <!-- 			<button type="submit">Post</button> -->
 <!-- 		</p> -->
-			
+		
+<!-- 	</div>		 -->
 <!-- 	</form> -->
 	
 	
@@ -75,12 +79,12 @@
 			</div>
 			<div class="panel-body">
 				<div class="select-wrapper">
-				<!-- Author selection -->
+				Author selection
 				<select name="author" class="bttn bttn-default bttn-select" th:field="*{author.id}">
 					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
 					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
 				</select>
-				<!-- validation error message -->
+				validation error message
 				<div class="validation-error"></div>
 				</div>
 				
@@ -99,14 +103,14 @@
 			</div>
 			<div class="panel-body">			
 			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button>
-				<!-- dropdown menu -->
+				dropdown menu
 				<div class="select-menu-modal" id="tags-modal">
 					<div class="select-menu-header">
 						<span class="select-menu-title">Pretraga oznaka</span> 
 						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
 					</div>
 					<div class="select-menu-filters">
-						<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
+						na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url
 						<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}">
 					</div>					
 					<div class="search-result"></div>
@@ -120,25 +124,25 @@
 				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span>
 			</div>
 			<div class="panel-body">
-				<!-- Input file button -->				
+				Input file button				
 				<input type="file" name="featuredImg"  id="img-file" class="inputfile input-img" />
 				<label for="img-file" class="upload-img-label file-upload-label">Odaberi sliku...</label>
-				<!-- validation error message -->
+				validation error message
 				<div class="validation-error"></div>
-				<!-- Featured IMG preview -->
+				Featured IMG preview
 				<div class="featured-img-prev" id="img-prev"></div>
 			</div>
 		</div>
-		</div>	 <!-- end of right sidebar -->
+		</div>	 end of right sidebar
 		
 		<!-- Left content -->
 		<div class="left-container">
 			<div class="form-tr">
 				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" th:field="*{title}" 
 					id="publication-title" class="title-input full-width" th:src="@{/publications/slug/new}">
-				<!-- validation error message -->
+				validation error message
 				<div class="validation-error"></div>	
-				<!-- link preview -->
+				link preview
 				<div class="post-path-container">
 					<span class="post-path path-label">Putanja na sekciji Izdanja: </span>
 					<span class="post-path path-static">http://sobakaisti.org/bublications/</span>
@@ -154,7 +158,7 @@
 <!-- 				validation error message -->
 <!-- 				<div class="validation-error"></div> -->
 <!-- 			</div> -->
-			<!-- contet textarea -->	
+			<!-- contet textarea	 -->
 			<div class="article-input-wrapper form-tr">
 				<textarea name="content" th:field="*{content}" id="article-content"></textarea>
 			</div>
