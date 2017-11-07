@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/dash_head :: dash_head(~{::title})">
+	<title>Articles</title>	
 </head>
 <body>
+<!-- Top header of dashboard section -->
+<header th:replace="~{commons/dash_header :: dash_header}"></header>
 
-<div class="">
-	<!-- Input file button -->
-	<div class="form-tr">
-		<input type="file" name="file" id="media-file" class="inputfile" />
-		<label for="publication-file" id="upload-label" class="file-upload-label">Odaberi datoteku...</label>
-		<!-- validation error message -->
-		<div class="validation-error"></div>
-	</div>
-</div>	
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
+</section>
+
+<div class="dash-main-container">
 	
+
+
+</div>
+
+<footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
 </body>
 </html>

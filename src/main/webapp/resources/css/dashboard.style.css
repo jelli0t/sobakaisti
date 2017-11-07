@@ -1124,3 +1124,69 @@ h6 {
 }
 .date-time-field.date-minute-field { width: 25px !important; }
 .date-time-field.date-hour-field { margin-left: 6px;}
+
+
+/*
+	Media libray repo
+*/
+.media-select-modal {
+	position: fixed;
+	top: 10%;
+	right: 10%;
+	bottom: 10%;
+	left: 10%;
+	overflow: hidden;	
+	background: #fcfcfc;
+	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.7);
+    box-shadow: 0 5px 15px rgba(0,0,0,.7);	
+	z-index: 999;
+}
+
+.media-repo-container {
+	display: table;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background: #fcfcfc;
+	border: 1px solid green;
+}
+
+.media-repo-container >
+.media-repo-header {
+	display: table-row;
+	padding: 7px 14px;
+	height: 35px;
+}
+
+.media-repo-container >
+.media-repo-header > 
+.media-repo-heading {
+	display: table-cell;	
+}
+
+.media-repo-container >
+.media-tabs-container {
+	display: table-row;
+	height: 30px;	
+}
+
+.media-repo-container >
+.media-tabs-container >
+.media-tabs {
+	display: table-cell;
+}
+
+.media-repo-container >
+.media-tabs-container > 
+.media-tabs > li {
+	display: inline-block;
+	padding: 7px 14px;	
+}
+
+.media-repo-container >
+.media-repo-body {
+	display: table-row;
+	background: #fff;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;	
+}

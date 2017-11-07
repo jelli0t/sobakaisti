@@ -93,6 +93,9 @@
 			</div>
 			<!-- Input file button -->
 			<div class="form-tr">
+			
+				<a href="javascript:;" class="inputfile" id="media-upload-bttn">Odaberi dokument...</a>
+				
 				<input type="file" name="file" id="publication-file" class="inputfile" />
 				<label for="publication-file" id="upload-label" class="file-upload-label">Odaberi dokument...</label>
 				<!-- validation error message -->
@@ -106,6 +109,31 @@
 	</div>
 <!-- end of the form -->
 </form>
+
+<!-- 
+	Modul za upload medija datoteka
+ -->
+<div class="media-select-modal">
+
+	<div class="media-repo-container">
+		<div class="media-repo-header">
+			<span class="media-repo-heading">Odaberite datoteku</span>
+			<button type="button" class="bttn-close-simple">x</button>
+		</div>
+		
+		<div class="media-tabs-container">
+			<ul class="media-tabs">
+				<li><a th:src="@{/media/library?show=upload}">Podigni datoteku</a></li>
+				<li><a th:src="@{/media/library?show=repo}">Repozitorija datoteka</a></li>
+			</ul>
+		</div>
+	
+		<div class="media-repo-body"></div>
+		
+		<div class="media-repo-footer"></div>		
+	</div>	
+</div>
+
 
 <script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.js}"></script>

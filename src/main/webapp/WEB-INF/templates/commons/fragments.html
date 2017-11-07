@@ -37,4 +37,28 @@
 	
 	</th:block>
 	
+	
+	<!-- ------------------------- 
+		Media upload fragment 
+	--------------------------- -->
+	<th:block th:fragment="mediaUploadFragment">
+		<form th:action="@{/media/upload}" id="media-upload-form">
+			<!-- Input file button -->
+			<div class="media-upload-container">
+				<input type="file" name="file" id="media-file" class="inputfile" />
+				<label for="publication-file" id="upload-label" class="file-upload-label">Odaberi datoteku...</label>
+				<!-- validation error message -->
+				<div class="validation-error"></div>
+			</div>
+		</form>
+	</th:block>
+	
+	
+	<!-- Intro backgrount text animated -->
+	<th:block th:fragment="mediaLibraryFragment">
+		<div>
+		
+		</div>
+	</th:block>
+	
 </html>
