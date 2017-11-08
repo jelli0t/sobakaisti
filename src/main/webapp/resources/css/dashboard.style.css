@@ -1173,7 +1173,7 @@ h6 {
 	left: 0;
 	height: 20px;
 	padding: 7px 14px;
-	overflow:hidden;
+  	z-index: 999;
 }
 .media-repo-container > nav >
 .media-tabs > li {
@@ -1185,7 +1185,8 @@ h6 {
       	display: block;
       	width: 100%;
       	line-height: 30px;
-	padding: 0 14px;     
+	padding: 0 14px; 
+	font-size: 12px;
 }
 /* aktivan tab */
 .media-tab-active {
@@ -1198,7 +1199,7 @@ h6 {
 /* media body */
 .media-repo-container > main {
 	position: absolute;
-	top: 50px;
+	top: 60px;
 	right: 0;
 	left: 0;
 	bottom: 30px;
@@ -1213,6 +1214,7 @@ h6 {
 	right: 0;
 	left: 0;
 	bottom: 0;
+	height: 30px;
 	overflow:hidden;
 }
 /* END MEDIA SELECT */
