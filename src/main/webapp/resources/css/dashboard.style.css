@@ -1136,57 +1136,68 @@ h6 {
 	bottom: 10%;
 	left: 10%;
 	overflow: hidden;	
-	background: #fcfcfc;
 	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.7);
     box-shadow: 0 5px 15px rgba(0,0,0,.7);	
 	z-index: 999;
 }
-
 .media-repo-container {
-	display: table;
 	width: 100%;
 	height: 100%;
 	margin: 0;
 	background: #fcfcfc;
 	border: 1px solid green;
 }
-
-.media-repo-container >
-.media-repo-header {
-	display: table-row;
+/* media header */
+.media-repo-container > header {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 30px;
 	padding: 7px 14px;
-	height: 35px;
+	overflow:hidden;	
 }
-
-.media-repo-container >
-.media-repo-header > 
+.media-repo-container > header > 
 .media-repo-heading {
-	display: table-cell;	
+	float: left;	
 }
-
-.media-repo-container >
-.media-tabs-container {
-	display: table-row;
-	height: 30px;	
+.media-repo-container > header > 
+.bttn-close-simple {
+	float: right;
 }
-
-.media-repo-container >
-.media-tabs-container >
-.media-tabs {
-	display: table-cell;
+/* media tabs */
+.media-repo-container > nav {
+	position: absolute;
+	top: 30px;
+	right: 0;
+	left: 0;
+	height: 20px;
+	padding: 7px 14px;
+	overflow:hidden;
 }
-
-.media-repo-container >
-.media-tabs-container > 
+.media-repo-container > nav >
 .media-tabs > li {
 	display: inline-block;
 	padding: 7px 14px;	
 }
-
-.media-repo-container >
-.media-repo-body {
-	display: table-row;
+/* media body */
+.media-repo-container > main {
+	position: absolute;
+	top: 50px;
+	right: 0;
+	left: 0;
+	bottom: 30px;
 	background: #fff;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;	
+    	border-top: 1px solid #ddd;
+    	border-bottom: 1px solid #ddd;	
+	overflow:auto;
 }
+/* media selection footer */
+.media-repo-container > footer {
+	position: absolute;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	overflow:hidden;
+}
+/* END MEDIA SELECT */
