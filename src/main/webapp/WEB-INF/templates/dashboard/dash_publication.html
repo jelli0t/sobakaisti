@@ -114,23 +114,23 @@
 	Modul za upload medija datoteka
  -->
 <div class="media-select-modal">
-
+	<!-- media repo container -->
 	<div class="media-repo-container">
-		<div class="media-repo-header">
+		<header>
 			<span class="media-repo-heading">Odaberite datoteku</span>
 			<button type="button" class="bttn-close-simple">x</button>
-		</div>
+		</header>
 		
-		<div class="media-tabs-container">
+		<nav>
 			<ul class="media-tabs">
 				<li><a th:src="@{/media/library?show=upload}">Podigni datoteku</a></li>
 				<li><a th:src="@{/media/library?show=repo}">Repozitorija datoteka</a></li>
 			</ul>
-		</div>
-	
-		<div class="media-repo-body"></div>
+		</nav>
 		
-		<div class="media-repo-footer"></div>		
+		<main class="media-repo-body"></main>
+		
+		<footer class="media-repo-footer"></footer>		
 	</div>	
 </div>
 
