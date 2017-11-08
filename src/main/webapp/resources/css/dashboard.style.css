@@ -1180,6 +1180,21 @@ h6 {
 	display: inline-block;
 	padding: 7px 14px;	
 }
+.media-repo-container > nav >
+.media-tabs > li > a {
+      	display: block;
+      	width: 100%;
+      	line-height: 30px;
+	padding: 0 14px;     
+}
+/* aktivan tab */
+.media-tab-active {
+	background: #fff;
+      	border-top: 1px solid #ddd;
+      	border-left: 1px solid #ddd;
+      	border-right: 1px solid #ddd;
+      	border-right: 1px solid #fff;
+}
 /* media body */
 .media-repo-container > main {
 	position: absolute;
