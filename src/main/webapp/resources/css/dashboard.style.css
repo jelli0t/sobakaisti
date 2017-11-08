@@ -59,6 +59,13 @@ span.bttn-close-white::before {
 }
 span.bttn-close-white:hover { opacity: 1.0; }
 
+/* close bttn */
+.bttn-close-simple {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
 input[type="text"], input[type="date"], textarea, select {
     color: #858585;
     background-color: #FFF;
@@ -1135,7 +1142,9 @@ h6 {
 	right: 10%;
 	bottom: 10%;
 	left: 10%;
-	overflow: hidden;	
+	overflow: hidden;
+	border: 1px solid #ddd;
+    border-radius: 3px;
 	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.7);
     box-shadow: 0 5px 15px rgba(0,0,0,.7);	
 	z-index: 999;
@@ -1144,8 +1153,7 @@ h6 {
 	width: 100%;
 	height: 100%;
 	margin: 0;
-	background: #fcfcfc;
-	border: 1px solid green;
+	background-color: #fafbfc;
 }
 /* media header */
 .media-repo-container > header {
@@ -1153,9 +1161,10 @@ h6 {
 	top: 0;
 	right: 0;
 	left: 0;
-	height: 30px;
+	height: 40px;
 	padding: 7px 14px;
-	overflow:hidden;	
+	overflow:hidden;
+	box-sizing: border-box;	
 }
 .media-repo-container > header > 
 .media-repo-heading {
@@ -1168,44 +1177,48 @@ h6 {
 /* media tabs */
 .media-repo-container > nav {
 	position: absolute;
-	top: 30px;
+	top: 40px;
 	right: 0;
 	left: 0;
-	height: 20px;
-	padding: 7px 14px;
+	height: 30px;
+	box-sizing: border-box;
   	z-index: 999;
+}
+.media-repo-container > nav >
+.media-tabs {
+	padding: 0 14px;
 }
 .media-repo-container > nav >
 .media-tabs > li {
 	display: inline-block;
-	padding: 7px 14px;	
+/* 	padding: 7px 14px;	 */
 }
 .media-repo-container > nav >
 .media-tabs > li > a {
-      	display: block;
-      	width: 100%;
-      	line-height: 30px;
+   	display: block;
+   	line-height: 30px;
 	padding: 0 14px; 
 	font-size: 12px;
 }
 /* aktivan tab */
 .media-tab-active {
 	background: #fff;
-      	border-top: 1px solid #ddd;
-      	border-left: 1px solid #ddd;
-      	border-right: 1px solid #ddd;
-      	border-right: 1px solid #fff;
+   	border-top: 1px solid #ddd;
+   	border-left: 1px solid #ddd;
+   	border-right: 1px solid #ddd;
+   	border-bottom: 1px solid #fff;
 }
 /* media body */
-.media-repo-container > main {
+.media-repo-container > section {
 	position: absolute;
-	top: 60px;
+	top: 70px;
 	right: 0;
 	left: 0;
-	bottom: 30px;
+	bottom: 45px;
 	background: #fff;
-    	border-top: 1px solid #ddd;
-    	border-bottom: 1px solid #ddd;	
+   	border-top: 1px solid #ddd;
+   	border-bottom: 1px solid #ddd;	
+   	box-sizing: border-box;
 	overflow:auto;
 }
 /* media selection footer */
@@ -1214,7 +1227,70 @@ h6 {
 	right: 0;
 	left: 0;
 	bottom: 0;
-	height: 30px;
+	height: 45px;
 	overflow:hidden;
 }
+/* media upload bttn */
+.show-media-lib > img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+#media-select-overlay {
+	position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.3);
+    z-index: 999;
+}
+
+.media-upload-container {
+	position: relative;
+	width: 320px;
+	height: auto;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* input file */
+.input-file-container {
+	position: relative;
+	width: 225px;
+} 
+.input-file-trigger {
+/* 	display: block; */
+/* 	padding: 14px 45px; */
+/* 	background: #39D2B4; */
+/* 	color: #fff; */
+/* 	font-size: 1em; */
+/* 	transition: all .4s; */
+/* 	cursor: pointer; */
+}
+.input-file-trigger > img {
+	vertical-align: middle;
+	margin-right: 5px;
+	height: 18px !important;	
+}
+
+.input-file {
+  position: absolute;
+  top: 0; left: 0;
+  width: 225px;
+  opacity: 0;
+  padding: 14px 0;
+  cursor: pointer;
+}
+.input-file:hover + .input-file-trigger,
+.input-file:focus + .input-file-trigger,
+.input-file-trigger:hover,
+.input-file-trigger:focus {
+/*   background: #34495E; */
+/*   color: #39D2B4; */
+}
+
 /* END MEDIA SELECT */

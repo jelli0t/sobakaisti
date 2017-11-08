@@ -183,6 +183,22 @@ $(function() {
 		$(this).updateDateSelect();
 	});
 	
+	/*
+	 * Click on media upload bttn
+	 * */
+	$('.show-media-lib').on('click', function(){
+//		alert('Usao!');
+		$('#media-select-overlay').toggle();
+		
+	});
+	/*
+	 * Close media upload
+	 * */
+	$('#media-repo-close').on('click', function(){
+		$('#media-select-overlay').toggle();
+	});
+	
+	
 }); // End Of Ready
 
 

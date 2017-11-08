@@ -45,10 +45,20 @@
 		<form th:action="@{/media/upload}" id="media-upload-form">
 			<!-- Input file button -->
 			<div class="media-upload-container">
-				<input type="file" name="file" id="media-file" class="inputfile" />
-				<label for="publication-file" id="upload-label" class="file-upload-label">Odaberi datoteku...</label>
+			
+				<h4>Odaberite datoteku sa vašeg računara</h4>
+				
+				<div class="input-file-container">  
+				    <input class="input-file" id="my-file" type="file">
+				    <label tabindex="0" for="my-file" class="input-file-trigger bttn bttn-default">
+				    	<img alt="" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="16">Odaberi datoteku...
+				    </label>
+				</div>
+					
 				<!-- validation error message -->
 				<div class="validation-error"></div>
+				
+				<span>Najveća dozvoljena veličina datoteke za otpremanje: 30 MB.</span>
 			</div>
 		</form>
 	</th:block>
