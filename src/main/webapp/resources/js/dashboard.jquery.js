@@ -195,7 +195,9 @@ $(function() {
 	 * Close media upload
 	 * */
 	$('#media-repo-close').on('click', function(){
-		$('#media-select-overlay').toggle();
+		callAnchor('media');
+		//$('#media-select-overlay').toggle();
+		/* poziv ajax f-ji */
 	});
 	
 	
