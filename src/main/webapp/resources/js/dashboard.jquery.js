@@ -187,16 +187,15 @@ $(function() {
 	 * Click on media upload bttn
 	 * */
 	$('.show-media-lib').on('click', function(){
-//		alert('Usao!');
-		$('#media-select-overlay').toggle();
+		callAnchor('media');
 		
 	});
 	/*
 	 * Close media upload
 	 * */
 	$('#media-repo-close').on('click', function(){
-		callAnchor('media');
-		//$('#media-select-overlay').toggle();
+		
+		callAnchor('');
 		/* poziv ajax f-ji */
 	});
 	
