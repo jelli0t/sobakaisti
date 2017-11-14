@@ -45,8 +45,8 @@ public class PublicationPostFactory extends PostFactory {
 			publication.setTags(tagService.findListOfTagsByIdsArray(postRequest.getTagIds()));
 		}
 		/* postavlja ime file-a */
-		if(postRequest.getPublication() != null) {
-			String filePath = postRequest.getPublication().getOriginalFilename();
+		if(postRequest.getMedia() != null) {
+			String filePath = postRequest.getMedia().getOriginalFilename();
 			publication.setPath(filePath);
 		}
 		/* set language*/

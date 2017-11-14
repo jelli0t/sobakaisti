@@ -42,14 +42,14 @@
 		Media upload fragment 
 	--------------------------- -->
 	<th:block th:fragment="mediaUploadFragment">
-		<form th:action="@{/media/upload}" id="media-upload-form">
+		<form th:action="@{/sbk-admin/media/upload}" id="media-upload-form">
 			<!-- Input file button -->
 			<div class="media-upload-container">
 			
 				<h4>Odaberite datoteku sa vašeg računara</h4>
 				
 				<div class="input-file-container">  
-				    <input class="input-file" id="my-file" type="file">
+				    <input class="input-file" id="my-file" type="file" name="media">
 				    <label tabindex="0" for="my-file" class="input-file-trigger bttn bttn-default">
 				    	<img alt="" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="16">Odaberi datoteku...
 				    </label>

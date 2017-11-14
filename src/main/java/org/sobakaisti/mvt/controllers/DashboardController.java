@@ -16,10 +16,12 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
+import org.sobakaisti.mvt.service.MediaService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
@@ -60,6 +62,9 @@ public class DashboardController {
 	private CategoryDao categoryDao;
 	@Autowired
 	private PublicationService publicationService;
+	@Autowired
+	private MediaService mediaService;
+	
 	@Autowired
 	private Validator validator;
 	private Pagination pagination;
@@ -456,15 +461,15 @@ public class DashboardController {
 	
 	@RequestMapping(value="/media/upload", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> uploadMediaFile(@RequestParam(name="file", required = false) MultipartFile file) {
+	public ResponseEntity<Media> uploadMediaFile(@RequestParam(name="media", required = false) MultipartFile media) {
+		System.out.println("Upload file: "+media.getOriginalFilename());
+			
+		
 		PostRequest postRequest = null;
-		if(file != null) {
-			postRequest = new PostRequest();
-			postRequest.setPublication(file);
-		}
-		
-		
-		return null;
+		postRequest = new PostRequest();
+		postRequest.setMedia(media);
+		Media postMedia = mediaService.processAndSavePostRequest(postRequest);	
+		System.out.println("controller: "+postMedia);
+		return new ResponseEntity<Media>(postMedia, HttpStatus.OK);		
 	}
-
 }

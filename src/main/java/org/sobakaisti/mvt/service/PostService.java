@@ -7,6 +7,7 @@ import java.util.List;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.PostRequest;
 
@@ -21,6 +22,7 @@ public interface PostService<T extends Post> {
 	/* Full class names */
 	public static final String ARTICLE_CLASS_NAME = Article.class.getName();
 	public static final String PUBLICATION_CLASS_NAME = Publication.class.getName();
+	public static final String MEDIA_CLASS_NAME = Media.class.getName();
 	
 	/**
 	 * Pronalazi sve objave sortirane po datumu objavljivnja

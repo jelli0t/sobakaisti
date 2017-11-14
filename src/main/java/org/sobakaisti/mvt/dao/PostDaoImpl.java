@@ -52,7 +52,8 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 	public T save(T t) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			session.saveOrUpdate(generic.getName(), t);
+			System.out.println("T type: "+t.getClass().getName());
+			session.saveOrUpdate(t);
 			return t;
 		} catch (Exception e) {
 			System.err.println("Greska: "+e.getMessage());

@@ -3,19 +3,32 @@
  */
 package org.sobakaisti.mvt.models;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author jelli0t
  *
  */
+@Entity
+@Table(name="media")
 public class Media extends Post {	
 
+	@Column(name="fileName")
 	private String fileName;
-	private String contentType;	
+	
+	@Column(name="contentType")
+	private String contentType;
+	
+	@Column(name="descriprion")
 	private String descriprion;
+	
+	@Column(name="path")
 	private String path;
-	private int size;
+	
+	@Column(name="size")
+	private long size;
 	
 	public String getFileName() {
 		return fileName;
@@ -29,10 +42,10 @@ public class Media extends Post {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	public int getSize() {
+	public long getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(long size) {
 		this.size = size;
 	}
 	public String getDescriprion() {
@@ -46,5 +59,17 @@ public class Media extends Post {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("media : {");
+		sb.append(this.getId() != 0 ? "id:"+this.getId()+", " : "");
+		sb.append(this.getTitle() != null ? "title:"+this.getTitle()+", " : "");
+		sb.append(this.getAuthor() != null ? "author:"+this.getAuthor().getFullName()+"" : "");
+		sb.append(this.getFileName() != null ? "fullName:"+this.getFileName()+", " : "");
+		sb.append("size:"+this.size+", ");
+		sb.append(this.contentType != null ? "contentType:"+this.contentType : "");
+		return sb.append(" }").toString();
 	}
 }

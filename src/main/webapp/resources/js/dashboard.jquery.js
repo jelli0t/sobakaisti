@@ -179,7 +179,7 @@ $(function() {
 		$('#img-prev').empty();
 	});
 	
-	$('#new-post-form select[name=month]').change(function() {
+	$('#new-post-form select[name=month]').change(function() { 
 		$(this).updateDateSelect();
 	});
 	
@@ -190,13 +190,19 @@ $(function() {
 		callAnchor('media');
 		
 	});
+	
+	$('#media-upload-form').on('change', function(event) {
+		event.stopPropagation(); // Stop stuff happening
+	    event.preventDefault(); // Totally stop stuff happening
+		$(this).uploadMediaFile();		
+	});
 	/*
 	 * Close media upload
 	 * */
 	$('#media-repo-close').on('click', function(){
 		
 		callAnchor('');
-		/* poziv ajax f-ji */
+		
 	});
 	
 	
@@ -776,3 +782,38 @@ $.fn.updateDateSelect = function() {
 	})
 }
 
+$.fn.uploadMediaFile = function()
+{
+	var $form = $(this);
+	var csrf = getCsrfParams();	
+	var uri = $form.attr('action');
+	console.log("[URI]: "+uri);
+	/* popunjavam FormData podacima sa forme */
+	var data = new FormData($(this)[0]);
+
+    $.ajax({
+	    url: uri,
+	    type: 'POST',
+	    enctype: 'multipart/form-data',
+	    data: data,
+	    cache: false,
+        processData: false, 
+        contentType: false,
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	})
+	.done(function( data ) {
+		console.log("success: "+data);	
+		$('.response-message').showResponseMessage(data, true);
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    
+	})
+	.always(function( xhr, status ) {
+//		$('#overlay').toggle();
+		console.log( "After all: " + status );
+	});
+}

@@ -12,8 +12,7 @@ public class PostRequest extends Post{
 	private String content;
 	private int[] categoriesIds;
 	private int[] tagIds;
-	private MultipartFile publication;
-	private MultipartFile featuredImg;
+	private MultipartFile media;
 			
 	public String getContent() {
 		return content;
@@ -38,22 +37,13 @@ public class PostRequest extends Post{
 		this.tagIds = tagIds;
 	}
 
-	public MultipartFile getPublication() {
-		return publication;
+	public MultipartFile getMedia() {
+		return media;
 	}
 
-	public void setPublication(MultipartFile publication) {
-		this.publication = publication;
+	public void setMedia(MultipartFile media) {
+		this.media = media;
 	}
-
-	public MultipartFile getFeaturedImg() {
-		return featuredImg;
-	}
-
-	public void setFeaturedImg(MultipartFile featuredImg) {
-		this.featuredImg = featuredImg;
-	}
-	
 
 	@Override
 	public String toString() {

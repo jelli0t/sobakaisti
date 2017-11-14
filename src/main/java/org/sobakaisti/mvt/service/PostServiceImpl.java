@@ -32,6 +32,8 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	protected PostFactory publicationPostFactory;
 	@Autowired
 	protected PostFactory articlePostFactory;
+	@Autowired
+	protected PostFactory mediaPostFactory;
 	
 	private Class<T> t;
 	protected Map<String, PostFactory> postFactoriesMap;
@@ -44,9 +46,10 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	
 	@PostConstruct
 	private void init() {
-		postFactoriesMap = new HashMap<String, PostFactory>(2);
+		postFactoriesMap = new HashMap<String, PostFactory>(3);
 		postFactoriesMap.put(ARTICLE_CLASS_NAME, articlePostFactory);
 		postFactoriesMap.put(PUBLICATION_CLASS_NAME, publicationPostFactory);
+		postFactoriesMap.put(MEDIA_CLASS_NAME, mediaPostFactory);
 	}
 
 	@SuppressWarnings("unchecked")
