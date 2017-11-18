@@ -460,16 +460,22 @@ public class DashboardController {
 
 	
 	@RequestMapping(value="/media/upload", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<Media> uploadMediaFile(@RequestParam(name="media", required = false) MultipartFile media) {
-		System.out.println("Upload file: "+media.getOriginalFilename());
-			
+	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, Model model) {
+		System.out.println("Upload file: "+media.getOriginalFilename());	
+		Media postMedia = null;
+		/* ako je uploadovana datoteka manja od 30MB */
+		if(media.getSize() < 31457300) {
+			PostRequest postRequest = new PostRequest(media);
+			postMedia = mediaService.processAndSavePostRequest(postRequest);	
+			System.out.println("controller: "+postMedia);
+//			return new ResponseEntity<Media>(postMedia, HttpStatus.OK);			
+		} else {
+			postMedia = new Media();
+			postMedia.setUploadResultMessage("Datoteka ne sme iti veca od 30MB!");
+//			return new ResponseEntity<Media>(postMedia, HttpStatus.BAD_REQUEST);
+		}	
+		model.addAttribute("media", postMedia);
 		
-		PostRequest postRequest = null;
-		postRequest = new PostRequest();
-		postRequest.setMedia(media);
-		Media postMedia = mediaService.processAndSavePostRequest(postRequest);	
-		System.out.println("controller: "+postMedia);
-		return new ResponseEntity<Media>(postMedia, HttpStatus.OK);		
+		return "commons/fragments :: mediaUploadedPreview";
 	}
 }

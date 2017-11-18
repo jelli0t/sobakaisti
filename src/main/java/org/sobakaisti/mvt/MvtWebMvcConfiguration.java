@@ -2,6 +2,7 @@ package org.sobakaisti.mvt;
 
 import java.util.Locale;
 
+import org.sobakaisti.mvt.service.MediaService;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -48,7 +49,10 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**", "/uploads/**").addResourceLocations("/resources/", "file:/home/jelli0t/Pictures/uploads/");
+		registry.addResourceHandler("/resources/**", "/uploads/**")
+				.addResourceLocations("/resources/", "file:///"+MediaService.UPLOADS_DIR);
+		
+		// linux file:/home/jelli0t/Pictures/uploads/
 	}
 
 //	a

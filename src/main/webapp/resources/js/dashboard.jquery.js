@@ -796,6 +796,7 @@ $.fn.uploadMediaFile = function()
 	    type: 'POST',
 	    enctype: 'multipart/form-data',
 	    data: data,
+	    dataType: 'html',
 	    cache: false,
         processData: false, 
         contentType: false,
@@ -804,8 +805,9 @@ $.fn.uploadMediaFile = function()
         }
 	})
 	.done(function( data ) {
-		console.log("success: "+data);	
-		$('.response-message').showResponseMessage(data, true);
+		$('.media-upload-preview').empty();
+		console.log("success: "+data);
+		$('.media-upload-preview').append(data);
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );

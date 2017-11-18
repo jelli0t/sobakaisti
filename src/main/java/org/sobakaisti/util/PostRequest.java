@@ -13,7 +13,18 @@ public class PostRequest extends Post{
 	private int[] categoriesIds;
 	private int[] tagIds;
 	private MultipartFile media;
-			
+	
+	/* default constructor */
+	public PostRequest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	/* MultipartFile instance constructor */
+	public PostRequest(MultipartFile media) {
+		this.media = media;
+	}
+
 	public String getContent() {
 		return content;
 	}

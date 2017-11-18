@@ -6,6 +6,7 @@ package org.sobakaisti.mvt.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author jelli0t
@@ -15,10 +16,10 @@ import javax.persistence.Table;
 @Table(name="media")
 public class Media extends Post {	
 
-	@Column(name="fileName")
+	@Column(name="file_name")
 	private String fileName;
 	
-	@Column(name="contentType")
+	@Column(name="content_type")
 	private String contentType;
 	
 	@Column(name="descriprion")
@@ -29,6 +30,9 @@ public class Media extends Post {
 	
 	@Column(name="size")
 	private long size;
+	
+	@Transient
+	private String uploadResultMessage;
 	
 	public String getFileName() {
 		return fileName;
@@ -59,6 +63,12 @@ public class Media extends Post {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public String getUploadResultMessage() {
+		return uploadResultMessage;
+	}
+	public void setUploadResultMessage(String uploadResultMessage) {
+		this.uploadResultMessage = uploadResultMessage;
 	}
 	
 	@Override

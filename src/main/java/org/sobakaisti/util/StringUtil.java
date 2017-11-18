@@ -116,6 +116,32 @@ public class StringUtil {
 		return output.toString();
 	}
 	
+	
+	/**
+	 * Izdvaja ektenziju za prosledjeno puno ime datoteke
+	 * @param filename	puno ime datoteke
+	 * */
+	public static String extractFilenameExtension(String filename) {
+		int dotIndex = filename.lastIndexOf('\u002E');
+		return filename.substring(dotIndex);
+	}
+	
+	/**
+	 * Vraca naziv datoteke bez ekstenzije
+	 * */
+	public static String trimExtensionFromFilename(String filename) {
+		return filename.substring(0, filename.lastIndexOf('\u002E'));
+	}
+	
+	public static String makeUserFriendlyTitleFromFilename(String filename) {
+		String extensionless = trimExtensionFromFilename(filename);
+		extensionless = generateUrlFriendlyString(extensionless, false);
+		// capitalize first letter
+		extensionless = extensionless.substring(0, 1).toUpperCase() + extensionless.substring(1);
+		// substitute all - to spaces
+		return extensionless.replaceAll("-", " ");
+	}
+	
 	/**
 	 * Inicijalizuje mapu za konverziju cirilicnih karaktera u ASCII
 	 * */
@@ -179,7 +205,7 @@ public class StringUtil {
 		spetialsChars.add('\u002A');	// *		
 		spetialsChars.add('\u002B');	// +
 		spetialsChars.add('\u002C');	// ,
-		spetialsChars.add('\u002D');	// -
+//		spetialsChars.add('\u002D');	// -
 		spetialsChars.add('\u002E');	// .		
 		spetialsChars.add('\u002F');	// /			
 		spetialsChars.add('\u007B');	// {		
@@ -199,7 +225,8 @@ public class StringUtil {
 	 * */
 	private static Map<Character, Character> initializeSerbinLatinMap() {
 		Map<Character, Character> serbianChars = new HashMap<Character, Character>();
-		serbianChars.put('\u0020', '\u002D');	// space to -
+		serbianChars.put('\u0020', '\u002D');	// ' ' to '-'
+		serbianChars.put('\u005F', '\u002D');	// '_' to '-'
 		serbianChars.put('\u0107', 'c');
 		serbianChars.put('\u010D', 'c');
 		serbianChars.put('\u0111', 'd');
