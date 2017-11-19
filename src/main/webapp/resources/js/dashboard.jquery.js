@@ -526,6 +526,13 @@ $.fn.showResponseMessage = function(message, isSuccess) {
 	.delay(4000).slideUp(300);
 }
 
+/**
+ * 
+ * */
+$.fn.toggleResponseMessage = function() {
+	$(this).show().delay(4000).slideUp(350);
+}
+
 /*
  * popunjava box sa selektovanim kategorijama
  * */
@@ -805,6 +812,7 @@ $.fn.uploadMediaFile = function()
         }
 	})
 	.done(function( data ) {
+		$('.media-edit-container').show(300);
 		$('.media-upload-preview').empty();
 		console.log("success: "+data);
 		$('.media-upload-preview').append(data);
@@ -815,7 +823,7 @@ $.fn.uploadMediaFile = function()
 	    
 	})
 	.always(function( xhr, status ) {
-//		$('#overlay').toggle();
-		console.log( "After all: " + status );
+		console.log("always: "+status);
+		$('.response-message').toggleResponseMessage();
 	});
 }

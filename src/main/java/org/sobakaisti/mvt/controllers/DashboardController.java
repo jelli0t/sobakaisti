@@ -466,13 +466,13 @@ public class DashboardController {
 		/* ako je uploadovana datoteka manja od 30MB */
 		if(media.getSize() < 31457300) {
 			PostRequest postRequest = new PostRequest(media);
-			postMedia = mediaService.processAndSavePostRequest(postRequest);	
-			System.out.println("controller: "+postMedia);
-//			return new ResponseEntity<Media>(postMedia, HttpStatus.OK);			
+			postMedia = mediaService.processAndSavePostRequest(postRequest);
+			postMedia.setUploadResultMessage("Uspesno ste otpremili datoteku.");
+			postMedia.setPosted(true);		
 		} else {
 			postMedia = new Media();
-			postMedia.setUploadResultMessage("Datoteka ne sme iti veca od 30MB!");
-//			return new ResponseEntity<Media>(postMedia, HttpStatus.BAD_REQUEST);
+			postMedia.setUploadResultMessage("Datoteka ne sme biti veca od 30MB!");
+			postMedia.setPosted(false);
 		}	
 		model.addAttribute("media", postMedia);
 		

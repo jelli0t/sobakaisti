@@ -42,10 +42,9 @@
 		Media upload fragment 
 	--------------------------- -->
 	<th:block th:fragment="mediaUploadFragment">
-		<form th:action="@{/sbk-admin/media/upload}" id="media-upload-form">
-			<!-- Input file button -->
-			<div class="media-upload-container">
-			
+		<!-- Input file button -->
+		<div class="media-upload-container">
+			<form th:action="@{/sbk-admin/media/upload}" id="media-upload-form">		
 				<h4>Odaberite datoteku sa vašeg računara</h4>
 				
 				<div class="input-file-container">  
@@ -58,20 +57,70 @@
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 				
-				<span>Najveća dozvoljena veličina datoteke za otpremanje: 30 MB.</span>
-				
-				
-				<p class="media-upload-preview">
-					
-				</p>
-			</div>
-		</form>
+				<span>Najveća dozvoljena veličina datoteke za otpremanje: 30 MB.</span>				
+			</form>
+		</div>
+		
+		
+		<div class="media-edit-container">
+			<form th:action="@{/sbk-admin/media/edit}" id="media-edit-form">
+				<div class="media-upload-preview">					
+				</div>					
+			</form>
+		</div>	
 	</th:block>
 	
 	
 	<th:block th:fragment="mediaUploadedPreview" th:with="media=${media}">
-		<p th:if="${media.uploadResultMessage != null}" th:text="${media.uploadResultMessage}"></p>
-		<img alt="uploads" th:src="@{/uploads/{filename}(filename=${media.fileName})}" height="180">
+		<!-- media upload result message -->
+		<p th:if="${media.uploadResultMessage != null}" class="response-message"
+			th:classappend="${media.posted} ? affirmative-message : negative-message"
+			th:text="${media.uploadResultMessage}"></p>
+			
+		<!-- Uploaded media details -->
+		<div class="media-preview-table" th:if="${media.posted}" >
+			<!-- media preview header -->
+			<div class="media-preview-header">
+				<div class="media-preview-image">
+					<img alt="uploads" th:src="@{/uploads/{filename}(filename=${media.fileName})}" width="260">
+				</div>				
+				<div class="media-preview-details">
+					<strong>Naziv datoteke: </strong><span th:text="${media.fileName}"></span><br>
+					<strong>Tip datoteke: </strong><span th:text="${media.contentType}"></span><br>
+					<strong>Otpremljeno: </strong><span th:text="${#dates.format(media.postDate, 'dd. MMM yyyy. HH:mm')}"></span><br>
+					<strong>Velicina datoteke: </strong><span th:text="${media.size}"></span> KB
+				</div>
+			</div>
+			
+			<div class="media-preview-editable">
+				<input type="hidden" name="id" th:value="${media.id}">
+				<label>
+					<span>Naslov</span>
+					<input type="text" name="title" th:value="${media.title}">
+				</label>
+								
+				<label>
+					<span>Autor</span>
+					<select></select>
+				</label>
+
+				<label>
+					<span>Opis</span>
+					<textarea rows="3" cols="20" name="descriprion" th:value="${media.descriprion}"></textarea>
+				</label>
+				
+				<div>
+					<button type="button" class="bttn bttn-sm" 
+							th:src="@{/sbk-admin/media/{id}/remove/(id=${media.id})}">
+						Ukloni trajno
+					</button>
+					
+					<button type="button" class="bttn bttn-sm"
+							th:src="@{/sbk-admin/media/{id}/save/(id=${media.id})}">
+							Sačuvaj izmene</button>
+				</div>
+			</div>
+		</div>
 	</th:block>
 	
 	

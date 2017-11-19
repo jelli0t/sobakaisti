@@ -1237,18 +1237,58 @@ h6 {
 	margin-right: 5px;
 }
 
-.media-upload-container {
-	position: relative;
-	width: 100%;
+.media-repo-body {
+	display: flex;
+}
+.media-upload-container {	
+	flex: 1;
 	height: auto;
+	padding-top: 25px;
 	text-align: center !important;
 }
-.media-upload-container > h4 { font-weight: normal; }
-.media-upload-container > span {
+.media-upload-container >
+form > h4 { font-weight: normal; }
+
+.media-upload-container >
+form > span {
 	font-weight: 300;
 	font-size: 10px;
 	margin: 15px 0;
 	color: #444;
+}
+
+.media-edit-container {
+	display: none;
+	width: 300px;
+	height: auto;
+	padding: 12px;
+	background-color: #fafbfc;
+    border-left: 1px solid #e1e4e8;
+}
+
+.media-preview-table {
+	color: #666 !important;
+	font-size: 12px;
+}
+.media-preview-table > 
+.media-preview-header {
+	margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.media-preview-editable > label {
+	display: block;
+	width: 100%;
+	margin: 3px 0;
+}
+
+.media-preview-editable > label > span {
+	float: left;
+    line-height: 20px;
+    width: 50px;
+    margin-right: 7px;
+    text-align: right;
 }
 
 .input-file-trigger {

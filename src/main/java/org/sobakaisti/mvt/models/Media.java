@@ -32,6 +32,9 @@ public class Media extends Post {
 	private long size;
 	
 	@Transient
+	private boolean posted;
+	
+	@Transient
 	private String uploadResultMessage;
 	
 	public String getFileName() {
@@ -63,6 +66,13 @@ public class Media extends Post {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	
+	public boolean isPosted() {
+		return posted;
+	}
+	public void setPosted(boolean posted) {
+		this.posted = posted;
 	}
 	public String getUploadResultMessage() {
 		return uploadResultMessage;
