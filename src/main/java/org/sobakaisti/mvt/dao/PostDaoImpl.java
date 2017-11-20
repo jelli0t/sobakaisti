@@ -52,7 +52,6 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 	public T save(T t) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			System.out.println("T type: "+t.getClass().getName());
 			session.saveOrUpdate(t);
 			return t;
 		} catch (Exception e) {
@@ -60,6 +59,7 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 			return null;
 		}	
 	}
+		
 	
 	@Override
 	@Transactional
@@ -204,6 +204,7 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 	}
 
 	@Override
+	@Transactional
 	public boolean delete(int id) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -221,4 +222,15 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 		}
 	}
 	
+	@Override
+	@Transactional
+	public boolean delete(T t) {
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			session.delete(t.getClass().getName(), t);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}		
+	}
 }

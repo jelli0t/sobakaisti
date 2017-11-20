@@ -478,4 +478,27 @@ public class DashboardController {
 		
 		return "commons/fragments :: mediaUploadedPreview";
 	}
+	
+	@RequestMapping(value="/media/{id}/remove", method=RequestMethod.DELETE)
+	@ResponseBody
+	public ResponseEntity<String> removeMediaFile(@PathVariable("id") int id) {
+		if(mediaService.fullyRemoveMedia(id)) {
+			return new ResponseEntity<String>("Uspesno uklonjena datoteka.", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Greska prilikom uklanjanja datoteke sa sistema!", HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+	
+	@RequestMapping(value="/media/{id}/update", method=RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<String> updateEditedMedia(@PathVariable("id") int id, @RequestBody Media media) {
+		if(media != null) {
+			if(mediaService.updateMediaDetails(media)) {
+				return new ResponseEntity<String>("Uspesno izmenjeni podaci o datoteci.", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("Greska prilikom izmene podataka o datoteci!", HttpStatus.SERVICE_UNAVAILABLE);
+			}
+		} else
+			return new ResponseEntity<String>("Nisu prosledjeni parametri za izmenu", HttpStatus.BAD_REQUEST);
+	}
 }

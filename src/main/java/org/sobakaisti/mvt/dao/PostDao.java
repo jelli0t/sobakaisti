@@ -35,6 +35,12 @@ public interface PostDao<T extends Post> {
 	public boolean delete(int id);
 	
 	/**
+	 * Brise prosledjeni objekat iz baze
+	 * @param t	objekat za brisanje generickog tipa
+	 * */
+	public boolean delete(T t);
+	
+	/**
 	 * Pronalazi sve postove koji su u prosledjenom statusu
 	 * @param status	1/0
 	 * */

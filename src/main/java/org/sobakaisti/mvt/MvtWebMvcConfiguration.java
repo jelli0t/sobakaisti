@@ -50,7 +50,7 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**", "/uploads/**")
-				.addResourceLocations("/resources/", "file:///"+MediaService.UPLOADS_DIR);
+				.addResourceLocations("/resources/", "file:/home/jelli0t/Pictures/uploads/");
 		
 		// linux file:/home/jelli0t/Pictures/uploads/
 	}
