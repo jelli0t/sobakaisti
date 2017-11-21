@@ -109,15 +109,16 @@
 					<textarea rows="3" cols="20" name="descriprion" th:value="${media.descriprion}"></textarea>
 				</label>
 				
-				<div>
+				<div class="media-preview-bttns">
 					<button type="button" class="bttn bttn-sm" 
 							th:src="@{/sbk-admin/media/{id}/remove/(id=${media.id})}">
-						Ukloni trajno
+						<img alt="" th:src="@{/resources/img/icons/svg/trash.svg}" height="14"> Ukloni trajno
 					</button>
 					
 					<button type="button" class="bttn bttn-sm"
 							th:src="@{/sbk-admin/media/{id}/update/(id=${media.id})}">
-							Sačuvaj izmene</button>
+						<img alt="" th:src="@{/resources/img/icons/svg/save.svg}" height="14"> Sačuvaj izmene
+					</button>
 				</div>
 			</div>
 		</div>
