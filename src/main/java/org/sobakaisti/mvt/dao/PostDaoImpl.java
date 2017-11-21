@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class PostDaoImpl<T extends Post> implements PostDao<T> {
 	
-	protected Class<T> generic; 
+	protected Class<T> generic;
 	
 	@Autowired
 	protected SessionFactory sessionFactory;

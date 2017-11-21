@@ -1261,7 +1261,7 @@ form > span {
 	display: none;
 	width: 300px;
 	height: auto;
-	padding: 12px;
+	padding: 12px 14px;
 	background-color: #fafbfc;
     border-left: 1px solid #e1e4e8;
 }
@@ -1272,15 +1272,23 @@ form > span {
 }
 .media-preview-table > 
 .media-preview-header {
-	margin-bottom: 12px;
-    padding-bottom: 12px;
+	margin: 12px 0;
     border-bottom: 1px solid #ddd;
 }
-
+.media-preview-table > 
+.media-preview-header >
+.media-preview-details {
+	margin: 5px;
+}
+.media-preview-editable { 
+	position: relative;
+	height: auto;
+}
 .media-preview-editable > label {
 	display: block;
 	width: 100%;
-	margin: 3px 0;
+	margin: 6px 0;
+	overflow: hidden;
 }
 
 .media-preview-editable > label > span {
@@ -1289,6 +1297,22 @@ form > span {
     width: 50px;
     margin-right: 7px;
     text-align: right;
+}
+.media-preview-editable >
+.media-preview-bttns {
+	position: relative;
+	margin-top: 3rem;
+	clear: both;
+}
+.media-preview-editable >
+.media-preview-bttns > 
+a:nth-child(1) {
+	float: left;
+}
+.media-preview-editable >
+.media-preview-bttns > 
+a:nth-child(2) {
+	float: right;
 }
 
 .input-file-trigger {

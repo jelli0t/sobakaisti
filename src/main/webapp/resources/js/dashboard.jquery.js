@@ -199,11 +199,16 @@ $(function() {
 	/*
 	 * Close media upload
 	 * */
-	$('#media-repo-close').on('click', function(){
-		
-		callAnchor('');
-		
+	$('#media-repo-close').on('click', function(){		
+		callAnchor('');		
 	});
+	
+	
+	$('.media-repo-body').on('click', '#bttn-media-remove', function(event) {
+		event.stopPropagation(); 
+	    event.preventDefault(); 
+		$(this).removeMediaItem();
+	}); 
 	
 	
 }); // End Of Ready
@@ -825,5 +830,30 @@ $.fn.uploadMediaFile = function()
 	.always(function( xhr, status ) {
 		console.log("always: "+status);
 		$('.response-message').toggleResponseMessage();
+	});
+}
+
+
+$.fn.removeMediaItem = function(){
+	var uri = $(this).attr('src');
+	alert('Delete uri: '+uri);
+	var csrf = getCsrfParams();	
+	$.ajax({
+	    url: uri,
+	    type: 'DELETE',
+	    beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrf[0], csrf[1]);
+        }
+	}).done(function( json ) {
+		console.log("success: "+json);
+		$('.response-message').showResponseMessage(json, true);
+		$('.media-upload-preview').empty();
+		$('.media-edit-container').hide(300);		
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	}).always(function( xhr, status ) {
+		
 	});
 }

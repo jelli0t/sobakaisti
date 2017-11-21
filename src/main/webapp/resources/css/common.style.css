@@ -169,6 +169,12 @@ a:link, a:VISITED {
 }
 .bttn-close:hover, .bttn-remove:hover { opacity: 1.0 }
 
+.bttn > img {
+	vertical-align: baseline;
+	margin-right: 2px;
+	margin-bottom: -2px;
+}
+
 .select-wrapper::after {
 	font-family: 'Pe-icon-7-stroke';
 	position: absolute;

@@ -482,6 +482,7 @@ public class DashboardController {
 	@RequestMapping(value="/media/{id}/remove", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> removeMediaFile(@PathVariable("id") int id) {
+		System.out.println("Usao u metodu, brisem id: "+id);
 		if(mediaService.fullyRemoveMedia(id)) {
 			return new ResponseEntity<String>("Uspesno uklonjena datoteka.", HttpStatus.OK);
 		} else {

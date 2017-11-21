@@ -110,15 +110,15 @@
 				</label>
 				
 				<div class="media-preview-bttns">
-					<button type="button" class="bttn bttn-sm" 
+					<a class="bttn bttn-sm" id="bttn-media-remove"
 							th:src="@{/sbk-admin/media/{id}/remove/(id=${media.id})}">
-						<img alt="" th:src="@{/resources/img/icons/svg/trash.svg}" height="14"> Ukloni trajno
-					</button>
+						<img alt="rm" th:src="@{/resources/img/icons/trash.svg}" height="14"> Ukloni trajno
+					</a>
 					
-					<button type="button" class="bttn bttn-sm"
+					<a class="bttn bttn-sm"
 							th:src="@{/sbk-admin/media/{id}/update/(id=${media.id})}">
-						<img alt="" th:src="@{/resources/img/icons/svg/save.svg}" height="14"> Sačuvaj izmene
-					</button>
+						<img alt="s" th:src="@{/resources/img/icons/save.svg}" height="14"> Sačuvaj izmene
+					</a>
 				</div>
 			</div>
 		</div>
