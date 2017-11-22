@@ -5,7 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.sobakaisti.mvt.dao.PostDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sobakaisti.mvt.dao.MediaDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +18,23 @@ import org.springframework.web.multipart.MultipartFile;
 public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaService {
 	
 	@Autowired
-	private PostDao<Media> postDao;
+	private MediaDao mediaDao;
+	
+	private static final Logger logger = LoggerFactory.getLogger(MediaServiceImpl.class);
 		
 	@Override
 	public boolean uploadMediaToFileSystem(MultipartFile media, String fileName) {
 		
 		if(media.isEmpty()) return false;
-		
+		logger.info("Media datoteku: {"+fileName+"} cuvamo na file systemu.");
 		try {			
 			 byte[] bytes = media.getBytes();
              Path path = Paths.get(LINUX_UPLOADS_DIR + fileName);
              Files.write(path, bytes);
+             logger.info("Datoteka ["+fileName+"] uspesno upload-ovana na filesystem.");
              return true;
 		} catch (Exception e) {
-			System.out.println("Greska pri uploadu fajla!");
+			logger.warn("Greska pri uploadu datoteke: "+fileName+" uzrok: "+e.getMessage());
 			return false;
 		}		
 	}
@@ -37,13 +42,15 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 	@Override
 	public boolean fullyRemoveMedia(int id) {
 		boolean fullyRemoved = false;
-		Media media = postDao.find(id);
+		Media media = mediaDao.find(id);
 		if(media != null) {
 			boolean removedFromFilesys = removeMediaFileFromFilesystem(media.getFileName(), LINUX_UPLOADS_DIR);
+			logger.info("Media datoteka: {"+media.getFileName()+"} "+(removedFromFilesys ? "uklonjena":"nije uklonjena")+" sa file systema.");
 			if(removedFromFilesys)
-				fullyRemoved = postDao.delete(media);
+				fullyRemoved = mediaDao.delete(media);			
+			logger.info("Media entitet: {"+media.getFileName()+"} "+(fullyRemoved ? "uklonjena":"nije uklonjena")+" iz baze.");
 		} else {
-			System.err.println("Nisam pronasao objekat medija iz baze, za brisanje. Vracam false!");
+			logger.warn("Nisam dohvatio objekat Media za trazeni id:"+id+". Vracam false...");
 			fullyRemoved = false;
 		}
 		return fullyRemoved;
@@ -78,7 +85,7 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 				if(!media.getDescriprion().isEmpty()) 
 					mediaDetails.setDescriprion(media.getDescriprion());
 				
-				postDao.save(mediaDetails);
+				mediaDao.save(mediaDetails);
 				return true;
 			}			
 		}
