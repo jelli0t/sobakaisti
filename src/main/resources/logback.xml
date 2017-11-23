@@ -11,14 +11,15 @@
 		</encoder>
 	</appender>
 
-	<appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
+<!--	<appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${LOG_PATH}/movement.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
 				%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
 			</Pattern>
 		</encoder>
-	</appender>
+	</appender>  
+-->
 
 	<appender name="SAVE-TO-FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -34,7 +35,7 @@
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
 			<fileNamePattern>
-				${LOG_PATH}/archived/log.%d{dd-MM-yyyy}.log
+				${LOG_PATH}/archived/movement.%d{dd-MM-yyyy}.log
 			</fileNamePattern>
 			<maxHistory>10</maxHistory>
 			<totalSizeCap>100MB</totalSizeCap>
