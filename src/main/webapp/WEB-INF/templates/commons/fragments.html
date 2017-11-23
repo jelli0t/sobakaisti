@@ -96,17 +96,20 @@
 				<input type="hidden" name="id" th:value="${media.id}">
 				<label>
 					<span>Naslov</span>
-					<input type="text" name="title" th:value="${media.title}">
+					<input type="text" name="title" th:value="${media.title}" class="def-input">
 				</label>
 								
-				<label>
+				<label th:if="${authors != null}">
 					<span>Autor</span>
-					<select></select>
+					<select name="author" class="def-input">
+						<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
+						<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
+					</select>
 				</label>
 
 				<label>
 					<span>Opis</span>
-					<textarea rows="3" cols="20" name="descriprion" th:value="${media.descriprion}"></textarea>
+					<textarea rows="3" name="descriprion" th:value="${media.descriprion}" class="def-input"></textarea>
 				</label>
 				
 				<div class="media-preview-bttns">

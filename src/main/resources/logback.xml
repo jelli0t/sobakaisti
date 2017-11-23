@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
 	<property name="LOG_PATH" value="logs" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>
-				%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M -
-				%msg%n
+				%d{dd MMM yyyy HH:mm:ss.SSS} [%-5level] %logger{0}.%M : %msg%n
 			</pattern>
 		</encoder>
 	</appender>
-
-<!--	<appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
-		<file>${LOG_PATH}/movement.log</file>
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>
-				%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
-			</Pattern>
-		</encoder>
-	</appender>  
--->
 
 	<appender name="SAVE-TO-FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_PATH}/movement.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>
-				%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
-			</Pattern>
+			<Pattern>%d{dd MMM yyyy HH:mm:ss.SSS} [%-5level] %logger{0}.%M : %msg%n</Pattern>
 		</encoder>
 
 		<!-- Comment out rolling policies to test how the remaining one works -->
@@ -35,21 +23,21 @@
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
 			<fileNamePattern>
-				${LOG_PATH}/archived/movement.%d{dd-MM-yyyy}.log
+				${LOG_PATH}/archived/movement.%d{MM-dd-yyyy}.log
 			</fileNamePattern>
 			<maxHistory>10</maxHistory>
 			<totalSizeCap>100MB</totalSizeCap>
 		</rollingPolicy>
 	</appender>
-	
-	<root level="info">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="SAVE-TO-FILE" />
-	</root>
 
-	<logger name="org.sobakaisti.mvt" additivity="false" level="debug">
+
+	<logger name="org.sobakaisti.mvt" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
-		<!--<appender-ref ref="SAVE-TO-FILE"/> -->
 	</logger>
+
+	<root level="info">
+		<appender-ref ref="STDOUT"/>
+    	<appender-ref ref="SAVE-TO-FILE"/>
+	</root>
 	
 </configuration>

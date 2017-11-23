@@ -94,6 +94,39 @@ input[type="text"]:-moz-placeholder { color: #585858; }
 input[type="text"].error-border { border-color: #DD381D !important;}
 .error-border { border-color: #DD381D !important;}
 
+input[type="text"].def-input,
+textarea.def-input, 
+select.def-input {
+	min-height: 34px;
+	min-width: 199px;
+    padding: 6px 8px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #24292e;
+    vertical-align: middle;
+    background-color: #fff;
+    background-repeat: no-repeat;    
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
+}
+.def-input:focus {
+	border-color: #2188ff;
+    outline: none;
+    box-shadow: inset 0 1px 1px rgba(27,31,35,0.075), 0 0 0 0.2em rgba(3,102,214,0.3);
+}
+select.def-input {
+	background: #fff url('https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-128.png') no-repeat;
+    background-size: 18px;
+	background-position: right 8px center;
+	-webkit-appearance: none;
+	-moz-appearance: none;      
+	appearance: none;
+	width: auto;
+}
+
+
 .reset-img-input {
 	position: absolute;
 	right: 27px;
@@ -1301,7 +1334,7 @@ form > span {
 .media-preview-editable >
 .media-preview-bttns {
 	position: relative;
-	margin-top: 3rem;
+	margin-top: 2.2rem;
 	clear: both;
 }
 .media-preview-editable >
