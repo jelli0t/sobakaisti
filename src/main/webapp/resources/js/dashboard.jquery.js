@@ -203,12 +203,19 @@ $(function() {
 		callAnchor('');		
 	});
 	
-	
+	/* remove media */
 	$('.media-repo-body').on('click', '#bttn-media-remove', function(event) {
 		event.stopPropagation(); 
-	    event.preventDefault(); 
+	    	event.preventDefault(); 
 		$(this).removeMediaItem();
 	}); 
+	/* edit media */
+	$('.media-repo-body').on('click', '#bttn-media-update', function(event) {
+		event.stopPropagation(); 
+	    	event.preventDefault(); 
+		$('#media-edit-form').processFormData();
+	});
+	
 	
 	
 }); // End Of Ready
@@ -390,6 +397,49 @@ $.fn.makeSlugFromTitle = function() {
 	} else {
 		console.log('Input polje title je prazno!!');
 	}	
+}
+
+/**
+* Generalna metoda za obradu podataka sa forme
+*/
+$.fn.processFormData = function(){
+	var $form = $(this);
+	var json = $form.serializeObject();
+	var uri = $form.attr('action');
+	var method = $form.attr('method');
+	var csrf = getCsrfParams();
+		
+	console.log(JSON.stringify(json));
+	$.ajax({
+		url: uri,
+		type : method,
+		contentType: 'application/json; charset=utf-8',
+		data: JSON.stringify(json),
+		dataType : 'json',
+		beforeSend: function(xhr) {
+           		xhr.setRequestHeader(csrf[0], csrf[1]);
+        	}
+	})
+	.done(function( response ) {
+		$('.response-message').showResponseMessage(response, true);
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	    
+	    var err = xhr.responseJSON;
+	    console.log(err);
+	    if(err.field === 'title'){
+	    	console.log(err.defaultMessage);
+	    	var $input = $('input[name=title]', $form);
+	    	$input.addClass('error-border');
+	    	$input.next('.validation-error').text(err.defaultMessage).show();
+	    }	    
+	})
+	.always(function( xhr, status ) {
+		console.log( "After adding: " + status );
+		
+	});
 }
 
 /*
