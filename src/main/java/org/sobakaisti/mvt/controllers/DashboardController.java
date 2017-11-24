@@ -490,9 +490,9 @@ public class DashboardController {
 		}
 	}
 	
-	@RequestMapping(value="/media/{id}/update", method=RequestMethod.PUT)
+	@RequestMapping(value="/media/update", method=RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<String> updateEditedMedia(@PathVariable("id") int id, @RequestBody Media media) {
+	public ResponseEntity<String> updateEditedMedia(@RequestBody Media media) {
 		if(media != null) {
 			if(mediaService.updateMediaDetails(media)) {
 				return new ResponseEntity<String>("Uspesno izmenjeni podaci o datoteci.", HttpStatus.OK);
