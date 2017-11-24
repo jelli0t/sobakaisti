@@ -20,6 +20,8 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 	@Autowired
 	private MediaDao mediaDao;
 	
+	@Value( "${media.uploads.img}" ) private String imgUploadsPath;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MediaServiceImpl.class);
 		
 	@Override
@@ -29,7 +31,7 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 		logger.info("Media datoteku: {"+fileName+"} cuvamo na file systemu.");
 		try {			
 			 byte[] bytes = media.getBytes();
-             Path path = Paths.get(LINUX_UPLOADS_DIR + fileName);
+             Path path = Paths.get(imgUploadsPath +"/"+ fileName);
              Files.write(path, bytes);
              logger.info("Datoteka ["+fileName+"] uspesno upload-ovana na filesystem.");
              return true;
@@ -44,7 +46,7 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 		boolean fullyRemoved = false;
 		Media media = mediaDao.find(id);
 		if(media != null) {
-			boolean removedFromFilesys = removeMediaFileFromFilesystem(media.getFileName(), LINUX_UPLOADS_DIR);
+			boolean removedFromFilesys = removeMediaFileFromFilesystem(media.getFileName(), imgUploadsPath);
 			logger.info("Media datoteka: {"+media.getFileName()+"} "+(removedFromFilesys ? "uklonjena":"nije uklonjena")+" sa file systema.");
 			if(removedFromFilesys)
 				fullyRemoved = mediaDao.delete(media);			
