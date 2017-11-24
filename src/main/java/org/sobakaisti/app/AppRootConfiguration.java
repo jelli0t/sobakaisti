@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -25,6 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
+@PropertySource("classpath:database.properties")
 @ComponentScan({"org.sobakaisti"})
 @EnableTransactionManagement
 @Import(AppSecurityConfiguration.class)
@@ -60,6 +63,11 @@ public class AppRootConfiguration {
 		AccountManagerDao accountManagment = new AccountManagerDaotImpl(sessionFactory);
 		return accountManagment;
 	}
+	
+	@Bean
+	 public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	 }
 	
 	private Properties getHibernateProperties(){
 		Properties hibernateProperties = new Properties();
