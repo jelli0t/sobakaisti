@@ -37,9 +37,11 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
+@PropertySource("classpath:variables.properties")
 @ComponentScan(basePackages="org.sobakaisti.mvt")
 public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 	
+	@Value( "${media.uploads.img}" ) private String imgUploadsPath;
 	private ApplicationContext applicationContext; 
 	
 	@Override
@@ -50,7 +52,7 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**", "/uploads/**")
-				.addResourceLocations("/resources/", "file:/home/jelli0t/Pictures/uploads/");
+				.addResourceLocations("/resources/", imgUploadsPath);
 		
 		// linux file:/home/jelli0t/Pictures/uploads/
 	}
