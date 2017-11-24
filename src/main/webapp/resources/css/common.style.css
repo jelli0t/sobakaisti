@@ -175,6 +175,13 @@ a:link, a:VISITED {
 	margin-bottom: -2px;
 }
 
+/* link bttn disabled */
+.bttn-a-disabled {
+	pointer-events: none;
+       	cursor: default;
+	opacity: 0.5;
+}
+
 .select-wrapper::after {
 	font-family: 'Pe-icon-7-stroke';
 	position: absolute;
