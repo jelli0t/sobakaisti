@@ -82,7 +82,7 @@
 			<!-- media preview header -->
 			<div class="media-preview-header">
 				<div class="media-preview-image">
-					<img alt="uploads" th:src="@{/uploads/{filename}(filename=${media.fileName})}" width="260">
+					<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" width="260">
 				</div>				
 				<div class="media-preview-details">
 					<strong>Naziv datoteke: </strong><span th:text="${media.fileName}"></span><br>

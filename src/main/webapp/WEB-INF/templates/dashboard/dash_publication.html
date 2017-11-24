@@ -65,12 +65,10 @@
 			</div>
 			<div class="panel-body">
 				<!-- Input file button -->	
-				<button type="button" class="show-media-lib bttn bttn-default">
+				<a th:href="@{/media/show/selection(type=featured)}" class="show-media-lib bttn bttn-default">
 					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> Odaberi fotku...
-				</button>	
-						
-<!-- 				<input type="file" name="featuredImg"  id="img-file" class="inputfile input-img" /> -->
-<!-- 				<label for="img-file" class="upload-img-label file-upload-label">Odaberi sliku...</label> -->
+				</a>	
+				
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 				<!-- Featured IMG preview -->
@@ -132,8 +130,8 @@
 		<!-- tabs -->
 		<nav>
 			<ul class="media-tabs">
-				<li><a th:src="@{/media/library(show=upload)}" class="media-tab-active" title="Upload file">Podigni datoteku</a></li>
-				<li><a th:src="@{/media/library(show=repo)}" title="Prikazi biblioteku medijskog sadrzaja">Repozitorija datoteka</a></li>
+				<li><a th:href="@{/media/library(show=upload)}" class="media-tab-active" title="Upload file">Podigni datoteku</a></li>
+				<li><a th:href="@{/media/library(show=repo)}" title="Prikazi biblioteku medijskog sadrzaja">Repozitorija datoteka</a></li>
 			</ul>
 		</nav>
 		<!-- Body -->
@@ -143,7 +141,7 @@
 		<!-- footer -->
 		<footer class="media-repo-footer">
 			<a class="bttn bttn-sm bttn-a-disabled" id="bttn-media-select"
-				th:src="@{/sbk-admin/media/selected/}">
+				th:href="@{/sbk-admin/media/selected/}">
 				<img alt="s" th:src="@{/resources/img/icons/save.svg}" height="16">Postavi
 			</a>
 		</footer>		

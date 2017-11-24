@@ -19,6 +19,8 @@ public class StringUtil {
 	public static final Set<Character> SPECIAL_CHARS = initializeSpecialCharSet();
 	public static final char[] UNFRIENDLY_CHARS = {'?', '&', '#', '!', '-', '%', '*', ':', ';', ',', '.', '+', '/', '@', '(', ')', '"'};
 	
+	private static final String FILESYS_PATH_PREFIX = "file:";
+	
 	// Pattern.matches(".*\\p{InCyrillic}.*", text)
 	@Deprecated
 	public static String makeSlugFromTitle(String title){

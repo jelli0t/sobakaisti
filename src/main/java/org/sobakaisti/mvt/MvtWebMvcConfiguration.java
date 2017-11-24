@@ -4,12 +4,15 @@ import java.util.Locale;
 
 import org.sobakaisti.mvt.service.MediaService;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
@@ -41,7 +44,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @ComponentScan(basePackages="org.sobakaisti.mvt")
 public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 	
-	@Value( "${media.uploads.img}" ) private String imgUploadsPath;
+	@Value( "${media.uploads.path.file}" ) private String imgUploadsFilePath;	
 	private ApplicationContext applicationContext; 
 	
 	@Override
@@ -51,13 +54,11 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**", "/uploads/**")
-				.addResourceLocations("/resources/", imgUploadsPath);
-		
-		// linux file:/home/jelli0t/Pictures/uploads/
+		System.out.println("File: "+imgUploadsFilePath);
+		registry.addResourceHandler("/resources/**", "/uploads/images/**")
+				.addResourceLocations("/resources/", imgUploadsFilePath);
 	}
 
-//	a
 	@Bean
 	public MessageSource messageSource(){
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -109,4 +110,9 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 	    resolver.setDefaultEncoding("utf-8");
 	    return resolver;
 	}
+	
+	@Bean
+	 public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	 }
 }

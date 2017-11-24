@@ -186,7 +186,12 @@ $(function() {
 	/*
 	 * Click on media upload bttn
 	 * */
-	$('.show-media-lib').on('click', function(){
+	$('.show-media-lib').on('click', function(event) {
+		event.stopPropagation();
+	    event.preventDefault();
+		var href = $(this).attr('href');		
+		var value = href.slice(href.indexOf('?') + 1).split('=')[1];
+		$('#bttn-media-select').appendOnHrefEnd(value);		
 		callAnchor('media');
 		
 	});
@@ -415,7 +420,7 @@ $.fn.processFormData = function(){
 		type : method,
 		contentType: 'application/json; charset=utf-8',
 		data: JSON.stringify(json),
-		dataType : 'json',
+		dataType : 'text',
 		beforeSend: function(xhr) {
            		xhr.setRequestHeader(csrf[0], csrf[1]);
         	}
@@ -906,4 +911,13 @@ $.fn.removeMediaItem = function(){
 	}).always(function( xhr, status ) {
 		
 	});
+}
+
+
+$.fn.appendOnHrefEnd = function(suffix) {
+	var $a = $(this);
+	var href = $a.attr('href');
+	alert(href);
+	$a.attr('href', href+suffix);
+	$a.removeClass('bttn-a-disabled');
 }
