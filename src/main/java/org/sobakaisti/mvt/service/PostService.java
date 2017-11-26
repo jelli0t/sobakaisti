@@ -24,6 +24,9 @@ public interface PostService<T extends Post> {
 	public static final String PUBLICATION_CLASS_NAME = Publication.class.getName();
 	public static final String MEDIA_CLASS_NAME = Media.class.getName();
 	
+	
+	public T findById(int id);
+	
 	/**
 	 * Pronalazi sve objave sortirane po datumu objavljivnja
 	 * Metoda kreira podrazumevani PostFilter koji filtrira samo 

@@ -183,20 +183,25 @@ $(function() {
 		$(this).updateDateSelect();
 	});
 	
+	
+	$('.media-tab').on('click', function(event) {
+		event.stopPropagation();
+	    event.preventDefault();
+		$(this).switchMediaSelectionBody();
+	});
+	
 	/*
 	 * Click on media upload bttn
 	 * */
 	$('.show-media-lib').on('click', function(event) {
 		event.stopPropagation();
 	    event.preventDefault();
-		var href = $(this).attr('href');		
-		var value = href.slice(href.indexOf('?') + 1).split('=')[1];
-		$('#bttn-media-select').appendOnHrefEnd(value);		
-		callAnchor('media');
-		
+		var href = $(this).attr('href');
+		$('#bttn-media-select').switchHrefValue(href);		
+		callAnchor('media');		
 	});
 	
-	$('#media-upload-form').on('change', function(event) {
+	$('.media-repo-body').on('change', '#media-upload-form', function(event) {
 		event.stopPropagation(); // Stop stuff happening
 	    event.preventDefault(); // Totally stop stuff happening
 		$(this).uploadMediaFile();		
@@ -221,7 +226,11 @@ $(function() {
 		$('#media-edit-form').processFormData();
 	});
 	
-	
+	$('#bttn-media-select').on('click', function(event) {
+		event.stopPropagation(); 
+    	event.preventDefault();
+    	$(this).appendMediaPreview();    	
+	});
 	
 }); // End Of Ready
 
@@ -849,6 +858,30 @@ $.fn.updateDateSelect = function() {
 	})
 }
 
+/*
+ * Ucitava telo selekcije medija 
+ * na osnovu selektovanog taba
+ * */
+$.fn.switchMediaSelectionBody = function() {
+	var $a = $(this);
+	var url = $a.attr('href');
+	$.ajax({
+	    url: url,
+	    type: 'GET',	   
+	    dataType: 'html'
+	})
+	.done(function( html ) {
+		$('.media-repo-body').empty();
+		$('.media-repo-body').append(html);	
+		$('.media-tab').removeClass('media-tab-active');
+		$a.addClass('media-tab-active');
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})	
+}
+
 $.fn.uploadMediaFile = function()
 {
 	var $form = $(this);
@@ -875,7 +908,11 @@ $.fn.uploadMediaFile = function()
 		$('.media-edit-container').show(300);
 		$('.media-upload-preview').empty();
 		console.log("success: "+data);
-		$('.media-upload-preview').append(data);
+		$('.media-upload-preview').append(data);	
+		/* set media ID on button uri */
+		var id = $(data).find('.media-preview-editable input[type="hidden"][name="id"]').val();		
+		$('#bttn-media-select').appendValueOnHref(id);
+		$('#bttn-media-select').removeClass('bttn-a-disabled');
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
@@ -913,11 +950,41 @@ $.fn.removeMediaItem = function(){
 	});
 }
 
+$.fn.appendMediaPreview = function() {
+	var $a = $(this);
+	var url = $a.attr('href');
+	$.ajax({
+	    url: url,
+	    type: 'GET',	   
+	    dataType: 'html'
+	})
+	.done(function( html ) {
+		var className = $(html).attr('class');	
+		$('#'+className).empty();
+		$('#'+className).append(html);
+		callAnchor('');
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})	
+}
 
-$.fn.appendOnHrefEnd = function(suffix) {
+$.fn.switchHrefValue = function(value) {
+	var $a = $(this);
+	$a.attr('href', value);
+}
+
+$.fn.appendValueOnHref = function(value) {
 	var $a = $(this);
 	var href = $a.attr('href');
-	alert(href);
-	$a.attr('href', href+suffix);
-	$a.removeClass('bttn-a-disabled');
+	var r = /\d+/;
+	var id = href.substr(href.lastIndexOf('/') + 1);
+	if(id.match(/\d+/) !== null){
+		href = href.replace( new RegExp(id), value );
+	} else {
+		href += value;
+	}
+	console.log('Konacni link za odabranu datoteku: ' + href );
+	$a.attr('href', href);
 }

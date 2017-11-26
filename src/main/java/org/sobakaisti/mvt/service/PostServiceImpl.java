@@ -51,6 +51,11 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 		postFactoriesMap.put(PUBLICATION_CLASS_NAME, publicationPostFactory);
 		postFactoriesMap.put(MEDIA_CLASS_NAME, mediaPostFactory);
 	}
+	
+	@Override
+	public T findById(int id) {
+		return postDao.find(id);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -129,5 +134,7 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 			return null;
 		}		
 	}
+
+	
 
 }

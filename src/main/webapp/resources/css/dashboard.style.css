@@ -1261,7 +1261,8 @@ h6 {
 	right: 0;
 	left: 0;
 	bottom: 0;
-	height: 45px;
+	padding: 10px 14px;
+	text-align: right;
 	overflow:hidden;
 }
 /* media upload bttn */
@@ -1335,6 +1336,7 @@ form > span {
 .media-preview-bttns {
 	position: relative;
 	margin-top: 2.2rem;
+	margin-bottom: 1em;
 	clear: both;
 }
 .media-preview-editable >

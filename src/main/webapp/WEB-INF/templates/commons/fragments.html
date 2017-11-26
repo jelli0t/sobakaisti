@@ -45,7 +45,7 @@
 		<!-- Input file button -->
 		<div class="media-upload-container">
 			<form th:action="@{/sbk-admin/media/upload}" id="media-upload-form">		
-				<h4>Odaberite datoteku sa vašeg računara</h4>
+				<h4 th:text="#{media.uploads.select.description}">Odaberite datoteku sa vaseg racunara</h4>
 				
 				<div class="input-file-container">  
 				    <input class="input-file" id="my-file" type="file" name="media">
@@ -57,7 +57,7 @@
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 				
-				<span>Najveća dozvoljena veličina datoteke za otpremanje: 30 MB.</span>				
+				<span th:text="#{media.uploads.select.limit}">Najveca dozvoljena velicina datoteke za otpremanje: 30 MB.</span>				
 			</form>
 		</div>
 		
@@ -68,6 +68,11 @@
 				</div>					
 			</form>
 		</div>	
+	</th:block>
+	
+	<th:block th:fragment="mediaRepoFragment">
+		<h3>repo!</h3>
+	
 	</th:block>
 	
 	
@@ -93,7 +98,7 @@
 			</div>
 			
 			<div class="media-preview-editable">
-				<input type="hidden" name="id" th:value="${media.id}">
+				<input type="hidden" name="id" th:value="${media.id}">			
 				<label>
 					<span>Naslov</span>
 					<input type="text" name="title" th:value="${media.title}" class="def-input">
@@ -115,12 +120,14 @@
 				<div class="media-preview-bttns">
 					<a class="bttn bttn-sm" id="bttn-media-remove"
 							th:src="@{/sbk-admin/media/{id}/remove/(id=${media.id})}">
-						<img alt="rm" th:src="@{/resources/img/icons/trash.svg}" height="14"> Ukloni trajno
+						<img alt="rm" th:src="@{/resources/img/icons/trash.svg}" height="14"> 
+						<span th:text="#{button.label.remove.permanent}">Ukloni trajno</span>
 					</a>
 					
 					<a class="bttn bttn-sm" id="bttn-media-update"
 							th:src="@{/sbk-admin/media/{id}/update/(id=${media.id})}">
-						<img alt="s" th:src="@{/resources/img/icons/save.svg}" height="14"> Sačuvaj izmene
+						<img alt="s" th:src="@{/resources/img/icons/svg/check.svg}" height="14">
+						<span th:text="#{button.label.save.edited}">Sacuvaj izmene</span>
 					</a>
 				</div>
 			</div>
@@ -129,9 +136,17 @@
 	
 	
 	<!-- Intro backgrount text animated -->
-	<th:block th:fragment="mediaLibraryFragment">
+	<th:block th:fragment="mediaLibraryFragment" >
 		<div>
 		
+		</div>
+	</th:block>
+	
+	
+	<th:block th:fragment="selectedMediaPreviewFragment" th:with="media=${media}">
+		<div th:if="type != null & media != null" th:class="${type}+'-prev-container'">
+			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="24">
+			<span th:text="${media.title}"></span>
 		</div>
 	</th:block>
 	

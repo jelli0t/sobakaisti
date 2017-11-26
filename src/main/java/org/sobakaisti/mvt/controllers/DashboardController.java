@@ -12,6 +12,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
@@ -22,6 +24,7 @@ import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.MediaService;
+import org.sobakaisti.mvt.service.MediaServiceImpl;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
@@ -53,7 +56,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping(value="/sbk-admin")
 public class DashboardController {
-	
+	private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
+		
 	@Autowired
 	private AuthorDao authorDao;	
 	@Autowired
@@ -453,11 +457,29 @@ public class DashboardController {
 	
 	@RequestMapping(value="/datetime/update/date/{month}", method=RequestMethod.GET)
 	@ResponseBody
-	public int updateDateListAccordingToMonth(@PathVariable("month") int month) {	
+	public int updateDateListAccordingToMonth(@PathVariable("month") int month) {
 		System.out.println("Broj meseca: "+month);
 		return CalendarUtil.getMaxDatePerMonth(month);
 	}
 
+	
+	@RequestMapping(value="/media/library", method=RequestMethod.GET)
+	public String switchMediaSelectionBodyContent(@RequestParam("show") String show) {
+		if(!show.isEmpty()) {
+			if(show.equals("upload")) {
+				logger.info("Prosledjen parametar: "+show+", ucitavam fragent: 'mediaUploadFragment'");
+				return "commons/fragments :: mediaUploadFragment";
+			} 
+			else if(show.equals("repo")) {
+				logger.info("Prosledjen parametar: "+show+", ucitavam fragent: 'mediaRepoFragment'");
+				return "commons/fragments :: mediaRepoFragment";
+			}				
+		}
+		logger.warn("Nije Prosledjen parametar! Podrazumevano ucitavam fragent: 'mediaRepoFragment'");
+		return "commons/fragments :: mediaUploadFragment";		
+	}
+	
+	
 	
 	@RequestMapping(value="/media/upload", method=RequestMethod.POST)
 	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, Model model) {
@@ -502,4 +524,18 @@ public class DashboardController {
 		} else
 			return new ResponseEntity<String>("Nisu prosledjeni parametri za izmenu", HttpStatus.BAD_REQUEST);
 	}
+	
+	
+	@RequestMapping(value="/media/selected/{type}/{id}", method=RequestMethod.GET)
+	public String appendMediaPreview(@PathVariable("type") String type,
+									 @PathVariable("id") int id, Model model) {
+		if(!type.isEmpty()) {
+			Media media = mediaService.findById(id);
+			model.addAttribute("media", media);
+		}
+		model.addAttribute("type", type);
+		return "commons/fragments :: selectedMediaPreviewFragment";
+	}
+	
+	
 }

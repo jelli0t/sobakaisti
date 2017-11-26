@@ -65,14 +65,15 @@
 			</div>
 			<div class="panel-body">
 				<!-- Input file button -->	
-				<a th:href="@{/media/show/selection(type=featured)}" class="show-media-lib bttn bttn-default">
-					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> Odaberi fotku...
+				<a th:href="@{/sbk-admin/media/selected/featured/}" class="show-media-lib bttn bttn-default">
+					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> 
+					<span th:text="#{button.label.upload.featuredImg}">Odaberi fotografiju</span>
 				</a>	
 				
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 				<!-- Featured IMG preview -->
-				<div class="featured-img-prev" id="img-prev"></div>
+				<div id="featured-prev-container"></div>
 			</div>
 		</div>
 		</div>	 <!-- end of right sidebar -->
@@ -95,13 +96,12 @@
 			</div>
 			<!-- Input file button -->
 			<div class="form-tr">
-			
-				<button type="button" class="show-media-lib bttn bttn-default" th:src="@{/media/library?show=upload}">
-					<img alt="" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="16"> Podigni dokument...
-				</button>
+				<!-- Input file button -->	
+				<a th:href="@{/sbk-admin/media/selected/publication/}" class="show-media-lib bttn bttn-default">
+					<img alt="" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="16"> 
+					<span th:text="#{button.label.upload.publiction}">Podigni dokument...</span>
+				</a>
 				
-<!-- 				<input type="file" name="file" id="publication-file" class="inputfile" /> -->
-<!-- 				<label for="publication-file" id="upload-label" class="file-upload-label">Odaberi dokument...</label> -->
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 			</div>
@@ -130,8 +130,18 @@
 		<!-- tabs -->
 		<nav>
 			<ul class="media-tabs">
-				<li><a th:href="@{/media/library(show=upload)}" class="media-tab-active" title="Upload file">Podigni datoteku</a></li>
-				<li><a th:href="@{/media/library(show=repo)}" title="Prikazi biblioteku medijskog sadrzaja">Repozitorija datoteka</a></li>
+				<li>
+					<a th:href="@{/sbk-admin/media/library(show=upload)}" class="media-tab media-tab-active" title="Upload file">
+						<img alt="s" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="12">
+						<span>Podigni datoteku</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/sbk-admin/media/library(show=repo)}" class="media-tab" title="Prikazi biblioteku medijskog sadrzaja">
+						<img alt="s" th:src="@{/resources/img/icons/svg/inbox.svg}" height="12">
+						<span>Repozitorija datoteka</span>
+					</a>
+				</li>
 			</ul>
 		</nav>
 		<!-- Body -->
@@ -140,9 +150,11 @@
 		</section>
 		<!-- footer -->
 		<footer class="media-repo-footer">
+			<!-- set media button -->
 			<a class="bttn bttn-sm bttn-a-disabled" id="bttn-media-select"
 				th:href="@{/sbk-admin/media/selected/}">
-				<img alt="s" th:src="@{/resources/img/icons/save.svg}" height="16">Postavi
+				<img alt="s" th:src="@{/resources/img/icons/svg/pin.svg}" height="16">
+				<span th:text="#{button.label.upload.set}">Postavi</span>
 			</a>
 		</footer>		
 	</div>	
