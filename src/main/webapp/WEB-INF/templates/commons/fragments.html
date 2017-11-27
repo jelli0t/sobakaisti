@@ -53,26 +53,22 @@
 				    	<img alt="" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="16">Odaberi datoteku...
 				    </label>
 				</div>
-					
-				<!-- validation error message -->
-				<div class="validation-error"></div>
-				
 				<span th:text="#{media.uploads.select.limit}">Najveca dozvoljena velicina datoteke za otpremanje: 30 MB.</span>				
 			</form>
 		</div>
 		
-		
+		<!-- Right preview content of uploaded media -->
 		<div class="media-edit-container">
 			<form th:action="@{/sbk-admin/media/update}" id="media-edit-form" method="PUT">
-				<div class="media-upload-preview">					
-				</div>					
+				<div class="media-upload-preview"></div>					
 			</form>
 		</div>	
 	</th:block>
 	
-	<th:block th:fragment="mediaRepoFragment">
-		<h3>repo!</h3>
 	
+	<!-- Media Repository Fragment -->
+	<th:block th:fragment="mediaRepoFragment">
+		<h3>repo!</h3>	
 	</th:block>
 	
 	
@@ -96,14 +92,13 @@
 					<strong>Velicina datoteke: </strong><span th:text="${media.size}"></span> KB
 				</div>
 			</div>
-			
+			<!-- Izmenjivi deo preview-a -->
 			<div class="media-preview-editable">
 				<input type="hidden" name="id" th:value="${media.id}">			
 				<label>
 					<span>Naslov</span>
 					<input type="text" name="title" th:value="${media.title}" class="def-input">
-				</label>
-								
+				</label>								
 				<label th:if="${authors != null}">
 					<span>Autor</span>
 					<select name="author" class="def-input">
@@ -111,19 +106,19 @@
 						<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
 					</select>
 				</label>
-
 				<label>
 					<span>Opis</span>
 					<textarea rows="3" name="descriprion" th:value="${media.descriprion}" class="def-input"></textarea>
 				</label>
 				
 				<div class="media-preview-bttns">
+					<!-- Remove media -->
 					<a class="bttn bttn-sm" id="bttn-media-remove"
 							th:src="@{/sbk-admin/media/{id}/remove/(id=${media.id})}">
 						<img alt="rm" th:src="@{/resources/img/icons/trash.svg}" height="14"> 
 						<span th:text="#{button.label.remove.permanent}">Ukloni trajno</span>
 					</a>
-					
+					<!-- Save edited media -->
 					<a class="bttn bttn-sm" id="bttn-media-update"
 							th:src="@{/sbk-admin/media/{id}/update/(id=${media.id})}">
 						<img alt="s" th:src="@{/resources/img/icons/svg/check.svg}" height="14">
@@ -132,6 +127,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- TODO postavi "odaberi" bttn i stavi mu absolute position na dole desno -->
 	</th:block>
 	
 	
