@@ -14,7 +14,30 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="media")
-public class Media extends Post {	
+public class Media extends Post {
+	
+	public enum MediaType {
+		PUBLICATION("publication"),
+		FEATURED("featured");
+		
+		private String value;
+		
+		private MediaType(String value) {
+			this.value = value;
+		}
+		
+		public String getValue() {
+			return value;
+		}
+		
+		public static MediaType getMediaType(String value) {
+		    for (MediaType type : MediaType.values()) {
+		      if (type.value.equalsIgnoreCase(value))
+		        return type;
+		    }
+		    return null;
+		}
+	}
 
 	@Column(name="file_name")
 	private String fileName;
@@ -36,6 +59,8 @@ public class Media extends Post {
 	
 	@Transient
 	private String uploadResultMessage;
+	@Transient
+	private MediaType mediaType;
 	
 	public String getFileName() {
 		return fileName;
@@ -79,6 +104,13 @@ public class Media extends Post {
 	}
 	public void setUploadResultMessage(String uploadResultMessage) {
 		this.uploadResultMessage = uploadResultMessage;
+	}	
+	
+	public MediaType getMediaType() {
+		return mediaType;
+	}
+	public void setMediaType(MediaType mediaType) {
+		this.mediaType = mediaType;
 	}
 	
 	@Override

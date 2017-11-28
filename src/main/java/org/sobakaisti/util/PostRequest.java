@@ -1,9 +1,6 @@
 package org.sobakaisti.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Media.MediaType;
 import org.sobakaisti.mvt.models.Post;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +10,7 @@ public class PostRequest extends Post{
 	private int[] categoriesIds;
 	private int[] tagIds;
 	private MultipartFile media;
+	private MediaType mediaType;
 	
 	/* default constructor */
 	public PostRequest() {
@@ -54,6 +52,14 @@ public class PostRequest extends Post{
 
 	public void setMedia(MultipartFile media) {
 		this.media = media;
+	}
+
+	public MediaType getMediaType() {
+		return mediaType;
+	}
+
+	public void setMediaType(MediaType mediaType) {
+		this.mediaType = mediaType;
 	}
 
 	@Override

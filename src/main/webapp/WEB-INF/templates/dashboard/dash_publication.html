@@ -65,7 +65,7 @@
 			</div>
 			<div class="panel-body">
 				<!-- Input file button -->	
-				<a th:href="@{/sbk-admin/media/selected/featured/}" class="show-media-lib bttn bttn-default">
+				<a th:href="@{/sbk-admin/media/selected(type=featured)}" class="show-media-lib bttn bttn-default">
 					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> 
 					<span th:text="#{button.label.upload.featuredImg}">Odaberi fotografiju</span>
 				</a>	
@@ -96,8 +96,8 @@
 			</div>
 			<!-- Input file button -->
 			<div class="form-tr">
-				<!-- Input file button -->	
-				<a th:href="@{/sbk-admin/media/selected/publication/}" class="show-media-lib bttn bttn-default">
+				<!-- Input Featured Image button -->	
+				<a th:href="@{/sbk-admin/media/select(type=publication)}" class="show-media-lib bttn bttn-default">
 					<img alt="" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="16"> 
 					<span th:text="#{button.label.upload.publiction}">Podigni dokument...</span>
 				</a>

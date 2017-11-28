@@ -196,8 +196,9 @@ $(function() {
 	$('.show-media-lib').on('click', function(event) {
 		event.stopPropagation();
 	    event.preventDefault();
-		var href = $(this).attr('href');
-		$('#bttn-media-select').switchHrefValue(href);		
+		var type = $(this).attr('href').split('=')[1];		
+		$('#media-upload-form').appendMediaTypeOnHref(type);
+//		$('#bttn-media-select').switchHrefValue(href);	
 		callAnchor('media');		
 	});
 	
@@ -910,8 +911,10 @@ $.fn.uploadMediaFile = function()
 		console.log("success: "+data);
 		$('.media-upload-preview').append(data);	
 		/* set media ID on button uri */
-		var id = $(data).find('.media-preview-editable input[type="hidden"][name="id"]').val();		
-		$('#bttn-media-select').appendValueOnHref(id);
+//		var id = $(data).find('.media-preview-editable input[type="hidden"][name="id"]').val();	
+		var url = $('#media-selected-link').attr('src');
+//		$('#bttn-media-select').appendValueOnHref(id);
+		$('#bttn-media-select').switchHrefValue(url);
 		$('#bttn-media-select').removeClass('bttn-a-disabled');
 	})
 	.fail(function( xhr, status, errorThrown ) {
@@ -973,6 +976,14 @@ $.fn.appendMediaPreview = function() {
 $.fn.switchHrefValue = function(value) {
 	var $a = $(this);
 	$a.attr('href', value);
+}
+
+$.fn.appendMediaTypeOnHref = function(type) {
+	var $form = $(this);
+	var raw = $form.attr('action');
+	var action = raw.substr(0, raw.lastIndexOf('/')+1);	
+	$form.attr('action', action + type);
+	console.log('action: '+(action + type));
 }
 
 $.fn.appendValueOnHref = function(value) {

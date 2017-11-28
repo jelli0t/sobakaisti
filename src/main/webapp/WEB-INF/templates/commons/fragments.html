@@ -44,7 +44,7 @@
 	<th:block th:fragment="mediaUploadFragment">
 		<!-- Input file button -->
 		<div class="media-upload-container">
-			<form th:action="@{/sbk-admin/media/upload}" id="media-upload-form">		
+			<form th:action="@{/sbk-admin/media/upload/type}" id="media-upload-form">		
 				<h4 th:text="#{media.uploads.select.description}">Odaberite datoteku sa vaseg racunara</h4>
 				
 				<div class="input-file-container">  
@@ -127,7 +127,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- TODO postavi "odaberi" bttn i stavi mu absolute position na dole desno -->
+		<!-- link -->
+		<input type="hidden" id="media-selected-link" th:if="${media.mediaType != null}"
+			th:src="@{/sbk-admin/media/selected/{type}/{id}(type=${media.mediaType.value}, id=${media.id})}">
 	</th:block>
 	
 	

@@ -481,16 +481,17 @@ public class DashboardController {
 	
 	
 	
-	@RequestMapping(value="/media/upload", method=RequestMethod.POST)
-	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, Model model) {
-		System.out.println("Upload file: "+media.getOriginalFilename());	
+	@RequestMapping(value="/media/upload/{mediaType}", method=RequestMethod.POST)
+	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, @PathVariable("mediaType") String mediaType, Model model) {
+		logger.info("MultipartFile uploaded name: '"+media.getOriginalFilename() +"'. MediaType: "+mediaType);
 		Media postMedia = null;
 		/* ako je uploadovana datoteka manja od 30MB */
 		if(media.getSize() < 31457300) {
 			PostRequest postRequest = new PostRequest(media);
 			postMedia = mediaService.processAndSavePostRequest(postRequest);
 			postMedia.setUploadResultMessage("Uspesno ste otpremili datoteku.");
-			postMedia.setPosted(true);		
+			postMedia.setPosted(true);
+			postMedia.setMediaType(Media.MediaType.getMediaType(mediaType));
 		} else {
 			postMedia = new Media();
 			postMedia.setUploadResultMessage("Datoteka ne sme biti veca od 30MB!");
