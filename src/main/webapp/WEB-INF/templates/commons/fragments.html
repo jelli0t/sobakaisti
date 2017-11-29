@@ -70,7 +70,7 @@
 	<th:block th:fragment="mediaRepoFragment">
 		<div class="media-repo-container" th:if="${not #lists.isEmpty(medias)}">
 			<label class="media-item" th:each="media : ${medias}">
-				<input type="checkbox" checked="checked" class="media-item-checkbox">
+				<input type="checkbox" class="media-item-checkbox" th:value="${media.id}">
 				<span class="media-item-checkmark"></span>
 				<img th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" 
 				     th:title="${media.title}" class="media-item-img">
@@ -149,7 +149,7 @@
 	
 	
 	<th:block th:fragment="selectedMediaPreviewFragment" th:with="media=${media}">
-		<div th:if="type != null & media != null" th:class="${type}+'-prev-container'">
+		<div th:if="type != null && media != null" th:class="${type}+'-prev-container'">
 			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="24">
 			<span th:text="${media.title}"></span>
 		</div>
