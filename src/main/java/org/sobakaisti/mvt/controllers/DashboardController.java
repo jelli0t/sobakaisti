@@ -464,7 +464,7 @@ public class DashboardController {
 
 	
 	@RequestMapping(value="/media/library", method=RequestMethod.GET)
-	public String switchMediaSelectionBodyContent(@RequestParam("show") String show) {
+	public String switchMediaSelectionBodyContent(@RequestParam("show") String show, Model model) {
 		if(!show.isEmpty()) {
 			if(show.equals("upload")) {
 				logger.info("Prosledjen parametar: "+show+", ucitavam fragent: 'mediaUploadFragment'");
@@ -472,6 +472,9 @@ public class DashboardController {
 			} 
 			else if(show.equals("repo")) {
 				logger.info("Prosledjen parametar: "+show+", ucitavam fragent: 'mediaRepoFragment'");
+				// dohvati sve medije soritane po datumu
+				List<Media> medias = mediaService.findAllPostOrderedByDate();
+				model.addAttribute("medias", medias);
 				return "commons/fragments :: mediaRepoFragment";
 			}				
 		}
