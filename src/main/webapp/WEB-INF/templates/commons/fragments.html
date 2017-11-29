@@ -149,7 +149,7 @@
 	
 	
 	<th:block th:fragment="selectedMediaPreviewFragment" th:with="media=${media}">
-		<div th:if="type != null && media != null" th:class="${type}+'-prev-container'">
+		<div th:if="type != null and media != null" th:class="${type}+'-prev-container'">
 			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="24">
 			<span th:text="${media.title}"></span>
 		</div>
