@@ -28,6 +28,11 @@ public interface PostService<T extends Post> {
 	public T findById(int id);
 	
 	/**
+	 * Pronadji apsolutno sve objekte jednog entiteta
+	 * */
+	public List<T> findAll();
+	
+	/**
 	 * Pronalazi sve objave sortirane po datumu objavljivnja
 	 * Metoda kreira podrazumevani PostFilter koji filtrira samo 
 	 * aktivne objave. 

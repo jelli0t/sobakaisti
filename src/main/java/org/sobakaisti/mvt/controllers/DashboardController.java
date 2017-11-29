@@ -25,6 +25,7 @@ import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.MediaService;
 import org.sobakaisti.mvt.service.MediaServiceImpl;
+import org.sobakaisti.mvt.service.PostService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
@@ -473,7 +474,7 @@ public class DashboardController {
 			else if(show.equals("repo")) {
 				logger.info("Prosledjen parametar: "+show+", ucitavam fragent: 'mediaRepoFragment'");
 				// dohvati sve medije soritane po datumu
-				List<Media> medias = mediaService.findAllPostOrderedByDate();
+				List<Media> medias = mediaService.findAll();
 				model.addAttribute("medias", medias);
 				return "commons/fragments :: mediaRepoFragment";
 			}				

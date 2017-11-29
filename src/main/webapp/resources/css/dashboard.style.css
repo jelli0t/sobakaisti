@@ -1173,9 +1173,9 @@ h6 {
 .media-select-modal {
 	position: fixed;
 	top: 10%;
-	right: 10%;
+	left: 12%;
+	right: 12%;
 	bottom: 10%;
-	left: 10%;
 	overflow: hidden;
 	border: 1px solid #ddd;
     border-radius: 3px;
@@ -1220,7 +1220,7 @@ h6 {
 }
 .media-repo-container > nav >
 .media-tabs {
-	padding: 0 14px;
+	padding: 0 14px;	
 }
 .media-repo-container > nav >
 .media-tabs > li {
@@ -1233,6 +1233,11 @@ h6 {
    	line-height: 30px;
 	padding: 0 14px; 
 	font-size: 12px;
+	color: #343434;
+}
+.media-tab > img {
+	vertical-align: middle;
+	margin-right: 3px;
 }
 /* aktivan tab */
 .media-tab-active {
@@ -1241,6 +1246,7 @@ h6 {
    	border-left: 1px solid #ddd;
    	border-right: 1px solid #ddd;
    	border-bottom: 1px solid #fff;
+   	font-weight: 600;
 }
 /* media body */
 .media-repo-container > section {
@@ -1351,23 +1357,23 @@ a:nth-child(2) {
 }
 
 /* Media Repo */
-.media-repo-container {
-	width: 100%;
+.media-library-container {
 	height: auto;
+	padding: 12px;
 }
 .media-item {
     display: inline-block;
     position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 7px;
+    width: 120px;
+    height: 120px;
+    margin: 9px;
     cursor: pointer;    
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     box-sizing: border-box;
-    overrlay: hidden;
+    overflow: hidden;
 }
 /* Hide the browser's default checkbox */
 .media-item > input {
@@ -1376,13 +1382,11 @@ a:nth-child(2) {
 }
 /* img */
 .media-item > img {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  height: 100px;
-  border: 1px solid #fff;
-  z-index: 998;
+	height: 120%;
+	width: 120%;
+	object-fit: cover;
 }
+
 /* Create a custom checkbox */
 .media-item > .media-item-checkmark {
     position: absolute;
@@ -1391,7 +1395,7 @@ a:nth-child(2) {
     height: 25px;
     width: 25px;
     background-color: #eee;
-    opacity: 0.5;
+    opacity: 0.3;
     z-index: 999;
 }
 /* On mouse-over, add a grey background color */
@@ -1403,17 +1407,27 @@ a:nth-child(2) {
     background-color: #2196F3;
     opacity: 1.0;
 }
-.media-item input:checked ~ .media-item-img {
-    border-color: #2196F3;
-}
+
 /* Create the checkmark/indicator (hidden when not checked) */
 .media-item-checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
+.media-item-checkmark:before {
+	display: none;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 120px;
+	height: 120px;
+	border: 2px solid #2196F3;
+	box-sizing: border-box;
+}
 /* Show the checkmark when checked */
-.media-item input:checked ~ .media-item-checkmark:after {
+.media-item input:checked ~ .media-item-checkmark:after,
+.media-item input:checked ~ .media-item-checkmark:before  {
     display: block;
 }
 /* Style the checkmark/indicator */

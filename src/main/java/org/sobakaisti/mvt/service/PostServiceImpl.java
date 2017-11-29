@@ -56,6 +56,11 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	public T findById(int id) {
 		return postDao.find(id);
 	}
+	
+	@Override
+	public List<T> findAll() {
+		return postDao.findAllPostsByActiveStatus(1);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -134,6 +139,8 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 			return null;
 		}		
 	}
+
+	
 
 	
 
