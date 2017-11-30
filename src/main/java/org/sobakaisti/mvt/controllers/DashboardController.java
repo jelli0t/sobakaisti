@@ -463,6 +463,21 @@ public class DashboardController {
 		return CalendarUtil.getMaxDatePerMonth(month);
 	}
 
+	@RequestMapping(value="/media/select", method=RequestMethod.GET)
+	public String showMediaSelection(@RequestParam("type") String type) {
+		logger.info("Prosledjen parametar tip: "+type+", ucitavam fragent: 'mediaUploadFragment'");	
+//		switch (Media.MediaType.getMediaType(type)) {
+//			case PUBLICATION:
+//				logger.info("Prosledjen parametar: "+type+", ucitavam fragent: 'mediaUploadFragment'");				
+//				break;
+//				
+//
+//		default:
+//			break;
+//		}
+		return "commons/fragments :: mediaUploadFragment";
+	}
+	
 	
 	@RequestMapping(value="/media/library", method=RequestMethod.GET)
 	public String switchMediaSelectionBodyContent(@RequestParam("show") String show, Model model) {

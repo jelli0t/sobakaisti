@@ -196,8 +196,11 @@ $(function() {
 	$('.show-media-lib').on('click', function(event) {
 		event.stopPropagation();
 	    event.preventDefault();
-		var type = $(this).attr('href').split('=')[1];		
-		$('#media-upload-form').appendMediaTypeOnHref(type);
+	    
+	    $(this).switchMediaSelectionBody();
+	    
+//		var type = $(this).attr('href').split('=')[1];		
+//		$('#media-upload-form').appendMediaTypeOnHref(type);
 //		$('#bttn-media-select').switchHrefValue(href);	
 		callAnchor('media');		
 	});

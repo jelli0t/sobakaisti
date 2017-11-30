@@ -46,7 +46,7 @@
 		<div class="media-upload-container">
 			<form th:action="@{/sbk-admin/media/upload/type}" id="media-upload-form">		
 				<h4 th:text="#{media.uploads.select.description}">Odaberite datoteku sa vaseg racunara</h4>
-				
+<!-- 				<h1 th:text="${type}"></h1> -->
 				<div class="input-file-container">  
 				    <input class="input-file" id="my-file" type="file" name="media">
 				    <label tabindex="0" for="my-file" class="input-file-trigger bttn bttn-default">
@@ -74,6 +74,8 @@
 				<span class="media-item-checkmark"></span>
 				<img th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" 
 				     th:title="${media.title}" class="media-item-img">
+				<!-- link -->
+<!-- 				<a th:href="@{/sbk-admin/media/selected/{type}/{id}(type=${media.mediaType.value}, id=${media.id})}"></a>   -->
 			</label>
 		</div>	
 	</th:block>
