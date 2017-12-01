@@ -182,13 +182,7 @@ $(function() {
 	$('#new-post-form select[name=month]').change(function() { 
 		$(this).updateDateSelect();
 	});
-	
-	
-	$('.media-tab').on('click', function(event) {
-		event.stopPropagation();
-	    event.preventDefault();
-		$(this).switchMediaSelectionBody();
-	});
+			
 	
 	/*
 	 * Click on media upload bttn
@@ -196,27 +190,34 @@ $(function() {
 	$('.show-media-lib').on('click', function(event) {
 		event.stopPropagation();
 	    event.preventDefault();
-	    
-	    $(this).switchMediaSelectionBody();
-	    
-//		var type = $(this).attr('href').split('=')[1];		
-//		$('#media-upload-form').appendMediaTypeOnHref(type);
-//		$('#bttn-media-select').switchHrefValue(href);	
+	    /* kapsulira div gde treba da se ucita */
+	    var $container = $('.media-select-modal');
+	    $(this).switchMediaSelectionBody($container);
 		callAnchor('media');		
 	});
 	
-	$('.media-repo-body').on('change', '#media-upload-form', function(event) {
-		event.stopPropagation(); // Stop stuff happening
-	    event.preventDefault(); // Totally stop stuff happening
-		$(this).uploadMediaFile();		
+	$('.media-select-modal').on('click', '.media-tab', function(event) {
+		event.stopPropagation();
+	    event.preventDefault();
+	    var $container = $('.media-repo-body');
+		$(this).switchMediaSelectionBody($container);
+		$('.media-tab').removeClass('media-tab-active');
+		$(this).addClass('media-tab-active');
 	});
-	/*
-	 * Close media upload
-	 * */
-	$('#media-repo-close').on('click', function(){		
+	
+	/* Close media upload */
+	$('.media-select-modal').on('click', '#media-repo-close', function(event){
+		event.stopPropagation(); 
+	    event.preventDefault();
 		callAnchor('');		
 	});
 	
+	$('.media-select-modal').on('change', '#media-upload-form', function(event) {
+		event.stopPropagation(); 
+	    event.preventDefault();
+		$(this).uploadMediaFile();		
+	});
+		
 	/* remove media */
 	$('.media-repo-body').on('click', '#bttn-media-remove', function(event) {
 		event.stopPropagation(); 
@@ -866,19 +867,20 @@ $.fn.updateDateSelect = function() {
  * Ucitava telo selekcije medija 
  * na osnovu selektovanog taba
  * */
-$.fn.switchMediaSelectionBody = function() {
+$.fn.switchMediaSelectionBody = function($container) {
 	var $a = $(this);
 	var url = $a.attr('href');
+	console.log('uri : '+url);
 	$.ajax({
 	    url: url,
 	    type: 'GET',	   
 	    dataType: 'html'
 	})
 	.done(function( html ) {
-		$('.media-repo-body').empty();
-		$('.media-repo-body').append(html);	
-		$('.media-tab').removeClass('media-tab-active');
-		$a.addClass('media-tab-active');
+		$container.empty();
+		$container.append(html);
+//		$('.media-repo-body').empty();
+//		$('.media-repo-body').append(html);		
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
@@ -894,7 +896,6 @@ $.fn.uploadMediaFile = function()
 	console.log("[URI]: "+uri);
 	/* popunjavam FormData podacima sa forme */
 	var data = new FormData($(this)[0]);
-
     $.ajax({
 	    url: uri,
 	    type: 'POST',
@@ -911,7 +912,6 @@ $.fn.uploadMediaFile = function()
 	.done(function( data ) {
 		$('.media-edit-container').show(300);
 		$('.media-upload-preview').empty();
-		console.log("success: "+data);
 		$('.media-upload-preview').append(data);	
 		/* set media ID on button uri */
 //		var id = $(data).find('.media-preview-editable input[type="hidden"][name="id"]').val();	
@@ -922,8 +922,7 @@ $.fn.uploadMediaFile = function()
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
-	    console.log( "Status: " + status );
-	    
+	    console.log( "Status: " + status );	    
 	})
 	.always(function( xhr, status ) {
 		console.log("always: "+status);

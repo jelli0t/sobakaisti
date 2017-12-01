@@ -463,57 +463,8 @@ public class DashboardController {
 		return CalendarUtil.getMaxDatePerMonth(month);
 	}
 
-	@RequestMapping(value="/media/select", method=RequestMethod.GET)
-	public String showMediaSelection(@RequestParam("type") String type, Model model) {			
-		if(Media.MediaType.contains(type)) {
-			model.addAttribute("type", type);
-		}
-		logger.info("Prosledjen parametar tip: "+type+", ucitavam fragent: 'mediaUploadFragment'");
-		return "commons/fragments :: mediaUploadFragment";
-	}
 	
 	
-	@RequestMapping(value="/media/library", method=RequestMethod.GET)
-	public String switchMediaSelectionBodyContent(@RequestParam("show") String show, Model model) {
-		if(!show.isEmpty()) {
-			if(show.equals("upload")) {
-				logger.info("Prosledjen parametar: "+show+", ucitavam fragent: 'mediaUploadFragment'");
-				return "commons/fragments :: mediaUploadFragment";
-			} 
-			else if(show.equals("repo")) {
-				logger.info("Prosledjen parametar: "+show+", ucitavam fragent: 'mediaRepoFragment'");
-				// dohvati sve medije soritane po datumu
-				List<Media> medias = mediaService.findAll();
-				model.addAttribute("medias", medias);
-				return "commons/fragments :: mediaRepoFragment";
-			}				
-		}
-		logger.warn("Nije Prosledjen parametar! Podrazumevano ucitavam fragent: 'mediaRepoFragment'");
-		return "commons/fragments :: mediaUploadFragment";		
-	}
-	
-	
-	
-	@RequestMapping(value="/media/upload/{mediaType}", method=RequestMethod.POST)
-	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, @PathVariable("mediaType") String mediaType, Model model) {
-		logger.info("MultipartFile uploaded name: '"+media.getOriginalFilename() +"'. MediaType: "+mediaType);
-		Media postMedia = null;
-		/* ako je uploadovana datoteka manja od 30MB */
-		if(media.getSize() < 31457300) {
-			PostRequest postRequest = new PostRequest(media);
-			postMedia = mediaService.processAndSavePostRequest(postRequest);
-			postMedia.setUploadResultMessage("Uspesno ste otpremili datoteku.");
-			postMedia.setPosted(true);
-			postMedia.setMediaType(Media.MediaType.getMediaType(mediaType));
-		} else {
-			postMedia = new Media();
-			postMedia.setUploadResultMessage("Datoteka ne sme biti veca od 30MB!");
-			postMedia.setPosted(false);
-		}	
-		model.addAttribute("media", postMedia);
-		
-		return "commons/fragments :: mediaUploadedPreview";
-	}
 	
 	@RequestMapping(value="/media/{id}/remove", method=RequestMethod.DELETE)
 	@ResponseBody

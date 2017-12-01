@@ -41,7 +41,7 @@
 	<!-- ------------------------- 
 		Media upload fragment 
 	--------------------------- -->
-	<th:block th:fragment="mediaUploadFragment">
+	<th:block th:fragment="mediaUploadFragment(type)">
 		<!-- Input file button -->
 		<div class="media-upload-container" th:if="${type != null}">
 			<form th:action="@{/sbk-admin/media/upload/{type}/(type=${type})}" id="media-upload-form">		
@@ -66,7 +66,7 @@
 	
 	
 	<!-- Media Repository Fragment -->
-	<th:block th:fragment="mediaRepoFragment">
+	<th:block th:fragment="mediaRepoFragment(type)">
 		<div class="media-library-container" th:if="${not #lists.isEmpty(medias)}">
 			<label class="media-item" th:each="media : ${medias}">
 				<input type="radio" class="media-item-checkbox" th:value="${media.id}">
@@ -176,7 +176,7 @@
 						</a>
 					</li>
 					<li>
-						<a th:href="@{/sbk-admin/media/library/repo/{type})(type=${type})}" class="media-tab" title="Prikazi biblioteku medijskog sadrzaja">
+						<a th:href="@{/sbk-admin/media/library/repo/{type}(type=${type})}" class="media-tab" title="Prikazi biblioteku medijskog sadrzaja">
 							<img alt="s" th:src="@{/resources/img/icons/svg/inbox.svg}" height="13">
 							<span>Repozitorija datoteka</span>
 						</a>
@@ -184,14 +184,14 @@
 				</ul>
 			</nav>
 			<!-- Body -->
-			<section class="media-repo-body" th:insert="~{commons/fragments :: mediaUploadFragment(type=${type})}">
+			<section class="media-repo-body" th:insert="~{commons/fragments :: mediaUploadFragment (type=${type})}">
 
 			</section>
 			<!-- footer -->
 			<footer class="media-repo-footer">
 				<!-- set media button -->
 				<a class="bttn bttn-sm bttn-a-disabled" id="bttn-media-select"
-					th:href="@{/sbk-admin/media/selected/{type}(type=${type})}">
+					th:href="@{/sbk-admin/media/selected/{type}/(type=${type})}">
 					<img alt="s" th:src="@{/resources/img/icons/svg/pin.svg}" height="16">
 					<span th:text="#{button.label.upload.set}">Postavi</span>
 				</a>
