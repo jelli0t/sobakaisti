@@ -464,17 +464,11 @@ public class DashboardController {
 	}
 
 	@RequestMapping(value="/media/select", method=RequestMethod.GET)
-	public String showMediaSelection(@RequestParam("type") String type) {
-		logger.info("Prosledjen parametar tip: "+type+", ucitavam fragent: 'mediaUploadFragment'");	
-//		switch (Media.MediaType.getMediaType(type)) {
-//			case PUBLICATION:
-//				logger.info("Prosledjen parametar: "+type+", ucitavam fragent: 'mediaUploadFragment'");				
-//				break;
-//				
-//
-//		default:
-//			break;
-//		}
+	public String showMediaSelection(@RequestParam("type") String type, Model model) {			
+		if(Media.MediaType.contains(type)) {
+			model.addAttribute("type", type);
+		}
+		logger.info("Prosledjen parametar tip: "+type+", ucitavam fragent: 'mediaUploadFragment'");
 		return "commons/fragments :: mediaUploadFragment";
 	}
 	
