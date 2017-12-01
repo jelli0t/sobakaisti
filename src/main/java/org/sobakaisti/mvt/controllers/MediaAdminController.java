@@ -21,4 +21,26 @@ public class MediaAdminController {
 		}		
 		return "commons/fragments :: mediaSelectionFragment";
 	}
+	
+		
+	@RequestMapping(value="/library/{tab}/{type}", method=RequestMethod.GET)
+	public String switchMediaSelectionBodyContent(@PathVariable String tab, @PathVariable String type, Model model) {
+		String returns = "commons/fragments :: ";
+		if(Media.MediaType.contains(type)) {
+			if(tab.equals("upload")) {				
+				returns += "mediaUploadFragment";
+				logger.info("Odabran tab: "+tab+", ucitavam fragment: 'mediaUploadFragment'");
+			} else if(tab.equals("repo")) {				
+				// dohvati sve medije soritane po datumu
+				List<Media> medias = mediaService.findAll();
+				model.addAttribute("medias", medias);
+				returns += "mediaRepoFragment";
+				logger.info("Odabran tab: "+tab+", ucitavam fragment: 'mediaRepoFragment'");
+			}
+			returns += "(type='%s')";
+			return String.format(returnPrefix, type);
+		}
+		logger.warn("Nije Prosledjen parametar! Podrazumevano ucitavam fragent: 'mediaRepoFragment'");
+		return showMediaSelectionByType(type, model);		
+	}
 }
