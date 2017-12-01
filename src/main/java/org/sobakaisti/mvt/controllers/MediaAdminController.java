@@ -9,7 +9,16 @@ import org.sobakaisti.mvt.service.MediaService;
 public class MediaAdminController {
 	private static final Logger logger = LoggerFactory.getLogger(MediaAdminController.class);
   
-  @Autowired
-	private MediaService mediaService;
-
+  	@Autowired
+	private MediaService mediaService
+		
+	
+	@RequestMapping(value="/select", method=RequestMethod.GET)
+	public String showMediaSelectionByType(@RequestParam("type") String type, Model model) {			
+		if(Media.MediaType.contains(type)) {
+			model.addAttribute("type", type);
+			logger.info("Prosledjen parametar tip: "+type+", ucitavam fragent: 'mediaSelectionFragment'");
+		}		
+		return String.format("commons/fragments :: mediaUploadFragment(type='%s')", type);
+	}
 }
