@@ -37,6 +37,14 @@ public class Media extends Post {
 		    }
 		    return null;
 		}
+		
+		public static boolean contains(String value) {
+		    for (MediaType type : MediaType.values()) {
+		      if (type.value.equalsIgnoreCase(value))
+		        return true;
+		    }
+		    return false;
+		}
 	}
 
 	@Column(name="file_name")
