@@ -19,6 +19,6 @@ public class MediaAdminController {
 			model.addAttribute("type", type);
 			logger.info("Prosledjen parametar tip: "+type+", ucitavam fragent: 'mediaSelectionFragment'");
 		}		
-		return String.format("commons/fragments :: mediaUploadFragment(type='%s')", type);
+		return "commons/fragments :: mediaSelectionFragment";
 	}
 }
