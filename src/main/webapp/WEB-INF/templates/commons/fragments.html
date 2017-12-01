@@ -43,10 +43,9 @@
 	--------------------------- -->
 	<th:block th:fragment="mediaUploadFragment">
 		<!-- Input file button -->
-		<div class="media-upload-container">
-			<form th:action="@{/sbk-admin/media/upload/type}" id="media-upload-form">		
+		<div class="media-upload-container" th:if="${type != null}">
+			<form th:action="@{/sbk-admin/media/upload/{type}/(type=${type})}" id="media-upload-form">		
 				<h4 th:text="#{media.uploads.select.description}">Odaberite datoteku sa vaseg racunara</h4>
-<!-- 				<h1 th:text="${type}"></h1> -->
 				<div class="input-file-container">  
 				    <input class="input-file" id="my-file" type="file" name="media">
 				    <label tabindex="0" for="my-file" class="input-file-trigger bttn bttn-default">
