@@ -156,4 +156,47 @@
 		</div>
 	</th:block>
 	
+	
+	<th:block th:fragment="mediaSelectionFragment"> 
+		<!-- media repo container -->
+		<div class="media-repo-container" th:if="${type != null}">
+			<header>
+				<span class="media-repo-heading">Odaberite datoteku</span>
+				<button type="button" class="bttn-close-simple" id="media-repo-close">
+					<img alt="x" th:src="@{/resources/img/icons/svg/x.svg}" height="16">
+				</button>
+			</header>
+			<!-- tabs -->
+			<nav>
+				<ul class="media-tabs">
+					<li>
+						<a th:href="@{/sbk-admin/media/library/upload/{type}}" class="media-tab media-tab-active" title="Upload file">
+							<img alt="s" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="13">
+							<span>Podigni datoteku</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/sbk-admin/media/library/repo/{type})}" class="media-tab" title="Prikazi biblioteku medijskog sadrzaja">
+							<img alt="s" th:src="@{/resources/img/icons/svg/inbox.svg}" height="13">
+							<span>Repozitorija datoteka</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<!-- Body -->
+			<section class="media-repo-body" th:insert="~{commons/fragments :: mediaUploadFragment(type=${type})}">
+
+			</section>
+			<!-- footer -->
+			<footer class="media-repo-footer">
+				<!-- set media button -->
+				<a class="bttn bttn-sm bttn-a-disabled" id="bttn-media-select"
+					th:href="@{/sbk-admin/media/selected/}">
+					<img alt="s" th:src="@{/resources/img/icons/svg/pin.svg}" height="16">
+					<span th:text="#{button.label.upload.set}">Postavi</span>
+				</a>
+			</footer>		
+		</div>	
+	</th:block>
+	
 </html>
