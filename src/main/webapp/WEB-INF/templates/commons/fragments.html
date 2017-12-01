@@ -170,13 +170,13 @@
 			<nav>
 				<ul class="media-tabs">
 					<li>
-						<a th:href="@{/sbk-admin/media/library/upload/{type}}" class="media-tab media-tab-active" title="Upload file">
+						<a th:href="@{/sbk-admin/media/library/upload/{type}(type=${type})}" class="media-tab media-tab-active" title="Upload file">
 							<img alt="s" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="13">
 							<span>Podigni datoteku</span>
 						</a>
 					</li>
 					<li>
-						<a th:href="@{/sbk-admin/media/library/repo/{type})}" class="media-tab" title="Prikazi biblioteku medijskog sadrzaja">
+						<a th:href="@{/sbk-admin/media/library/repo/{type})(type=${type})}" class="media-tab" title="Prikazi biblioteku medijskog sadrzaja">
 							<img alt="s" th:src="@{/resources/img/icons/svg/inbox.svg}" height="13">
 							<span>Repozitorija datoteka</span>
 						</a>
@@ -191,7 +191,7 @@
 			<footer class="media-repo-footer">
 				<!-- set media button -->
 				<a class="bttn bttn-sm bttn-a-disabled" id="bttn-media-select"
-					th:href="@{/sbk-admin/media/selected/}">
+					th:href="@{/sbk-admin/media/selected/{type}(type=${type})}">
 					<img alt="s" th:src="@{/resources/img/icons/svg/pin.svg}" height="16">
 					<span th:text="#{button.label.upload.set}">Postavi</span>
 				</a>
