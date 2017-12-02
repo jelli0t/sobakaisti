@@ -69,12 +69,13 @@
 	<th:block th:fragment="mediaRepoFragment(type)">
 		<div class="media-library-container" th:if="${not #lists.isEmpty(medias)}">
 			<label class="media-item" th:each="media : ${medias}">
-				<input type="radio" class="media-item-checkbox" th:value="${media.id}">
+				<input type="checkbox" class="media-item-checkbox" th:value="${media.id}">
 				<span class="media-item-checkmark"></span>
 				<img th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" 
 				     th:title="${media.title}" class="media-item-img">
 				<!-- link -->
-<!-- 				<a th:href="@{/sbk-admin/media/selected/{type}/{id}(type=${media.mediaType.value}, id=${media.id})}"></a>   -->
+				<a th:href="@{/sbk-admin/media/selected/{type}/{id}(type=${type}, id=${media.id})}"
+					class="media-item-link"></a>  
 			</label>
 		</div>	
 	</th:block>
@@ -122,13 +123,13 @@
 				<div class="media-preview-bttns">
 					<!-- Remove media -->
 					<a class="bttn bttn-sm" id="bttn-media-remove"
-							th:src="@{/sbk-admin/media/{id}/remove/(id=${media.id})}">
+							th:src="@{/sbk-admin/media/remove/{id}(id=${media.id})}">
 						<img alt="rm" th:src="@{/resources/img/icons/trash.svg}" height="14"> 
 						<span th:text="#{button.label.remove.permanent}">Ukloni trajno</span>
 					</a>
 					<!-- Save edited media -->
-					<a class="bttn bttn-sm" id="bttn-media-update"
-							th:src="@{/sbk-admin/media/{id}/update/(id=${media.id})}">
+					<a class="bttn bttn-default bttn-light" id="bttn-media-update"
+							th:src="@{/sbk-admin/media/update/{id}(id=${media.id})}">
 						<img alt="s" th:src="@{/resources/img/icons/svg/check.svg}" height="14">
 						<span th:text="#{button.label.save.edited}">Sacuvaj izmene</span>
 					</a>
@@ -149,11 +150,19 @@
 	</th:block>
 	
 	
-	<th:block th:fragment="selectedMediaPreviewFragment" th:with="media=${media}">
-		<div th:if="type != null and media != null" th:class="${type}+'-prev-container'">
+	<th:block th:fragment="selectedMediaPreviewFragment" th:if="${type != null && media != null}">
+	
+		<div th:if="${type} == 'publication'" th:class="${type}+'-prev-container'">
 			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="24">
 			<span th:text="${media.title}"></span>
+			<input type="hidden" name="media" th:value="${media.id}">
 		</div>
+		
+		<div th:if="${type} == 'featured'" th:class="${type}+'-prev-container'">
+			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" width="180">
+			<input type="hidden" name="featuredImage" th:value="${media.id}">
+		</div>
+		
 	</th:block>
 	
 	
@@ -190,7 +199,7 @@
 			<!-- footer -->
 			<footer class="media-repo-footer">
 				<!-- set media button -->
-				<a class="bttn bttn-sm bttn-a-disabled" id="bttn-media-select"
+				<a class="bttn bttn-primary bttn-light bttn-a-disabled" id="bttn-media-select"
 					th:href="@{/sbk-admin/media/selected/{type}/(type=${type})}">
 					<img alt="s" th:src="@{/resources/img/icons/svg/pin.svg}" height="16">
 					<span th:text="#{button.label.upload.set}">Postavi</span>

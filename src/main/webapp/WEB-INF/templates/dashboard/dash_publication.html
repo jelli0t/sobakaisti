@@ -65,13 +65,11 @@
 			</div>
 			<div class="panel-body">
 				<!-- Input file button -->	
-				<a th:href="@{/sbk-admin/media/selected(type=featured)}" class="show-media-lib bttn bttn-default">
+				<a th:href="@{/sbk-admin/media/select(type=featured)}" class="show-media-lib bttn bttn-default">
 					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> 
 					<span th:text="#{button.label.upload.featuredImg}">Odaberi fotografiju</span>
 				</a>	
 				
-				<!-- validation error message -->
-				<div class="validation-error"></div>
 				<!-- Featured IMG preview -->
 				<div id="featured-prev-container"></div>
 			</div>
@@ -101,9 +99,8 @@
 					<img alt="" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="16"> 
 					<span th:text="#{button.label.upload.publiction}">Podigni dokument...</span>
 				</a>
-				
-				<!-- validation error message -->
-				<div class="validation-error"></div>
+				<!-- Uploaded publication preview -->
+				<div id="publication-prev-container"></div>
 			</div>
 			<!-- contet textarea -->	
 			<div class="article-input-wrapper form-tr">

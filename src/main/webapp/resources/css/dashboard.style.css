@@ -1442,6 +1442,10 @@ a:nth-child(2) {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.media-item > .media-item-link {
+	visibility: hidden;
+}
 /* -- end od media repo -- */
 
 

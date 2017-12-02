@@ -3,17 +3,13 @@
  */
 package org.sobakaisti.mvt.models;
 
-import java.io.File;
-import java.util.Calendar;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
@@ -21,10 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.validation.constraints.Size;
 
 /**
  * @author jelles
@@ -56,6 +48,28 @@ public class Publication extends Post {
 			inverseJoinColumns = { @JoinColumn(name = "tag_id")})
 	private List<Tag> tags;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },
+        targetEntity = Media.class)
+	@JoinColumn(name="media_id")
+	private Media media;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },
+        targetEntity = Media.class)
+	@JoinColumn(name="featured_img_id")
+	private Media featuredImage;
+	
 	public String getContent() {
 		return content;
 	}
@@ -75,11 +89,28 @@ public class Publication extends Post {
 	public void setDownloaded(int downloaded) {
 		this.downloaded = downloaded;
 	}
+	
 	public List<Tag> getTags() {
 		return tags;
 	}
+	
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
+	}
+		
+	public Media getMedia() {
+		return media;
+	}
+	
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+	
+	public Media getFeaturedImage() {
+		return featuredImage;
+	}
+	public void setFeaturedImage(Media featuredImage) {
+		this.featuredImage = featuredImage;
 	}
 	
 	@Override

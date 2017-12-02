@@ -462,45 +462,6 @@ public class DashboardController {
 		System.out.println("Broj meseca: "+month);
 		return CalendarUtil.getMaxDatePerMonth(month);
 	}
-
-	
-	
-	
-	@RequestMapping(value="/media/{id}/remove", method=RequestMethod.DELETE)
-	@ResponseBody
-	public ResponseEntity<String> removeMediaFile(@PathVariable("id") int id) {
-		System.out.println("Usao u metodu, brisem id: "+id);
-		if(mediaService.fullyRemoveMedia(id)) {
-			return new ResponseEntity<String>("Uspesno uklonjena datoteka.", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>("Greska prilikom uklanjanja datoteke sa sistema!", HttpStatus.SERVICE_UNAVAILABLE);
-		}
-	}
-	
-	@RequestMapping(value="/media/update", method=RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<String> updateEditedMedia(@RequestBody Media media) {
-		if(media != null) {
-			if(mediaService.updateMediaDetails(media)) {
-				return new ResponseEntity<String>("Uspesno izmenjeni podaci o datoteci.", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>("Greska prilikom izmene podataka o datoteci!", HttpStatus.SERVICE_UNAVAILABLE);
-			}
-		} else
-			return new ResponseEntity<String>("Nisu prosledjeni parametri za izmenu", HttpStatus.BAD_REQUEST);
-	}
-	
-	
-	@RequestMapping(value="/media/selected/{type}/{id}", method=RequestMethod.GET)
-	public String appendMediaPreview(@PathVariable("type") String type,
-									 @PathVariable("id") int id, Model model) {
-		if(!type.isEmpty()) {
-			Media media = mediaService.findById(id);
-			model.addAttribute("media", media);
-		}
-		model.addAttribute("type", type);
-		return "commons/fragments :: selectedMediaPreviewFragment";
-	}
 	
 	
 }

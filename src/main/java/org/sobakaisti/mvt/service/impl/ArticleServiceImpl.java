@@ -148,10 +148,7 @@ public class ArticleServiceImpl implements ArticleService{
 			article.setCategories(categoryService.findListOfCategoriesByIdsArray(categoriesIds));
 		}
 		
-		if(!file.isEmpty()) {
-			String fileName = file.getOriginalFilename();
-			article.setFeaturedImage(fileName);
-		}
+		
 		return articleDao.saveArticle(article);
 	}
 

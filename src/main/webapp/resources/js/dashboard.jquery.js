@@ -219,22 +219,35 @@ $(function() {
 	});
 		
 	/* remove media */
-	$('.media-repo-body').on('click', '#bttn-media-remove', function(event) {
+	$('.media-select-modal').on('click', '#bttn-media-remove', function(event) {
 		event.stopPropagation(); 
-	    	event.preventDefault(); 
+	    event.preventDefault(); 
 		$(this).removeMediaItem();
 	}); 
 	/* edit media */
-	$('.media-repo-body').on('click', '#bttn-media-update', function(event) {
+	$('.media-select-modal').on('click', '#bttn-media-update', function(event) {
 		event.stopPropagation(); 
 	    	event.preventDefault(); 
 		$('#media-edit-form').processFormData();
 	});
 	
-	$('#bttn-media-select').on('click', function(event) {
+	$('.media-select-modal').on('click', '#bttn-media-select', function(event) {
 		event.stopPropagation(); 
     	event.preventDefault();
+    	alert('SELECT!');
     	$(this).appendMediaPreview();    	
+	});
+	
+	/* */
+	$('.media-select-modal').on('change', '.media-item input', function(event) {
+		event.stopPropagation(); 
+	    event.preventDefault();
+	    if($(this).is(':checked')) {
+	    	var href = $(this).parent().find('a.media-item-link').attr('href');
+			$('#bttn-media-select').removeClass('bttn-a-disabled').switchHrefValue(href);
+	    } else {
+	    	$('#bttn-media-select').addClass('bttn-a-disabled');
+		}	    
 	});
 	
 }); // End Of Ready

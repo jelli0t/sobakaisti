@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -86,10 +87,7 @@ public class Article {
 				joinColumns={@JoinColumn(name="article_id")}, 
 				inverseJoinColumns={@JoinColumn(name="category_id")})
 	private List<Category> categories;
-	
-	@Column(name="featured_img")
-	private String featuredImage;
-	
+		
 	@Transient
 	private CalendarUtil postDateMeta;
 	
@@ -153,12 +151,7 @@ public class Article {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-	public String getFeaturedImage() {
-		return featuredImage;
-	}
-	public void setFeaturedImage(String featuredImage) {
-		this.featuredImage = featuredImage;
-	}
+	
 	/* meta podaci za postDate */
 	public CalendarUtil getPostDateMeta() {
 		if(this.postDate != null) {
