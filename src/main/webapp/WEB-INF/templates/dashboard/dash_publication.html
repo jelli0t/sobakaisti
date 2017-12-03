@@ -11,7 +11,7 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 <!-- form -->
-<form th:action="@{/publications/upload}" id="new-post-form" name="new-post-form" enctype="multipart/form-data">	
+<form th:action="@{/publications/upload}" id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post">	
 	<div class="main-dash-content">
 		<!-- Right panel -->
 		<div class="right-container">
@@ -32,7 +32,7 @@
 			</div>
 			<div class="panel-footer">
 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
-				<button type="button" id="submit-bttn" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
 			</div>
 		</div>
 		
@@ -115,47 +115,8 @@
 	Modul za upload medija datoteka
  -->
 <div class="overlay" id="media">
-<div class="media-select-modal">
-	<!-- media repo container -->
-<!-- 	<div class="media-repo-container"> -->
-<!-- 		<header> -->
-<!-- 			<span class="media-repo-heading">Odaberite datoteku</span> -->
-<!-- 			<button type="button" class="bttn-close-simple" id="media-repo-close"> -->
-<!-- 				<img alt="x" th:src="@{/resources/img/icons/svg/x.svg}" height="16"> -->
-<!-- 			</button> -->
-<!-- 		</header> -->
-<!-- 		<!-- tabs --> -->
-<!-- 		<nav> -->
-<!-- 			<ul class="media-tabs"> -->
-<!-- 				<li> -->
-<!-- 					<a th:href="@{/sbk-admin/media/library(show=upload)}" class="media-tab media-tab-active" title="Upload file"> -->
-<!-- 						<img alt="s" th:src="@{/resources/img/icons/svg/cloud-upload.svg}" height="13"> -->
-<!-- 						<span>Podigni datoteku</span> -->
-<!-- 					</a> -->
-<!-- 				</li> -->
-<!-- 				<li> -->
-<!-- 					<a th:href="@{/sbk-admin/media/library(show=repo)}" class="media-tab" title="Prikazi biblioteku medijskog sadrzaja"> -->
-<!-- 						<img alt="s" th:src="@{/resources/img/icons/svg/inbox.svg}" height="13"> -->
-<!-- 						<span>Repozitorija datoteka</span> -->
-<!-- 					</a> -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 		</nav> -->
-<!-- 		<!-- Body --> -->
-<!-- 		<section class="media-repo-body" th:insert="~{commons/fragments :: mediaUploadFragment}"> -->
-		
-<!-- 		</section> -->
-<!-- 		<!-- footer --> -->
-<!-- 		<footer class="media-repo-footer"> -->
-<!-- 			<!-- set media button --> -->
-<!-- 			<a class="bttn bttn-sm bttn-a-disabled" id="bttn-media-select" -->
-<!-- 				th:href="@{/sbk-admin/media/selected/}"> -->
-<!-- 				<img alt="s" th:src="@{/resources/img/icons/svg/pin.svg}" height="16"> -->
-<!-- 				<span th:text="#{button.label.upload.set}">Postavi</span> -->
-<!-- 			</a> -->
-<!-- 		</footer>		 -->
-<!-- 	</div>	 -->
-</div>
+	<div class="media-select-modal">
+	</div>
 </div>
 
 <script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>

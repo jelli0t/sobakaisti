@@ -9,6 +9,17 @@ public class PostRequest extends Post{
 	private String content;
 	private int[] categoriesIds;
 	private int[] tagIds;
+	/**
+	 * Id uploadovanog publiction media
+	 * */
+	private int publicationMediaId;
+	/**
+	 * Id uploadovanog featured media
+	 * */
+	private int featuredImageId;
+	/**
+	 * Upload-ovana datoteka
+	 * */
 	private MultipartFile media;
 	private MediaType mediaType;
 	
@@ -62,6 +73,22 @@ public class PostRequest extends Post{
 		this.mediaType = mediaType;
 	}
 
+	public int getPublicationMediaId() {
+		return publicationMediaId;
+	}
+
+	public void setPublicationMediaId(int publicationMediaId) {
+		this.publicationMediaId = publicationMediaId;
+	}
+
+	public int getFeaturedImageId() {
+		return featuredImageId;
+	}
+
+	public void setFeaturedImageId(int featuredImageId) {
+		this.featuredImageId = featuredImageId;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("post : {");
@@ -70,7 +97,8 @@ public class PostRequest extends Post{
 		sb.append(getAuthor() != null ? "author:"+getAuthor().getId()+", " : "");
 		sb.append(getSlug() != null ? "slug:"+getSlug()+", " : "");
 		sb.append(getCategoriesIds() != null ? "categories_size: "+getCategoriesIds().length+", " : "");
-
+		sb.append("publicationMediaId:"+publicationMediaId+", ");
+		sb.append("featuredImageId:"+featuredImageId+", ");
 		sb.append("active:"+getActive());
 		return sb.append('}').toString();
 	}

@@ -443,6 +443,7 @@ public class DashboardController {
 	
 	@RequestMapping(value="/publication", method=RequestMethod.GET)
 	public String showNewPublicationPage(Model model){
+		model.addAttribute("postRequest", new PostRequest());
 		return "dashboard/dash_publication";
 	}
 	

@@ -10,6 +10,7 @@ import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
+import org.sobakaisti.util.PostRequest;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -97,8 +98,8 @@ public class PublicationsController {
 	}
 	
 	
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	@ResponseBody
+//	@RequestMapping(value="/upload", method=RequestMethod.POST)
+//	@ResponseBody
 	public ResponseEntity<Object> uploadPublication(
 			@RequestParam(name="title", required = false) String title,
 			@RequestParam(name="slug", required = false) String slug,
@@ -108,12 +109,7 @@ public class PublicationsController {
             @RequestParam(name="tags", required = false) int[] tags,
             @RequestParam(name="featuredImg", required = false) MultipartFile featuredImg
 			) {
-		System.out.println("Pogodio sam metodu uploadPublication()");
-		System.out.println("Uploadovao sam file: "+file.getOriginalFilename());
-		System.out.println("Body: "+content);
-		System.out.println("Author id: "+author);
-		System.out.println("Featured img: "+featuredImg.getOriginalFilename());
-		
+	
 		Validation validation = validator.validatePostFields(title, slug, author, file);
 		
 		if(!validation.hasErrors()) {
@@ -130,4 +126,9 @@ public class PublicationsController {
 		}
 	}
 	
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	public String uploadNewPublication(@ModelAttribute(value="postRequest") PostRequest postRequest) {
+		System.out.println("Uploaded: "+postRequest);
+		return "redirect:/sbk-admin/publication";
+	}
 }

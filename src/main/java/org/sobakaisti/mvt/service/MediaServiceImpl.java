@@ -92,6 +92,7 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 				return true;
 			}			
 		}
+		logger.warn("Greska. Nije prosledjen Media objekat za cuvanje. Vracam false...");
 		return false;
 	}
 }

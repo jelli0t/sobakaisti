@@ -2,6 +2,8 @@ package org.sobakaisti.mvt.service;
 
 import java.util.Calendar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.PostRequest;
@@ -12,7 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class MediaPostFactory extends PostFactory{
-	
+	private static final Logger logger = LoggerFactory.getLogger(MediaPostFactory.class);
+	  
 	@Autowired
 	private MediaService mediaService;
 
@@ -27,7 +30,8 @@ public class MediaPostFactory extends PostFactory{
 				final String fileName = mediaFile.getOriginalFilename();
 				String extensionless = StringUtil.trimExtensionFromFilename(fileName);
 				final String extension = StringUtil.extractFilenameExtension(fileName);
-				final String slug = StringUtil.makeSlug(extensionless);
+				String tmpSlug = StringUtil.makeSlug(extensionless);
+				final String slug = mediaService.addSuffixIfDuplicateExist(tmpSlug);
 				/* postavlja user friendly naslov */
 				media.setTitle(StringUtil.makeUserFriendlyTitleFromFilename(fileName));
 				/* postavlja slug */
@@ -44,12 +48,13 @@ public class MediaPostFactory extends PostFactory{
 			/* defaults */
 			media.setActive(1);			
 			media.setLang("rs");
+			logger.info("Kreiran objekat Media: "+media);
 			/*
 			 * Upload media file on file system
 			 * */
 			return mediaService.uploadMediaToFileSystem(mediaFile, media.getFileName()) ? media : null;
 		}
-		System.out.println(media);
+		logger.warn("Nije prosledjena media datoteka na obradu i cuvanje!");
 		return media;
 	}
 

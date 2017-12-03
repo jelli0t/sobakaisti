@@ -8,9 +8,12 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.service.MediaPostFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class AuthorDaoImpl implements AuthorDao {
+	
+	private static final Logger logger = LoggerFactory.getLogger(AuthorDaoImpl.class);	
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -45,6 +50,7 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
 		List<Author> authors = session.createQuery(HQL).list();
+		logger.info("Dohvatio listu od "+authors.size()+" autora.");
 		return authors;
 	}
 

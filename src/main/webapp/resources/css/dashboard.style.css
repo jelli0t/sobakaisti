@@ -1272,6 +1272,9 @@ h6 {
 	overflow:hidden;
 }
 /* media upload bttn */
+.show-media-lib {
+/* 	float: left; */
+}
 .show-media-lib > img {
 	vertical-align: middle;
 	margin-right: 5px;
@@ -1445,6 +1448,28 @@ a:nth-child(2) {
 
 .media-item > .media-item-link {
 	visibility: hidden;
+}
+
+#publication-prev-container {
+	display: inline;
+	float: right;	
+	max-width: 55%;
+	text-align: left;
+	overflow: hidden;	
+}
+.publication-prev-container > img {
+	vertical-align: middle;
+}
+.publication-prev-container > span {
+	font-style: italic;
+	font-size: 12px;
+	line-height: 32px;
+	margin: 0 5px;
+}
+
+#featured-prev-container {
+	max-width: 180px;
+	margin: 9px auto;
 }
 /* -- end od media repo -- */
 

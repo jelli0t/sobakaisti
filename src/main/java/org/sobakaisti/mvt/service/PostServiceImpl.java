@@ -130,7 +130,6 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	public T processAndSavePostRequest(PostRequest postRequest) {
 		try { 
 			PostFactory factory = postFactoriesMap.get(t.getName());
-			System.out.println("factory: "+factory);
 			@SuppressWarnings("unchecked")
 			T post = (T) factory.processPostRequest(postRequest);
 			return postDao.save(post);
@@ -139,9 +138,5 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 			return null;
 		}		
 	}
-
-	
-
-	
 
 }

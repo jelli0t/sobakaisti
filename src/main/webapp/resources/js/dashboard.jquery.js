@@ -234,7 +234,6 @@ $(function() {
 	$('.media-select-modal').on('click', '#bttn-media-select', function(event) {
 		event.stopPropagation(); 
     	event.preventDefault();
-    	alert('SELECT!');
     	$(this).appendMediaPreview();    	
 	});
 	

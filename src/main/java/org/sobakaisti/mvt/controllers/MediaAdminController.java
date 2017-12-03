@@ -46,14 +46,13 @@ public class MediaAdminController {
 	public String switchMediaSelectionBodyContent(@PathVariable String tab, @PathVariable String type, Model model) {
 		String returns = "commons/fragments :: ";
 		if(Media.MediaType.contains(type)) {
-			if(tab.equals("upload")) {		
+			if(tab.equals("upload")) {				
 				returns += "mediaUploadFragment";
 				logger.info("Odabran tab: "+tab+", ucitavam fragment: 'mediaUploadFragment'");
 			} 
 			else if(tab.equals("repo")) {
 				List<Media> medias = mediaService.findAll();
-				model.addAttribute("medias", medias);
-				model.addAttribute("authors", authorService.findAll());
+				model.addAttribute("medias", medias);				
 				returns += "mediaRepoFragment";
 				logger.info("Odabran tab: "+tab+", ucitavam fragment: 'mediaRepoFragment'");
 			}
@@ -67,7 +66,8 @@ public class MediaAdminController {
 	
 	@RequestMapping(value="/upload/{mediaType}", method=RequestMethod.POST)
 	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, @PathVariable("mediaType") String mediaType, Model model) {
-		logger.info("MultipartFile uploaded name: '"+media.getOriginalFilename() +"'. MediaType: "+mediaType);
+		logger.info("MultipartFile uploaded name: '"+media.getOriginalFilename() +"'. MediaType: "+mediaType+"; "
+				+ "ContentType: "+media.getContentType());
 		Media postMedia = null;
 		/* ako je uploadovana datoteka manja od 30MB */
 		if(media.getSize() < 31457300) {
@@ -76,6 +76,7 @@ public class MediaAdminController {
 			postMedia.setUploadResultMessage("Uspesno ste otpremili datoteku.");
 			postMedia.setPosted(true);
 			postMedia.setMediaType(Media.MediaType.getMediaType(mediaType));
+			model.addAttribute("authors", authorService.findAll());
 		} else {
 			postMedia = new Media();
 			postMedia.setUploadResultMessage("Datoteka ne sme biti veca od 30MB!");
