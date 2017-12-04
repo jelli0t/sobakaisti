@@ -12,7 +12,7 @@
 </section>
 <!-- form -->
 <form th:action="@{/publications/upload}" id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post">	
-	<div class="main-dash-content">
+	<div class="main-dash-content" th:with="publication=${uploaded}">
 		<!-- Right panel -->
 		<div class="right-container">
 			<div class="small-panel">
@@ -21,7 +21,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="select-wrapper">
-				<select name="author" class="bttn bttn-default bttn-select">
+				<select name="author.id" class="bttn bttn-default bttn-select" th:value="${publication?.author?.id}" >
 					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
 					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
 				</select>
@@ -79,8 +79,8 @@
 		<!-- Left content -->
 		<div class="left-container">
 			<div class="form-tr">
-				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" 
-					id="publication-title" class="title-input full-width" th:src="@{/publications/slug/new}">
+				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" id="publication-title" 
+					class="title-input full-width" th:src="@{/publications/slug/new}" th:value="${publication.title}">
 				<!-- validation error message -->
 				<div class="validation-error"></div>	
 				<!-- link preview -->
@@ -88,7 +88,7 @@
 					<span class="post-path path-label">Putanja na sekciji Izdanja: </span>
 					<span class="post-path path-static">http://sobakaisti.org/bublications/</span>
 					<span class="post-path path-slug">
-						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" readonly>
+						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" th:value="${publication.slug}" readonly>
 					</span>
 				</div>
 			</div>
@@ -104,7 +104,7 @@
 			</div>
 			<!-- contet textarea -->	
 			<div class="article-input-wrapper form-tr">
-				<textarea name="content" id="article-content"></textarea>
+				<textarea name="content" id="article-content" th:field="*{content}"></textarea>
 			</div>
 		</div>		
 	</div>

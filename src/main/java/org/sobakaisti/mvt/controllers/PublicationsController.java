@@ -5,8 +5,13 @@ package org.sobakaisti.mvt.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Media;
+import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.mvt.service.PublicationPostFactory;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
@@ -25,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author jelles
@@ -33,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/publications")
 public class PublicationsController {
+	private static final Logger logger = LoggerFactory.getLogger(PublicationsController.class);
 	
 	@Autowired
 	private AuthorDao authorDao;
@@ -96,39 +103,14 @@ public class PublicationsController {
 			return new ResponseEntity<String>("Neuspesna konverzija u slug", HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
-	
-	
-//	@RequestMapping(value="/upload", method=RequestMethod.POST)
-//	@ResponseBody
-	public ResponseEntity<Object> uploadPublication(
-			@RequestParam(name="title", required = false) String title,
-			@RequestParam(name="slug", required = false) String slug,
-            @RequestParam(name="file", required = false) MultipartFile file,
-            @RequestParam(name="content", required = false) String content,
-            @RequestParam(name="author", required = false) int author,
-            @RequestParam(name="tags", required = false) int[] tags,
-            @RequestParam(name="featuredImg", required = false) MultipartFile featuredImg
-			) {
-	
-		Validation validation = validator.validatePostFields(title, slug, author, file);
-		
-		if(!validation.hasErrors()) {
-			boolean published = publicationService.createAndUploadPublication(title, slug, content, author, tags, file);
-			if(published) {
-				return new ResponseEntity<Object>("Successful submit!!", HttpStatus.OK);
-			}else {
-				validation.setHasErrors(true);
-				validation.setErrorMessage("Greska pri upload-u datoteke!");
-				return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
-			}			
-		}else {			
-			return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
-		}
-	}
+
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String uploadNewPublication(@ModelAttribute(value="postRequest") PostRequest postRequest) {
-		System.out.println("Uploaded: "+postRequest);
+	public String uploadNewPublication(@ModelAttribute(value="postRequest") PostRequest postRequest, 
+			RedirectAttributes redirectAttributes) {
+		postRequest.setActive(1);		
+		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
+		redirectAttributes.addFlashAttribute("uploaded", uploaded);
 		return "redirect:/sbk-admin/publication";
 	}
 }
