@@ -68,10 +68,15 @@
 				<a th:href="@{/sbk-admin/media/select(type=featured)}" class="show-media-lib bttn bttn-default">
 					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> 
 					<span th:text="#{button.label.upload.featuredImg}">Odaberi fotografiju</span>
-				</a>	
-				
+				</a>				
 				<!-- Featured IMG preview -->
-				<div id="featured-prev-container"></div>
+				<div id="featured-prev-container">
+					<th:block th:if="${publication.featuredImage != null}">
+						<img alt="Featured Image" th:src="@{/uploads/images/{filename}(filename=${publication.featuredImage.fileName})}" 
+						     th:title="${publication.featuredImage.title}" width="180">
+						<input type="hidden" name="featuredImageId" th:value="${publication.featuredImage.id}">
+					</th:block>
+				</div>
 			</div>
 		</div>
 		</div>	 <!-- end of right sidebar -->
@@ -100,7 +105,13 @@
 					<span th:text="#{button.label.upload.publiction}">Podigni dokument...</span>
 				</a>
 				<!-- Uploaded publication preview -->
-				<div id="publication-prev-container"></div>
+				<div id="publication-prev-container">
+					<th:block th:if="${publication.media != null}">
+						<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${publication.media.fileName})}" height="32">
+						<span th:text="${publication.media.title}"></span>
+						<input type="hidden" name="publicationMediaId" th:value="${publication.media.id}">
+					</th:block>
+				</div>
 			</div>
 			<!-- contet textarea -->	
 			<div class="article-input-wrapper form-tr">
