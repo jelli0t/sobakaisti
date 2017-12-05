@@ -56,7 +56,7 @@
 					<div class="search-result"></div>
 				</div>
 				<div class="selected-tags selected-result">
-					<th:block th:if="${publication.tags != null}" th:include="~{commons/fragments :: tagBonesFragment}" 
+					<th:block th:unless="${#lists.isEmpty(publication.tags)}" th:include="~{commons/fragments :: tagBonesFragment}" 
 						  th:with="tags=${publication.tags}">
 					</th:block>
 				</div>			
