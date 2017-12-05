@@ -152,9 +152,13 @@
 	<!-- 
 	*	Preview uplodaed file on new pulication page	*
 	 -->
-	<th:block th:fragment="selectedMediaPreviewFragment" th:if="${type != null && media != null}">	
+	<th:block th:fragment="selectedMediaPreviewFragment" th:if="${type != null and media != null}">	
 		<div th:if="${type} == 'publication'" th:class="${type}+'-prev-container'">
 			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
+			<th:block th:switch="${true}">
+				<img th:case="${#strings.startsWith(media.contentType,'image/')}" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
+				<img th:case="${#strings.startsWith(media.contentType,'application/pdf')}" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
+			</th:block>
 			<span th:text="${media.title}"></span>
 			<input type="hidden" name="publicationMediaId" th:value="${media.id}">
 		</div>
