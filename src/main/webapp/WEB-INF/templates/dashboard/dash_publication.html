@@ -55,7 +55,9 @@
 					</div>					
 					<div class="search-result"></div>
 				</div>
-				<div class="selected-tags selected-result"></div>			
+				<div class="selected-tags selected-result">
+					<div th:replace="~{commons/fragments :: tagBonesFragment}" ih:if="${publication.tags != null}"></div>
+				</div>			
 			</div>			
 		</div>
 		
