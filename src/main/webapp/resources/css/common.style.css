@@ -396,3 +396,42 @@ a:link, a:VISITED {
 	width: 180px !important;
 	margin: 0;
 }
+
+/*
+	TAGS
+*/
+.tag-bone {
+	display: flex;
+	flex: 1;
+	position: relative;
+	float: left;
+  	height: 24px;
+  	margin: 3px;
+  	font-size: 10px !important;
+  	color: #343434; 
+/*   	opacity: 0.7; */
+}
+.tag-bone:hover {
+	opacity: 1.0;
+}
+.tag-bone > .bone-middle {
+	flex: 1;
+  	order: 2;
+  	height: 18px;
+  	background: #fff;
+  	border-top: 1px solid #343434;
+  	border-bottom: 1px solid #343434;
+  	margin: 3px 0;
+  	padding: 0 1px;  	
+  	line-height: 16px;
+  	text-align: center;
+  	box-sizing: border-box;
+}
+.tag-bone > .bone-left-end {
+	width: 13px;
+  	order: 1;
+}
+.tag-bone > .bone-right-end {
+	width: 12px;
+  	order: 3;
+}
