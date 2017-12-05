@@ -226,5 +226,17 @@
 			<input type="hidden" name="tags" value="">
 		</label>
 	</th:block>
-	
+	<!-- Tags -->
+	<th:block th:fragment="tagBonesFragment"> 
+		<label class="tag-bone" th:each="tag : ${tags}">
+			<span class="bone-left-end">
+				<img th:src="@{/resources/img/icons/svg/bone-left-end.svg}">
+			</span>
+			<span class="bone-middle" th:text="${tag.tag}"></span>
+			<span class="bone-right-end">
+				<img th:src="@{/resources/img/icons/svg/bone-right-end.svg}">
+			</span>
+			<input type="hidden" name="tags" value="${tag.id}">
+		</label>
+	</th:block>
 </html>
