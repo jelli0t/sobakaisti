@@ -222,11 +222,11 @@
 	<th:block th:fragment="tagBoneFragment"> 
 		<label class="tag-bone">
 			<span class="bone-left-end">
-				<img th:src="@{/resources/img/icons/bone-left-end-1.png}">
+				<img th:src="@{/resources/img/icons/svg/bone.svg}">
 			</span>
 			<span class="bone-middle">Sobakaisti</span>
 			<span class="bone-right-end">
-				<img th:src="@{/resources/img/icons/bone-right-end.png}">
+				<img th:src="@{/resources/img/icons/svg/bone.svg}">
 			</span>
 			<input type="hidden" name="tags" value="">
 		</label>
@@ -235,11 +235,11 @@
 	<th:block th:fragment="tagBonesFragment"> 
 		<label class="tag-bone" th:each="tag : ${tags}">
 			<span class="bone-left-end">
-				<img th:src="@{/resources/img/icons/svg/bone-left-end.svg}">
+				<img th:src="@{/resources/img/icons/svg/bone.svg}">
 			</span>
 			<span class="bone-middle" th:text="${tag.tag}"></span>
 			<span class="bone-right-end">
-				<img th:src="@{/resources/img/icons/svg/bone-right-end.svg}">
+				<img th:src="@{/resources/img/icons/svg/bone.svg}">
 			</span>
 			<input type="hidden" name="tags" value="${tag.id}">
 		</label>

@@ -430,6 +430,12 @@ a:link, a:VISITED {
 .tag-bone > .bone-left-end {
 	width: 13px;
   	order: 1;
+  	background: url('bone.svg');
+  	background-size: 32px 32px;
+  	background-origin: border-box;
+  	background-clip: content-box;
+	background-position: 0 -5px; 
+  	 
 }
 .tag-bone > .bone-right-end {
 	width: 12px;
