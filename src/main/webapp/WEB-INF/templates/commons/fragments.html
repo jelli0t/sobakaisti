@@ -157,7 +157,8 @@
 			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
 			<th:block th:switch="${true}">
 				<img th:case="${#strings.startsWith(media.contentType,'image/')}" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
-				<img th:case="${#strings.startsWith(media.contentType,'application/pdf')}" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
+				<img th:case="${#strings.startsWith(media.contentType,'application/pdf')}" th:src="@{/uploads/images/default/file-pdf.svg}" height="32">
+				<img th:case="${true}" th:src="@{/uploads/images/default/file.svg}" height="32">
 			</th:block>
 			<span th:text="${media.title}"></span>
 			<input type="hidden" name="publicationMediaId" th:value="${media.id}">
