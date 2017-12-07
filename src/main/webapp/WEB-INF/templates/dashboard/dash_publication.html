@@ -59,8 +59,6 @@
 					<th:block th:unless="${#lists.isEmpty(publication.tags)}" th:include="~{commons/fragments :: tagBonesFragment}" 
 						  th:with="tags=${publication.tags}">
 					</th:block>
-					<th:block th:include="~{commons/fragments :: tagBoneFragment}">
-					</th:block>
 				</div>			
 			</div>			
 		</div>

@@ -1166,6 +1166,11 @@ h6 {
 .date-time-field.date-minute-field { width: 25px !important; }
 .date-time-field.date-hour-field { margin-left: 6px;}
 
+.selected-tags {
+	min-height: 20px;
+	height: auto; 
+	overflow: auto;
+}
 
 /*
 	Media libray repo

@@ -656,7 +656,7 @@ $.fn.ajaxSearch = function() {
 		console.log("success: "+tags);
 		var span = '';
 		$.each(tags, function(i){
-			span += '<label class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tags" value="'+tags[i].id+'"></label>';
+			span += '<label class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tagIds" value="'+tags[i].id+'"></label>';
 		});
 		$('.search-result').empty().append(span);
 	})

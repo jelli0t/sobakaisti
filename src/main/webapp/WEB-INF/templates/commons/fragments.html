@@ -154,7 +154,6 @@
 	 -->
 	<th:block th:fragment="selectedMediaPreviewFragment" th:if="${type != null and media != null}">	
 		<div th:if="${type} == 'publication'" th:class="${type}+'-prev-container'">
-			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
 			<th:block th:switch="${true}">
 				<img th:case="${#strings.startsWith(media.contentType,'image/')}" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" height="32">
 				<img th:case="${#strings.startsWith(media.contentType,'application/pdf')}" th:src="@{/uploads/images/default/file-pdf.svg}" height="32">
@@ -221,27 +220,21 @@
 	-->
 	<th:block th:fragment="tagBoneFragment"> 
 		<label class="tag-bone">
-			<span class="bone-left-end">
-				<img th:src="@{/resources/img/icons/svg/bone.svg}">
-			</span>
+			<span class="bone-left-end"></span>
 			<span class="bone-middle">Sobakaisti</span>
-			<span class="bone-right-end">
-				<img th:src="@{/resources/img/icons/svg/bone.svg}">
-			</span>
+			<span class="bone-right-end"></span>
 			<input type="hidden" name="tags" value="">
 		</label>
 	</th:block>
 	<!-- Tags -->
 	<th:block th:fragment="tagBonesFragment"> 
+		<div>
 		<label class="tag-bone" th:each="tag : ${tags}">
-			<span class="bone-left-end">
-				<img th:src="@{/resources/img/icons/svg/bone.svg}">
-			</span>
+			<span class="bone-left-end"></span>
 			<span class="bone-middle" th:text="${tag.tag}"></span>
-			<span class="bone-right-end">
-				<img th:src="@{/resources/img/icons/svg/bone.svg}">
-			</span>
+			<span class="bone-right-end"></span>
 			<input type="hidden" name="tags" value="${tag.id}">
 		</label>
+		</div>
 	</th:block>
 </html>
