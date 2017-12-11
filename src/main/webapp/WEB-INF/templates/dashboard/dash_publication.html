@@ -32,9 +32,10 @@
 				
 			</div>
 			<div class="panel-footer">
-				<button type="submit" id="save-draft-bttn" class="bttn bttn-sm bttn-default" 
-					th:title="Sačuvaj nacrt članka" th:text="Nacrt">Nacrt</button>
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${uploaded != null} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
+				<!-- id="save-draft-bttn" -->
+				<button type="submit" th:formaction="@{/publications/upload/draft}" class="bttn bttn-sm bttn-default" 
+					th:title="Sačuvaj nacrt članka" th:value="Nacrt">Nacrt</button>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:value="${uploaded != null} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
 			</div>
 		</div>
 		
