@@ -108,6 +108,9 @@ public class PublicationsController {
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String uploadNewPublication(@ModelAttribute(value="postRequest") PostRequest postRequest, 
 			RedirectAttributes redirectAttributes) {
+
+		System.out.println(postRequest.getId() != 0 ? "ima ID: "+postRequest.getId() : "ID = 0");
+		
 		postRequest.setActive(1);		
 		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
 		redirectAttributes.addFlashAttribute("uploaded", uploaded);

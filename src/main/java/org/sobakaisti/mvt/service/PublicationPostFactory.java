@@ -28,12 +28,13 @@ public class PublicationPostFactory extends PostFactory {
 		if(postRequest != null) {
 			publication = new Publication();			
 			/* ako ima ID */
-			if(postRequest.getId() != 0)
+			if(postRequest.getId() != 0) 
 				publication.setId(postRequest.getId());
+			else 
+				publication.setSlug(publicationService.addSuffixIfDuplicateExist(postRequest.getSlug()));
+				
 			/* postavljamo naslov */
-			publication.setTitle(postRequest.getTitle());
-			/* set slug*/
-			publication.setSlug(publicationService.addSuffixIfDuplicateExist(postRequest.getSlug()));
+			publication.setTitle(postRequest.getTitle());			
 			/* postavlja autora */
 			if(postRequest.getAuthor() != null) {
 				publication.setAuthor(authorDao.getAuthorById(postRequest.getAuthor().getId()));
