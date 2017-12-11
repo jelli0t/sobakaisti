@@ -11,7 +11,8 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 <!-- form -->
-<form th:action="@{/publications/upload}" id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post">	
+<form th:action="@{/publications/upload/{suffix}(${uploaded != null} ? suffix='update/'+${uploaded.id} : suffix='new')}" 
+      id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post">	
 	<div class="main-dash-content" th:with="publication=${uploaded}">
 		<!-- Right panel -->
 		<div class="right-container">
