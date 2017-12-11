@@ -32,8 +32,9 @@
 				
 			</div>
 			<div class="panel-footer">
-				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a>
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right">Objavi</button>
+				<button type="submit" id="save-draft-bttn" class="bttn bttn-sm bttn-default" 
+					th:title="Sačuvaj nacrt članka" th:text="Nacrt">Nacrt</button>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${uploaded != null} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
 			</div>
 		</div>
 		
