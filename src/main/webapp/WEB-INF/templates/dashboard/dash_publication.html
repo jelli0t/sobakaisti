@@ -39,8 +39,8 @@
 <!-- 				<button type="submit" th:formaction="@{/publications/upload/draft}" class="bttn bttn-sm bttn-default"  -->
 <!-- 					title="Sačuvaj nacrt članka" value="Nacrt">Nacrt</button> -->
 				<a href="javascript:void(0)" class="bttn-simple-select">
-					<span th:if="${publication?.active == 1}"><img src="https://image.flaticon.com/icons/svg/44/44386.svg" height="14">Javno</span>
-					<span th:if="${publication?.active == 0}"><img src="https://image.flaticon.com/icons/svg/44/44386.svg" height="14">Privatno</span>
+					<span th:if="${publication?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
+					<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
 				</a>
 				<div class="select-menu-modal">
 					<div class="select-menu-header">
