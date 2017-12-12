@@ -12,6 +12,11 @@ import org.sobakaisti.mvt.models.Tag;
  *
  */
 public interface TagService {
+	
+	/**
+	 * Pronalazi Tag po svom ID
+	 * */
+	public Tag findById(int id);
 
 	/**
 	 *  pravi i cuva objekat Tag od trazene fraze.

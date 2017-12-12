@@ -6,12 +6,17 @@ package org.sobakaisti.mvt.dao;
 import java.util.List;
 
 import org.sobakaisti.mvt.models.Tag;
-
 /**
  * @author jelli0t
  *
  */
 public interface TagDao {
+	
+	/**
+	 * Pronalazi Tag po njegovom ID-u
+	 * @param id
+	 * */
+	public Tag findById(int id);
 
 	/**
 	 * Trazi Tag na osnovu unete fraze.

@@ -86,7 +86,7 @@ $(function() {
 	/*
 	 * klik na select button
 	 * */	
-	$(document).on('click', '.bttn-select, .bttn-select-simple, .bttn-simple-select', function(evt) {
+	$('.main-dash-content').on('click', '.js-modal-select', function(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();		
 		$(this).next('.select-menu-modal').toggle();
@@ -100,16 +100,15 @@ $(function() {
 	      	var value = $(this).val();
 	      	var $label = $(this).next('label').children('span:first-child').clone();
 	      	if(value == 1) {
-			$('.bttn-simple-select').empty().append($label);
+	      		$('.bttn-plain-select').empty().append($label);
 	      	} else if (value == 0){
-			$('.bttn-simple-select').empty().append($label);
+	      		$('.bttn-plain-select').empty().append($label);
 	      	}
 	 });
 	
 	$('form input[name=categories]').change(function() {
 		$(this).displaySelectedCategories();
 	});
-	
 	
 	/* tag search event */
 	$(document).on('keyup', '.search-field', function(e) {
@@ -174,12 +173,17 @@ $(function() {
 		$(this).parent().parent('.select-menu-modal').hide();
 	});
 	
-	
+	var clicked = 0;
 	$(document).on('click', '.founded-tag', function(evt){
 		evt.preventDefault();
 		console.log('Kliknuo na tag.');
-		$tag = $(this).append('<span class="bttn-close-white close-tag-bttn"></span>').removeClass('founded-tag');
-		$('.selected-tags').append($tag);
+		
+		$(this).appendSelectedTag(clicked);
+		
+//		$('input[type=hidden]', this).attr('name','tags['+clicked+'].id');
+//		$tag = $(this).append('<span class="bttn-close-white close-tag-bttn"></span>').removeClass('founded-tag');		
+//		$('.selected-tags').append($tag);
+		clicked++;
 	});
 	
 	$(document).on('click', '.bttn-remove', function(evt){
@@ -671,7 +675,7 @@ $.fn.ajaxSearch = function() {
 		console.log("success: "+tags);
 		var span = '';
 		$.each(tags, function(i){
-			span += '<label class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tagIds" value="'+tags[i].id+'"></label>';
+			span += '<label class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tags['+i+'].id" value="'+tags[i].id+'"></label>';
 		});
 		$('.search-result').empty().append(span);
 	})
@@ -1027,4 +1031,21 @@ $.fn.appendValueOnHref = function(value) {
 	}
 	console.log('Konacni link za odabranu datoteku: ' + href );
 	$a.attr('href', href);
+}
+
+$.fn.appendSelectedTag = function(index) {
+	var tag_id = $('input[type=hidden]', this).val();
+	console.log('postavljam selektovani tag sa ID: '+tag_id+'; kliknuo: '+index+'x');
+	$.ajax({
+	    url: 'tags/select/'+tag_id+'?index='+index,
+	    type: 'GET',	   
+	    dataType: 'html'
+	})
+	.done(function( html ) {
+		$('.selected-tags').append(html);		
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})	
 }

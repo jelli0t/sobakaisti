@@ -219,21 +219,25 @@
 	 TAGS
 	-->
 	<th:block th:fragment="tagBoneFragment"> 
-		<label class="tag-bone">
+		<label class="tag-bone" th:if="${tag != null}">
 			<span class="bone-left-end"></span>
-			<span class="bone-middle">Sobakaisti</span>
+			<span class="bone-middle" th:text="${tag.tag}">*</span>
 			<span class="bone-right-end"></span>
-			<input type="hidden" name="tags" value="">
+			<input type="hidden" 
+				th:name="|tags[${index}].id|" 
+				th:value="${tag.getId()}">
 		</label>
 	</th:block>
 	<!-- Tags -->
 	<th:block th:fragment="tagBonesFragment"> 
 		<div>
-		<label class="tag-bone" th:each="tag : ${tags}">
+		<label class="tag-bone" th:each="tag, stat : ${tags}">
 			<span class="bone-left-end"></span>
 			<span class="bone-middle" th:text="${tag.tag}"></span>
 			<span class="bone-right-end"></span>
-			<input type="hidden" name="tagIds" value="${tag.id}">
+			<input type="hidden"
+			 	th:name="|tags[${stat.index}].id|"
+            	th:value="${tag.getId()}">
 		</label>
 		</div>
 	</th:block>

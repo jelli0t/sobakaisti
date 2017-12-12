@@ -1,7 +1,10 @@
 package org.sobakaisti.util;
 
+import java.util.List;
+
 import org.sobakaisti.mvt.models.Media.MediaType;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Tag;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PostRequest extends Post{
@@ -9,6 +12,8 @@ public class PostRequest extends Post{
 	private String content;
 	private int[] categoriesIds;
 	private int[] tagIds;
+	
+	private List<Tag> tags;
 	/**
 	 * Id uploadovanog publiction media
 	 * */
@@ -26,7 +31,6 @@ public class PostRequest extends Post{
 	/* default constructor */
 	public PostRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	/* MultipartFile instance constructor */
@@ -89,6 +93,14 @@ public class PostRequest extends Post{
 		this.featuredImageId = featuredImageId;
 	}
 
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("post : {");
@@ -100,6 +112,7 @@ public class PostRequest extends Post{
 		sb.append("publicationMediaId:"+publicationMediaId+", ");
 		sb.append("featuredImageId:"+featuredImageId+", ");
 		sb.append("active:"+getActive());
+		sb.append(getTags() != null ? "tags: "+getTags().size() : "");
 		return sb.append('}').toString();
 	}
 }

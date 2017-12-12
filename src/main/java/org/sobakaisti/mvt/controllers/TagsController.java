@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,5 +47,13 @@ public class TagsController {
 		}else {
 			return new ResponseEntity<Tag>(tag, HttpStatus.SERVICE_UNAVAILABLE);
 		}
+	}
+	
+	@RequestMapping(value="/select/{id}", method=RequestMethod.GET)
+	public String appendSelectedTag(@PathVariable("id") int id, @RequestParam("index") int index, Model model) {
+		System.out.println("Tag ID: "+id+"; Tag index: "+index);
+		model.addAttribute("tag", tagService.findById(id));
+		model.addAttribute("index", index);
+		return "commons/fragments :: tagBoneFragment";
 	}
 }

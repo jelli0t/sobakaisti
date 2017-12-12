@@ -1068,11 +1068,11 @@ h6 {
 .select-menu-modal {
 	display: none;
     position: absolute;
-    right: 10px;
-    top: 80px;
-    left: auto;
+/*     right: 10px; */
+/*     top: 80px; */
+    left: -50px;
     width: 250px;
-    margin-top: 4px;
+    margin-top: 10px;
     margin-bottom: 20px;
     font-size: 12px;
     color: #586069;

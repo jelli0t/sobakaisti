@@ -1,7 +1,6 @@
 package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.TagDao;
@@ -16,6 +15,11 @@ public class TagServiceImpl implements TagService {
 	
 	@Autowired
 	private TagDao tagDao;
+	
+	@Override
+	public Tag findById(int id) {
+		return tagDao.findById(id);
+	}
 
 	@Override
 	public Tag createAndSaveTagFromString(String input) {
@@ -59,5 +63,7 @@ public class TagServiceImpl implements TagService {
 		}
 		return tagIds.size() > 0 ? tagDao.findListOfTagsByIds(tagIds) : null;
 	}
+
+	
 
 }

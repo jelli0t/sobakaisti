@@ -20,6 +20,19 @@ public class TagDaoImpl implements TagDao {
 	private SessionFactory sessionFactory;
 	
 	@Override
+	public Tag findById(int id) {
+		String HQL = "from Tag t where t.id = :id";
+		Tag tag = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			tag = (Tag) session.createQuery(HQL).setParameter("id", id).uniqueResult();		
+		} catch (Exception e) {
+			return null;
+		}
+		return tag;
+	}
+	
+	@Override
 	public Tag findOrSaveTag(Tag tag) {
 		String HQL = "from Tag t where lower(t.tag) = :phrase";
 		try {
@@ -66,5 +79,4 @@ public class TagDaoImpl implements TagDao {
 		}
 		return tags;
 	}
-
 }

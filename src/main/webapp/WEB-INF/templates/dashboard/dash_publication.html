@@ -25,9 +25,12 @@
 			</div>
 			<div class="panel-body">
 				<div class="select-wrapper">
+				<!-- Authors -->
 				<select name="author.id" class="bttn bttn-default bttn-select" th:value="${publication?.author?.id}" >
-					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
-					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
+					<option value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
+					<option th:each="author : ${authors}" th:value="${author.id}" 
+							th:selected="${publication?.author?.id == author.id}" 
+							th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
 				</select>
 				<!-- validation error message -->
 				<div class="validation-error"></div>
@@ -35,13 +38,10 @@
 				
 			</div>
 			<div class="panel-footer">
-				<!-- id="save-draft-bttn" -->
-<!-- 				<button type="submit" th:formaction="@{/publications/upload/draft}" class="bttn bttn-sm bttn-default"  -->
-<!-- 					title="Sačuvaj nacrt članka" value="Nacrt">Nacrt</button> -->
-				<a href="javascript:void(0)" class="bttn-simple-select">
+				<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
 					<span th:if="${publication?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
-					<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
-				</a>
+					<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
+				</a>			
 				<div class="select-menu-modal">
 					<div class="select-menu-header">
 						<span class="select-menu-title">Dostupnost</span> 
@@ -55,15 +55,16 @@
 					    </label>  
 					</div>
 				  	<div class="select-menu-item post-scope-option">  
-				    		<input type="radio" name="active" value="0" id="input-private-scope" th:checked="${publication?.active == 0}" >
-				    		<label for="input-private-scope">
-				      			<span><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
-				      			<span>Članak dostupan samo autoru</span>   
-				    		</label>  
+			    		<input type="radio" name="active" value="0" id="input-private-scope" th:checked="${publication?.active == 0}" >
+			    		<label for="input-private-scope">
+			      			<span><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
+			      			<span>Članak dostupan samo autoru</span>   
+			    		</label>  
 				  	</div>
 				</div>
+				
 				<!-- SUBMIT -->
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${uploaded != null} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${uploaded != null && uploaded.id != 0} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
 			</div>
 		</div>
 		
@@ -73,7 +74,7 @@
 				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
 			</div>
 			<div class="panel-body">			
-			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button>
+			<button class="bttn bttn-default bttn-select js-modal-select" type="button" th:text="#{label.tags}">Oznake</button>
 				<!-- dropdown menu -->
 				<div class="select-menu-modal" id="tags-modal">
 					<div class="select-menu-header">

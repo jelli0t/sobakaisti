@@ -188,7 +188,7 @@ a:link, a:VISITED {
 	opacity: 0.5;
 }
 
-.bttn-simple-select {
+.bttn-plain-select {
   	position: relative;
   	display: inline-block;
   	text-decoration: none; 
@@ -201,15 +201,15 @@ a:link, a:VISITED {
   	color: #24292e;
   	box-sizing: border-box;
 }
-.bttn-simple-select::after {
+.bttn-plain-select::after {
   	position: absolute;
   	content: url('../img/icons/svg/chevron-down.svg'); 
-  	top: 5px;
+  	top: 7px;
   	right: 0;
   	width: 8px;
   	height: 14px;  
 }
-.bttn-simple-select > span > img {vertical-align: middle; margin-right: 5px;}
+.bttn-plain-select > span > img {vertical-align: middle; margin-right: 5px;}
 
 .select-wrapper::after {
 	font-family: 'Pe-icon-7-stroke';

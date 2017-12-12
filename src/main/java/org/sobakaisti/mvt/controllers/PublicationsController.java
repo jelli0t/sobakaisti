@@ -110,8 +110,7 @@ public class PublicationsController {
 			RedirectAttributes redirectAttributes) {
 
 		System.out.println(postRequest.getId() != 0 ? "ima ID: "+postRequest.getId() : "ID = 0");
-		
-		postRequest.setActive(1);		
+			
 		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
 		redirectAttributes.addFlashAttribute("uploaded", uploaded);
 		return "redirect:/sbk-admin/publication";
