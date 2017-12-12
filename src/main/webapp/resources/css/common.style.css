@@ -188,6 +188,31 @@ a:link, a:VISITED {
 	opacity: 0.5;
 }
 
+.bttn-simple-select {
+  	position: relative;
+  	display: inline-block;
+  	text-decoration: none; 
+	outline: none;
+	margin: 0;
+  	padding: 3px 16px 3px 6px;
+  	font-size: 13px;
+  	line-height: 20px;
+  	vertical-align: middle;
+  	color: #24292e;
+  	box-sizing: border-box;
+}
+.bttn-simple-select::after {
+  	position: absolute;
+  	content: ''; 
+  	top: 8px;
+  	right: 0;
+  	width: 8px;
+  	height: 8px;
+  	background: url('https://image.flaticon.com/icons/svg/60/60781.svg') top center no-repeat;
+  	border: 1px solid gray;  
+}
+.bttn-simple-select > span > img {vertical-align: middle; margin-right: 5px;}
+
 .select-wrapper::after {
 	font-family: 'Pe-icon-7-stroke';
 	position: absolute;
