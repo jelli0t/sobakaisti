@@ -1130,36 +1130,36 @@ h6 {
 }
 .select-menu-item > input { display: none; }
 .select-menu-item > label {
-   	display: block;
-   	padding: 5px 12px;
-  	-webkit-user-select: none;
-  	-moz-user-select: none;
-  	-ms-user-select: none;
-  	user-select: none;
-  	box-sizing: border-box;
-  	overrlay: hidden; 
-  	cursor: pointer;
-  	opacity: 0.7;
+   display: block;
+   padding: 5px 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  box-sizing: border-box;
+  overrlay: hidden; 
+  cursor: pointer;
+  opacity: 0.8;
 }
-.select-menu-item > 
-label > img {
-  	vertical-align: middle;
-  	margin-right: 6px;
+.select-menu-item > label >
+span { display: block;}
+  
+.select-menu-item > label >
+span:nth-child(2) {
+  margin-left: 20px;
+  font-size: 0.8em;
+  font-weight: 300;
+  color: gray;
 }
-.select-menu-item > 
-label > span {
-  	display: block;
-  	margin-left: 20px;
-  	font-size: 0.8em;
-  	color: gray;
+.select-menu-item > label >
+span > img {
+  vertical-align: middle;
+  margin-right: 6px;
 }
-.select-menu-item > 
-label:hover {
-  	opacity: 1.0;
-}
+.select-menu-item > label:hover { opacity: 1.0; }
 input:checked ~ label {
-  	font-weight: bold;
-  	opacity: 1.0;
+  font-weight: bold;
+  opacity: 1.0;
 }
 /* end of menu items */
 
