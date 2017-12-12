@@ -94,6 +94,7 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 	    resolver.setPrefix("/WEB-INF/templates/");
 	    resolver.setSuffix(".html");
 	    resolver.setTemplateMode(TemplateMode.HTML);
+	    resolver.setCharacterEncoding("UTF-8");
 	    return resolver;
 	  }
 	  
