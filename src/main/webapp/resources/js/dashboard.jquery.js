@@ -86,8 +86,9 @@ $(function() {
 	/*
 	 * klik na select button
 	 * */	
-	$(document).on('click', '.bttn-select, .bttn-select-simple', function(evt){
-		evt.preventDefault();			
+	$(document).on('click', '.bttn-select, .bttn-select-simple, .bttn-simple-select', function(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();		
 		$(this).next('.select-menu-modal').toggle();
 	});
 	
