@@ -203,13 +203,11 @@ a:link, a:VISITED {
 }
 .bttn-simple-select::after {
   	position: absolute;
-  	content: ''; 
-  	top: 8px;
+  	content: url('../img/icons/svg/chevron-down.svg'); 
+  	top: 5px;
   	right: 0;
   	width: 8px;
-  	height: 8px;
-  	background: url('https://image.flaticon.com/icons/svg/60/60781.svg') top center no-repeat;
-  	border: 1px solid gray;  
+  	height: 14px;  
 }
 .bttn-simple-select > span > img {vertical-align: middle; margin-right: 5px;}
 
