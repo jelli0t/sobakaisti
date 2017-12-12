@@ -91,6 +91,20 @@ $(function() {
 		evt.preventDefault();		
 		$(this).next('.select-menu-modal').toggle();
 	});
+	/*
+	* Padajuci menu sa Radio opcijama
+	**/
+	$('.select-menu-modal').on('change', 'input[name=active]', function(evt){
+		evt.stopPropagation();
+		evt.preventDefault();
+	      	var value = $(this).val();
+	      	var $label = $(this).next('label').children('span:first-child').clone();
+	      	if(value == 1) {
+			$('.bttn-simple-select').empty().append($label);
+	      	} else if (value == 0){
+			$('.bttn-simple-select').empty().append($label);
+	      	}
+	 });
 	
 	$('form input[name=categories]').change(function() {
 		$(this).displaySelectedCategories();
