@@ -50,14 +50,14 @@
 					<div class="select-menu-item post-scope-option">
 					    <input type="radio" name="active" value="1" id="input-public-scope" th:checked="${publication?.active == 1}" >
 					    <label for="input-public-scope">
-					    	<img src="https://image.flaticon.com/icons/svg/44/44386.svg" height="14">Javno
+					    	<span><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
 					      	<span>Članak ce biti objavljen javno</span>
 					    </label>  
 					</div>
 				  	<div class="select-menu-item post-scope-option">  
 				    		<input type="radio" name="active" value="0" id="input-private-scope" th:checked="${publication?.active == 0}" >
 				    		<label for="input-private-scope">
-				      			<img src="https://image.flaticon.com/icons/svg/44/44386.svg" height="14">Privatno
+				      			<span><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
 				      			<span>Članak dostupan samo autoru</span>   
 				    		</label>  
 				  	</div>
