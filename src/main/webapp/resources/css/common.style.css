@@ -322,6 +322,14 @@ a:link, a:VISITED {
 	padding: 12px;
 }
 
+.post-info-label {
+  display: block;
+  line-height: 24px;
+  font-size: 12px;
+}
+.post-info-label > span:nth-of-type(2n) {
+  font-weight: 700;
+}
 /* input test */
 .form-tr {
 	margin: 0 0 16px 0;
