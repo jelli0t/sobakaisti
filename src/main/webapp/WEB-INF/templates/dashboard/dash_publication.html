@@ -35,7 +35,21 @@
 				<!-- validation error message -->
 				<div class="validation-error"></div>
 				</div>
-				
+				<!-- Post info details -->
+				<div class="post-info-box">
+					<label class="post-info-label">
+					  <img th:src="@{/resources/img/icons/svg/info.svg}" height="14" title="Stanje posta">
+					  <span>Stanje:</span>
+					  <span th:text="${publication?.active != -1 ? 'Objavljen' : 'Nacrt'}">Objavljen</span>
+					</label>
+					<label class="post-info-label">
+					  <img th:src="@{/resources/img/icons/svg/calendar.svg}" height="14" title="Datum objavljivanja">
+					  <span>Dana:</span>
+					  <span>20.12.2017</span>
+					  <a href="javascript:void(0)">v</a>
+					  
+					</label>
+				</div>
 			</div>
 			<div class="panel-footer">
 				<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
