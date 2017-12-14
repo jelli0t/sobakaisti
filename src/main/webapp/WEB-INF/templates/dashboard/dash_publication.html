@@ -45,7 +45,7 @@
 					<label class="post-info-label">
 					  <img th:src="@{/resources/img/icons/svg/calendar.svg}" height="14" title="Datum objavljivanja">
 					  <span>Dana:</span>
-					  <span>20.12.2017</span>
+					  <span th:if="${publication?.postDate}" th:text="${#calendars.format(publication.postDate, 'dd.MMM.yyyy. HH:mm')}">Trenutno</span>
 					  <a href="javascript:void(0)">v</a>
 					  
 					</label>
