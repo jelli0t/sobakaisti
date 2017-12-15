@@ -47,7 +47,33 @@
 					  <span>Dana:</span>
 					  <span th:if="${publication?.postDate}" th:text="${#calendars.format(publication.postDate, 'dd.MMM.yyyy. HH:mm')}">Trenutno</span>
 					  <a href="javascript:void(0)">v</a>
-					  
+					  <!-- Post Date Editor -->
+						<div class="post-date-editor" th:with="date=${publication?.postDate != null ? publication.postDate : #calendars.createNow()}">
+							<!-- months -->
+							<select id="post-month-field" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}">
+								<option th:each="month, item : ${date.getDisplayNames(Calendar.MONTH, Calendar.SHORT, Locale.getDefault())}" 
+									th:value="${month.value}" th:text="${month.key}" th:selected="${date.MONTH == month.value}">MM</option>				
+							</select>
+
+							<!-- date -->
+							<select id="post-date-field" class="date-time-field">
+								<option th:each="day, item : ${date.getDisplayNames(Calendar.DAY_OF_MONTH, Calendar.SHORT, Locale.getDefault())}"
+									th:value="${day.value}" th:text="${day.key}" th:selected="${date.DAY_OF_MONTH == day.value}">dd</option>			
+							</select>
+
+							<!-- year -->
+							<select id="post-year-fild" class="date-time-field">
+								<option th:each="year : ${date.getDisplayNames(Calendar.YEAR, Calendar.SHORT, Locale.getDefault())}"
+									th:value="${year.value}" th:text="${year.key}" th:selected="${date.YEAR == year.value}">yyyy<option>				
+							</select>
+
+							<!-- Hour -->
+							<select id="post-hour-field" class="date-time-field date-hour-field">
+								<option th:each="hour : ${date.getDisplayNames(Calendar.HOUR_OF_DAY, Calendar.SHORT, Locale.getDefault())}"
+									th:value="${hour.value}" th:text="${hour.key}" th:selected="${date.HOUR_OF_DAY == hour.value}">HH</option>			
+							</select>
+							<!--<input name="minute" th:value="${#numbers.formatInteger(date.minute, 2)}" class="date-time-field date-minute-field" size="2"> -->
+						</div>
 					</label>
 				</div>
 			</div>
