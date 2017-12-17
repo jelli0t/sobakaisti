@@ -3,6 +3,7 @@
  */
 package org.sobakaisti.mvt.controllers;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -461,5 +462,16 @@ public class DashboardController {
 		return CalendarUtil.getMaxDatePerMonth(month);
 	}
 	
-	
+	@RequestMapping(value="/datetime/editor", method=RequestMethod.GET)
+	public String dispalyDateTimeEdior(@RequestParam("date") String date, Model model){
+		Calendar dateTime = CalendarUtil.getInstance().parseCalendarFromString(date, CalendarUtil.INPUT_DATETIME_FORMAT);
+		CalendarUtil instance = CalendarUtil.getInstance(dateTime);
+		model.addAttribute("months", instance.getCalendarFieldNamesMap(Calendar.MONTH));
+		model.addAttribute("dom", instance.getCalendarFieldNamesMap(Calendar.DAY_OF_MONTH));
+		model.addAttribute("years", instance.getCalendarFieldNamesMap(Calendar.YEAR));
+		model.addAttribute("date", dateTime);
+		System.out.println("Date: "+dateTime.getTime());
+
+		return "commons/fragments :: dateTimeEditorFragment";
+	}
 }

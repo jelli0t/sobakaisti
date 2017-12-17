@@ -268,6 +268,12 @@ $(function() {
 		}	    
 	});
 	
+	$('.post-date-edit').on('click', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+	    $(this).displayDateTimeEditor();
+	});
+	
 }); // End Of Ready
 
 
@@ -999,6 +1005,25 @@ $.fn.appendMediaPreview = function() {
 		$('#'+className).empty();
 		$('#'+className).append(html);
 		callAnchor('');
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})	
+}
+
+$.fn.displayDateTimeEditor = function() {
+	var $a = $(this);
+	var url = $a.attr('href');
+	var date = $('input[type=hidden]', $a).val();
+	$.ajax({
+	    url: url + '?date='+date,
+	    type: 'GET',	   
+	    dataType: 'html'
+	})
+	.done(function( html ) {
+		$('.post-date-editor').empty();
+		$('.post-date-editor').append(html);
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );

@@ -119,6 +119,7 @@ public class Publication extends Post {
 		sb.append(this.getId() != 0 ? "id:"+this.getId()+", " : "");
 		sb.append(this.getTitle() != null ? "title:"+this.getTitle()+", " : "");
 		sb.append(this.getAuthor() != null ? "author:"+this.getAuthor().getFullName()+"" : "");
+		sb.append(this.getPostDate() != null ? "postDate : "+getPostDate().getTime()+", " : "");
 		return sb.append('}').toString();
 	}
 }

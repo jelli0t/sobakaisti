@@ -40,7 +40,7 @@ public class PublicationPostFactory extends PostFactory {
 				publication.setAuthor(authorDao.getAuthorById(postRequest.getAuthor().getId()));
 			}
 			/* postavlja datum objave */
-			publication.setPostDate(Calendar.getInstance());
+			publication.setPostDate(postRequest.getPostDate());
 			/* avtive status */
 			publication.setActive(postRequest.getActive());
 			/* postavljamo sadrzaj publikacije */

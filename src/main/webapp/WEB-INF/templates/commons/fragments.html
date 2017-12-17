@@ -241,4 +241,32 @@
 		</label>
 		</div>
 	</th:block>
+	
+	
+	<!-- Post Date Editor -->
+	<th:block th:fragment="dateTimeEditorFragment">
+		<!-- months -->
+		<select id="post-month-field" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}">
+			<option th:each="month, item : ${months}" 
+				th:value="${month.value}" th:text="${month.key}" th:selected="${date.get(date.MONTH) == month.value}">MM</option>				
+		</select>
+		<!-- date -->
+		<select id="post-date-field" class="date-time-field">
+			<option th:each="day : ${#numbers.sequence(1, date.getActualMaximum(date.DAY_OF_MONTH))}"
+				th:value="${day}" th:text="${day}" th:selected="${date.get(date.DAY_OF_MONTH) == day}">dd</option>			
+		</select>
+		<!-- year -->
+		<select id="post-year-fild" class="date-time-field">
+			<option th:each="year : ${#numbers.sequence(2010, 2050)}"
+				th:value="${year}" th:text="${year}" th:selected="${date.get(date.YEAR) == year}">yyyy<option>				
+		</select>:
+		<!-- Hour -->
+		<select id="post-hour-field" class="date-time-field date-hour-field">
+			<option th:each="hour, item : ${#numbers.sequence(0, 23)}" th:value="${hour}" 
+					th:text="${#numbers.formatInteger(hour, 2)}" th:selected="${date.get(date.HOUR_OF_DAY) == hour}">HH</option>			
+		</select>
+		<!-- Minutes -->
+		<input id="post-minutes-field" th:value="${#numbers.formatInteger(date.get(date.MINUTE), 2)}" class="date-time-field date-minute-field" size="2">
+	</th:block>
+	
 </html>

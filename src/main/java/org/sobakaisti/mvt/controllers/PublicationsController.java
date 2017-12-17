@@ -113,6 +113,7 @@ public class PublicationsController {
 			
 		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
 		redirectAttributes.addFlashAttribute("uploaded", uploaded);
+		System.out.println("Publication: "+uploaded);
 		return "redirect:/sbk-admin/publication";
 	}
 }

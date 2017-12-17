@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * @author jelli0t
  *
@@ -41,6 +43,7 @@ public abstract class Post {
 	
 	@Column(name="post_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	protected Calendar postDate;	
 
 	@Column(name="lang")
