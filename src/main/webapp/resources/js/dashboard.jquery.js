@@ -274,27 +274,6 @@ $(function() {
 	    	$(this).displayDateTimeEditor();
 	});
 	
-	$('#date-edit-accept').on('click', function() {
-		var dash = '-';
-	  	var colon = ':'
-	  	var formData = new FormData();
-		$("form[name=datetime-edit-form] :input").each(function(){
-			var key = $(this).attr('id');
-			var value = $(this).val();
-			formData.append(key, value);
-		});
-		var formatted_date = '';
-			formatted_date += formData.get('post-month-field') + dash;
-			formatted_date += formData.get('post-date-field') + dash;
-			formatted_date += formData.get('post-year-field') + ' ';
-			formatted_date += formData.get('post-hour-field') + colon;
-			formatted_date += (formData.get('post-minutes-field') < 60 ? formData.get('post-minutes-field') : 59) + colon;
-			formatted_date += '00';
-		//yyyy-MM-dd HH:mm:ss  
-		console.log('formatted_date: '+formatted_date);
-		$('#post-date-hidden').val(formatted_date);
-		$('.post-date-editor').slideUp();
-	});
 	
 }); // End Of Ready
 
@@ -1045,7 +1024,31 @@ $.fn.displayDateTimeEditor = function() {
 	})
 	.done(function( html ) {
 		$('.post-date-editor').empty();
-		$('.post-date-editor').append(html);
+		$('.post-date-editor').append(html);		
+		/* append on click event */
+		$('.post-date-editor').on('click', '#date-edit-accept', function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			var dash = '-';
+			var colon = ':'
+			var formData = new FormData();
+			$("form[name=datetime-edit-form] :input").each(function(){
+				var key = $(this).attr('id');
+				var value = $(this).val();
+				formData.append(key, value);
+			});
+			var formatted_date = '';
+				formatted_date += formData.get('post-month-field') + dash;
+				formatted_date += formData.get('post-date-field') + dash;
+				formatted_date += formData.get('post-year-field') + ' ';
+				formatted_date += formData.get('post-hour-field') + colon;
+				formatted_date += (formData.get('post-minutes-field') < 60 ? formData.get('post-minutes-field') : 59) + colon;
+				formatted_date += '00';
+			//yyyy-MM-dd HH:mm:ss  
+			console.log('formatted_date: '+formatted_date);
+			$('#post-date-hidden').val(formatted_date);
+			$('.post-date-editor').slideUp();
+		});
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
