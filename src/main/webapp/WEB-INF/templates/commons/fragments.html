@@ -267,6 +267,10 @@
 		</select>
 		<!-- Minutes -->
 		<input id="post-minutes-field" th:value="${#numbers.formatInteger(date.get(date.MINUTE), 2)}" class="date-time-field date-minute-field" size="2">
+	
+		<a href="javascript:void(0)" id="date-edit-accept">
+			<img alt="s" th:src="@{/resources/img/icons/svg/verified.svg}" height="16">
+		</a>
 	</th:block>
 	
 </html>
