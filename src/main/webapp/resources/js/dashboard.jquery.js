@@ -186,9 +186,10 @@ $(function() {
 		clicked++;
 	});
 	
-	$(document).on('click', '.bttn-remove', function(evt){
-		evt.preventDefault();
-		$(this).parent('.tag').remove();
+	$(document).on('click', '.bttn-close-hover', function(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();		
+		$(this).parent().remove();
 	});
 	
 	/* Reset featured img polja */
