@@ -478,7 +478,7 @@ img {
     	-ms-transform:rotate(5deg);
     	-webkit-transform:rotate(5deg);
 }
-.tag-bone:hover + .bttn-close-hover { display: block; }
+.tag-bone:hover > .bttn-close-hover { display: block; }
 
 .tag-bone > .bone-middle {
 	flex: 1;
