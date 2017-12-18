@@ -465,10 +465,7 @@ public class DashboardController {
 	@RequestMapping(value="/datetime/editor", method=RequestMethod.GET)
 	public String dispalyDateTimeEdior(@RequestParam("date") String date, Model model){
 		Calendar dateTime = CalendarUtil.getInstance().parseCalendarFromString(date, CalendarUtil.INPUT_DATETIME_FORMAT);
-		CalendarUtil instance = CalendarUtil.getInstance(dateTime);
-		model.addAttribute("months", instance.getCalendarFieldNamesMap(Calendar.MONTH));
-		model.addAttribute("dom", instance.getCalendarFieldNamesMap(Calendar.DAY_OF_MONTH));
-		model.addAttribute("years", instance.getCalendarFieldNamesMap(Calendar.YEAR));
+		
 		model.addAttribute("date", dateTime);
 		System.out.println("Date: "+dateTime.getTime());
 

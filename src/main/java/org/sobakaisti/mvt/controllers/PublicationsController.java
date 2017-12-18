@@ -106,14 +106,14 @@ public class PublicationsController {
 
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String uploadNewPublication(@ModelAttribute(value="postRequest") PostRequest postRequest, 
+	public String uploadNewPublication(@ModelAttribute(value="postRequest") Publication postRequest, 
 			RedirectAttributes redirectAttributes) {
 
-		System.out.println(postRequest.getId() != 0 ? "ima ID: "+postRequest.getId() : "ID = 0");
-			
-		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
-		redirectAttributes.addFlashAttribute("uploaded", uploaded);
-		System.out.println("Publication: "+uploaded);
+//		System.out.println(postRequest.getId() != 0 ? "ima ID: "+postRequest.getId() : "ID = 0");
+//			
+//		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
+//		redirectAttributes.addFlashAttribute("uploaded", uploaded);
+		System.out.println("UPLOADED: "+postRequest);
 		return "redirect:/sbk-admin/publication";
 	}
 }

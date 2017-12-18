@@ -199,11 +199,6 @@ $(function() {
 		$('#img-prev').empty();
 	});
 	
-	$('#new-post-form select[name=month]').change(function() { 
-		$(this).updateDateSelect();
-	});
-			
-	
 	/*
 	 * Click on media upload bttn
 	 * */
@@ -272,9 +267,14 @@ $(function() {
 	$('.post-date-edit').on('click', function(event) {
 		event.stopPropagation();
 		event.preventDefault();
-	    	$(this).displayDateTimeEditor();
+	    $(this).displayDateTimeEditor();
 	});
 	
+	$('.post-date-editor').on('change', 'form[name=datetime-edit-form] > #post-month-field', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		$(this).updateDateSelect();
+	});
 	
 }); // End Of Ready
 
@@ -890,7 +890,7 @@ $.fn.updateDateSelect = function() {
 	.done(function( days ) {
 		console.log("Max days per month: "+days);	
 		/* update date select according to month */
-		$dateSelect = $('#new-post-form select[name=date]').empty();
+		$dateSelect = $('form[name=datetime-edit-form] > #post-date-field').empty();
 		for(var i=1; i <= days; i++){
 			$dateSelect.append($('<option>', {value: i, text: i}, '</option>'));			
 		}
@@ -1025,7 +1025,8 @@ $.fn.displayDateTimeEditor = function() {
 	})
 	.done(function( html ) {
 		$('.post-date-editor').empty();
-		$('.post-date-editor').append(html);		
+		$('.post-date-editor').append(html);
+		$('.post-date-editor').slideDown();
 		/* append on click event */
 		$('.post-date-editor').on('click', '#date-edit-accept', function(event) {
 			event.stopPropagation();

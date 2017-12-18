@@ -120,6 +120,7 @@ public class Publication extends Post {
 		sb.append(this.getTitle() != null ? "title:"+this.getTitle()+", " : "");
 		sb.append(this.getAuthor() != null ? "author:"+this.getAuthor().getFullName()+"" : "");
 		sb.append(this.getPostDate() != null ? "postDate : "+getPostDate().getTime()+", " : "");
+		sb.append(getTags() != null ? "tags: "+getTags().size() : "");
 		return sb.append('}').toString();
 	}
 }

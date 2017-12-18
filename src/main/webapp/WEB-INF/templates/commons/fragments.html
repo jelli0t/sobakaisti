@@ -249,9 +249,10 @@
 	<th:block th:fragment="dateTimeEditorFragment">
 		<form name="datetime-edit-form" action="javascript:void(0)" onsubmit="return false;">
 		<!-- months -->
-		<select id="post-month-field" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}">
+		<select id="post-month-field" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}" 
+				th:with="months = ${ {'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'} }">
 			<option th:each="month, item : ${months}" 
-				th:value="${month.value}" th:text="${month.key}" th:selected="${date.get(date.MONTH) == month.value}">MM</option>				
+				th:value="${item.count}" th:text="${month}" th:selected="${date.get(date.MONTH) == item.count}">MM</option>				
 		</select>
 		<!-- date -->
 		<select id="post-date-field" class="date-time-field">
@@ -259,11 +260,10 @@
 				th:value="${day}" th:text="${day}" th:selected="${date.get(date.DAY_OF_MONTH) == day}">dd</option>			
 		</select>
 		<!-- year -->
-		<select id="post-year-fild" class="date-time-field">
+		<select id="post-year-field" class="date-time-field">
 			<option th:each="year : ${#numbers.sequence(2010, 2050)}"
 				th:value="${year}" th:text="${year}" th:selected="${date.get(date.YEAR) == year}">yyyy<option>				
 		</select>
-		<span>:</span>
 		<!-- Hour -->
 		<select id="post-hour-field" class="date-time-field date-hour-field">
 			<option th:each="hour, item : ${#numbers.sequence(0, 23)}" th:value="${hour}" 
