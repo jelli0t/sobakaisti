@@ -226,6 +226,7 @@
 			<input type="hidden" 
 				th:name="|tags[${index}].id|" 
 				th:value="${tag.getId()}">
+			<a href="javascript:void(0)" class="bttn-close-hover"></a>
 		</label>
 	</th:block>
 	<!-- Tags -->
@@ -237,7 +238,8 @@
 			<span class="bone-right-end"></span>
 			<input type="hidden"
 			 	th:name="|tags[${stat.index}].id|"
-            	th:value="${tag.getId()}">
+            			th:value="${tag.getId()}">
+			<a href="javascript:void(0)" class="bttn-close-hover"></a>
 		</label>
 		</div>
 	</th:block>
