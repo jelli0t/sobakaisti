@@ -227,6 +227,22 @@ img {
 	font-weight: 700;
 	cursor: pointer;
 }
+
+.bttn-close-hover {
+	/*display: none;*/
+	position: absolute;
+	right: 0;
+	width: 16px;
+	height: 16px;
+	padding: 2px;
+	background: url('../img/icons/svg/chevron-down.svg'') 12px 12px no-repeat padding-box #fff;
+	border: 1px solid gray;
+	-webkit-border-radius: 50%;   
+	-moz-border-radius: 50%; 
+ 	border-radius: 50%;
+	opacity: 0.8;
+}
+
 /* end of buttons */
 
 .horisontal-list li{
