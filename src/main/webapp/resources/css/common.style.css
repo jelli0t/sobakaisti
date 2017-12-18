@@ -469,15 +469,17 @@ img {
   	opacity: 0.8;
   	
   	-webkit-transition: -webkit-transform .3s ease-in-out;
-    -ms-transition: -ms-transform .3s ease-in-out;
-    transition: transform .3s ease-in-out;
+    	-ms-transition: -ms-transform .3s ease-in-out;
+    	transition: transform .3s ease-in-out;
 }
 .tag-bone:hover {
 	opacity: 1.0;
 	transform:rotate(5deg);
-    -ms-transform:rotate(5deg);
-    -webkit-transform:rotate(5deg);
+    	-ms-transform:rotate(5deg);
+    	-webkit-transform:rotate(5deg);
 }
+.tag-bone:hover + .bttn-close-hover { display: block; }
+
 .tag-bone > .bone-middle {
 	flex: 1;
   	order: 2;
