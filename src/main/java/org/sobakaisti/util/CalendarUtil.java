@@ -14,7 +14,7 @@ import java.util.Set;
 import sun.util.calendar.CalendarUtils;
 
 public class CalendarUtil {
-	
+	private static final Logger logger = LoggerFactory.getLogger(CalendarUtil.class);
 	public static final String INPUT_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static final SimpleDateFormat INPUT_DATETIME_FORMAT = new SimpleDateFormat(INPUT_DATETIME_PATTERN);
 	
@@ -101,10 +101,12 @@ public class CalendarUtil {
 	
 	public Calendar parseCalendarFromString(String dateString, SimpleDateFormat format) {
 		if(dateString != null) {
+			logger.info("Parsiram datum iz Stringa: '"+dateString+"', po sablonu: "+format.toPattern());
 			try {
 				calendar.setTime(format.parse(dateString));
+				logger.info("Postavljen datum: "+calendar.getTime()+", parsiran iz Stringa.");
 			} catch (ParseException e) {
-				e.printStackTrace();
+				logger.warn("Greska prilikom parsiranja datuma iz String-a.");
 			}
 		}
 		return calendar;
