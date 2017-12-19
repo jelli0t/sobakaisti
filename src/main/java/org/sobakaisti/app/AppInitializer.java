@@ -22,5 +22,13 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		// TODO Auto-generated method stub
 		return new String[] { "/" };
 	}
+	
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+	    	characterEncodingFilter.setEncoding("UTF-8");
+	    	characterEncodingFilter.setForceEncoding(false);
+	    	return new Filter[] {characterEncodingFilter};
+	}
 
 }
