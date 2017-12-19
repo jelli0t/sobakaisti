@@ -24,7 +24,7 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	@Autowired
 	protected AuthorDao authorDao;
 	@Autowired
-	protected TagService tagService;	
+	protected TagService tagService;
 	/*
 	 * Post factory instances
 	 * */
@@ -137,6 +137,11 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 			System.err.println("Neuspelo procesiranje postRequesta: "+e.getMessage());
 			return null;
 		}		
+	}
+	
+	@Override
+	public T processAndSaveSubmittedPost(T post) {
+		return null;
 	}
 
 }
