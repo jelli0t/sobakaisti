@@ -252,7 +252,7 @@
 		<select id="post-month-field" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}" 
 				th:with="months = ${ {'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'} }">
 			<option th:each="month, item : ${months}" 
-				th:value="${item.count}" th:text="${month}" th:selected="${date.get(date.MONTH) == item.count}">MM</option>				
+				th:value="${item.index}" th:text="${month}" th:selected="${date.get(date.MONTH) == item.index}">MM</option>				
 		</select>
 		<!-- date -->
 		<select id="post-date-field" class="date-time-field">
