@@ -160,12 +160,12 @@
 				<img th:case="${true}" th:src="@{/uploads/images/default/file.svg}" height="32">
 			</th:block>
 			<span th:text="${media.title}"></span>
-			<input type="hidden" name="publicationMediaId" th:value="${media.id}">
+			<input type="hidden" name="media.id" th:value="${media.id}"> <!--  name="publicationMediaId -->
 		</div>
 		
 		<div th:if="${type} == 'featured'" th:class="${type}+'-prev-container'">
 			<img alt="uploads" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}" width="180">
-			<input type="hidden" name="featuredImageId" th:value="${media.id}">
+			<input type="hidden" name="featuredImage.id" th:value="${media.id}">
 		</div>		
 	</th:block>
 	

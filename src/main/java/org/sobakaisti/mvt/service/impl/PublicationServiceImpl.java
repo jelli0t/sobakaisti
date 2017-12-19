@@ -8,16 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.sobakaisti.mvt.dao.AuthorDao;
-import org.sobakaisti.mvt.dao.PostDaoImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
-import org.sobakaisti.mvt.service.PostFactory;
+import org.sobakaisti.mvt.service.MediaService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.sobakaisti.mvt.service.PublicationService;
-import org.sobakaisti.mvt.service.TagService;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,8 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 	private static final Logger logger = LoggerFactory.getLogger(PublicationServiceImpl.class);
 	@Autowired
 	private PublicationDao publicationDao;
+	@Autowired
+	private MediaService mediaService;
 
 	@Override
 	public boolean createAndUploadPublication(String title, String slug, String content, int authorId, int[] tagIds,
@@ -103,7 +105,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 			}
 			/* set publications Tags */
 			if(post.getTags() != null && post.getTags().size() > 0) {
-				post.setTags(tagService.findListOfTagsByIdsArray(postRequest.getTags()));
+//				post.setTags(tagService.findListOfTagsByIdsArray(post.getTags()));
 			}
 			/* uploaded publication file */
 			if(post.getMedia() != null) {

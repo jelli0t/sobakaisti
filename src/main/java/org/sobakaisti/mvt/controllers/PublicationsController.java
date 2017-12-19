@@ -112,8 +112,9 @@ public class PublicationsController {
 //		System.out.println(postRequest.getId() != 0 ? "ima ID: "+postRequest.getId() : "ID = 0");
 //			
 //		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
-//		redirectAttributes.addFlashAttribute("uploaded", uploaded);
-		System.out.println("UPLOADED: "+postRequest);
+		Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);
+		redirectAttributes.addFlashAttribute("uploaded", uploaded);
+		System.out.println("UPLOADED: "+uploaded);
 		return "redirect:/sbk-admin/publication";
 	}
 }

@@ -11,6 +11,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import sun.util.calendar.CalendarUtils;
 
 public class CalendarUtil {
@@ -90,8 +93,10 @@ public class CalendarUtil {
 	public static int getMaxDatePerMonth(int month) {
 		Calendar calendar = Calendar.getInstance();	
 		calendar.set(Calendar.MONTH, month);
-		System.out.println("new date: "+calendar.getTime());
-		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		final String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+		final int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		logger.info("Za mesec "+monthName+" nalazim da ima "+maxDays+" dana.");
+		return maxDays;
 	}
 	
 	
@@ -99,6 +104,11 @@ public class CalendarUtil {
 		return calendar.getDisplayNames(filed, Calendar.SHORT, Locale.getDefault());
 	}
 	
+	/**
+	 * Parsuje datum iz prosledjenog Stringa prema sablonu prosledjenom kao SimpleDateFormat.
+	 * @param dateString	datum u textualnom formatu
+	 * @param format		sablon za parsiranje datuma
+	 * */
 	public Calendar parseCalendarFromString(String dateString, SimpleDateFormat format) {
 		if(dateString != null) {
 			logger.info("Parsiram datum iz Stringa: '"+dateString+"', po sablonu: "+format.toPattern());
