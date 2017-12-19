@@ -458,17 +458,15 @@ public class DashboardController {
 	@RequestMapping(value="/datetime/update/date/{month}", method=RequestMethod.GET)
 	@ResponseBody
 	public int updateDateListAccordingToMonth(@PathVariable("month") int month) {
-		System.out.println("Broj meseca: "+month);
+		logger.info("Dohvatam max broj dana za "+month+". mesec.")
 		return CalendarUtil.getMaxDatePerMonth(month);
 	}
 	
 	@RequestMapping(value="/datetime/editor", method=RequestMethod.GET)
 	public String dispalyDateTimeEdior(@RequestParam("date") String date, Model model){
-		Calendar dateTime = CalendarUtil.getInstance().parseCalendarFromString(date, CalendarUtil.INPUT_DATETIME_FORMAT);
-		
+		Calendar dateTime = CalendarUtil.getInstance().parseCalendarFromString(date, CalendarUtil.INPUT_DATETIME_FORMAT);		
 		model.addAttribute("date", dateTime);
-		System.out.println("Date: "+dateTime.getTime());
-
+		logger.info("Otvaram datetime editor i postavljam datum: "+dateTime.getTime())
 		return "commons/fragments :: dateTimeEditorFragment";
 	}
 }
