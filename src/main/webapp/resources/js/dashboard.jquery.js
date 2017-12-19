@@ -1041,7 +1041,7 @@ $.fn.displayDateTimeEditor = function() {
 			});
 			var formatted_date = '';
 				formatted_date += formData.get('post-year-field') + dash;
-				formatted_date += formData.get('post-month-field') + dash;
+				formatted_date += (formData.get('post-month-field') + 1) + dash;
 				formatted_date += formData.get('post-date-field') + ' ';
 				formatted_date += formData.get('post-hour-field') + colon;
 				formatted_date += (formData.get('post-minutes-field') < 60 ? formData.get('post-minutes-field') : 59) + colon;
