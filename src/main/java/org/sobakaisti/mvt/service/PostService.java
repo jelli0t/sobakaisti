@@ -90,6 +90,9 @@ public interface PostService<T extends Post> {
 	 * */
 	public T processAndSavePostRequest(PostRequest postRequest);
 	
-	
-
+	/**
+	* Procesuira ModelAttribute Post objekat i cuva ga u bazi.
+	* @param post
+	* */
+	public T processAndSaveSubmittedPost(T post);
 }
