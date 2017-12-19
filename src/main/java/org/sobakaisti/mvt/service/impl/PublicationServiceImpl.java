@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 public class PublicationServiceImpl extends PostServiceImpl<Publication> implements PublicationService {
-
+	private static final Logger logger = LoggerFactory.getLogger(PublicationServiceImpl.class);
 	@Autowired
 	private PublicationDao publicationDao;
 
@@ -91,5 +91,36 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 	}
 	
 	
-	
+	@Override
+	public Publication processAndSaveSubmittedPost(Publication post) {
+		if(post != null) {		
+			/* Ako je nova publikacija formiraj slug */
+			if(post.getId() == 0)
+				post.setSlug(addSuffixIfDuplicateExist(post.getSlug()));			
+			/* postavlja autora */
+			if(post.getAuthor() != null) {
+				post.setAuthor(authorDao.getAuthorById(post.getAuthor().getId()));
+			}
+			/* set publications Tags */
+			if(post.getTags() != null && post.getTags().size() > 0) {
+				post.setTags(tagService.findListOfTagsByIdsArray(postRequest.getTags()));
+			}
+			/* uploaded publication file */
+			if(post.getMedia() != null) {
+				Media publicationMedia = mediaService.findById(post.getMedia().getId());
+				post.setMedia(publicationMedia);
+			}
+			/* uploaded featured image */
+			if(post.getFeaturedImage() != null) {
+				Media featuredImageMedia = mediaService.findById(post.getFeaturedImage().getId());
+				post.setFeaturedImage(featuredImageMedia);
+			}
+			/* set language*/
+			post.setLang("rs");
+			logger.info("Cuvam: "+post);
+			return publicationDao.save(post);
+		}
+		logger.warn("Nije prosledjen Publication za procesuiranje!");
+		return null;
+	}
 }
