@@ -25,6 +25,8 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	protected AuthorDao authorDao;
 	@Autowired
 	protected TagService tagService;
+	@Autowired
+	private MediaService mediaService;
 	/*
 	 * Post factory instances
 	 * */
