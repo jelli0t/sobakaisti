@@ -56,31 +56,42 @@
 				</div>
 			</div>
 			<div class="panel-footer">
-				<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
-					<span th:if="${publication?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
-					<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
-				</a>			
-				<div class="select-menu-modal">
-					<div class="select-menu-header">
-						<span class="select-menu-title">Dostupnost</span> 
-						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
-					</div>
-					<div class="select-menu-item post-scope-option">
-					    <input type="radio" name="active" value="1" id="input-public-scope" th:checked="${publication?.active == 1}" >
-					    <label for="input-public-scope">
-					    	<span><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
-					      	<span>Članak ce biti objavljen javno</span>
-					    </label>  
-					</div>
-				  	<div class="select-menu-item post-scope-option">  
-			    		<input type="radio" name="active" value="0" id="input-private-scope" th:checked="${publication?.active == 0}" >
-			    		<label for="input-private-scope">
-			      			<span><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
-			      			<span>Članak dostupan samo autoru</span>   
-			    		</label>  
-				  	</div>
-				</div>
-				
+				<!-- Select visability -->
+				<div class="js-select-container">		
+					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
+						<span th:if="${publication?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
+						<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
+					</a>
+					
+					<div class="select-menu-modal-holder">
+						<div class="select-menu-modal">
+							<!-- select header -->
+							<div class="select-menu-header">
+							  <svg aria-label="Close" class="bttn-menu-close js-menu-bttn-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12">
+							    <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+							  </svg>
+							  <span class="select-menu-title">Vidljivost</span>
+							</div>
+							<!-- select body -->  
+							<ul class="select-menu-list">
+								<li class="select-menu-item">
+									<input type="radio" name="active" value="1" id="input-public-scope" th:checked="${publication?.active == 1}" >
+								    <label for="input-public-scope">
+								    	<span><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
+								      	<span>Članak ce biti objavljen javno</span>
+								    </label>
+								</li>
+							  	<li class="select-menu-item">
+							  		<input type="radio" name="active" value="0" id="input-private-scope" th:checked="${publication?.active == 0}" >
+						    		<label for="input-private-scope">
+						      			<span><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
+						      			<span>Članak dostupan samo autoru</span>   
+						    		</label>
+							  	</li>
+							</ul>
+						</div>
+					</div>					
+				</div>				
 				<!-- SUBMIT -->
 				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${uploaded != null && uploaded.id != 0} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
 			</div>
@@ -91,25 +102,33 @@
 			<div class="panel-header">
 				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
 			</div>
-			<div class="panel-body">			
-			<button class="bttn bttn-default bttn-select js-modal-select" type="button" th:text="#{label.tags}">Oznake</button>
-				<!-- dropdown menu -->
-				<div class="select-menu-modal" id="tags-modal">
-					<div class="select-menu-header">
-						<span class="select-menu-title">Pretraga oznaka</span> 
-						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
+			<div class="panel-body">
+				<div class="js-select-container">		
+					<button class="bttn bttn-default bttn-select js-modal-select" type="button" th:text="#{label.tags}">Oznake</button>
+					<!-- dropdown menu -->
+					<div class="select-menu-modal-holder">
+						<div class="select-menu-modal" id="tags-modal">
+							<!-- select header -->
+							<div class="select-menu-header">
+							  <svg aria-label="Close" class="bttn-menu-close js-menu-bttn-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12">
+							    <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+							  </svg>
+							  <span class="select-menu-title">Pretraga oznaka</span>
+							</div>
+							<div class="select-menu-filters">
+								<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
+								<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}">
+							</div>					
+							<div class="search-result"></div>
+						</div>
 					</div>
-					<div class="select-menu-filters">
-						<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
-						<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}">
-					</div>					
-					<div class="search-result"></div>
-				</div>
+				</div>	
+				
 				<div class="selected-tags selected-result">
 					<th:block th:unless="${#lists.isEmpty(publication.tags)}" th:include="~{commons/fragments :: tagBonesFragment}" 
 						  th:with="tags=${publication.tags}">
 					</th:block>
-				</div>			
+				</div>						
 			</div>			
 		</div>
 		

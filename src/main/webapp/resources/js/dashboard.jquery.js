@@ -89,7 +89,7 @@ $(function() {
 	$('.main-dash-content').on('click', '.js-modal-select', function(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();		
-		$(this).next('.select-menu-modal').toggle();
+		$(this).next('.select-menu-modal-holder').toggle();
 	});
 	/*
 	* Padajuci menu sa Radio opcijama
