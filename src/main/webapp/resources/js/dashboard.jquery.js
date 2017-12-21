@@ -276,6 +276,15 @@ $(function() {
 		$(this).updateDateSelect();
 	});
 	
+	/* Close select-menu-modal on outside clic or ESC */
+	$(document).on('mouseup keydown', function (e) {
+		e.stopPropagation();
+  		e.preventDefault();
+  		var container = $('.select-menu-modal-holder');
+  		if ((!container.is(e.target) && container.has(e.target).length === 0) || e.which == 27) {
+  			container.hide();
+  		}
+	});
 }); // End Of Ready
 
 
