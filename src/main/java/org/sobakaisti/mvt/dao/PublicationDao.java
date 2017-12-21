@@ -10,9 +10,6 @@ import org.sobakaisti.mvt.models.Publication;
  * @author jelli0t
  *
  */
-public interface PublicationDao extends PostDao<Publication>{
-
-
-	
+public interface PublicationDao extends PostDao<Publication> {	
 	
 }

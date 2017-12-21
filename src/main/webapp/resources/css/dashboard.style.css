@@ -24,7 +24,6 @@ ul {
 	box-sizing: border-box;
 	}
 .fleft {
-	position: relative;
 	float: left !important;
 }
 .fright {
@@ -1159,12 +1158,6 @@ input:checked ~ label {
 }
 /* end of menu items */
 
-.search-field { 
-	line-height: 11px !important; 
-	box-sizing: content-box;
-	width: 100%;
-	}
-.search-result { padding: 10px 8px; }
 .selected-result { padding: 10px 0; }
 
 .founded-tag { cursor: pointer; }

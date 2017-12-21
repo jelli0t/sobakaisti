@@ -57,7 +57,7 @@
 			</div>
 			<div class="panel-footer">
 				<!-- Select visability -->
-				<div class="js-select-container">		
+				<div class="js-select-container fleft">		
 					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
 						<span th:if="${publication?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
 						<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
@@ -117,10 +117,10 @@
 							</div>
 							<div class="select-menu-text-filter">
 								<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
-								<input type="text" class="search-field" placeholder="Oznaka" th:src="@{/sbk-admin/tags/}">
+								<input type="text" class="select-menu-search-field js-search-filed" placeholder="Oznaka" th:src="@{/sbk-admin/tags/search}">
 							</div>
 											
-							<div class="search-result"></div>
+							<div class="select-menu-search-result"></div>
 						</div>
 					</div>
 				</div>	

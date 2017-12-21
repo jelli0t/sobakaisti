@@ -83,18 +83,11 @@ $(function() {
 		var json = $('#ser-test').serializeObject();
 		console.log(JSON.stringify(json));
 	});
-	/*
-	 * klik na select button
-	 * */	
-	$('.main-dash-content').on('click', '.js-modal-select', function(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();		
-		$(this).next('.select-menu-modal-holder').toggle();
-	});
+	
 	/*
 	* Padajuci menu sa Radio opcijama
 	**/
-	$('.select-menu-modal').on('change', 'input[name=active]', function(evt){
+	$('.js-select-container').on('change', 'input[name=active]', function(evt){
 		evt.stopPropagation();
 		evt.preventDefault();
 	      	var value = $(this).val();
@@ -111,7 +104,7 @@ $(function() {
 	});
 	
 	/* tag search event */
-	$(document).on('keyup', '.search-field', function(e) {
+	$(document).on('keyup', '.js-search-filed', function(e) {
 		e.preventDefault();
 		var value = $(this).val();		
 		var keyCode = e.keyCode || e.which;
@@ -276,15 +269,27 @@ $(function() {
 		$(this).updateDateSelect();
 	});
 	
+	/* OOPEN Select Menu */	
+	$('.js-select-container').on('click', '.js-modal-select', function(evt) {
+		evt.preventDefault();
+		$(this).next('.select-menu-modal-holder').toggle();
+	});
+	/* CLOSE Select Menu */
+	$(document).on('click', '.js-menu-bttn-close', function(event) {
+		event.preventDefault();
+		$('.select-menu-modal-holder').hide();
+	});
+	
 	/* Close select-menu-modal on outside clic or ESC */
 	$(document).on('mouseup keydown', function (e) {
 		e.stopPropagation();
-  		e.preventDefault();
   		var container = $('.select-menu-modal-holder');
   		if ((!container.is(e.target) && container.has(e.target).length === 0) || e.which == 27) {
   			container.hide();
   		}
 	});
+	
+	
 }); // End Of Ready
 
 
@@ -674,32 +679,24 @@ $.fn.displaySelectedCategories = function() {
 //TODO sa metodom ispod napravi univerzalnu metodu za tagove
 //TODO resi prikaz rezultata
 $.fn.ajaxSearch = function() {
-	var csrf = getCsrfParams();	
 	var uri = $(this).attr('src');
 	var value = $(this).val();
 	console.log('uri: '+uri+"; val: "+value);
 	$.ajax({
-	    url: uri+'search',
-	    type: 'PUT',
-	    data: value,
-	    contentType: 'application/json; charset=utf-8',
-	    dataType: 'json',
-	    beforeSend: function(xhr) {
-            xhr.setRequestHeader(csrf[0], csrf[1]);
-        }
+	    url: uri+'?hint='+value,
+	    type: 'GET',
+	    dataType: 'html'
 	})
 	.done(function( tags ) {
-		console.log("success: "+tags);
-		var span = '';
-		$.each(tags, function(i){
-			span += '<label class="label tag founded-tag" id="tag-'+tags[i].id+'">'+tags[i].tag+'<input type="hidden" name="tags['+i+'].id" value="'+tags[i].id+'"></label>';
+		$('.select-menu-search-result').empty().append(tags);
+		$('.select-menu-search-result').on('click', '.tag-bone', function(evt) {
+			evt.preventDefault();
+			$(this).appendTo('.selected-result');
 		});
-		$('.search-result').empty().append(span);
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
 	    console.log( "Status: " + status );
-	    console.dir( xhr );
 	})
 	.always(function( xhr, status ) {
 		console.log( "After all: " + status );

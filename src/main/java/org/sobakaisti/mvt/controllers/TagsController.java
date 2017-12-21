@@ -30,11 +30,12 @@ public class TagsController {
 	@Autowired
 	private TagService tagService;
 	
-	@RequestMapping(value="/search", method=RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<List<Tag>> searchArticleTags(@RequestBody String hint){
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String searchArticleTags(@RequestParam("hint") String hint, Model model){
 		List<Tag> tags = tagService.findListOfTagsByHint(hint);
-		return new ResponseEntity<List<Tag>>(tags, HttpStatus.OK);
+//		return new ResponseEntity<List<Tag>>(tags, HttpStatus.OK);
+		model.addAttribute("tags", tags);
+		return "commons/fragments :: tagBonesFragment";
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.PUT)
