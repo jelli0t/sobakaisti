@@ -233,4 +233,11 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 			return false;
 		}		
 	}
+
+	@Override
+	public T saveOrUpdate(T t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

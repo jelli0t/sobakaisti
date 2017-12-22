@@ -57,7 +57,7 @@
 			</div>
 			<div class="panel-element panel-footer">
 				<!-- Select visability -->
-				<div class="js-select-container fleft">		
+				<div class="js-select-container">		
 					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
 						<span th:if="${publication?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
 						<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
@@ -103,7 +103,7 @@
 				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
 			</div>
 			<div class="panel-element panel-body">
-				<div class="js-select-container">		
+				<div class="js-select-container full-width">		
 					<button class="bttn bttn-default bttn-select js-modal-select" type="button" th:text="#{label.tags}">Oznake</button>
 					<!-- dropdown menu -->
 					<div class="select-menu-modal-holder">

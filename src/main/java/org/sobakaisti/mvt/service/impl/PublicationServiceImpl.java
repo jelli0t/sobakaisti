@@ -120,7 +120,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 			/* set language*/
 			post.setLang("rs");
 			logger.info("Cuvam: "+post);
-			return publicationDao.save(post);
+			return publicationDao.saveOrUpdate(post);
 		}
 		logger.warn("Nije prosledjen Publication za procesuiranje!");
 		return null;

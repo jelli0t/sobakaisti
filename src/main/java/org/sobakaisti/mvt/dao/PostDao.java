@@ -29,6 +29,14 @@ public interface PostDao<T extends Post> {
 	public T save(T t);
 	
 	/**
+	 * Radi save ili update entiteta i iz baze dohvata
+	 * upravo sacuvani objekat
+	 * @param t
+	 * @return dohvata i vraca upravo sacuvani entitet
+	 * */
+	public T saveOrUpdate(T t);
+	
+	/**
 	 *  Brise post sa prosledjenim ID
 	 *  @param id
 	 * */
@@ -85,6 +93,8 @@ public interface PostDao<T extends Post> {
 	 *  @return izmenjenu vrednost na active
 	 * */
 	public int switchActiveStatus(int id);
+
+	
 
 	
 }

@@ -68,6 +68,18 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	
 	@Override
 	@Transactional
+	public T saveOrUpdate(T t) {
+		try {
+			currentSession().saveOrUpdate(t);
+			return find(t.getId());
+		} catch (Exception e) {
+			logger.warn("Greska pri cuvanju enititeta. Uzrok: "+e.getMessage());
+			return t;
+		}
+	}
+	
+	@Override
+	@Transactional
 	public List<T> findAllPostsByActiveStatus(int status) {
 		String HQL = "from "+entity.getName()+" t where t.postDate is not null" 
 					+" and t.active = :status order by date(t.postDate) desc, t.id desc";	

@@ -11,6 +11,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.PublicationPostFactory;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
@@ -109,8 +110,6 @@ public class PublicationsController {
 	public String uploadNewPublication(@ModelAttribute(value="postRequest") Publication postRequest, 
 			RedirectAttributes redirectAttributes) {
 
-//		System.out.println(postRequest.getId() != 0 ? "ima ID: "+postRequest.getId() : "ID = 0");
-//			
 //		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
 		Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);
 		/* proveravam tags listu */
