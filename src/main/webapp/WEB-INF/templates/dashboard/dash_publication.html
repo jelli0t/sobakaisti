@@ -19,11 +19,11 @@
 		<input type="hidden" name="id" th:value="${publication?.id}">
 		<!-- Right panel -->
 		<div class="right-container">
-			<div class="small-panel">
-			<div class="panel-header">
+			<div class="panel small-panel">
+			<div class="panel-element panel-header">
 				<span class="panel-title">Objava</span>
 			</div>
-			<div class="panel-body">
+			<div class="panel-element panel-body">
 				<div class="select-wrapper">
 				<!-- Authors -->
 				<select name="author.id" class="bttn bttn-default bttn-select" th:value="${publication?.author?.id}" >
@@ -55,7 +55,7 @@
 					<div class="post-date-editor"></div>
 				</div>
 			</div>
-			<div class="panel-footer">
+			<div class="panel-element panel-footer">
 				<!-- Select visability -->
 				<div class="js-select-container fleft">		
 					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
@@ -98,11 +98,11 @@
 		</div>
 		
 		<!-- Tags selection -->
-		<div class="small-panel">
-			<div class="panel-header">
+		<div class="panel small-panel">
+			<div class="panel-element panel-header">
 				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
 			</div>
-			<div class="panel-body">
+			<div class="panel-element panel-body">
 				<div class="js-select-container">		
 					<button class="bttn bttn-default bttn-select js-modal-select" type="button" th:text="#{label.tags}">Oznake</button>
 					<!-- dropdown menu -->
@@ -130,14 +130,15 @@
 						  th:with="tags=${publication.tags}">
 					</th:block>
 				</div>						
-			</div>			
+			</div>
+			<div class="panel-element panel-footer"></div>
 		</div>
 		
-		<div class="small-panel">
-			<div class="panel-header">
+		<div class="panel small-panel">
+			<div class="panel-element panel-header">
 				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span>
 			</div>
-			<div class="panel-body">
+			<div class="panel-element panel-body">
 				<!-- Input file button -->	
 				<a th:href="@{/sbk-admin/media/select(type=featured)}" class="show-media-lib bttn bttn-default">
 					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> 
@@ -152,6 +153,7 @@
 					</th:block>
 				</div>
 			</div>
+			<div class="panel-element panel-footer"></div>
 		</div>
 		</div>	 <!-- end of right sidebar -->
 		
