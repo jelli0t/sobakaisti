@@ -113,6 +113,15 @@ public class PublicationsController {
 //			
 //		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
 		Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);
+		/* proveravam tags listu */
+		if(uploaded != null && uploaded.getTags() != null) {
+			logger.info("-- Radim proveru Liste tags -- ");
+			logger.info("Publication ima "+uploaded.getTags().size()+" tagova: ");
+			for(Tag tag : uploaded.getTags()) {
+				logger.info("[Tag] id: "+tag.getId()+"; name: "+tag.getTag()+".");
+			}
+		}
+		
 		redirectAttributes.addFlashAttribute("uploaded", uploaded);
 		System.out.println("UPLOADED: "+uploaded);
 		return "redirect:/sbk-admin/publication";
