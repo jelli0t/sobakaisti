@@ -5,6 +5,8 @@ package org.sobakaisti.mvt.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
@@ -23,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -107,20 +110,14 @@ public class PublicationsController {
 
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String uploadNewPublication(@ModelAttribute(value="postRequest") Publication postRequest, 
-			RedirectAttributes redirectAttributes) {
-
-//		Publication uploaded = publicationService.processAndSavePostRequest(postRequest);
-		Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);
-		/* proveravam tags listu */
-		if(uploaded != null && uploaded.getTags() != null) {
-			logger.info("-- Radim proveru Liste tags -- ");
-			logger.info("Publication ima "+uploaded.getTags().size()+" tagova: ");
-			for(Tag tag : uploaded.getTags()) {
-				logger.info("[Tag] id: "+tag.getId()+"; name: "+tag.getTag()+".");
-			}
+	public String uploadNewPublication(@ModelAttribute(value="postRequest") @Valid Publication postRequest, 
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("uploaded", postRequest);
+			System.out.println("Ima gresaka!");
+			return "dashboard/dash_publication";
 		}
-		
+		Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);		
 		redirectAttributes.addFlashAttribute("uploaded", uploaded);
 		System.out.println("UPLOADED: "+uploaded);
 		return "redirect:/sbk-admin/publication";

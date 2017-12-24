@@ -231,17 +231,17 @@
 	</th:block>
 	<!-- Tags -->
 	<th:block th:fragment="tagBonesFragment"> 
-		<div>
-		<label class="tag-bone" th:each="tag, stat : ${tags}">
-			<span class="bone-left-end"></span>
-			<span class="bone-middle" th:text="${tag.tag}"></span>
-			<span class="bone-right-end"></span>
-			<input type="hidden"
-			 	th:name="|tags[${stat.index}].id|"
-            			th:value="${tag.getId()}">
-			<a href="javascript:void(0)" class="bttn-close-hover"></a>
-		</label>
-		</div>
+
+			<label class="tag-bone founded-tag" th:each="tag, stat : ${tags}">
+				<span class="bone-left-end"></span>
+				<span class="bone-middle" th:text="${tag.tag}"></span>
+				<span class="bone-right-end"></span>
+				<input type="hidden"
+				 	th:name="|tags[${stat.index}].id|"
+	            			th:value="${tag.getId()}">
+				<a href="javascript:void(0)" class="bttn-close-hover"></a>
+			</label>
+			<input type="hidden" id="tag-count" th:value="${#lists.size(tags)}"/>			
 	</th:block>
 	
 	

@@ -1172,9 +1172,16 @@ input:checked ~ label {
 .post-date-editor {
 	padding: 3px 0;
 }
+.post-date-edit {
+	display: inline-block;
+	background: url('../img/icons/svg/chevron-down.svg') top left no-repeat;
+  	background-size: 14px 12px;
+  	width: 14px;
+  	height: 10px;
+}
 .date-time-field {
 	float: left;
-    padding: 1px;
+    padding: 1px 2px;
     font-size: 12px;
     line-height: 20px;
     color: #24292e;

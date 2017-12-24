@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.sobakaisti.mvt.dao.TagDao;
+import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.TagService;
 import org.sobakaisti.util.StringUtil;

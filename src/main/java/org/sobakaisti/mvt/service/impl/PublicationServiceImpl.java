@@ -14,6 +14,7 @@ import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.MediaService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
@@ -105,7 +106,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 			}
 			/* set publications Tags */
 			if(post.getTags() != null && post.getTags().size() > 0) {
-//				post.setTags(tagService.findListOfTagsByIdsArray(post.getTags()));
+				post.setTags(fatchPostFullTagList(post));
 			}
 			/* uploaded publication file */
 			if(post.getMedia() != null) {
@@ -124,5 +125,24 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 		}
 		logger.warn("Nije prosledjen Publication za procesuiranje!");
 		return null;
+	}
+	
+	
+	@Override
+	public List<Tag> fatchPostFullTagList(Publication t) {
+		int[] tagIds = null;
+		if(t != null && !t.getTags().isEmpty()) {
+			int index = 0;
+			tagIds = new int[t.getTags().size()];
+			for(Tag tag : t.getTags()) {
+				tagIds[index] = tag.getId();
+				index++;
+			}
+			logger.info("Iz Publication objekta sam napravio listu ID-eva tagova velicine: "+tagIds.length);
+		} else {
+			logger.warn("Nije prosledjen Publication ili je lista Tag-ova prazna!");
+			tagIds = new int[0];
+		}
+		return tagService.findListOfTagsByIdsArray(tagIds);
 	}
 }

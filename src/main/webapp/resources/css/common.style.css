@@ -360,9 +360,11 @@ img {
   display: block;
   line-height: 24px;
   font-size: 12px;
+  color: #9d9fa2;
 }
 .post-info-label > span:nth-of-type(2n) {
-  font-weight: 700;
+  font-weight: normal;
+  color: #24292e !important;
 }
 
 .post-info-box {
@@ -576,7 +578,7 @@ img {
   	height: 24px;
   	margin: 3px;
   	font-size: 10px !important;
-  	color: #343434; 
+  	color: #24292e; 
   	opacity: 0.8;
   	
   	-webkit-transition: -webkit-transform .3s ease-in-out;

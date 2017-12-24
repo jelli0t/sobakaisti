@@ -38,16 +38,11 @@ public class TagsController {
 		return "commons/fragments :: tagBonesFragment";
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<Tag> saveInputAsTag(@RequestBody String phrase){
+	@RequestMapping(value="/add/{phrase}", method=RequestMethod.GET)
+	public String saveInputAsTag(@PathVariable("phrase") String phrase, @RequestParam("index") int index, Model model) {
 		System.out.println("Trazena fraza: "+phrase);
 		Tag tag = tagService.findOrCreateTagFromPhrase(phrase);
-		if(tag != null) {
-			return new ResponseEntity<Tag>(tag, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<Tag>(tag, HttpStatus.SERVICE_UNAVAILABLE);
-		}
+		return appendSelectedTag(tag.getId(), index, model);
 	}
 	
 	@RequestMapping(value="/select/{id}", method=RequestMethod.GET)

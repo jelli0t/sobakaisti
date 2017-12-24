@@ -71,11 +71,11 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	public T saveOrUpdate(T t) {
 		try {
 			currentSession().saveOrUpdate(t);
-			return find(t.getId());
-		} catch (Exception e) {
-			logger.warn("Greska pri cuvanju enititeta. Uzrok: "+e.getMessage());
 			return t;
+		} catch (Exception e) {
+			logger.warn("Greska pri cuvanju enititeta. Uzrok: "+e.getMessage());			
 		}
+		return t;
 	}
 	
 	@Override

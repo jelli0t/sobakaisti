@@ -13,7 +13,7 @@
 <!-- form -->
 <!-- @{/publications/upload/{suffix}(__${uploaded != null and uploaded.id != 0} ? 'suffix=${uploaded.id}' : 'suffix=new'__)} -->
 <form th:action="@{/publications/upload}" 
-      id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post">	
+      id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post" onkeypress="return event.keyCode != 13;">	
 	<div class="main-dash-content" th:with="publication=${uploaded}">
 		<!-- Post ID -->
 		<input type="hidden" name="id" th:value="${publication?.id}">
@@ -46,7 +46,7 @@
 					  <img th:src="@{/resources/img/icons/svg/calendar.svg}" height="14" title="Datum objavljivanja">
 					  <span>Dana:</span>
 					  <span th:text="${publication?.postDate != null ? #calendars.format(publication.postDate, 'dd.MMM.yyyy. HH:mm') : 'Trenutno'}">Trenutno</span>
-					 	<a href="javascript:void(0)" th:href="@{/sbk-admin/datetime/editor}" class="post-date-edit">v
+					 	<a href="javascript:void(0)" th:href="@{/sbk-admin/datetime/editor}" class="post-date-edit">
 							<input type="hidden" name="postDate" id="post-date-hidden"
 								   th:value="${#calendars.format((publication?.postDate != null ? publication.postDate : #calendars.createNow()), 'yyyy-MM-dd HH:mm:ss')}">
 						</a>					  
@@ -117,7 +117,7 @@
 							</div>
 							<div class="select-menu-text-filter">
 								<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
-								<input type="text" class="select-menu-search-field js-search-filed" placeholder="Oznaka" th:src="@{/sbk-admin/tags/search}">
+								<input type="text" class="select-menu-search-field js-search-filed" placeholder="Oznaka" th:src="@{/sbk-admin/tags/}">
 							</div>
 											
 							<div class="select-menu-search-result"></div>
@@ -126,8 +126,8 @@
 				</div>	
 				
 				<div class="selected-tags selected-result">
-					<th:block th:unless="${#lists.isEmpty(publication.tags)}" th:include="~{commons/fragments :: tagBonesFragment}" 
-						  th:with="tags=${publication.tags}">
+					<th:block th:unless="${#lists.isEmpty(publication?.tags)}" th:include="~{commons/fragments :: tagBonesFragment}" 
+						  th:with="tags=${publication.tags}">						  
 					</th:block>
 				</div>						
 			</div>
@@ -146,7 +146,7 @@
 				</a>				
 				<!-- Featured IMG preview -->
 				<div id="featured-prev-container">
-					<th:block th:if="${publication.featuredImage != null}">
+					<th:block th:if="${publication?.featuredImage != null}">
 						<img alt="Featured Image" th:src="@{/uploads/images/{filename}(filename=${publication.featuredImage.fileName})}" 
 						     th:title="${publication.featuredImage.title}" width="180">
 						<input type="hidden" name="featuredImageId" th:value="${publication.featuredImage.id}">
@@ -162,6 +162,7 @@
 			<div class="form-tr">
 				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" id="publication-title" 
 					class="title-input full-width" th:src="@{/publications/slug/new}" th:value="${publication.title}">
+					<p th:errors="*{title}" class="help-block"></p>
 				<!-- validation error message -->
 				<div class="validation-error"></div>	
 				<!-- link preview -->

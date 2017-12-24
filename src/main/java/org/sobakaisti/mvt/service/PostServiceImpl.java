@@ -11,6 +11,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
@@ -142,6 +143,11 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	
 	@Override
 	public T processAndSaveSubmittedPost(T post) {
+		return null;
+	}
+
+	@Override
+	public List<Tag> fatchPostFullTagList(T t) {
 		return null;
 	}
 

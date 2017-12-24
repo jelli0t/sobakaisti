@@ -6,6 +6,7 @@ package org.sobakaisti.mvt.service;
 import java.util.List;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
@@ -74,6 +75,13 @@ public interface PostService<T extends Post> {
 	 * Pronalazi sve autore koje su objavili neki Post
 	 * */
 	public List<Author> findAllPostsAuthors();
+	
+	/**
+	 * Dohvata potpunu listu tagova za prosledjeni entitet
+	 * koji nasledjuje Post
+	 * @param	post subclass
+	 * */
+	public List<Tag> fatchPostFullTagList(T t);
 
 	/**
 	 * Dodaje sufiks na proslednjeni slug ukoliko isti vec postoji.
