@@ -34,27 +34,33 @@
 				</a>
 			</div>
 			<!-- top table filter -->
-			<div class="td filter-container">
-				<div class="filter-bttn-container">
+			<div class="td filter-container">				
+				<div class="js-select-container">		
 					<button type="button" class="bttn bttn-select-simple" th:text="#{nav.item.authors}">Autori</button>
-					<!-- dropdown menu -->
-					<div class="select-menu-modal">
-						<div class="select-menu-header">
-							<span class="select-menu-title">Filtriraj po autoru</span> 
-							<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
+					<!-- Dropdown menu -->
+					<div class="select-menu-modal-holder">
+						<div class="select-menu-modal">
+							<!-- select header -->
+							<div class="select-menu-header">
+							  <svg aria-label="Close" class="bttn-menu-close js-menu-bttn-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12">
+							    <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+							  </svg>
+							  <span class="select-menu-title">Vidljivost</span>
+							</div>
+							<!-- select body -->
+							<ul class="select-menu-list">
+								<li th:each="author : ${authors}" class="select-menu-item">
+									<a th:href="@{/sbk-admin/publications/by/{slug}(slug=${author.slug})}">
+									<span class="circle circle-tiny" 
+										th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
+									<span th:text="${author.firstName +' '+ author.lastName}"></span>
+									</a>
+								</li>
+							</ul>
 						</div>
-						<ul>
-							<li th:each="author : ${authors}" class="menu-modal-item">
-								<a th:href="@{/sbk-admin/publications/by/{slug}(slug=${author.slug})}">
-								<span class="circle circle-tiny" 
-									th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
-								<span th:text="${author.firstName +' '+ author.lastName}"></span>
-								</a>
-							</li>
-						</ul>
-					</div>	
-				</div>
-			</div>		
+					</div>					
+				</div> 	<!-- End js-select-container -->			
+			</div>	
 			<!-- top table filter -->
 			<div class="listing-header-filter"></div>
 		</div>
