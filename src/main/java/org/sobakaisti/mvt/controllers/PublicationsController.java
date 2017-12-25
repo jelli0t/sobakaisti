@@ -112,14 +112,16 @@ public class PublicationsController {
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String uploadNewPublication(@ModelAttribute(value="postRequest") @Valid Publication postRequest, 
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
 		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.postRequest", bindingResult);
 			redirectAttributes.addFlashAttribute("uploaded", postRequest);
-			System.out.println("Ima gresaka!");
-			return "dashboard/dash_publication";
-		}
-		Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);		
-		redirectAttributes.addFlashAttribute("uploaded", uploaded);
-		System.out.println("UPLOADED: "+uploaded);
+			System.out.println("Ima gresaka!");			
+		} else {
+			Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);		
+			redirectAttributes.addFlashAttribute("uploaded", uploaded);
+			System.out.println("UPLOADED: "+uploaded);
+		}		
 		return "redirect:/sbk-admin/publication";
 	}
 }

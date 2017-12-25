@@ -11,7 +11,6 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 <!-- form -->
-<!-- @{/publications/upload/{suffix}(__${uploaded != null and uploaded.id != 0} ? 'suffix=${uploaded.id}' : 'suffix=new'__)} -->
 <form th:action="@{/publications/upload}" 
       id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post" onkeypress="return event.keyCode != 13;">	
 	<div class="main-dash-content" th:with="publication=${uploaded}">
@@ -33,7 +32,7 @@
 							th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option>
 				</select>
 				<!-- validation error message -->
-				<div class="validation-error"></div>
+				<div class="validation-error" th:errors="*{author.id}"></div>
 				</div>
 				<!-- Post info details -->
 				<div class="post-info-box">
@@ -161,10 +160,10 @@
 		<div class="left-container">
 			<div class="form-tr">
 				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" id="publication-title" 
-					class="title-input full-width" th:src="@{/publications/slug/new}" th:value="${publication.title}">
-					<p th:errors="*{title}" class="help-block"></p>
+					class="title-input full-width"  th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field' : ''" 
+					th:src="@{/publications/slug/new}" th:value="${publication.title}">
 				<!-- validation error message -->
-				<div class="validation-error"></div>	
+				<div class="validation-error" th:errors="*{title}"></div>	
 				<!-- link preview -->
 				<div class="post-path-container">
 					<span class="post-path path-label">Putanja na sekciji Izdanja: </span>

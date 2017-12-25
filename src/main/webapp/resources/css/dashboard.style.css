@@ -152,7 +152,7 @@ select.def-input {
 	color: #fff !important;
 }
 .validation-error {
-	display: none;
+/* 	display: none; */
 	position: relative;
 	width: 200px;
 	float: right;
@@ -168,18 +168,20 @@ select.def-input {
   	opacity: 0.75;
   	z-index: 999;
 }
-.validation-error:before {	
-	content: '';
-	position: absolute;
-	border-style: solid;
-	border-width: 10px 10px 0 0;
-	border-color: transparent #DD381D;
-	display: block;
-	width: 0;
-	z-index: 1;
-	right: 10px;
-	top: -10px;	
+.validation-error:after {    
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    bottom: auto;
+    left: auto;
+    border-width: 0 10px 10px;
+    border-color: #DD381D transparent;
+    border-style: solid;
+    display: block;
+    width: 0;
 }
+.non-valid-field { border-color:#DD381D !important; }
 
 .inline { display: inline-block;}
 
@@ -1175,9 +1177,10 @@ input:checked ~ label {
 .post-date-edit {
 	display: inline-block;
 	background: url('../img/icons/svg/chevron-down.svg') top left no-repeat;
-  	background-size: 14px 12px;
-  	width: 14px;
+/*   	background-size: 10px 12px; */
+  	width: 10px;
   	height: 10px;
+  	margin-left: 3px;
 }
 .date-time-field {
 	float: left;
