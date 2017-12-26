@@ -121,8 +121,7 @@ select.def-input {
     background-size: 18px;
 	background-position: right 8px center;
 	-webkit-appearance: none;
-	-moz-appearance: none;      
-	appearance: none;
+    	-moz-appearance: none;
 	width: auto;
 }
 
@@ -580,7 +579,6 @@ select.def-input {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	z-index: 20px;
 }
 /*	AUTHOR REGISTRATION FORM	*/
 .author-registration {
@@ -681,12 +679,10 @@ select.def-input {
     box-sizing: border-box;
 }
 .panel .panel-heading {
-    bdisplay: block;
+    display: block;
     padding: 0 10px 0 10px;
     margin: 0;   
     background-color: #f6f8fa;
-/*     border: 1px solid rgba(27,31,35,0.15); */
-/*     border-bottom: 0; */
     border-radius: 3px 3px 0 0;
 }
 .panel .panel-element {
@@ -898,10 +894,10 @@ h6 {
     white-space: nowrap;
     vertical-align: middle;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    	-webkit-user-select: none;  /* Chrome all / Safari all */
+  	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+  	user-select: none;          /* Likely future */  
     background: #fff;
     border: 1px solid #e1e4e8;
 }
