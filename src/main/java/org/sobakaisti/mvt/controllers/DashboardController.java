@@ -436,23 +436,12 @@ public class DashboardController {
 	@RequestMapping(value="/publication", method=RequestMethod.GET)
 	public String showNewPublicationPage(Model model) {
 		
-		if(!model.containsAttribute("uploaded")) {
-			PostRequest postRequest = new PostRequest();
-//			postRequest.setContent(uploaded.getContent());
-			model.addAttribute("postRequest", postRequest);
-			model.addAttribute("uploaded", new Publication());
-			System.out.println("sadrzi: uploaded");
-		} else {
-			
+		if(!model.containsAttribute("publication")) {
+			model.addAttribute("publication", new Publication());
+			System.out.println("sadrzi: publication");
+		} else {			
 			System.out.println("ne sadrzi: uploaded");
 		}
-		
-		
-//		if(uploaded != null && uploaded.getId() != 0) {
-//			model.addAttribute("uploaded", uploaded);
-//			System.out.println("Uploaded: "+uploaded);
-//			
-//		}
 		
 		return "dashboard/dash_publication";
 	}

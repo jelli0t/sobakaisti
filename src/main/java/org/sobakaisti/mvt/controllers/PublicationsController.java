@@ -3,22 +3,15 @@
  */
 package org.sobakaisti.mvt.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
-import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Publication;
-import org.sobakaisti.mvt.models.Tag;
-import org.sobakaisti.mvt.service.PublicationPostFactory;
 import org.sobakaisti.mvt.service.PublicationService;
-import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
-import org.sobakaisti.util.PostRequest;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,9 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -110,17 +101,17 @@ public class PublicationsController {
 
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String uploadNewPublication(@ModelAttribute(value="postRequest") @Valid Publication postRequest, 
+	public String uploadNewPublication(@ModelAttribute(value="postRequest") @Valid Publication publication, 
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.postRequest", bindingResult);
-			redirectAttributes.addFlashAttribute("uploaded", postRequest);
-			System.out.println("Ima gresaka!");			
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.publication", bindingResult);
+			redirectAttributes.addFlashAttribute("publication", publication);
+			logger.warn("Ima gresaka pri validaciji!");
 		} else {
-			Publication uploaded = publicationService.processAndSaveSubmittedPost(postRequest);		
-			redirectAttributes.addFlashAttribute("uploaded", uploaded);
-			System.out.println("UPLOADED: "+uploaded);
+			Publication uploaded = publicationService.processAndSaveSubmittedPost(publication);		
+			redirectAttributes.addFlashAttribute("publication", uploaded);
+			logger.info("Uspesno publikovan: "+uploaded);
 		}		
 		return "redirect:/sbk-admin/publication";
 	}

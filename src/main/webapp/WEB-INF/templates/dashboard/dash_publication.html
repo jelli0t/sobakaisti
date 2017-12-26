@@ -12,8 +12,8 @@
 </section>
 <!-- form -->
 <form th:action="@{/publications/upload}" 
-      id="new-post-form" name="new-post-form" th:object="${postRequest}" method="post" onkeypress="return event.keyCode != 13;">	
-	<div class="main-dash-content" th:with="publication=${uploaded}">
+      id="new-post-form" name="new-post-form" th:object="${publication}" method="post" onkeypress="return event.keyCode != 13;">	
+	<div class="main-dash-content" th:with="publication=${publication}">
 		<!-- Post ID -->
 		<input type="hidden" name="id" th:value="${publication?.id}">
 		<!-- Right panel -->
@@ -25,7 +25,7 @@
 			<div class="panel-element panel-body">
 				<div class="select-wrapper">
 				<!-- Authors -->
-				<select name="author.id" class="bttn bttn-default bttn-select" th:value="${publication?.author?.id}" >
+				<select th:field="*{author.id}" class="bttn bttn-default bttn-select" th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field'" th:value="${publication?.author?.id}" >
 					<option value="0" th:text="#{form.label.select.author}">Odaberi autora</option>
 					<option th:each="author : ${authors}" th:value="${author.id}" 
 							th:selected="${publication?.author?.id == author.id}" 
