@@ -16,7 +16,8 @@ import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
 
 public class PostServiceImpl<T extends Post> implements PostService<T> {
 	
@@ -26,7 +27,8 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	protected AuthorDao authorDao;
 	@Autowired
 	protected TagService tagService;
-	
+	@Autowired
+	private MessageSource messageSource;
 	/*
 	 * Post factory instances
 	 * */
@@ -37,6 +39,8 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	@Autowired
 	protected PostFactory mediaPostFactory;
 	
+	private MessageSourceAccessor messageAccessor;
+	
 	private Class<T> t;
 	protected Map<String, PostFactory> postFactoriesMap;
 	
@@ -44,6 +48,7 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	public PostServiceImpl() {
 		super();
 		this.t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		messageAccessor = new MessageSourceAccessor(messageSource);
 	}
 	
 	@PostConstruct
@@ -52,6 +57,10 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 		postFactoriesMap.put(ARTICLE_CLASS_NAME, articlePostFactory);
 		postFactoriesMap.put(PUBLICATION_CLASS_NAME, publicationPostFactory);
 		postFactoriesMap.put(MEDIA_CLASS_NAME, mediaPostFactory);
+	}
+	
+	protected String getMessage(String code) {
+		return messageAccessor.getMessage(code);
 	}
 	
 	@Override

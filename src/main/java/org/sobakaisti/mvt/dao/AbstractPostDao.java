@@ -73,9 +73,9 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 			currentSession().saveOrUpdate(t);
 			return t;
 		} catch (Exception e) {
-			logger.warn("Greska pri cuvanju enititeta. Uzrok: "+e.getMessage());			
-		}
-		return t;
+			logger.warn("Greska pri cuvanju enititeta. Uzrok: "+e.getMessage());
+			return null;
+		}		
 	}
 	
 	@Override

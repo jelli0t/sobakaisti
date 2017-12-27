@@ -121,7 +121,13 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 			/* set language*/
 			post.setLang("rs");
 			logger.info("Cuvam: "+post);
-			return publicationDao.saveOrUpdate(post);
+			post = publicationDao.saveOrUpdate(post);
+			if (post != null) {
+				post.setCommited(new Boolean(true));
+				post.setCommitMessage(getMessage("publication.posted.successful"));
+				System.out.println("Procitao: "+getMessage("publication.posted.successful"));
+			}
+			return post; 
 		}
 		logger.warn("Nije prosledjen Publication za procesuiranje!");
 		return null;

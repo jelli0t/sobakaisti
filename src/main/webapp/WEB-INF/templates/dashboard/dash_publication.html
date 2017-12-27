@@ -14,6 +14,7 @@
 <form th:action="@{/publications/upload}" 
       id="new-post-form" name="new-post-form" th:object="${publication}" method="post" onkeypress="return event.keyCode != 13;">	
 	<div class="main-dash-content" th:with="publication=${publication}">
+		<div th:if="${publication.commited != null}">Uspešno ste postovali izdanje.</div>
 		<!-- Post ID -->
 		<input type="hidden" name="id" th:value="${publication?.id}">
 		<!-- Right panel -->

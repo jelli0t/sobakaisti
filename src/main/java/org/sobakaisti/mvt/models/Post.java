@@ -1,4 +1,4 @@
-persist /**
+/**
  * 
  */
 package org.sobakaisti.mvt.models;
@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
@@ -110,8 +111,13 @@ public abstract class Post {
 	}
 	public void setAuthor(Author author) {
 		this.author = author;
+	}	
+	public Boolean getCommited() {
+		return commited;
 	}
-	
+	public void setCommited(Boolean commited) {
+		this.commited = commited;
+	}
 	public String getCommitMessage() {
 		return commitMessage;
 	}
