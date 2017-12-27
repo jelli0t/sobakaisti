@@ -1,4 +1,4 @@
-/**
+persist /**
  * 
  */
 package org.sobakaisti.mvt.models;
@@ -37,21 +37,21 @@ public abstract class Post {
 	
 	@Size(min=2, max=120, message="{validation.warn.title.size}")
 	@Column(name="title")
-	protected String title;
+	private String title;
 	
 	@Column(name="slug")
-	protected String slug;
+	private String slug;
 	
 	@Column(name="post_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	protected Calendar postDate;	
+	private Calendar postDate;	
 
 	@Column(name="lang")
 	private String lang;
 	
 	@Column(name="active")
-	protected int active;
+	private int active;
 	
 	@Valid
 	@ManyToOne(fetch = FetchType.EAGER, cascade =
@@ -62,7 +62,12 @@ public abstract class Post {
                 CascadeType.PERSIST
         },
         targetEntity = Author.class)
-	private Author author;	
+	private Author author;
+	
+	@Transient
+	private Boolean commited;
+	@Transient
+	private String commitMessage;
 	
 	public int getId() {
 		return id;
@@ -105,5 +110,12 @@ public abstract class Post {
 	}
 	public void setAuthor(Author author) {
 		this.author = author;
+	}
+	
+	public String getCommitMessage() {
+		return commitMessage;
+	}
+	public void setCommitMessage(String commitMessage) {
+		this.commitMessage = commitMessage;
 	}
 }
