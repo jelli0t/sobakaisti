@@ -3,6 +3,7 @@ package org.sobakaisti.mvt.service;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -27,8 +28,8 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	protected AuthorDao authorDao;
 	@Autowired
 	protected TagService tagService;
-	@Autowired
-	private MessageSource messageSource;
+//	@Autowired
+//	protected MessageSource messageSource;
 	/*
 	 * Post factory instances
 	 * */
@@ -38,9 +39,7 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	protected PostFactory articlePostFactory;
 	@Autowired
 	protected PostFactory mediaPostFactory;
-	
-	private MessageSourceAccessor messageAccessor;
-	
+		
 	private Class<T> t;
 	protected Map<String, PostFactory> postFactoriesMap;
 	
@@ -48,7 +47,6 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	public PostServiceImpl() {
 		super();
 		this.t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-		messageAccessor = new MessageSourceAccessor(messageSource);
 	}
 	
 	@PostConstruct
@@ -59,9 +57,9 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 		postFactoriesMap.put(MEDIA_CLASS_NAME, mediaPostFactory);
 	}
 	
-	protected String getMessage(String code) {
-		return messageAccessor.getMessage(code);
-	}
+//	protected String getMessage(String code) {
+//		return messageSource.getMessage(code, null, new Locale("rs"));
+//	}
 	
 	@Override
 	public T findById(int id) {

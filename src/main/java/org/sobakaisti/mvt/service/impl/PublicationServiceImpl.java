@@ -124,8 +124,9 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 			post = publicationDao.saveOrUpdate(post);
 			if (post != null) {
 				post.setCommited(new Boolean(true));
-				post.setCommitMessage(getMessage("publication.posted.successful"));
-				System.out.println("Procitao: "+getMessage("publication.posted.successful"));
+				post.setCommitMessage("Uspeh!");
+				System.out.println("Postavljam commit result");
+				
 			}
 			return post; 
 		}

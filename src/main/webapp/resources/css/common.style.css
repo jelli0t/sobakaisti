@@ -278,13 +278,13 @@ img {
 }
 
 /* response messages */
-.affirmative-border { border: 1px solid #28a745; }
+.affirmative-border { border: 1px solid #28a745 !important; }
 .affirmative-background {
 	background-color: #28a745;
 	background-image: -webkit-linear-gradient(270deg, #34d058 0%, #28a745 90%);
 	background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
 }
-.failure-border { border: 1px solid #dd381d; }
+.failure-border { border: 1px solid #dd381d !important; }
 .failure-background {
 	background-color: #dd381d;
 	background-image: -webkit-linear-gradient(270deg, #e77360 0%, #dd381d 90%);
