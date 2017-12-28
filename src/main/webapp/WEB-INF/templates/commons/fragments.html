@@ -278,4 +278,37 @@
 		</form>
 	</th:block>
 	
+	
+	<!-- 
+	* Commit Message box *
+	-->
+	<th:block th:fragment="commitResultFragment(commited, message)">
+		<div class="commit-message-container" th:classappend="${commited} ? affirmative-border : failure-border">
+			  <span class="commit-message-icon" th:classappend="${commited} ? affirmative-background : failure-background">
+			    	<svg width="16px" height="18px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">				    <title>check</title>
+				    <desc>Created with Sketch.</desc>
+				    <defs></defs>
+				    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					<g id="check" fill="#ffffff">
+					    <polygon id="Shape" points="12 5 4 13 0 9 1.5 7.5 4 10 10.5 3.5"></polygon>
+					</g>
+				    </g>
+				</svg>   
+			  </span>
+			  <span class="commit-message-text" th:text="${message}"> </span>
+			  <span class="commit-message-close">
+				  <svg width="12px" height="16px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<title>x</title>
+				    <desc>Created with Sketch.</desc>
+				    <defs></defs>
+				    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					<g id="x" fill="#343434">
+					    <polygon id="Shape" points="7.48 8 11.23 11.75 9.75 13.23 6 9.48 2.25 13.23 0.77 11.75 4.52 8 0.77 4.25 2.25 2.77 6 6.52 9.75 2.77 11.23 4.25"></polygon>
+					</g>
+				    </g> 
+				</svg>
+  			</span>
+		</div>	
+	</th:block>
+	
 </html>
