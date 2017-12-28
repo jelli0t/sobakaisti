@@ -278,8 +278,37 @@ img {
 }
 
 /* response messages */
-.affirmative-message { background-color: #6bb951; }
-.negative-message { background-color: #DD381D; } 
+.affirmative-border { border: 1px solid #28a745; }
+.affirmative-background {
+	background-color: #28a745;
+	background-image: -webkit-linear-gradient(270deg, #34d058 0%, #28a745 90%);
+	background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
+}
+.failure-border { border: 1px solid #dd381d; }
+.failure-background {
+	background-color: #dd381d;
+	background-image: -webkit-linear-gradient(270deg, #e77360 0%, #dd381d 90%);
+	background-image: linear-gradient(-180deg, #e77360 0%, #dd381d 90%);
+}
+
+.commit-message-container {
+	display: inline-block;  
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid transparent;
+	box-shadow: 0 4px 13px rgba(27,31,35,0.15);
+	background-color: #fff;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+.commit-message-container > span {
+	display: inline-block;
+	line-height: 32px;
+	padding: 0 9px;
+}
+
 .response-message {
 	position: fixed;
 	top: 0px;
