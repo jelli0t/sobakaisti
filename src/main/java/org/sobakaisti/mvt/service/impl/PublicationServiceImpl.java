@@ -88,8 +88,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 		modelAttributes.put("nonActiveCount", nonActive);
 		modelAttributes.put("publications", publications);
 		modelAttributes.put("pagination", pagination);
-		modelAttributes.put("isActive", isActive);
-		
+		modelAttributes.put("isActive", isActive);		
 		return modelAttributes;
 	}
 	
@@ -121,14 +120,16 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 			/* set language*/
 			post.setLang("rs");
 			logger.info("Cuvam: "+post);
-			post = publicationDao.saveOrUpdate(post);
-			if (post != null) {
-				post.setCommited(new Boolean(true));
-				post.setCommitMessage("Uspeh!");
-				System.out.println("Postavljam commit result");
-				
+			Publication result = publicationDao.saveOrUpdate(post);
+			if (result != null) {
+				result.setCommited(new Boolean(true));
+				result.setCommitMessage("Uspeh!");
+				return result;
+			} else {
+				post.setCommited(new Boolean(false));
+				post.setCommitMessage("Greska!");
+				return post;
 			}
-			return post; 
 		}
 		logger.warn("Nije prosledjen Publication za procesuiranje!");
 		return null;

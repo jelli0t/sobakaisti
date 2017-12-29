@@ -283,7 +283,7 @@
 	* Commit Message box *
 	-->
 	<th:block th:fragment="commitResultFragment(commited, message)">
-		<div class="commit-message-container" th:classappend="${commited} ? affirmative-border : failure-border">
+		<div class="commit-message-container" th:classappend="${commited} ? affirmative-border : failure-border" th:attr="onload='delayedSlideOut()'">
 			  <span class="commit-message-icon" th:classappend="${commited} ? affirmative-background : failure-background">
 			    	<svg width="16px" height="18px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">				    <title>check</title>
 				    <desc>Created with Sketch.</desc>

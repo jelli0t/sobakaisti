@@ -290,6 +290,10 @@ $(function() {
   		}
 	});
 	
+	function delayedSlideOut() {
+		alert('Onload!');
+//		$(this).slideUp();
+	}
 	
 }); // End Of Ready
 
@@ -305,6 +309,8 @@ $.fn.prepare = function(){
 function callAnchor(target){
 	location.hash = target;
 }
+
+
  
 $.fn.serializeObject = function()
 { 
