@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author jelli0t
  *
@@ -16,6 +18,15 @@ import javax.persistence.Transient;
 @Table(name="media")
 public class Media extends Post {
 	
+	public Media() {
+		super();
+	}	
+
+	public Media(MultipartFile file) {
+		super();
+		this.file = file;
+	}
+
 	public enum MediaType {
 		PUBLICATION("publication"),
 		FEATURED("featured");
@@ -70,6 +81,9 @@ public class Media extends Post {
 	@Transient
 	private MediaType mediaType;
 	
+	@Transient
+	private MultipartFile file;
+	
 	public String getFileName() {
 		return fileName;
 	}
@@ -120,7 +134,15 @@ public class Media extends Post {
 	public void setMediaType(MediaType mediaType) {
 		this.mediaType = mediaType;
 	}
-	
+		
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("media : {");

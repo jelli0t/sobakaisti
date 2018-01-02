@@ -8,6 +8,7 @@ import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.PostRequest;
@@ -82,6 +83,12 @@ public interface PostService<T extends Post> {
 	 * @param	post subclass
 	 * */
 	public List<Tag> fatchPostFullTagList(T t);
+	
+	/**
+	 * Dohvata sve definisane kategorije
+	 * @return lista kategorija
+	 * */
+	public List<Category> findAllCategories();
 
 	/**
 	 * Dodaje sufiks na proslednjeni slug ukoliko isti vec postoji.
@@ -103,4 +110,9 @@ public interface PostService<T extends Post> {
 	* @param post
 	* */
 	public T processAndSaveSubmittedPost(T post);
+
+	/**
+	 * Na osnovu prosledjenog coda dohvata odgovarajucu poruku iz property fajla
+	 * */
+	String getMessage(String code);
 }

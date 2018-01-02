@@ -43,7 +43,7 @@
 	--------------------------- -->
 	<th:block th:fragment="mediaUploadFragment(type)">
 		<!-- Input file button -->
-		<div class="media-upload-container" th:if="${type != null}">
+		<div class="media-upload-container" th:if="${type != null}">		
 			<form th:action="@{/sbk-admin/media/upload/{type}/(type=${type})}" id="media-upload-form">		
 				<h4 th:text="#{media.uploads.select.description}">Odaberite datoteku sa vaseg racunara</h4>
 				<div class="input-file-container">  
@@ -82,13 +82,13 @@
 	
 	
 	<th:block th:fragment="mediaUploadedPreview" th:with="media=${media}">
-		<!-- media upload result message -->
-		<p th:if="${media.uploadResultMessage != null}" class="response-message"
-			th:classappend="${media.posted} ? affirmative-message : negative-message"
-			th:text="${media.uploadResultMessage}"></p>
-			
+		<!-- media upload result message -->		
+		<div th:if="${media.commited != null}" class="commit-response-holder full-width" id="commit-result"
+	    	th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(media.commited)}, message=${media.commitMessage})}"
+	    	style="left:0;">
+		</div>			
 		<!-- Uploaded media details -->
-		<div class="media-preview-table" th:if="${media.posted}" >
+		<div class="media-preview-table" th:if="${#bools.isTrue(media.commited)}" >
 			<!-- media preview header -->
 			<div class="media-preview-header">
 				<div class="media-preview-image">
@@ -241,7 +241,7 @@
 	            			th:value="${tag.getId()}">
 				<a href="javascript:void(0)" class="bttn-close-hover"></a>
 			</label>
-			<input type="hidden" id="tag-count" th:value="${#lists.size(tags)}"/>			
+			<input type="hidden" id="tag-count" th:value="${#lists.size(tags)}"/>					
 	</th:block>
 	
 	
@@ -283,17 +283,33 @@
 	* Commit Message box *
 	-->
 	<th:block th:fragment="commitResultFragment(commited, message)">
-		<div class="commit-message-container" th:classappend="${commited} ? affirmative-border : failure-border" th:attr="onload='delayedSlideOut()'">
+		<div class="commit-message-container" th:classappend="${commited} ? affirmative-border : failure-border">
 			  <span class="commit-message-icon" th:classappend="${commited} ? affirmative-background : failure-background">
-			    	<svg width="16px" height="18px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">				    <title>check</title>
-				    <desc>Created with Sketch.</desc>
-				    <defs></defs>
-				    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-					<g id="check" fill="#ffffff">
-					    <polygon id="Shape" points="12 5 4 13 0 9 1.5 7.5 4 10 10.5 3.5"></polygon>
-					</g>
-				    </g>
-				</svg>   
+			    	<!-- Affirmative SVG -->
+			    	<svg width="16px" height="18px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" 
+			    		xmlns:xlink="http://www.w3.org/1999/xlink" th:if="${commited}">
+			    		<title>check</title>
+					    <desc>Created with Sketch.</desc>
+					    <defs></defs>
+					    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<g id="check" fill="#ffffff">
+							    <polygon id="Shape" points="12 5 4 13 0 9 1.5 7.5 4 10 10.5 3.5"></polygon>
+							</g>
+					    </g>
+					</svg> 
+					<!-- failure SVG --> 
+					<svg width="18px" height="18px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" 
+						xmlns:xlink="http://www.w3.org/1999/xlink" th:unless="${commited}">
+					    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+					    <title>issue-opened</title>
+					    <desc>Created with Sketch.</desc>
+					    <defs></defs>
+					    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					        <g id="issue-opened" fill="#ffffff">
+					            <path d="M7,2.3 C10.14,2.3 12.7,4.86 12.7,8 C12.7,11.14 10.14,13.7 7,13.7 C3.86,13.7 1.3,11.14 1.3,8 C1.3,4.86 3.86,2.3 7,2.3 L7,2.3 Z M7,1 C3.14,1 0,4.14 0,8 C0,11.86 3.14,15 7,15 C10.86,15 14,11.86 14,8 C14,4.14 10.86,1 7,1 L7,1 Z M8,4 L6,4 L6,9 L8,9 L8,4 L8,4 Z M8,10 L6,10 L6,12 L8,12 L8,10 L8,10 Z" id="Shape"></path>
+					        </g>
+					    </g>
+					</svg>
 			  </span>
 			  <span class="commit-message-text" th:text="${message}"> </span>
 			  <span class="commit-message-close">
@@ -308,7 +324,7 @@
 				    </g> 
 				</svg>
   			</span>
-		</div>	
+		</div>			
 	</th:block>
 	
 </html>

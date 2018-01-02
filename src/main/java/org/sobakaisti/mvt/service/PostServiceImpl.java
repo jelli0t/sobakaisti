@@ -9,8 +9,10 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
+import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
@@ -18,48 +20,48 @@ import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.stereotype.Service;
 
-public class PostServiceImpl<T extends Post> implements PostService<T> {
+@Service
+public abstract class PostServiceImpl<T extends Post> implements PostService<T> {	
 	
-	@Autowired
-	protected PostDao<T> postDao;	
+	private PostDao<T> postDao;
+	
 	@Autowired
 	protected AuthorDao authorDao;
 	@Autowired
 	protected TagService tagService;
-//	@Autowired
-//	protected MessageSource messageSource;
+	@Autowired
+	private CategoryDao categoryDao;
 	/*
 	 * Post factory instances
 	 * */
 	@Autowired
-	protected PostFactory publicationPostFactory;
-	@Autowired
 	protected PostFactory articlePostFactory;
+	
 	@Autowired
-	protected PostFactory mediaPostFactory;
+	protected MessageSource messageSource;
 		
 	private Class<T> t;
 	protected Map<String, PostFactory> postFactoriesMap;
 	
 	@SuppressWarnings("unchecked")
-	public PostServiceImpl() {
+	public PostServiceImpl(PostDao<T> postDao) {
 		super();
 		this.t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		this.postDao = postDao;
 	}
 	
 	@PostConstruct
 	private void init() {
 		postFactoriesMap = new HashMap<String, PostFactory>(3);
 		postFactoriesMap.put(ARTICLE_CLASS_NAME, articlePostFactory);
-		postFactoriesMap.put(PUBLICATION_CLASS_NAME, publicationPostFactory);
-		postFactoriesMap.put(MEDIA_CLASS_NAME, mediaPostFactory);
 	}
 	
-//	protected String getMessage(String code) {
-//		return messageSource.getMessage(code, null, new Locale("rs"));
-//	}
+	@Override
+	public String getMessage(String code) {
+		return messageSource.getMessage(code, null, new Locale("rs"));
+	}
 	
 	@Override
 	public T findById(int id) {
@@ -149,13 +151,16 @@ public class PostServiceImpl<T extends Post> implements PostService<T> {
 	}
 	
 	@Override
-	public T processAndSaveSubmittedPost(T post) {
-		return null;
-	}
+	public abstract T processAndSaveSubmittedPost(T post);
 
 	@Override
 	public List<Tag> fatchPostFullTagList(T t) {
 		return null;
+	}
+	
+	@Override
+	public List<Category> findAllCategories() {
+		return categoryDao.findAllCategories();
 	}
 
 }

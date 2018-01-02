@@ -11,7 +11,6 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.PublicationService;
-import org.sobakaisti.mvt.validation.Validator;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,8 +39,7 @@ public class PublicationsController {
 	private AuthorDao authorDao;
 	@Autowired
 	private PublicationService publicationService;
-	@Autowired
-	private Validator validator;
+	
 		
 	@ModelAttribute
 	public void prepare(Model model){

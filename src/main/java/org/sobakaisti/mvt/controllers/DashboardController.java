@@ -118,7 +118,12 @@ public class DashboardController {
 	
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
 	public String createNewArticle(Model model){
-		model.addAttribute("categories", categoryDao.findAllCategories());
+		
+		if(!model.containsAttribute("article"))
+			model.addAttribute("article", new Article());
+		
+		// TODO postavi articleService umesto publication
+		model.addAttribute("categories", publicationService.findAllCategories());
 		return "dashboard/dash_article";
 	}
 	
@@ -438,11 +443,7 @@ public class DashboardController {
 		
 		if(!model.containsAttribute("publication")) {
 			model.addAttribute("publication", new Publication());
-			System.out.println("sadrzi: publication");
-		} else {			
-			System.out.println("ne sadrzi: uploaded");
-		}
-		
+		} 		
 		return "dashboard/dash_publication";
 	}
 	

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.service.AuthorService;
 import org.sobakaisti.mvt.service.MediaService;
-import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,27 +64,27 @@ public class MediaAdminController {
 	
 	
 	@RequestMapping(value="/upload/{mediaType}", method=RequestMethod.POST)
-	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, @PathVariable("mediaType") String mediaType, Model model) {
+	public String uploadMediaFile(@RequestParam(name="media") MultipartFile media, 
+			@PathVariable("mediaType") String mediaType, Model model) {
 		logger.info("MultipartFile uploaded name: '"+media.getOriginalFilename() +"'. MediaType: "+mediaType+"; "
 				+ "ContentType: "+media.getContentType());
+		
 		Media postMedia = null;
 		/* ako je uploadovana datoteka manja od 30MB */
 		if(media.getSize() < 31457300) {
-			PostRequest postRequest = new PostRequest(media);
-			postMedia = mediaService.processAndSavePostRequest(postRequest);
-			postMedia.setUploadResultMessage("Uspesno ste otpremili datoteku.");
-			postMedia.setPosted(true);
+			postMedia = new Media(media);
 			postMedia.setMediaType(Media.MediaType.getMediaType(mediaType));
+			postMedia = mediaService.processAndSaveSubmittedPost(postMedia);			
 			model.addAttribute("authors", authorService.findAll());
 		} else {
 			postMedia = new Media();
-			postMedia.setUploadResultMessage("Datoteka ne sme biti veca od 30MB!");
-			postMedia.setPosted(false);
+			postMedia.setMediaType(Media.MediaType.getMediaType(mediaType));
+			postMedia.setCommited(new Boolean(false));
+			postMedia.setCommitMessage(mediaService.getMessage("media.size.failure"));
 		}	
 		model.addAttribute("media", postMedia);		
 		return "commons/fragments :: mediaUploadedPreview";
 	}
-	
 	
 	@RequestMapping(value="/remove/{id}", method=RequestMethod.DELETE)
 	@ResponseBody

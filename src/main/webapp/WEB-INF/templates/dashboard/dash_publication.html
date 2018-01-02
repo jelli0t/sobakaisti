@@ -14,7 +14,7 @@
 <form th:action="@{/publications/upload}" 
       id="new-post-form" name="new-post-form" th:object="${publication}" method="post" onkeypress="return event.keyCode != 13;">	
 	<div class="main-dash-content" th:with="publication=${publication}">
-		<div th:if="${publication.commited != null}" class="commit-response-holder full-width"
+		<div th:if="${publication.commited != null}" class="commit-response-holder full-width" id="commit-result"
 		     th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(publication.commited)}, message=${publication.commitMessage})}">
 		</div>
 		<!-- Post ID -->

@@ -288,12 +288,14 @@ $(function() {
   			container.hide();
   			search_result.empty();
   		}
-	});
+	});	
 	
-	function delayedSlideOut() {
-		alert('Onload!');
-//		$(this).slideUp();
-	}
+
+	  if ($("#commit-result").length){ 
+		  setTimeout(function(){
+			  $('#commit-result').slideUp(300);
+		  }, 4000)
+	  }
 	
 }); // End Of Ready
 
@@ -309,8 +311,6 @@ $.fn.prepare = function(){
 function callAnchor(target){
 	location.hash = target;
 }
-
-
  
 $.fn.serializeObject = function()
 { 

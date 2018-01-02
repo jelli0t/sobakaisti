@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
@@ -22,6 +23,7 @@ import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,10 +34,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class PublicationServiceImpl extends PostServiceImpl<Publication> implements PublicationService {
 	private static final Logger logger = LoggerFactory.getLogger(PublicationServiceImpl.class);
-	@Autowired
+	
 	private PublicationDao publicationDao;
 	@Autowired
-	private MediaService mediaService;
+	private MediaService mediaService;	
+	
+	@Autowired
+	public PublicationServiceImpl(
+			@Qualifier("publicationDaoImpl") PostDao<Publication> postDao) {
+		super(postDao);
+		this.publicationDao = (PublicationDao) postDao;
+	}
 
 	@Override
 	public boolean createAndUploadPublication(String title, String slug, String content, int authorId, int[] tagIds,
@@ -123,11 +132,11 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 			Publication result = publicationDao.saveOrUpdate(post);
 			if (result != null) {
 				result.setCommited(new Boolean(true));
-				result.setCommitMessage("Uspeh!");
+				result.setCommitMessage(getMessage("publication.posted.successful"));
 				return result;
 			} else {
 				post.setCommited(new Boolean(false));
-				post.setCommitMessage("Greska!");
+				post.setCommitMessage(getMessage("publication.posted.failure"));
 				return post;
 			}
 		}

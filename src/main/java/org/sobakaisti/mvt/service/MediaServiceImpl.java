@@ -4,26 +4,33 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.MediaDao;
+import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
+import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaService {
+	private static final Logger logger = LoggerFactory.getLogger(MediaServiceImpl.class);	
 	
-	@Autowired
 	private MediaDao mediaDao;
-	
 	@Value( "${media.uploads.path.img}" ) private String imgUploadsPath;
 	
-	private static final Logger logger = LoggerFactory.getLogger(MediaServiceImpl.class);
+	@Autowired
+	public MediaServiceImpl(@Qualifier("mediaDaoImpl") PostDao<Media> postDao) {
+		super(postDao);
+		this.mediaDao = (MediaDao) postDao;
+	}	
 		
 	@Override
 	public boolean uploadMediaToFileSystem(MultipartFile media, String fileName) {
@@ -74,7 +81,7 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 	@Override
 	public boolean updateMediaDetails(Media media) {
 		if(media != null && media.getId() != 0) {
-			Media mediaDetails = postDao.find(media.getId());
+			Media mediaDetails = findById(media.getId());
 			
 			if(mediaDetails != null) {
 				if(!media.getTitle().isEmpty())
@@ -95,4 +102,54 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 		logger.warn("Greska. Nije prosledjen Media objekat za cuvanje. Vracam false...");
 		return false;
 	}
+
+	@Override
+	public Media processAndSaveSubmittedPost(Media post) {
+		if(post != null && post.getFile() != null) {
+			final MultipartFile mediaFile = post.getFile();
+			
+			if(mediaFile.getOriginalFilename() != null && !mediaFile.getOriginalFilename().isEmpty()) {
+				final String fileName = mediaFile.getOriginalFilename();
+				String extensionless = StringUtil.trimExtensionFromFilename(fileName);
+				final String extension = StringUtil.extractFilenameExtension(fileName);
+				String tmpSlug = StringUtil.makeSlug(extensionless);
+				final String slug = addSuffixIfDuplicateExist(tmpSlug);
+				/* postavlja user friendly naslov */
+				post.setTitle(StringUtil.makeUserFriendlyTitleFromFilename(fileName));
+				/* postavlja slug */
+				post.setSlug(slug);
+				/* original file name */
+				post.setFileName(slug + extension);
+			}
+			/* post date */
+			post.setPostDate(Calendar.getInstance());
+			/* contentType */
+			post.setContentType(mediaFile.getContentType());		
+			/* file size */
+			post.setSize(mediaFile.getSize());
+			/* defaults */
+			post.setActive(1);			
+			post.setLang("rs");
+			logger.info("Kreiran objekat Media: "+post);
+			
+			boolean uploaded = uploadMediaToFileSystem(mediaFile, post.getFileName());
+			if(uploaded) {
+				Media result = mediaDao.save(post);
+				if(result != null) {
+					result.setCommited(new Boolean(uploaded));
+					result.setCommitMessage(getMessage("media.posted.successful"));
+					logger.info("Uspesno sacuvana media datoteka: "+post.getFileName());
+					return result;
+				}
+			} else {
+				post.setCommited(new Boolean(uploaded));
+				post.setCommitMessage(getMessage("media.posted.failure"));
+				logger.warn("Neuspelo cuvanje media datoteke!");
+			}
+		}
+		return post;
+	}
+	
+	
+	
 }
