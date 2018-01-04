@@ -139,16 +139,16 @@
 					</div>					
 				</div>				
 				<!-- SUBMIT -->
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${uploaded != null && uploaded.id != 0} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${article != null && article.id != 0} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
 			</div>
 		</div>
 		
-	<!-- Kategorije | desno  -->
-		<div class="small-panel">
-			<div class="panel-header">
+		<!-- Kategorije | desno  -->
+		<div class="panel small-panel">
+			<div class="panel-element panel-header">
 				<span class="panel-title" th:text="#{label.categories}">kategorije</span>
 			</div>
-			<div class="panel-body">
+			<div class="panel-element panel-body">
 				<button class="bttn bttn-select" type="button">Kategorije</button>
 				<!-- dropdown menu -->
 				<div class="select-menu-modal">
@@ -174,33 +174,42 @@
 		</div>
 		
 		<!-- Tags selection -->
-		<div class="small-panel">
-			<div class="panel-header">
+		<div class="panel small-panel">
+			<div class="panel-element panel-header">
 				<span class="panel-title" th:text="#{label.tags}">Oznake</span>
 			</div>
-			<div class="panel-body">			
-			<button class="bttn bttn-default bttn-select" type="button" th:text="#{label.tags}">Oznake</button>
-				<!-- dropdown menu -->
-				<div class="select-menu-modal" id="tags-modal">
-					<div class="select-menu-header">
-						<span class="select-menu-title">Pretraga oznaka</span> 
-						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
+			<div class="panel-element panel-body">
+				<div class="js-select-container full-width">		
+					<button class="bttn bttn-default bttn-select js-modal-select" type="button" th:text="#{label.tags}">Oznake</button>
+					<!-- dropdown menu -->
+					<div class="select-menu-modal-holder">
+						<div class="select-menu-modal" id="tags-modal">
+							<!-- select header -->
+							<div class="select-menu-header">
+							  <svg aria-label="Close" class="bttn-menu-close js-menu-bttn-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12">
+							    <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+							  </svg>
+							  <span class="select-menu-title">Pretraga oznaka</span>
+							</div>
+							<div class="select-menu-text-filter">
+								<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
+								<input type="text" class="select-menu-search-field js-search-filed" placeholder="Oznaka" th:src="@{/sbk-admin/tags/}">
+							</div>
+											
+							<div class="select-menu-search-result"></div>
+						</div>
 					</div>
-					<div class="select-menu-filters">
-						<!-- na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
-						<input type="text" class="search-field" th:src="@{/sbk-admin/tags/}">
-					</div>					
-					<div class="search-result"></div>
-				</div>
+				</div>	
+				<!-- Postojece oznake na clanku -->
 				<div class="selected-tags selected-result">
-					<label tabindex="0" class="label tag" th:id="${'tag-'+tag.id}" th:each="tag : ${article.tags}" th:if="${article.tags != null}">
-						<input type="hidden" name="tags" th:value="${tag.id}">
-						<span th:text="${tag.tag}"></span>
-						<span class="bttn-close-white close-tag-bttn"></span>
-					</label>
-				</div>			
-			</div>			
+					<th:block th:unless="${#lists.isEmpty(article?.tags)}" th:include="~{commons/fragments :: tagBonesFragment}" 
+						  th:with="tags=${article.tags}">						  
+					</th:block>
+				</div>						
+			</div>
+			<div class="panel-element panel-footer"></div>
 		</div>
+		<!-- End of Tag selection -->
 		
 		<div class="small-panel">
 			<div class="panel-header">
