@@ -210,47 +210,53 @@
 			<div class="panel-element panel-footer"></div>
 		</div>
 		<!-- End of Tag selection -->
-		
-		<div class="small-panel">
-			<div class="panel-header">
+			
+		<!-- Featured Image selection -->
+		<div class="panel small-panel">
+			<div class="panel-element panel-header">
 				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span>
 			</div>
-			<div class="panel-body">
-				<!-- Input file button -->				
-				<input type="file" name="featuredImg" id="img-file" class="inputfile input-img" />
-				<label for="img-file" class="upload-img-label file-upload-label">Odaberi sliku...</label>
-				<!-- validation error message -->
-				<div class="validation-error"></div>
+			<div class="panel-element panel-body">
+				<!-- Input file button -->	
+				<a th:href="@{/sbk-admin/media/select(type=featured)}" class="show-media-lib bttn bttn-default">
+					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> 
+					<span th:text="#{button.label.upload.featuredImg}">Odaberi fotografiju</span>
+				</a>				
 				<!-- Featured IMG preview -->
-				<div class="featured-img-prev" id="img-prev"></div>
+				<div id="featured-prev-container">
+					<th:block th:if="${article?.featuredImage != null}">
+						<img alt="Featured Image" th:src="@{/uploads/images/{filename}(filename=${article.featuredImage.fileName})}" 
+						     th:title="${article.featuredImage.title}" width="180">
+						<input type="hidden" name="featuredImageId" th:value="${article.featuredImage.id}">
+					</th:block>
+				</div>
 			</div>
+			<div class="panel-element panel-footer"></div>
 		</div>
-		</div>	 <!-- end of right sidebar -->
+		</div>	 <!-- end of right sidebar -->	
 		
 		<!-- Left content -->
 		<div class="left-container">
-			<!-- ID posta -->
-			<input type="hidden" name="id" th:value="${article.id}" th:field="*{id}">
 			<div class="form-tr">
-				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" 
-					id="publication-title" class="title-input full-width" th:src="@{/sbk-admin/slug/new}" th:value="${article.title}"
-					th:field="*{title}" >
+				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" id="publication-title" 
+					class="title-input full-width"  th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field' : ''" 
+					th:src="@{/publications/slug/new}" th:value="${article?.title}">
 				<!-- validation error message -->
-				<div class="validation-error"></div>	
+				<div class="validation-error" th:errors="*{title}"></div>	
 				<!-- link preview -->
 				<div class="post-path-container">
-					<span class="post-path path-label">Putanja do članka: </span>
-					<span class="post-path path-static">http://sobakaisti.org/movement/</span>
+					<span class="post-path path-label">Putanja na radovima: </span>
+					<span class="post-path path-static">http://sobakaisti.org/art/</span>
 					<span class="post-path path-slug">
-						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" th:value="${article.slug}" readonly>
+						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" th:value="${article?.slug}" readonly>
 					</span>
 				</div>
 			</div>			
 			<!-- contet textarea -->	
 			<div class="article-input-wrapper form-tr">
-				<textarea name="content" id="article-content"></textarea>
+				<textarea name="content" id="article-content" th:field="*{content}"></textarea>
 			</div>
-		</div>		
+		</div>
 	</div>
 <!-- end of the form -->
 </form>
@@ -270,8 +276,8 @@
 <!-- load content into tinyMCE -->
 <script th:inline="javascript">
 /*<![CDATA[*/
-    var content = [[${article.content}]];
-   	setTimeout(function(){ tinymce.activeEditor.setContent(content);}, 3000);
+/*    var content = [[${article.content}]];
+   	setTimeout(function(){ tinymce.activeEditor.setContent(content);}, 3000); */
 /*]]>*/ 
 </script>
 </body>
