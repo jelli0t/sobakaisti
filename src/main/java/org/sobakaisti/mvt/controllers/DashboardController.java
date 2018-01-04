@@ -18,7 +18,6 @@ import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
-import org.sobakaisti.mvt.service.MediaService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
@@ -41,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author jelles
@@ -59,8 +59,6 @@ public class DashboardController {
 	private CategoryDao categoryDao;
 	@Autowired
 	private PublicationService publicationService;
-	@Autowired
-	private MediaService mediaService;
 	
 	@Autowired
 	private Validator validator;
@@ -70,7 +68,6 @@ public class DashboardController {
 	public void prepare(Model model){
 		List<Author> authors = authorDao.getAllAuthors();
 		model.addAttribute("authors", authors);
-		model.addAttribute("article", new Article());
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -115,18 +112,6 @@ public class DashboardController {
 		}	
 	}
 	
-	
-	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
-	public String createNewArticle(Model model){
-		
-		if(!model.containsAttribute("article"))
-			model.addAttribute("article", new Article());
-		
-		// TODO postavi articleService umesto publication
-		model.addAttribute("categories", publicationService.findAllCategories());
-		return "dashboard/dash_article";
-	}
-	
 	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public String showTestPage(Model model){
 		
@@ -136,13 +121,42 @@ public class DashboardController {
 		return "dashboard/dash_test";
 	}
 	
+	/*
+	 * 	ARTICLES
+	 * */
 	
-	@RequestMapping(value="/article/post", method=RequestMethod.POST)
-	public String postArticle(@ModelAttribute("post") PostRequest post, Model model) {
+	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
+	public String createNewArticle(Model model){
+				
+		if(!model.containsAttribute("article")) {
+			model.addAttribute("article", new Article());
+			System.out.println("Ne sadrzi Article! pravim novi...");
+		} else {
+			System.out.println("sadrzi article!");
+		}
 		
-		System.out.println("UPLOAD: "+ post);
-		model.addAttribute("post", post);
-		return "dashboard/dash_test";		
+		// TODO postavi articleService umesto publication
+		model.addAttribute("categories", publicationService.findAllCategories());
+		logger.info("from model: "+model.toString());
+		return "dashboard/dash_article";
+	}
+	
+	
+	@RequestMapping(value="/article/submit", method=RequestMethod.POST)
+	public String submitArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult, 
+			RedirectAttributes redirectAttributes) {
+		
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.article", bindingResult);
+			redirectAttributes.addFlashAttribute("article", article);
+			logger.warn("Ima gresaka pri validaciji!");
+			logger.warn(article.toString());
+		} else {
+//			Publication uploaded = publicationService.processAndSaveSubmittedPost(publication);		
+			redirectAttributes.addFlashAttribute("article", article);
+			logger.info("Uspesno publikovan: "+article);
+		}		
+		return "redirect:/sbk-admin/articles/new";		
 	}
 	
 	

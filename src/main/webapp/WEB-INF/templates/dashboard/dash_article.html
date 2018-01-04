@@ -11,7 +11,7 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 
-<form th:action="@{/sbk-admin/article/post}" id="new-post-form" name="new-post-form" 
+<form th:action="@{/sbk-admin/article/submit}" id="new-post-form" name="new-post-form" 
 	th:object="${article}" method="post" onkeypress="return event.keyCode != 13;">	
 	<div class="main-dash-content" th:with="article=${article}">
 		<div th:if="${article.commited != null}" class="commit-response-holder full-width" id="commit-result"
@@ -58,55 +58,12 @@
 				</div>
 			</div>
 			
-<!-- 			<div class="panel-body"> -->
-<!-- 				<div class="select-wrapper"> -->
-<!-- 				<select name="author" class="bttn bttn-default bttn-select"> -->
-<!-- 					<option selected value="0" th:text="#{form.label.select.author}">Odaberi autora</option> -->
-<!-- 					<option th:each="author : ${authors}" th:value="${author.id}"  -->
-<!-- 						th:text="${author.firstName}+' '+${author.lastName}"  th:selected="${article.author}">sobakaista</option> -->
-<!-- 				</select> -->
-<!-- 				validation error message -->
-<!-- 				<div class="validation-error"></div> -->
-<!-- 				</div> -->
-				
-<!-- 				<div class="publication-date-wrapper" th:if="${article.postDateMeta != null}" th:with="date=${article.postDateMeta}"> -->
-<!-- 					<label>Objavljeno</label> -->
-<!-- 					months -->
-<!-- 					<select name="month" class="date-time-field" th:src="@{/sbk-admin/datetime/update/date/}"> -->
-<!-- 						<option th:each="month, item : ${date.months}" th:value="${item.index}"  -->
-<!-- 						th:text="${month}" th:selected="${date.month == item.index}">MM</option>				 -->
-<!-- 					</select> -->
-<!-- 					date -->
-<!-- 					<select name="date" class="date-time-field"> -->
-<!-- 						<option th:each="dom, item : ${#numbers.sequence(1, date.maxDate)}" th:value="${dom}"  -->
-<!-- 						th:text="${dom}" th:selected="${date.date == item.count}">dd</option>			 -->
-<!-- 					</select> -->
-<!-- 					year -->
-<!-- 					<select name="year" class="date-time-field"> -->
-<!-- 						<option th:each="year : ${#numbers.sequence(date.minYear, date.maxYear)}"  -->
-<!-- 						th:value="${year}" th:text="${year}" th:selected="${date.year == year}">yyyy</option>				 -->
-<!-- 					</select> -->
-					
-<!-- 					Hour -->
-<!-- 					<select name="hour" class="date-time-field date-hour-field"> -->
-<!-- 						<option th:each="hour, item : ${#numbers.sequence(0, 23)}" th:value="${hour}"  -->
-<!-- 						th:text="${#numbers.formatInteger(hour, 2)}" th:selected="${date.hour == hour}">HH</option>			 -->
-<!-- 					</select> -->
-<!-- 					<input name="minute" th:value="${#numbers.formatInteger(date.minute, 2)}" class="date-time-field date-minute-field" size="2"> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-
-<!-- 			<div class="panel-footer"> -->
-<!-- 				<a href="javascript:;" id="save-draft-bttn" class="bttn bttn-sm bttn-default" th:alt="Draft">Nacrt</a> -->
-<!-- 				<button type="button" id="submit-bttn" class="bttn bttn-sm bttn-primary float-right">Objavi</button> -->
-<!-- 			</div> -->
-			
 			<div class="panel-element panel-footer">
 				<!-- Select visability -->
 				<div class="js-select-container">		
 					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
-						<span th:if="${publication?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
-						<span th:if="${publication?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
+						<span th:if="${article?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
+						<span th:if="${article?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
 					</a>
 					
 					<div class="select-menu-modal-holder">

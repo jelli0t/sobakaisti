@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -43,7 +44,18 @@ public class Article extends Post {
 	@JoinTable(name="article_category", 
 				joinColumns={@JoinColumn(name="article_id")}, 
 				inverseJoinColumns={@JoinColumn(name="category_id")})
-	private List<Category> categories;		
+	private List<Category> categories;	
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },
+        targetEntity = Media.class)
+	@JoinColumn(name="featured_img_id")
+	private Media featuredImage;
 	
 	public String getContent() {
 		return content;
@@ -63,6 +75,22 @@ public class Article extends Post {
 	}
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+	public Media getFeaturedImage() {
+		return featuredImage;
+	}
+	public void setFeaturedImage(Media featuredImage) {
+		this.featuredImage = featuredImage;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("article: {");
+		sb.append("id : " + getId() + ", ");
+		sb.append(getTitle() != null ? "title : "+getTitle() + ", " : "");
+		sb.append(getAuthor() != null ? "author_id : "+getAuthor().getId() + ", " : "");
+		sb.append(getAuthor() != null ? "author : "+getAuthor().getFirstName() + ", " : "");
+		return sb.append("}").toString();
 	}
 	
 	/* meta podaci za postDate */
