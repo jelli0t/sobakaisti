@@ -106,8 +106,13 @@
 				<span class="panel-title" th:text="#{label.categories}">kategorije</span>
 			</div>
 			<div class="panel-element panel-body">
-				<button class="bttn bttn-select" type="button">Kategorije</button>
-				<!-- dropdown menu -->
+				<div th:unless="${#lists.isEmpty(article?.categories)}" class=""
+				     th:include="~{commons/fragments :: categorySelectionFragment (all=${categories}, chosen=${article.categories})}">						  
+				</div>
+				
+							
+				
+			<!--	<button class="bttn bttn-select" type="button">Kategorije</button>				
 				<div class="select-menu-modal">
 					<div class="select-menu-header">
 						<span class="select-menu-title">Odaberi kategoriju</span> 
@@ -122,11 +127,12 @@
 					</div>
 				</div>			
 				<div class="selected-categories selected-result">
-					<!-- kategorije na editingu -->
+					
 					<label th:each="category : ${article.categories}" class="checkboxes-label" th:if="${article.categories != null}">
 						<span class="label category" th:id="${'cat_'+category.slug}"><span th:text="${category.name}"></span><span class="bttn-close-white close-cat-bttn"></span></span>
 					</label>
-				</div>				
+				</div>	
+			-->
 			</div>			
 		</div>
 		
