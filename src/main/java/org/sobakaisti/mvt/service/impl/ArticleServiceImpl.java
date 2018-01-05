@@ -43,8 +43,8 @@ import com.mysql.fabric.xmlrpc.base.Data;
  *
  */
 @Service
-public class ArticleServiceImpl implements ArticleService{
-
+public class ArticleServiceImpl extends PostServiceImpl<Article> implements ArticleService{
+	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 	@Autowired
 	private ArticleDao articleDao;
 	@Autowired
