@@ -13,7 +13,7 @@ import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-public interface ArticleService {
+public interface ArticleService extends PostService<Article> {
 
 	public static final int LINE_HEIGHT = 16; 			// (px) visina jednog reda definisano CSS-om 
 	public static final double FONT_WIDTH = 7.0;		// (px) sirina jednog slova
