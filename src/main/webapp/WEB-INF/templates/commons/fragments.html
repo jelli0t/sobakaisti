@@ -248,18 +248,14 @@
 	<!-- 
 	 Categories 
 	-->
-	<th:block th:fragment="categorySelectionFragment">		
-		<label th:each="category : ${categories}" class="checkboxes-label">
-			<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}"
-				th:checked="${article.categories != null ? category.id == article.categories[0].id : false}" th:field="*{categories}"/> 
-			<span th:text="${category.name}"></span>
-		</label>
-		<label class="modal-checkbox-item" th:each="category : ${categories}">
-			<input type="checkbox" name="categories" checked="checked">
+	<th:block th:fragment="categorySelectionFragment(all, chosen)">
+		<label class="modal-checkbox-item" th:each="category : ${all}">
+			<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" 
+			       th:checked="${#lists.contains(chosen, category)}">
 		 	<span class="checkmark"></span>
 		  	<span class="modal-checkbox-label" th:text="${category.name}">category</span>
 		</label>
-		<input type="hidden" id="categories-count" th:value="${#lists.size(tags)}"/>					
+		<input type="hidden" id="categories-count" th:value="${#lists.size(chosen)}"/>					
 	</th:block>
 	
 	<!-- Post Date Editor -->
