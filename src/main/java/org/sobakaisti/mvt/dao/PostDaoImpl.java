@@ -240,4 +240,10 @@ public class PostDaoImpl<T extends Post> implements PostDao<T> {
 		return null;
 	}
 
+	@Override
+	public T findBySlug(String slug) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

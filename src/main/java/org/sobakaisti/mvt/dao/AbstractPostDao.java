@@ -56,6 +56,20 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	
 	@Override
 	@Transactional
+	public T findBySlug(String slug) {
+		String HQL = "from "+entity.getName()+" t where t.slug = :slug";
+		try {
+			return (T) currentSession().createQuery(HQL)
+										.setString("slug", slug)
+										.uniqueResult();
+		} catch (Exception e) {
+			logger.warn("Greska pri pronalazenju enititeta sa slugom: "+slug+". Uzrok: "+e.getMessage());
+			return null;
+		}
+	}
+	
+	@Override
+	@Transactional
 	public T save(T t) {
 		try {
 			currentSession().saveOrUpdate(t);

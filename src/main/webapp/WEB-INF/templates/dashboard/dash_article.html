@@ -106,7 +106,7 @@
 				<span class="panel-title" th:text="#{label.categories}">kategorije</span>
 			</div>
 			<div class="panel-element panel-body">
-				<div th:unless="${#lists.isEmpty(article?.categories)}" class=""
+				<div th:unless="${#lists.isEmpty(categories)}" class=""
 				     th:include="~{commons/fragments :: categorySelectionFragment (all=${categories}, chosen=${article.categories})}">						  
 				</div>
 				

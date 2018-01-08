@@ -90,6 +90,7 @@ public class Article extends Post {
 		sb.append(getTitle() != null ? "title : "+getTitle() + ", " : "");
 		sb.append(getAuthor() != null ? "author_id : "+getAuthor().getId() + ", " : "");
 		sb.append(getAuthor() != null ? "author : "+getAuthor().getFirstName() + ", " : "");
+		sb.append(this.categories != null ? "categories_size : "+this.categories.size() : "");
 		return sb.append("}").toString();
 	}
 	

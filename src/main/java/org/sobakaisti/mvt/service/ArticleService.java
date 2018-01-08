@@ -24,7 +24,6 @@ public interface ArticleService extends PostService<Article> {
 	public static final int RELATED_ARTICLES_BUNDLE_SIZE = 8;
 	public static final int ARTICLES_PREV_ROW_SIZE = 4;
 	
-	public static final String ACTIVE_STATUS = "active";
 	
 	public static enum Manifesto {
 		manifest, manifesto

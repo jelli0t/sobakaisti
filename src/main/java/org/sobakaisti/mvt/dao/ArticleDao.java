@@ -8,7 +8,6 @@ import java.util.List;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 
@@ -16,25 +15,10 @@ import org.sobakaisti.util.PostFilter;
  * @author jelles
  *
  */
-public interface ArticleDao {
+public interface ArticleDao extends PostDao<Article> {
 	
 	public static final String INTRO_ARTICLE_SLUG = "manifesto";
-	
-	/**
-	 * Metoda pronalazi i vraca clanak po Naslovu na zadatom jeziku
-	 * @param title		Naslov clanka
-	 * @param lang		Kod jezika na kom je clanak
-	 * */
-	public Article getArticleBySlugTitle(String slug, String lang);
 
-	@Deprecated
-	public String getArticleById(int id);
-	
-	/**
-	 * Nalazi clanak po ID i vraca ga
-	 * */
-	public Article findArticleById(int id);
-	
 	/**
 	 * Metoda vraca clanak na onovu prosledjenog lang koda.
 	 * @param langCode	Kod jezika (rs, en, it, fr...)
@@ -48,27 +32,7 @@ public interface ArticleDao {
 	 * */
 	public String findIntroArticle(String langCode);
 	
-	/**
-	 * Metoda cuva clanak
-	 * @param clanka
-	 * @return boolean
-	 * */
-	public boolean saveArticle(Article article);
-	
-	
 	public List<Article> getArticlesSortedByDate(Pagination pagination, PostFilter filter);
-			
-	/**
-	 * Brise clanak na osnovu prosledjenog ID
-	 * @param id
-	 * */
-	public boolean deleteArticleById(int id);
-	
-	/**
-	 *  metoda menja status clanka active 1/0
-	 *  public / draft
-	 * */
-	public int switchArticleStatus(int articleId);
 	
 	/**
 	 * Pronalazi sve clanke za datu kategoriju.
@@ -115,8 +79,6 @@ public interface ArticleDao {
 	 * */
 	public int countSlugDuplicates(String slug);
 
-	Article findArticleBySlug(String slug);
-	
 	/**
 	 * Dohvata srodne clanke
 	 * */

@@ -4,48 +4,46 @@
 package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
+import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.Post;
-import org.sobakaisti.mvt.models.Publication;
-import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
+import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.sobakaisti.mvt.service.TagService;
 import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 
 /**
  * @author jelles
  *
  */
 @Service
-public class ArticleServiceImpl extends PostServiceImpl<Article> implements ArticleService{
+public class ArticleServiceImpl extends PostServiceImpl<Article> implements ArticleService {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
-	@Autowired
+	
 	private ArticleDao articleDao;
 	@Autowired
 	private AuthorDao authorDao;
@@ -60,9 +58,16 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 	private int rowsPerPage;
 	private int charsToFill;
 	
+	@Autowired
+	public ArticleServiceImpl(
+			@Qualifier("articleDaoImpl") PostDao<Article> postDao) {
+		super(postDao);
+		this.articleDao = (ArticleDao) postDao;
+	}
+	
 	@Override
 	public Article findById(int id) {		
-		return articleDao.findArticleById(id);
+		return articleDao.find(id);
 	}
 	
 	@Override
@@ -95,12 +100,12 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 
 	@Override
 	public Article findArticleBySlug(String slug) {
-		return articleDao.findArticleBySlug(slug.trim());
+		return articleDao.findBySlug(slug);
 	}
 	
 	@Override
 	public Article getArticleBySlug(String slug, String lang) {
-		Article article = (Article) articleDao.getArticleBySlugTitle(slug, lang);
+		Article article = (Article) articleDao.findBySlug(slug);
 		return article;
 	}
 
@@ -113,9 +118,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 		article.setCategories(prepareCategoriesForArticle(article));		
 		article.setAuthor(author);
 		article.setPostDate(Calendar.getInstance());		
-		boolean success = articleDao.saveArticle(article);
-		
-		if(success){			
+		if(articleDao.save(article) != null){			
 			return article;
 		} else {
 			return null;
@@ -147,19 +150,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 		if(categoriesIds != null && categoriesIds.length > 0) {
 			article.setCategories(categoryService.findListOfCategoriesByIdsArray(categoriesIds));
 		}
-		
-		
-		return articleDao.saveArticle(article);
-	}
-
-
-	private String addSuffixIfDuplicateExist(String slug) {
-		int duplicates = articleDao.countSlugDuplicates(slug);
-		/* ako ima ponavljanja dodaj broj kao sufiks */
-		if(duplicates > 0) {
-			slug += ("-" + duplicates);
-		}		
-		return slug;
+		return articleDao.save(article) != null ? true : false;
 	}
 	
 	@Override
@@ -193,12 +184,12 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 
 	@Override
 	public boolean deleteArticleById(int id) {
-		return articleDao.deleteArticleById(id);
+		return articleDao.delete(id);
 	}
 
 	@Override
 	public String switchArticleStatus(int articleId) {
-		int articleStatus = articleDao.switchArticleStatus(articleId);		
+		int articleStatus = articleDao.switchActiveStatus(articleId);	
 		if(articleStatus == ACTIVE){
 			return "Uspesno ste publikovali clanak.";
 		}else if(articleStatus == INACTIVE) {
@@ -325,11 +316,14 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 		 * pronalazi listu categorija na osnovu niza ID-eva
 		 * */
 		List<Category> categories = categoryService.findListOfCategoriesByIdsArray(postRequest.getCategoriesIds());
-		article.setCategories(categories);
-		
-		
-		
-		
+		article.setCategories(categories);		
 		return null;
 	}
+
+	@Override
+	public Article processAndSaveSubmittedPost(Article post) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

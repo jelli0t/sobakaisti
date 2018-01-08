@@ -23,6 +23,12 @@ public interface PostDao<T extends Post> {
 	public T find(int id);
 	
 	/**
+	 * Pronalazi post prema prosledjenom slug-u
+	 * @param slug
+	 * */
+	public T findBySlug(String slug);
+	
+	/**
 	 * Radi save ili update prosledjenog entiteta
 	 * @param t
 	 * */
