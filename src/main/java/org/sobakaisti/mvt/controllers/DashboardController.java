@@ -152,8 +152,8 @@ public class DashboardController {
 			logger.warn("Ima gresaka pri validaciji!");
 			logger.warn(article.toString());
 		} else {
-//			Publication uploaded = publicationService.processAndSaveSubmittedPost(publication);		
-			redirectAttributes.addFlashAttribute("article", article);
+			Article posted = articleService.processAndSaveSubmittedPost(article);
+			redirectAttributes.addFlashAttribute("article", posted);
 			logger.info("Uspesno publikovan: "+article);
 		}		
 		return "redirect:/sbk-admin/articles/new";		

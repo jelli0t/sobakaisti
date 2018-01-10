@@ -4,6 +4,7 @@
 package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,6 +23,9 @@ import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Media;
+import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
@@ -322,8 +326,62 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 
 	@Override
 	public Article processAndSaveSubmittedPost(Article post) {
-		// TODO Auto-generated method stub
+		if(post != null) {		
+			/* Ako je nova publikacija formiraj slug */
+			if(post.getId() == 0)
+				post.setSlug(addSuffixIfDuplicateExist(post.getSlug()));			
+			/* postavlja autora */
+			if(post.getAuthor() != null) {
+				post.setAuthor(authorDao.getAuthorById(post.getAuthor().getId()));
+			}
+			/* set publications Tags */
+			if(post.getTags() != null && post.getTags().size() > 0) {
+				post.setTags(fatchPostFullTagList(post));
+			}	
+			
+			/* set Article categories */
+			if(post.getCategories() != null && post.getCategories().size() > 0) {
+				post.setCategories(fatchPostFullCategoryList(post));
+			}
+			/* uploaded featured image */
+			if(post.getFeaturedImage() != null) {
+				Media featuredImageMedia = mediaService.findById(post.getFeaturedImage().getId());
+				post.setFeaturedImage(featuredImageMedia);
+			}
+			/* set language*/
+			post.setLang("rs");
+			logger.info("Cuvam: "+post);
+			Article result = articleDao.saveOrUpdate(post);
+			if (result != null) {
+				result.setCommited(new Boolean(true));
+				result.setCommitMessage(getMessage("publication.posted.successful"));
+				return result;
+			} else {
+				post.setCommited(new Boolean(false));
+				post.setCommitMessage(getMessage("publication.posted.failure"));
+				return post;
+			}
+		}
+		logger.warn("Nije prosledjen clanak za procesuiranje!");
 		return null;
+	}
+	
+	
+//	@Override
+	public List<Category> fatchPostFullCategoryList(Article t) {
+		List<Integer> categoriesIds = null;
+		if(t != null && !t.getCategories().isEmpty()) {
+
+			categoriesIds = new ArrayList<>(t.getCategories().size());
+			for(Category category : t.getCategories()) {
+				categoriesIds.add(category.getId());
+			}
+			logger.info("Iz Publication objekta sam napravio listu ID-eva tagova velicine: "+categoriesIds.size());
+		} else {
+			logger.warn("Nije prosledjen Publication ili je lista Tag-ova prazna!");
+			categoriesIds = new ArrayList<>(0);
+		}
+		return categoryDao.findListOfCategoriesByIds(categoriesIds);
 	}
 
 }

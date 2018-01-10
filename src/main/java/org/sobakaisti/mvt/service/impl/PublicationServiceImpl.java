@@ -17,7 +17,6 @@ import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
-import org.sobakaisti.mvt.service.MediaService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.util.Pagination;
@@ -36,8 +35,6 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 	private static final Logger logger = LoggerFactory.getLogger(PublicationServiceImpl.class);
 	
 	private PublicationDao publicationDao;
-	@Autowired
-	private MediaService mediaService;	
 	
 	@Autowired
 	public PublicationServiceImpl(

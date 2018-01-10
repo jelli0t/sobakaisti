@@ -14,6 +14,7 @@ import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
@@ -33,6 +34,9 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 	protected TagService tagService;
 	@Autowired
 	private CategoryDao categoryDao;
+	
+	@Autowired
+	protected MediaService mediaService;	
 	/*
 	 * Post factory instances
 	 * */
@@ -162,5 +166,7 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 	public List<Category> findAllCategories() {
 		return categoryDao.findAllCategories();
 	}
+	
+	
 
 }
