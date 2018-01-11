@@ -238,7 +238,7 @@
 				<span class="bone-right-end"></span>
 				<input type="hidden"
 				 	th:name="|tags[${stat.index}].id|"
-	            			th:value="${tag.getId()}">
+	            			th:value="${tag.getId()}" th:src="@{/sbk-admin/tags/select/}">
 				<a href="javascript:void(0)" class="bttn-close-hover"></a>
 			</label>
 			<input type="hidden" id="tag-count" th:value="${#lists.size(tags)}"/>					
@@ -249,9 +249,9 @@
 	 Categories 
 	-->
 	<th:block th:fragment="categorySelectionFragment(all, chosen)">
-		<label class="modal-checkbox-item" th:each="category : ${all}">
-			<input type="checkbox" name="categories.id" th:value="${category.id}" th:title="${category.name}" 
-			       th:checked="${chosen != null and #lists.contains(chosen, category.id)}">
+		<label class="modal-checkbox-item" th:each="category, stat : ${all}">
+			<input type="checkbox" th:name="|categories[${stat.index}].id|" th:value="${category.id}" th:title="${category.name}" 
+			       th:checked="${chosen != null and #lists.contains(chosen, category)}">
 		 	<span class="checkmark"></span>
 		  	<span class="modal-checkbox-label" th:text="${category.name}">category</span>
 		</label>

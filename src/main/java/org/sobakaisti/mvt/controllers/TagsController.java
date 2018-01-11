@@ -5,6 +5,8 @@ package org.sobakaisti.mvt.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value="/sbk-admin/tags")
 public class TagsController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(TagsController.class);
 
 	@Autowired
 	private TagService tagService;
@@ -50,6 +54,7 @@ public class TagsController {
 		System.out.println("Tag ID: "+id+"; Tag index: "+index);
 		model.addAttribute("tag", tagService.findById(id));
 		model.addAttribute("index", index);
+		logger.info("Pronadjen tag: "+tagService.findById(id));
 		return "commons/fragments :: tagBoneFragment";
 	}
 }

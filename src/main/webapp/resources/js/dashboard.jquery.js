@@ -1089,9 +1089,10 @@ $.fn.appendValueOnHref = function(value) {
 $.fn.appendSelectedTag = function(index) {
 	var $tag = $(this);
 	var tag_id = $('input[type=hidden]', $tag).val();
+	var tag_uri_prefix = $('input[type=hidden]', $tag).attr('src');
 	console.log('postavljam selektovani tag sa ID: '+tag_id+'; kliknuo: '+index+'x');
 	$.ajax({
-	    url: 'tags/select/'+tag_id+'?index='+index,
+	    url: tag_uri_prefix+''+tag_id+'?index='+index,
 	    type: 'GET',	   
 	    dataType: 'html'
 	})

@@ -64,4 +64,11 @@ public class Tag {
 		this.slug = slug;
 	}	
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("tag {");
+		sb.append(this.id != 0 ? "id : "+this.id+", " : "");
+		sb.append(this.tag != null ? "name : "+this.tag : "");
+		return sb.append("}").toString();
+	}
 }

@@ -32,7 +32,7 @@ public class Article extends Post {
 			@JoinColumn(name = "article_id")},
 			inverseJoinColumns = { @JoinColumn(name = "tag_id")})
 	private List<Tag> tags;
-	
+		
 	@ManyToMany(fetch = FetchType.EAGER, cascade =
         {
                 CascadeType.DETACH,

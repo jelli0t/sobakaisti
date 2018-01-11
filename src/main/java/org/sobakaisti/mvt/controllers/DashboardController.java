@@ -131,12 +131,8 @@ public class DashboardController {
 		if(!model.containsAttribute("article")) {
 			model.addAttribute("article", new Article());
 			System.out.println("Ne sadrzi Article! pravim novi...");
-		} else {
-			System.out.println("sadrzi article!");
 		}
-		
-		// TODO postavi articleService umesto publication
-		model.addAttribute("categories", publicationService.findAllCategories());
+		model.addAttribute("categories", articleService.findAllCategories());
 		logger.info("from model: "+model.toString());
 		return "dashboard/dash_article";
 	}

@@ -109,30 +109,6 @@
 				<div th:unless="${#lists.isEmpty(categories)}" class=""
 				     th:include="~{commons/fragments :: categorySelectionFragment (all=${categories}, chosen=${article.categories})}">						  
 				</div>
-				
-							
-				
-			<!--	<button class="bttn bttn-select" type="button">Kategorije</button>				
-				<div class="select-menu-modal">
-					<div class="select-menu-header">
-						<span class="select-menu-title">Odaberi kategoriju</span> 
-						<a href="javascript:;" class="bttn-close"><img alt="x" th:src="@{/resources/img/icons/cancel.svg}" width="10" height="10"/></a>
-					</div>
-					<div class="select-menu-body">				
-					<label th:each="category : ${categories}" class="checkboxes-label">
-						<input type="checkbox" name="categories" th:value="${category.id}" th:title="${category.name}" th:id="${'cat_'+category.slug}"
-							th:checked="${article.categories != null ? category.id == article.categories[0].id : false}" th:field="*{categories}"/> 
-						<span th:text="${category.name}"></span>
-					</label>
-					</div>
-				</div>			
-				<div class="selected-categories selected-result">
-					
-					<label th:each="category : ${article.categories}" class="checkboxes-label" th:if="${article.categories != null}">
-						<span class="label category" th:id="${'cat_'+category.slug}"><span th:text="${category.name}"></span><span class="bttn-close-white close-cat-bttn"></span></span>
-					</label>
-				</div>	
-			-->
 			</div>			
 		</div>
 		
@@ -223,7 +199,14 @@
 	</div>
 <!-- end of the form -->
 </form>
-	
+
+<!-- 
+	Modul za upload medija datoteka
+ -->
+<div class="overlay" id="media">
+	<div class="media-select-modal">
+	</div>
+</div>	
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
 <script type="text/javascript" th:src="@{/resources/js/tinymce/tinymce.min.js}"></script>
