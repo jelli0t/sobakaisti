@@ -140,24 +140,4 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 		logger.warn("Nije prosledjen Publication za procesuiranje!");
 		return null;
 	}
-	
-/*	
-	@Override
-	public List<Tag> fatchPostFullTagList(Publication t) {
-		int[] tagIds = null;
-		if(t != null && !t.getTags().isEmpty()) {
-			int index = 0;
-			tagIds = new int[t.getTags().size()];
-			for(Tag tag : t.getTags()) {
-				tagIds[index] = tag.getId();
-				index++;
-			}
-			logger.info("Iz Publication objekta sam napravio listu ID-eva tagova velicine: "+tagIds.length);
-		} else {
-			logger.warn("Nije prosledjen Publication ili je lista Tag-ova prazna!");
-			tagIds = new int[0];
-		}
-		return tagService.findListOfTagsByIdsArray(tagIds);
-	}
-*/
 }

@@ -67,10 +67,10 @@ public class TagServiceImpl implements TagService {
 
 	@Override
 	public List<Tag> findListOfTagsByIdsList(List<Integer> tagIds) {
-		if(tagIds != null && !tagIds.isEmpty()
+		if(tagIds != null && !tagIds.isEmpty())
 			return tagDao.findListOfTagsByIds(tagIds);
 		else
-			return new ArrayList<Integer>(0);
+			return new ArrayList<Tag>(0);
 	}
 	
 }

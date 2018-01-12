@@ -383,24 +383,4 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 		}
 		return categoryDao.findListOfCategoriesByIds(categoriesIds);
 	}
-
-	/*
-	@Override
-	public List<Tag> fatchPostFullTagList(Article t) {
-		int[] tagIds = null;
-		if(t != null && !t.getTags().isEmpty()) {
-			int index = 0;
-			tagIds = new int[t.getTags().size()];
-			for(Tag tag : t.getTags()) {
-				tagIds[index] = tag.getId();
-				index++;
-			}
-			logger.info("Iz Article objekta sam napravio listu ID-eva tagova velicine: "+tagIds.length);
-		} else {
-			logger.warn("Nije prosledjen Article ili je lista Tag-ova prazna!");
-			tagIds = new int[0];
-		}
-		return tagService.findListOfTagsByIdsArray(tagIds);
-	}
-	*/
 }
