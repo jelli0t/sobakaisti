@@ -43,4 +43,7 @@ public interface TagService {
 	 * @param ids
 	 * */
 	public List<Tag> findListOfTagsByIdsArray(int[] ids);
+	
+	/***/
+	public List<Tag> findListOfTagsByIdsList(List<Integer> tagIds);
 }
