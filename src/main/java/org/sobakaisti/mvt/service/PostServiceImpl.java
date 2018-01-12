@@ -159,6 +159,21 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 
 	@Override
 	public List<Tag> fatchPostFullTagList(T t) {
+		List<Tag> tagsReferences = null;
+		List<Integer> tagsIdList = null;
+		
+		if(t instanceof Article)
+			tagsReferences = ((Article) t).getTags();		
+		else if(t instanceof Publication)
+			tagsReferences = ((Publication) t).getTags();
+		
+		if(tagsReferences != null && !tagsReferences.isEmpty()) {
+			tagsIdList = new ArrayList<Integer>(tagsReferences.size());
+			for(Tag tag : tagsReferences)
+				tagsIdList.add(tag.getId());
+			
+			return tagService.findListOfTagsByIdsList(tagsIdList);
+		}
 		return null;
 	}
 	
