@@ -65,6 +65,12 @@ public class TagServiceImpl implements TagService {
 		return tagIds.size() > 0 ? tagDao.findListOfTagsByIds(tagIds) : null;
 	}
 
+	@Override
+	public List<Tag> findListOfTagsByIdsList(List<Integer> tagIds) {
+		if(tagIds != null && !tagIds.isEmpty()
+			return tagDao.findListOfTagsByIds(tagIds);
+		else
+			return new ArrayList<Integer>(0);
+	}
 	
-
 }
