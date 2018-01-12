@@ -141,7 +141,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 		return null;
 	}
 	
-	
+/*	
 	@Override
 	public List<Tag> fatchPostFullTagList(Publication t) {
 		int[] tagIds = null;
@@ -159,4 +159,5 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 		}
 		return tagService.findListOfTagsByIdsArray(tagIds);
 	}
+*/
 }
