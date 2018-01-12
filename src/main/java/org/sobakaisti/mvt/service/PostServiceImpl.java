@@ -176,12 +176,11 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 		}
 		return null;
 	}
+		
 	
 	@Override
 	public List<Category> findAllCategories() {
 		return categoryDao.findAllCategories();
 	}
 	
-	
-
 }
