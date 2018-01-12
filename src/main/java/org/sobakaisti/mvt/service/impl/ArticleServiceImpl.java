@@ -383,7 +383,8 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 		}
 		return categoryDao.findListOfCategoriesByIds(categoriesIds);
 	}
-	
+
+	/*
 	@Override
 	public List<Tag> fatchPostFullTagList(Article t) {
 		int[] tagIds = null;
@@ -401,5 +402,5 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 		}
 		return tagService.findListOfTagsByIdsArray(tagIds);
 	}
-
+	*/
 }
