@@ -102,4 +102,13 @@ public class PostFilter {
 	public boolean hasAuthor() {
 		return this.author != null ? true : false;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("filter: {");
+		sb.append(isActive() ? "active : 1, " : "");
+		sb.append("nonactive_included : " + (isNonactiveInlude() ? "true, " : "false, "));
+		sb.append(hasAuthor() ? "author : " + this.author.getFirstName() +", " : "");
+		return sb.append("}").toString();
+	}
 }

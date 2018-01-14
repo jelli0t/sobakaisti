@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AbstractPostDao;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.IntroArticle;
+import org.sobakaisti.mvt.service.impl.ArticleServiceImpl;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.stereotype.Repository;
@@ -17,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleDao {
+	private static final Logger logger = LoggerFactory.getLogger(ArticleDaoImpl.class);
 
 	@Override
 	@Transactional
@@ -54,12 +58,14 @@ public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleD
 	@Override
 	@Transactional
 	public List<Article> getArticlesSortedByDate(Pagination pagination, PostFilter filter) {
-		List<Article> articles;
+		List<Article> articles = null;
+		logger.info(filter.toString());
 		String HQL = "from Article a where a.postDate is not null" 
 					 +(filter.isActive() ? " and a.active = 1" : " and a.active = 0")
 					 +(filter.isNonactiveInlude() ? " or a.active = 0" : "")
 					 +(filter.hasAuthor() ? " and a.author = :author" : "")
 					 +" order by date(a.postDate) desc, a.id desc";
+		logger.info("Query: "+HQL);
 		try {
 			Query query = currentSession().createQuery(HQL);
 			if(filter.hasAuthor())
@@ -67,8 +73,10 @@ public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleD
 			articles = query.setFirstResult(pagination.getInitialItem())
 							.setMaxResults(pagination.getItemsPerPage())
 							.list();
+			logger.info("Dohvatio sam listu od "+articles.size()+ " clanaka.");
 		} catch (Exception e) {
 			articles = new ArrayList<Article>(0);
+			logger.warn("Greska prilikom dohvatanja postova iz baze. Uzrok: "+e.getMessage());
 		}		
 		return articles;
 	}

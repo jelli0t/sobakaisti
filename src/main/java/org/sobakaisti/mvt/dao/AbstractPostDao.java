@@ -196,7 +196,7 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	@Transactional
 	public int switchActiveStatus(int id) {
 		try {
-			T t = (T) currentSession().load(Publication.class, id);
+			T t = (T) currentSession().load(entity.getName(), id);
 			if(t != null){
 				int active = t.getActive();
 				switch (active) {
@@ -224,7 +224,7 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	public boolean delete(int id) {
 		try {
 			Session session = currentSession();
-			T t = (T) session.get(entity.getClass(), id);
+			T t = (T) session.get(entity.getName(), id);
 			if(t != null) {
 				session.delete(t);
 				return true;

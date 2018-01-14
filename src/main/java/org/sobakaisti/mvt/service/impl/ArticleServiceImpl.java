@@ -4,7 +4,6 @@
 package org.sobakaisti.mvt.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,25 +17,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.dao.AuthorDao;
-import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Media;
-import org.sobakaisti.mvt.models.Publication;
-import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.sobakaisti.mvt.service.TagService;
 import org.sobakaisti.util.CalendarUtil;
+import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -52,12 +50,8 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 	@Autowired
 	private AuthorDao authorDao;
 	@Autowired
-	private CategoryDao categoryDao;
-	@Autowired
 	private CategoryService categoryService;
-	@Autowired
-	private TagService tagService;
-	
+		
 	private int charsPerRow;
 	private int rowsPerPage;
 	private int charsToFill;
@@ -184,22 +178,6 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 			categories = categoryDao.getAllCategoriesByIds(ids);	
 		}
 		return categories;
-	}
-
-	@Override
-	public boolean deleteArticleById(int id) {
-		return articleDao.delete(id);
-	}
-
-	@Override
-	public String switchArticleStatus(int articleId) {
-		int articleStatus = articleDao.switchActiveStatus(articleId);	
-		if(articleStatus == ACTIVE){
-			return "Uspesno ste publikovali clanak.";
-		}else if(articleStatus == INACTIVE) {
-			return "Uspesno ste deaktivirali clanak.";
-		}
-		return null;
 	}
 	
 	@Override
@@ -342,6 +320,11 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 			/* set Article categories */
 			if(post.getCategories() != null && post.getCategories().size() > 0) {
 				post.setCategories(fatchPostFullCategoryList(post));
+			} else {
+				/* dodajemo listu sa podrazumevanom kategorijom */
+				List<Category> categories = new ArrayList<Category>(1);
+				categories.add(getDefaultCategory());
+				post.setCategories(categories);
 			}
 			/* uploaded featured image */
 			if(post.getFeaturedImage() != null) {
@@ -367,7 +350,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 	}
 	
 	
-//	@Override
+	@Override
 	public List<Category> fatchPostFullCategoryList(Article t) {
 		List<Integer> categoriesIds = null;
 		if(t != null && !t.getCategories().isEmpty()) {
@@ -376,11 +359,26 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 			for(Category category : t.getCategories()) {
 				categoriesIds.add(category.getId());
 			}
-			logger.info("Iz Publication objekta sam napravio listu ID-eva tagova velicine: "+categoriesIds.size());
+			logger.info("Iz Article objekta sam napravio listu ID-eva za odabrane "+categoriesIds.size()+" kategorije.");
 		} else {
-			logger.warn("Nije prosledjen Publication ili je lista Tag-ova prazna!");
+			logger.warn("Nije prosledjen Post ili je lista odabranih kategorija prazna!");
 			categoriesIds = new ArrayList<>(0);
 		}
 		return categoryDao.findListOfCategoriesByIds(categoriesIds);
 	}
+
+	
+	@Override
+	public CommitResult commitDelete(int id) {
+		boolean deleted = this.delete(id);
+		String message = null;
+		if(deleted)
+			message = getMessage("article.delete.succesful");
+		else 
+			message = getMessage("article.delete.failure");
+		return new CommitResult(deleted, message);
+	}
+
+	
+
 }

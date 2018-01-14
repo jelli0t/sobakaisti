@@ -11,7 +11,10 @@ import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.util.CommitResult;
+import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostRequest;
+import org.springframework.ui.Model;
 
 /**
  * @author jelli0t
@@ -61,6 +64,13 @@ public interface PostService<T extends Post> {
 	public boolean delete(int id);
 	
 	/**
+	 * Metoda izvrsava brisanje Posta i vraca rezultat operacije
+	 * @param id	Post ID
+	 * @return {@link CommitResult}
+	 * */
+	public CommitResult commitDelete(int id);
+	
+	/**
 	 * Broji sve objave na osnovu statusa
 	 * @param isActive
 	 * */
@@ -70,7 +80,7 @@ public interface PostService<T extends Post> {
 	 * Menja vrednost active polja na Post derivatima.
 	 * @param id
 	 * */
-	public String switchPostStatus(int id);
+	public CommitResult switchPostStatus(int id);
 
 	/**
 	 * Pronalazi sve autore koje su objavili neki Post
@@ -97,13 +107,6 @@ public interface PostService<T extends Post> {
 	 * */
 	public String addSuffixIfDuplicateExist(String slug);
 	
-	/**
-	 * Procesuira PostRequest objekat sa submitovane forme i
-	 * konvertuje u odgovarajucu podklasu Post-a a zatim cuva
-	 * tu objavu.
-	 * @param postRequest
-	 * */
-	public T processAndSavePostRequest(PostRequest postRequest);
 	
 	/**
 	* Procesuira ModelAttribute Post objekat i cuva ga u bazi.
@@ -115,4 +118,18 @@ public interface PostService<T extends Post> {
 	 * Na osnovu prosledjenog coda dohvata odgovarajucu poruku iz property fajla
 	 * */
 	String getMessage(String code);
+	
+	/**
+	 * Metoda generise listu model atributa za prikaz liste postova. Na osnovu prosledjenih
+	 * parametara generise objekat za paginaciju i filter za dohvatanje postova.
+	 * @param pagination
+	 * @param status		status postova
+	 * @param				autorov slug
+	 * */
+	Model generateModelAttributesForPostsListing(Pagination pagination,	String status, String authorSlug);
+
+	/**
+	 * Dohvata podrazumevanu kategoriju
+	 * */
+	Category getDefaultCategory();
 }

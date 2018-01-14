@@ -20,6 +20,13 @@ public interface CategoryDao {
 	public Category getCategoryById(int id);
 	
 	/**
+	 * Dohvata podrazumevanu kategoriju. Tj kategoriju roditelja
+	 * gde se po defaultu smestaju postovi bes selektovane konkretne 
+	 * kategorije. Default kategorija je "Radovi" (arts)
+	 * */
+	public Category getDefaultCategory();
+	
+	/**
 	 * Metoda koja dohvate kategorije clanaka za navedene id-ijeve
 	 * @param niz id-eva koje trazimo
 	 * @return lista kategorija

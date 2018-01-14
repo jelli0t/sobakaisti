@@ -7,7 +7,6 @@ import java.util.Map;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
@@ -50,14 +49,7 @@ public interface ArticleService extends PostService<Article> {
 	 * @param filter
 	 * */
 	public List<Article> getArticlesOrderByDate(Pagination pagination, PostFilter filter);
-		
-	public boolean deleteArticleById(int id);
 	
-	/**
-	 * menja status clanka 1/0; publikovan/draft
-	 * @return poruka o promeni statusa
-	 * */
-	public String switchArticleStatus(int articleId);
 	
 	/**
 	 * Pronalazi sve clanke za datu kategoriju.
@@ -129,4 +121,9 @@ public interface ArticleService extends PostService<Article> {
 	 * konvertuje PostRequest sa forme u konkreta article objekat
 	 * */
 	public Article getArticleFromPostRequest(PostRequest postRequest);
+	
+	/**
+	 * Dohvata potpunu listu selektovanih kategorija ia article objekta
+	 * */
+	public List<Category> fatchPostFullCategoryList(Article t);
 }

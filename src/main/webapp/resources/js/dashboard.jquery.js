@@ -294,7 +294,7 @@ $(function() {
 	  if ($("#commit-result").length){ 
 		  setTimeout(function(){
 			  $('#commit-result').slideUp(300);
-		  }, 4000)
+		  }, 4000);
 	  }
 	
 }); // End Of Ready
@@ -585,12 +585,13 @@ $.fn.deleteItem = function(removeMeta){
 	$.ajax({
 	    url: removeMeta.uri,
 	    type: 'DELETE',
+	    dataType: 'html',
 	    beforeSend: function(xhr) {
             xhr.setRequestHeader(csrf[0], csrf[1]);
         }
-	}).done(function( json ) {
-		console.log("success: "+json);
-		$('.response-message').showResponseMessage(json, true);
+	}).done(function( response ) {
+		console.log("success: "+response);
+		$('.commit-response-holder').attr('id', 'commit-result').append(response);
 		/* uklanjam DOM el */
 		$(removeMeta.item).remove();
 	}).fail(function( xhr, status, errorThrown ) {
@@ -599,6 +600,9 @@ $.fn.deleteItem = function(removeMeta){
 	    console.dir( xhr );
 	}).always(function( xhr, status ) {
 		callAnchor('');
+		setTimeout(function(){
+			  $('#commit-result').slideUp(300);
+		  }, 4000);
 	});
 }
 /*
@@ -612,12 +616,13 @@ $.fn.switchArticleStatus = function (uri) {
 	$.ajax({
 	    url: uri,
 	    type: 'PUT',
+	    dataType: 'html',
 	    beforeSend: function(xhr) {
             xhr.setRequestHeader(csrf[0], csrf[1]);
         }
 	})
-	.done(function( json ) {
-		console.log("success: "+json);
+	.done(function( response ) {
+		console.log("success: "+response);
 		var src = $icon.attr('src');
 		console.log("src: "+src);
 		var status = parseInt(src.replace(/[^0-9\.]/g, ''), 10);
@@ -634,7 +639,7 @@ $.fn.switchArticleStatus = function (uri) {
 		}
 		 console.log("menjam src u: "+src);
 		 $icon.attr('src',src);
-		 $('.response-message').showResponseMessage(json, true);		
+		 $('.commit-response-holder').attr('id', 'commit-result').append(response);		
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );
@@ -643,6 +648,10 @@ $.fn.switchArticleStatus = function (uri) {
 	    $('.response-message').showResponseMessage(json, false);
 	}).always(function( xhr, status ) {
 		console.log( "After finish: " + status );
+		setTimeout(function(){
+			  $('#commit-result').slideUp(300);
+			  $('.commit-response-holder').removeAttr('id').empty();
+		  }, 4000);
 	});
 };
 /**
@@ -719,11 +728,6 @@ $.fn.addNewTag = function(clicked) {
 	})
 	.done(function( tag ) {
 		console.log("success: "+tag);
-//		var span = '<label class="label tag" id="tag-'+tag.id+'">'+tag.tag+'<input type="hidden" name="tags" value="'+tag.id+'">'
-//					+'<span class="bttn-close-white close-tag-bttn"></span>'
-//					+'</label>';
-//		$('.search-result').empty().append(span);
-		
 		$('.selected-tags').append($(tag).addClass('founded-tag'));
 		$('.select-menu-modal-holder').hide();		
 	})

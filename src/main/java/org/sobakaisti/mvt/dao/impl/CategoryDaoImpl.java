@@ -11,9 +11,10 @@ import javax.transaction.Transactional;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public class CategoryDaoImpl implements CategoryDao{
+	private static final Logger logger = LoggerFactory.getLogger(CategoryDaoImpl.class);
+	  
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -35,6 +38,20 @@ public class CategoryDaoImpl implements CategoryDao{
 		@SuppressWarnings("unchecked")
 		List<Category> categories = session.createQuery(HQL).list();
 		return categories;
+	}
+	
+	@Override
+	public Category getDefaultCategory() {
+		String HQL = "FROM Category c where c.parentId = 0";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Category defaultCategory = (Category) session.createQuery(HQL).setMaxResults(1).uniqueResult();
+			logger.info("Dohvatio podrazumevanu "+defaultCategory.toString());
+			return defaultCategory;
+		} catch (Exception e) {
+			logger.warn("Greska prilikom dohvatanja podrazumevane kategorije! Uzrok: "+e.getMessage());
+			return null;
+		}		
 	}
 
 	@Override

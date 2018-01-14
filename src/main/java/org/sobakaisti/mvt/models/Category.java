@@ -5,10 +5,8 @@ package org.sobakaisti.mvt.models;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -86,10 +84,10 @@ public class Category {
 
 	@Override
 	public String toString() {
-		String category = "{";
-		category += name!=null?"id: "+id:"";
-		category += name!=null?"name: "+name:"";
-		return category+"}";
+		StringBuilder sb = new StringBuilder("category: {");
+		sb.append(this.id != 0 ? "id : "+this.id : "");
+		sb.append(this.name != null ? ", name : "+ this.name : "");		
+		return sb.append("}").toString();
 	}
 	
 	@Override

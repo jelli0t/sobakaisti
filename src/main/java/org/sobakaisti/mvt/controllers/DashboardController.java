@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,7 @@ import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.mvt.validation.Validation;
 import org.sobakaisti.mvt.validation.Validator;
 import org.sobakaisti.util.CalendarUtil;
+import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostRequest;
 import org.sobakaisti.util.StringUtil;
@@ -185,51 +187,24 @@ public class DashboardController {
 	}
 		
 	@RequestMapping(value="/article/delete/{id}", method=RequestMethod.DELETE)
-	@ResponseBody
-	public ResponseEntity<String> deleteArticle(@PathVariable("id") int id){	
-		boolean isDeleted = articleService.deleteArticleById(id);
-		if(isDeleted)
-			return new ResponseEntity<String>("Uspesno obrisan clanak.", HttpStatus.OK);
-		
-		return new ResponseEntity<String>("Greska pri brisanju.", HttpStatus.SERVICE_UNAVAILABLE);
+	public String deleteArticle(@PathVariable("id") int id) {
+		CommitResult commited = articleService.commitDelete(id);		
+		return String.format("commons/fragments :: commitResultFragment(commited='%s', message='%s')",
+				commited.isCommited(), commited.getCommitMessage());
 	}
 	
 	/**
 	 * Prikazuje listu clanaka
 	 * @param page 	page index
 	 * */
-//	@RequestMapping(value = {"/articles", "/articles/{page}"}, method=RequestMethod.GET)
-//	public String displayAllArticles(@PathVariable Optional<Integer> page, Model model){	
-//		/* ako je odabrana strana */
-//		if(page.isPresent()) {
-//			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
-//		}else {
-//			pagination = new Pagination();
-//		}
-//		/* priprema model atribute za renderovanje strane */
-//		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, null, null);
-//		for(String key : modelAttributes.keySet()) {
-//			model.addAttribute(key, modelAttributes.get(key));
-//		}
-//		return "dashboard/dash_articles";
-//	}
-	
-	@Deprecated
-	@RequestMapping(value = "/articles", method=RequestMethod.GET)
-	public String displayAllArticles(Model model){	
-		/* priprema model atribute za renderovanje strane */
-		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(new Pagination(), null, null);
-		for(String key : modelAttributes.keySet()) {
-			model.addAttribute(key, modelAttributes.get(key));
-		}
-		return "dashboard/dash_articles";
-	}
-	
-	@Deprecated
-	@RequestMapping(value = "/articles/{page}", method=RequestMethod.GET)
-	public String displayAllArticles(@PathVariable int page, Model model){	
+	@RequestMapping(value = {"/articles", "/articles/{page}"}, method=RequestMethod.GET)
+	public String displayAllArticles(@PathVariable Optional<Integer> page, Model model){	
 		/* ako je odabrana strana */
-		pagination = new Pagination(0, page, Pagination.DEFAULT_ITEMS_PER_PAGE);		
+		if(page.isPresent()) {
+			pagination = new Pagination(0, page.get().intValue(), Pagination.DEFAULT_ITEMS_PER_PAGE);			
+		}else {
+			pagination = new Pagination();
+		}
 		/* priprema model atribute za renderovanje strane */
 		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, null, null);
 		for(String key : modelAttributes.keySet()) {
@@ -237,6 +212,30 @@ public class DashboardController {
 		}
 		return "dashboard/dash_articles";
 	}
+	
+//	@Deprecated
+//	@RequestMapping(value = "/articles", method=RequestMethod.GET)
+//	public String displayAllArticles(Model model){	
+//		/* priprema model atribute za renderovanje strane */
+//		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(new Pagination(), null, null);
+//		for(String key : modelAttributes.keySet()) {
+//			model.addAttribute(key, modelAttributes.get(key));
+//		}
+//		return "dashboard/dash_articles";
+//	}
+//	
+//	@Deprecated
+//	@RequestMapping(value = "/articles/{page}", method=RequestMethod.GET)
+//	public String displayAllArticles(@PathVariable int page, Model model){	
+//		/* ako je odabrana strana */
+//		pagination = new Pagination(0, page, Pagination.DEFAULT_ITEMS_PER_PAGE);		
+//		/* priprema model atribute za renderovanje strane */
+//		Map<String, Object> modelAttributes = articleService.prepareModelAttributesForArticles(pagination, null, null);
+//		for(String key : modelAttributes.keySet()) {
+//			model.addAttribute(key, modelAttributes.get(key));
+//		}
+//		return "dashboard/dash_articles";
+//	}
 	
 	
 	/**
@@ -335,46 +334,13 @@ public class DashboardController {
 	}
 	
 	@RequestMapping(value="/article/change_status/{id}", method=RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<String> switchArticleStatus(@PathVariable("id") int id) {	
-		String message = articleService.switchArticleStatus(id);
-		if(message != null){
-			return new ResponseEntity<String>(message, HttpStatus.OK);
-		}		
-		return new ResponseEntity<String>("Greska promeni statusa.", HttpStatus.SERVICE_UNAVAILABLE);
+	public String switchArticleStatus(@PathVariable("id") int id) {	
+		CommitResult commited = articleService.switchPostStatus(id);
+		return String.format("commons/fragments :: commitResultFragment(commited='%s', message='%s')",
+				commited.isCommited(), commited.getCommitMessage());
 	}
 	
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<Object> postArticle(
-			@RequestParam(name="id", required = false) int id,
-			@RequestParam(name="title", required = false) String title,
-			@RequestParam(name="slug", required = false) String slug,
-			@RequestParam(name="postDate", required = false) Date postDate,
-            @RequestParam(name="content", required = false) String content,
-            @RequestParam(name="author", required = false) int author,
-            @RequestParam(name="categories", required = false) int[] categories,
-            @RequestParam(name="tags", required = false) int[] tags,
-            @RequestParam(name="featuredImg", required = false) MultipartFile featuredImg,
-            @RequestParam(name="active") int active
-			) {
-		Validation validation = validator.basicPostValidation(title, slug, author);
-		if(!validation.hasErrors())
-			validation = validator.featuredImageFileValidation(featuredImg);
-		
-		if(!validation.hasErrors()) {
-			boolean published = articleService.createAndUploadArticle(id, title, slug, postDate, content, author, categories, tags, featuredImg, active);
-			if(published) {
-				return new ResponseEntity<Object>("Uspesno ste "+(active == 1 ? "publikovali":"sacuvali kao nacrt")+" clanak.", HttpStatus.OK);
-			}else {
-				validation.setHasErrors(true);
-				validation.setErrorMessage("Greska pri upload-u datoteke!");
-				return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
-			}			
-		}else {			
-			return new ResponseEntity<Object>(validation, HttpStatus.SERVICE_UNAVAILABLE);
-		}
-	}
+	
 	
 	@RequestMapping(value="/article/edit/{id}", method=RequestMethod.GET)
 	public String editArticleById(Model model, @PathVariable("id") int id) {
@@ -457,16 +423,7 @@ public class DashboardController {
 		return "dashboard/dash_publication";
 	}
 	
-	@RequestMapping(value="/submit", method = RequestMethod.POST)
-	public String submitPublication(@ModelAttribute PostRequest postRequest, Model model) {
 		
-		Publication publication = publicationService.processAndSavePostRequest(postRequest);
-		model.addAttribute("publication", publication);
-		
-		return "redirect:/sbk-admin/publication";
-	}
-	
-	
 	@RequestMapping(value="/datetime/update/date/{month}", method=RequestMethod.GET)
 	@ResponseBody
 	public int updateDateListAccordingToMonth(@PathVariable("month") int month) {

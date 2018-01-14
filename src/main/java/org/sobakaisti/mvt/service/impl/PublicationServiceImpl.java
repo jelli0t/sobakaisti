@@ -19,6 +19,7 @@ import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.sobakaisti.mvt.service.PublicationService;
+import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +140,16 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 		}
 		logger.warn("Nije prosledjen Publication za procesuiranje!");
 		return null;
+	}
+	
+	@Override
+	public CommitResult commitDelete(int id) {
+		boolean deleted = this.delete(id);
+		String message = null;
+		if(deleted)
+			message = getMessage("publication.delete.succesful");
+		else 
+			message = getMessage("publication.delete.failure");
+		return new CommitResult(deleted, message);
 	}
 }

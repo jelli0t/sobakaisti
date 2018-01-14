@@ -11,6 +11,8 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 <div class="dash-main-container">
+	<!-- Commit message box -->
+	<div class="commit-response-holder full-width"></div>
 	<div class="listing-container">
 		<!-- Top tool bar -->
 		<div class="listing-tools">
@@ -34,10 +36,12 @@
 				</a>
 			</div>
 			<!-- top table filter -->
-			<div class="td filter-container">				
+			<div class="td filter-container">
+							<!-- Filter bz Author -->
 				<div class="js-select-container">		
-					<button type="button" class="bttn bttn-select-simple" th:text="#{nav.item.authors}">Autori</button>
-					<!-- Dropdown menu -->
+					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select" th:text="#{nav.item.authors}">
+					</a>
+					<!-- dropdown menu -->
 					<div class="select-menu-modal-holder">
 						<div class="select-menu-modal">
 							<!-- select header -->
@@ -45,21 +49,21 @@
 							  <svg aria-label="Close" class="bttn-menu-close js-menu-bttn-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12">
 							    <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
 							  </svg>
-							  <span class="select-menu-title">Vidljivost</span>
+							  <span class="select-menu-title">Filtriraj po autoru</span>
 							</div>
-							<!-- select body -->
-							<ul class="select-menu-list">
-								<li th:each="author : ${authors}" class="select-menu-item">
-									<a th:href="@{/sbk-admin/publications/by/{slug}(slug=${author.slug})}">
-									<span class="circle circle-tiny" 
-										th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
-									<span th:text="${author.firstName +' '+ author.lastName}"></span>
-									</a>
-								</li>
+							<!-- select body -->  
+							<ul class="select-menu-list">								
+									<li th:each="author : ${authors}" class="select-menu-item">
+										<a th:href="@{/sbk-admin/publications/by/{slug}(slug=${author.slug})}">
+										<span class="circle circle-tiny" 
+											th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
+										<span th:text="${author.firstName +' '+ author.lastName}"></span>
+										</a>
+									</li>
 							</ul>
 						</div>
 					</div>					
-				</div> 	<!-- End js-select-container -->			
+				</div>			
 			</div>	
 			<!-- top table filter -->
 			<div class="listing-header-filter"></div>

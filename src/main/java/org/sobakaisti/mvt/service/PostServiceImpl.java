@@ -2,13 +2,11 @@ package org.sobakaisti.mvt.service;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.dao.PostDao;
@@ -18,16 +16,19 @@ import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
+import org.sobakaisti.mvt.service.impl.ArticleServiceImpl;
+import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
-import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service
-public abstract class PostServiceImpl<T extends Post> implements PostService<T> {	
+public abstract class PostServiceImpl<T extends Post> implements PostService<T> {
 	
+	private static final Logger logger = LoggerFactory.getLogger(PostServiceImpl.class);
 	private PostDao<T> postDao;
 	
 	@Autowired
@@ -35,22 +36,14 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 	@Autowired
 	protected TagService tagService;
 	@Autowired
-	private CategoryDao categoryDao;
-	
+	protected CategoryDao categoryDao;	
 	@Autowired
-	protected MediaService mediaService;	
-	/*
-	 * Post factory instances
-	 * */
+	protected MediaService mediaService;		
 	@Autowired
-	protected PostFactory articlePostFactory;
-	
-	@Autowired
-	protected MessageSource messageSource;
+	private MessageSource messageSource;
 		
 	private Class<T> t;
-	protected Map<String, PostFactory> postFactoriesMap;
-	
+		
 	@SuppressWarnings("unchecked")
 	public PostServiceImpl(PostDao<T> postDao) {
 		super();
@@ -58,11 +51,6 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 		this.postDao = postDao;
 	}
 	
-	@PostConstruct
-	private void init() {
-		postFactoriesMap = new HashMap<String, PostFactory>(3);
-		postFactoriesMap.put(ARTICLE_CLASS_NAME, articlePostFactory);
-	}
 	
 	@Override
 	public String getMessage(String code) {
@@ -109,23 +97,30 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 	public boolean delete(int id) {
 		return postDao.delete(id);
 	}
-
+	
+	@Override
+	public abstract CommitResult commitDelete(int id);
+	
 	@Override
 	public int countPostsByStatus(boolean isActive) {
 		return postDao.countPostsByActiveStatus(isActive);
 	}
 	
-	
-	//TODO umesto hardcodovanih poruka dohvati ih is resursa!
 	@Override
-	public String switchPostStatus(int id) {
+	public CommitResult switchPostStatus(int id) {
+		CommitResult commited = null;
 		int status = postDao.switchActiveStatus(id);
-		if(status == ArticleService.ACTIVE){
-			return "Uspesno ste publikovali Izdanje.";
+		if(status == ArticleService.ACTIVE) {
+			logger.info("Post uspesno postavljen kao aktivan.");
+			commited = new CommitResult(true, getMessage("post.status.changed.active"));
 		}else if(status == ArticleService.INACTIVE) {
-			return "Uspesno ste deaktivirali izdanje.";
-		}
-		return null;
+			logger.info("Post uspesno postavljen kao neaktivan.");
+			commited = new CommitResult(true, getMessage("post.status.changed.nonactive"));
+		} else {
+			logger.info("Greska prilikom promene statusa posta!");
+			commited = new CommitResult(false, getMessage("post.status.changed.failure"));
+		}	
+		return commited;
 	}
 	
 	@Override
@@ -142,22 +137,10 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 		}		
 		return slug;
 	}
-
-	@Override
-	public T processAndSavePostRequest(PostRequest postRequest) {
-		try { 
-			PostFactory factory = postFactoriesMap.get(t.getName());
-			@SuppressWarnings("unchecked")
-			T post = (T) factory.processPostRequest(postRequest);
-			return postDao.save(post);
-		} catch (Exception e) {
-			System.err.println("Neuspelo procesiranje postRequesta: "+e.getMessage());
-			return null;
-		}		
-	}
 	
 	@Override
 	public abstract T processAndSaveSubmittedPost(T post);
+	
 
 	@Override
 	public List<Tag> fatchPostFullTagList(T t) {
@@ -183,6 +166,24 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 	@Override
 	public List<Category> findAllCategories() {
 		return categoryDao.findAllCategories();
+	}
+	
+	@Override
+	public Category getDefaultCategory() {
+		return categoryDao.getDefaultCategory();
+	}
+	
+	@Override
+	public Model generateModelAttributesForPostsListing(Pagination pagination, String status, String authorSlug) {
+		Author author = null;		
+		boolean isActive = status != null && status.equals(ArticleService.ACTIVE_STATUS) ? true : false;
+		/* ako je prosledjen autor */
+		if(authorSlug != null)
+			author = authorDao.findAuthorBySlug(authorSlug);
+		/* kreira paginaciju */
+		PostFilter filter = new PostFilter(isActive, false, author);
+		
+		return null;
 	}
 	
 }

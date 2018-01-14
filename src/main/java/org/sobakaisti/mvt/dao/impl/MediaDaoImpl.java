@@ -3,8 +3,8 @@
  */
 package org.sobakaisti.mvt.dao.impl;
 
+import org.sobakaisti.mvt.dao.AbstractPostDao;
 import org.sobakaisti.mvt.dao.MediaDao;
-import org.sobakaisti.mvt.dao.PostDaoImpl;
 import org.sobakaisti.mvt.models.Media;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class MediaDaoImpl extends PostDaoImpl<Media> implements MediaDao {
+public class MediaDaoImpl extends AbstractPostDao<Media> implements MediaDao {
 	
 }

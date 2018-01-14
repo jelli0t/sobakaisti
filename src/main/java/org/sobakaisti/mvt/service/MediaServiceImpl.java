@@ -12,6 +12,7 @@ import org.sobakaisti.mvt.dao.MediaDao;
 import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
+import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -149,7 +150,15 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 		}
 		return post;
 	}
-	
-	
-	
+
+	@Override
+	public CommitResult commitDelete(int id) {
+		boolean deleted = this.delete(id);
+		String message = null;
+		if(deleted)
+			message = getMessage("media.delete.succesful");
+		else 
+			message = getMessage("media.delete.failure");
+		return new CommitResult(deleted, message);
+	}
 }

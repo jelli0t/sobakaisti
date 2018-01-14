@@ -11,6 +11,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.PublicationService;
+import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,13 +77,10 @@ public class PublicationsController {
 			
 	
 	@RequestMapping(value="/change_status/{id}", method=RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<String> switchPublicationStatus(@PathVariable("id") int id) {	
-		String message = publicationService.switchPostStatus(id);
-		if(message != null){
-			return new ResponseEntity<String>(message, HttpStatus.OK);
-		}		
-		return new ResponseEntity<String>("Greska promeni statusa.", HttpStatus.SERVICE_UNAVAILABLE);
+	public String switchPublicationStatus(@PathVariable("id") int id) {	
+		CommitResult commited = publicationService.switchPostStatus(id);
+		return String.format("commons/fragments :: commitResultFragment(commited='%s', message='%s')",
+				commited.isCommited(), commited.getCommitMessage());
 	}
 	
 	@RequestMapping(value="/slug/new", method=RequestMethod.PUT)
