@@ -62,8 +62,6 @@ public class DashboardController {
 	@Autowired
 	private PublicationService publicationService;
 	
-	@Autowired
-	private Validator validator;
 	private Pagination pagination;
 	
 	@ModelAttribute

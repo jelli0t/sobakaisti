@@ -5,7 +5,7 @@
 <section th:fragment="dash_sidebar" class="dash-sidebar">
 
 	<ul class="side-nav">
-		<li><a th:href="@{/sbk-admin/}">
+		<li><a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/}">
 			<span></span><span th:text="#{nav.item.dahboard}">Dashboard</span>
 			<span class="side-nav-item-arrow"></span>
 		</a></li>
@@ -15,19 +15,21 @@
 				<span class="side-nav-item-arrow rotateable"></span>
 			</a>
 			<ul class="side-sub-nav side-nav hidden">
-				<li><a th:href="@{/sbk-admin/articles}">
+				<li><a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles}">
 					<span th:text="#{nav.item.articles.all}">Svi članci</span></a>
 				</li>
 				<li>
-					<a th:href="@{/sbk-admin/articles/new}"><span th:text="#{nav.item.articles.new}">Novi članak</span></a>
+					<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles/new/}">
+						<span th:text="#{nav.item.articles.new}">Novi članak</span>
+					</a>
 				</li>
 			</ul>
 		</li>
-		<li id="nav-sobakaisti"><a th:href="@{/sbk-admin/sobakaisti}">
+		<li id="nav-sobakaisti"><a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/sobakaisti}">
 			<span></span><span th:text="#{nav.item.sobakaisti}">Sobakaisti</span><span class="side-nav-item-arrow"></span>
 		</a></li>
 		<li>
-			<a th:href="@{/sbk-admin/publications}">
+			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/publications}">
 				<span></span><span th:text="#{nav.item.publication}">Publications</span><span class="side-nav-item-arrow"></span>
 			</a>
 		</li>

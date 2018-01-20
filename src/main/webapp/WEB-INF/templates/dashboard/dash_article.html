@@ -11,7 +11,7 @@
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
 </section>
 
-<form th:action="@{/sbk-admin/article/submit}" id="new-post-form" name="new-post-form" 
+<form th:action="@{/__${#strings.defaultString(lang,'')}__sbk-admin/article/submit}" id="new-post-form" name="new-post-form" 
 	th:object="${article}" method="post" onkeypress="return event.keyCode != 13;">	
 	<div class="main-dash-content" th:with="article=${article}">
 		<div th:if="${article.commited != null}" class="commit-response-holder full-width" id="commit-result"
@@ -48,7 +48,7 @@
 					  <img th:src="@{/resources/img/icons/svg/calendar.svg}" height="14" title="Datum objavljivanja">
 					  <span>Dana:</span>
 					  <span th:text="${article?.postDate != null ? #calendars.format(article.postDate, 'dd.MMM.yyyy. HH:mm') : 'Trenutno'}">Trenutno</span>
-					 	<a href="javascript:void(0)" th:href="@{/sbk-admin/datetime/editor}" class="post-date-edit">
+					 	<a href="javascript:void(0)" th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/datetime/editor}" class="post-date-edit">
 							<input type="hidden" name="postDate" id="post-date-hidden"
 								   th:value="${#calendars.format((article?.postDate != null ? article.postDate : #calendars.createNow()), 'yyyy-MM-dd HH:mm:ss')}">
 						</a>					  
@@ -157,7 +157,7 @@
 			</div>
 			<div class="panel-element panel-body">
 				<!-- Input file button -->	
-				<a th:href="@{/sbk-admin/media/select(type=featured)}" class="show-media-lib bttn bttn-default">
+				<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/media/select(type=featured)}" class="show-media-lib bttn bttn-default">
 					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16"> 
 					<span th:text="#{button.label.upload.featuredImg}">Odaberi fotografiju</span>
 				</a>				
@@ -217,7 +217,7 @@
 	<a href="javascript:;" class="bttn-remove"><img alt="x" th:src="@{/resources/img/icons/cancel _white.svg}" width="8" height="8"/></a>				
 </div>	
 	
-<a th:href="@{/sbk-admin/articles/new/slug}" id="slug-href" style="display:none;"></a>
+<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles/new/slug}" id="slug-href" style="display:none;"></a>
 
 <!-- load content into tinyMCE -->
 <script th:inline="javascript">

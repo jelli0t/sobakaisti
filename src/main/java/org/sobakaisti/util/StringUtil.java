@@ -18,6 +18,21 @@ public class StringUtil {
 
 	public static final Set<Character> SPECIAL_CHARS = initializeSpecialCharSet();
 	public static final char[] UNFRIENDLY_CHARS = {'?', '&', '#', '!', '-', '%', '*', ':', ';', ',', '.', '+', '/', '@', '(', ')', '"'};
+	public static final String LANG_ATTRIBUTE_NAME = "lang";
+	public static final String LANG_CODE_RS = "rs";
+	public static final String LANG_CODE_EN = "en";
+	public static final String LANG_CODE_ES = "es";
+	public static final String LANG_CODE_DE = "de";
+	public static final String LANG_CODE_IT = "it";
+	public static final String LANG_CODE_FR = "fr";
+	public static final String LANG_CODE_RU = "ru";
+	public static final String LANG_CODE_CH = "ch";
+	public static final String[] LANG_CODES = {LANG_CODE_RS, LANG_CODE_EN, LANG_CODE_ES, LANG_CODE_DE, LANG_CODE_IT,
+			LANG_CODE_FR, LANG_CODE_RU, LANG_CODE_CH};
+	/* set default lang_code */
+	public static final String DEFAULT_LANG_CODE = LANG_CODE_RS;
+	
+	public static final char SLASH_CHAR = '\u002F';
 	
 	private static final String FILESYS_PATH_PREFIX = "file:";
 	
@@ -235,6 +250,11 @@ public class StringUtil {
 		serbianChars.put('\u0161', 's');
 		serbianChars.put('\u017E', 'z');		
 		return serbianChars;
+	}
+	
+	
+	public static boolean notEmpty(String string) {	
+		return (string != null && string.length() > 0);		
 	}
 	
 }

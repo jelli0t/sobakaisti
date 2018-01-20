@@ -2,6 +2,7 @@ package org.sobakaisti.mvt;
 
 import java.util.Locale;
 
+import org.sobakaisti.app.PathLocaleChangeInterceptor;
 import org.sobakaisti.mvt.service.MediaService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -57,6 +59,11 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 		System.out.println("File: "+imgUploadsFilePath);
 		registry.addResourceHandler("/resources/**", "/uploads/images/**")
 				.addResourceLocations("/resources/", imgUploadsFilePath);
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new PathLocaleChangeInterceptor());
 	}
 
 	@Bean

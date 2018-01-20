@@ -25,4 +25,9 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		// TODO Auto-generated method stub
 		return new String[] { "/" };
 	}
+	
+	@Override
+	protected Filter[] getServletFilters() {
+		 return new Filter[] { new PathVariableLocaleFilter() };
+	}
 }
