@@ -130,7 +130,7 @@ public class MediaServiceImpl extends PostServiceImpl<Media> implements MediaSer
 			post.setSize(mediaFile.getSize());
 			/* defaults */
 			post.setActive(1);			
-			post.setLang("rs");
+			post.setLang(getPostLanguage());
 			logger.info("Kreiran objekat Media: "+post);
 			
 			boolean uploaded = uploadMediaToFileSystem(mediaFile, post.getFileName());

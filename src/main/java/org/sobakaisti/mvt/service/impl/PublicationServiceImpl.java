@@ -125,7 +125,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication> impleme
 				post.setFeaturedImage(featuredImageMedia);
 			}
 			/* set language*/
-			post.setLang("rs");
+			post.setLang(getPostLanguage());
 			logger.info("Cuvam: "+post);
 			Publication result = publicationDao.saveOrUpdate(post);
 			if (result != null) {

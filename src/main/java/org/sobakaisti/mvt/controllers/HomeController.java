@@ -28,24 +28,20 @@ public class HomeController {
 	private ArticleService articleService;
 	
 	@RequestMapping(value="/")
-	public String displayHome(){
-		
+	public String displayHome(){		
 		return "intro";  // home
 	}
 	
-	@RequestMapping(value="/{lang}/movement", method=RequestMethod.GET )
-	public String showMovementHome(@PathVariable("lang") String lang,
-			HttpServletRequest request, HttpServletResponse response){
-		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
-		localeResolver.setLocale(request, response, new Locale(lang));
+	@RequestMapping(value="/movement", method=RequestMethod.GET )
+	public String showMovementHome() {
 		return "mvt_intro";
-	}	
+	}
 	
-	@RequestMapping(value="/{lang}/movement/load_background", method=RequestMethod.GET)
+	@RequestMapping(value="/movement/load_background", method=RequestMethod.GET)
 	public String loadIntroBackground(@RequestParam("width") int width, 
 										@RequestParam("height") int height, 
-										@RequestParam("charWidth") double charWidth, 
-										@PathVariable("lang") String lang, Model model) {
+										@RequestParam("charWidth") double charWidth, Model model) {
+		String lang = articleService.getPostLanguage();
 		List<String> rows = articleService.getRowsFromArticleWithDimension(width, height, charWidth, lang);
 		model.addAttribute("backgroundLines", rows);
 		

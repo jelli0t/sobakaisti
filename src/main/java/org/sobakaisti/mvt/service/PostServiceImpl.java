@@ -16,12 +16,13 @@ import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
-import org.sobakaisti.mvt.service.impl.ArticleServiceImpl;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
+import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -54,7 +55,13 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 	
 	@Override
 	public String getMessage(String code) {
-		return messageSource.getMessage(code, null, new Locale("rs"));
+		return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
+	}
+	
+	@Override
+	public String getPostLanguage() {
+		Locale locale = LocaleContextHolder.getLocale();		
+		return locale != null ? locale.getLanguage() : StringUtil.DEFAULT_LANG_CODE;
 	}
 	
 	@Override

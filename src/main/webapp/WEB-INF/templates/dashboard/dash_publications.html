@@ -16,20 +16,20 @@
 	<div class="listing-container">
 		<!-- Top tool bar -->
 		<div class="listing-tools">
-			<a th:href="@{/sbk-admin/publication}" class="bttn bttn-primary fright">New publication</a>
+			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/publication}" class="bttn bttn-primary fright">New publication</a>
 		</div>
 	
 		<!-- Listing header -->
 		<div class="listing-header">			
 			<div class="td">
 				<!-- Broj aktivnih izdanja -->
-				<a th:href="@{/sbk-admin/publications/status/active}" class="show-active-item" th:classappend="${isActive} ? selected-link : ''">
+				<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/publications/status/active}" class="show-active-item" th:classappend="${isActive} ? selected-link : ''">
 					<img alt="status" th:src="@{'/resources/img/icons/active-1.svg'}" width="14" height="14" class="article-status-icon">
 					<span th:text="${activeCount}"></span>
 					<span>aktivnih</span>
 				</a>
 				<!-- Broj neaktivnih izdanja -->
-				<a th:href="@{/sbk-admin/publications/status/nonactive}" class="show-active-item" th:classappend="${!isActive} ? selected-link : ''">
+				<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/publications/status/nonactive}" class="show-active-item" th:classappend="${!isActive} ? selected-link : ''">
 					<img alt="status" th:src="@{'/resources/img/icons/active-0.svg'}" width="14" height="14" class="article-status-icon">
 					<span th:text="${nonActiveCount}"></span>
 					<span>neaktivnih</span>
@@ -53,13 +53,13 @@
 							</div>
 							<!-- select body -->  
 							<ul class="select-menu-list">								
-									<li th:each="author : ${authors}" class="select-menu-item">
-										<a th:href="@{/sbk-admin/publications/by/{slug}(slug=${author.slug})}">
-										<span class="circle circle-tiny" 
-											th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
-										<span th:text="${author.firstName +' '+ author.lastName}"></span>
-										</a>
-									</li>
+								<li th:each="author : ${authors}" class="select-menu-item">
+									<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/publications/by/{slug}(slug=${author.slug})}">
+									<span class="circle circle-tiny" 
+										th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti</span>
+									<span th:text="${author.firstName +' '+ author.lastName}"></span>
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>					
@@ -78,9 +78,8 @@
 					</a>
 				</div>
 				<div class="item-main-td fleft td">
-					<a th:href="@{/publications/{slug}(slug=${pbl.slug})}" class="clickable-title" 
-						th:text="${pbl.title}" th:title="${pbl.title}" th:alt="${pbl.title}"></a>
-					
+					<a th:href="@{/__${#strings.defaultString(lang,'')}__publications/{slug}(slug=${pbl.slug})}" class="clickable-title" 
+						th:text="${pbl.title}" th:title="${pbl.title}" th:alt="${pbl.title}"></a>					
 					
 					<div class="item-main-subdiv td" th:with="author=${pbl.author}">
 						<span th:text="#{label.publishedBy}">Objavljeno</span>
@@ -88,7 +87,7 @@
 <!-- 							th:text="${#strings.substring(author.firstName,0,1)}+${#strings.substring(author.lastName,0,1)}">Sobakaisti
 							</span> -->
 						<span>
-							<a th:href="@{/publications/by/{slug}(slug=${author.slug})}" 
+							<a th:href="@{/__${#strings.defaultString(lang,'')}__publications/by/{slug}(slug=${author.slug})}" 
 								th:text="${author.firstName + ' ' + author.lastName}" class="clickable-author">Sobakaisti</a>
 						</span>
 						<span th:text="#{label.onDay}">dana</span>
@@ -98,12 +97,12 @@
 				<!-- tags -->
 				<div class="td">
 					<span th:each="tag, tagStat : ${pbl.tags}" class="label tag" th:unless="${tagStat.index} > 3" th:with="slug=${tag.slug}">
-						<a th:href="@{/tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
+						<a th:href="@{/__${#strings.defaultString(lang,'')}__tag/{slug}(slug=${slug})}" class="" th:text="${tag.tag}"></a>
 					</span>
 				</div>
 				<!-- tools -->
 				<div class="item-tools-td td fright">
-					<a th:href="@{/publications/edit/{id}(id=${pbl.id})}" class="edit-item item-tool"
+					<a th:href="@{/__${#strings.defaultString(lang,'')}__publications/edit/{id}(id=${pbl.id})}" class="edit-item item-tool"
 						th:title="#{tool.label.edit}" th:alt="${pbl.id}">
 <!-- 								<img alt="Pokret" th:src="@{/resources/img/icons/pencil.svg}" height="15"> -->
 						</a>
@@ -127,13 +126,13 @@
 		<div class="listing-footer">
 			<!-- pagination container -->
 			<div class="pagination" th:if="${pagination != null && pagination.maxPages > 1}">
-				<a th:href="@{/sbk-admin/articles/{page}(page=${pagination.currentPage - 1})}" class="prev-page-link page-link" 
+				<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles/{page}(page=${pagination.currentPage - 1})}" class="prev-page-link page-link" 
 					th:classappend="${pagination.currentPage > 1} ? '' : disabled-link">Prethodna</a>
 					
-				<a th:each="page : ${#numbers.sequence(1, pagination.maxPages)}" th:href="@{/sbk-admin/articles/{page}(page=${page})}" 
+				<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles/{page}(page=${page})}" th:each="page : ${#numbers.sequence(1, pagination.maxPages)}" 
 					th:text="${page}" class="page-link" th:classappend="${pagination.currentPage == page} ? selected-link : ''"></a>
 					
-				<a th:href="@{/sbk-admin/articles/{page}(page=${pagination.currentPage + 1})}" class="next-page-link page-link" 
+				<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles/{page}(page=${pagination.currentPage + 1})}" class="next-page-link page-link" 
 					th:classappend="${pagination.currentPage == pagination.maxPages} ? disabled-link : ''">Sledeca</a>
 			</div>
 		</div>

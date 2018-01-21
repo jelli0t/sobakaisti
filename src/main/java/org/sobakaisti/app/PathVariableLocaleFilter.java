@@ -33,7 +33,8 @@ public class PathVariableLocaleFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		final String uri = request.getRequestURI().substring(request.getContextPath().length());
-		String[] pathVariables = uri.split("/", 3);		
+		String[] pathVariables = uri.split("/", 3);
+		logger.info("URI: "+uri);
 		
 		if(pathVariables != null && pathVariables.length > 1 && !pathVariables[1].equals("resources")) {
 			String reducedURI = "/";

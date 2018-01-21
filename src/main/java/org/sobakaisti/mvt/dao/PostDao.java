@@ -6,6 +6,7 @@ package org.sobakaisti.mvt.dao;
 import java.util.List;
 
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.IntroPost;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
@@ -102,5 +103,6 @@ public interface PostDao<T extends Post> {
 
 	
 
+	public IntroPost getIntroBackgroundPost();
 	
 }

@@ -6,6 +6,7 @@ package org.sobakaisti.mvt.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,11 +14,13 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.IntroPost;
 import org.sobakaisti.mvt.models.Post;
-import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
+import org.sobakaisti.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +45,11 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	protected Session currentSession() {
         return sessionFactory.getCurrentSession();
     }
+	
+	protected String getPostLanguage() {
+		Locale locale = LocaleContextHolder.getLocale();		
+		return locale != null ? locale.getLanguage() : StringUtil.DEFAULT_LANG_CODE;
+	}
 	
 	@Override
 	@Transactional
@@ -96,9 +104,15 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	@Transactional
 	public List<T> findAllPostsByActiveStatus(int status) {
 		String HQL = "from "+entity.getName()+" t where t.postDate is not null" 
-					+" and t.active = :status order by date(t.postDate) desc, t.id desc";	
+					+" and t.active = :status"
+					+ (StringUtil.notEmpty(getPostLanguage()) ? " and lang = :lang" : "")
+					+ " order by date(t.postDate) desc, t.id desc";	
 		try {
-			List<T> posts = currentSession().createQuery(HQL).setInteger("status", status).list();
+			Query query = currentSession().createQuery(HQL);
+			query.setInteger("status", status);
+			if(StringUtil.notEmpty(getPostLanguage())) 
+					query.setString("lang", getPostLanguage());
+			List<T> posts = query.list();
 			logger.info("Pronsao listu od "+posts.size()+" clanaka sa statusom: "+status);
 			return posts;
 		} catch (Exception e) {
@@ -144,11 +158,15 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 				+(filter.isActive() ? " and t.active = 1" : " and t.active = 0")
 				+(filter.isNonactiveInlude() ? " or t.active = 0" : "") 
 				+(filter.hasAuthor() ? " and t.author = :author" : "")
+				+ (StringUtil.notEmpty(getPostLanguage()) ? " and lang = :lang" : "")
 				+" order by date(t.postDate) desc, t.id desc";
 		try {
 			Query query = currentSession().createQuery(HQL);
 			if(filter.hasAuthor())
 				query.setParameter("author", filter.getAuthor());
+			/* dodaj jezik u query */
+			if(StringUtil.notEmpty(getPostLanguage())) 
+				query.setString("lang", getPostLanguage());
 			Long count = (Long) query.uniqueResult();
 			pagination.setMaxItems(count.intValue());
 			logger.info("Ima ukupno "+count.longValue()+" postova");
@@ -163,14 +181,19 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	public List<T> findPostsSortedByDate(Pagination pagination, PostFilter filter) {
 		List<T> posts;
 		String HQL = "from "+entity.getName()+" t where t.postDate is not null" 
-					 +(filter.isActive() ? " and t.active = 1" : " and t.active = 0")
-					 +(filter.isNonactiveInlude() ? " or t.active = 0" : "")
-					 +(filter.hasAuthor() ? " and t.author = :author" : "")
-					 +" order by date(t.postDate) desc, t.id desc";
+					 + (filter.isActive() ? " and t.active = 1" : " and t.active = 0")
+					 + (filter.isNonactiveInlude() ? " or t.active = 0" : "")
+					 + (filter.hasAuthor() ? " and t.author = :author" : "")
+					 + (StringUtil.notEmpty(getPostLanguage()) ? " and lang = :lang" : "")
+					 + " order by date(t.postDate) desc, t.id desc";
 		try {
 			Query query = currentSession().createQuery(HQL);
+			/* dodaj autora u query */
 			if(filter.hasAuthor())
 				query.setParameter("author", filter.getAuthor());
+			/* dodaj jezik u query */
+			if(StringUtil.notEmpty(getPostLanguage())) 
+				query.setString("lang", getPostLanguage());
 			posts = query.setFirstResult(pagination.getInitialItem())
 							.setMaxResults(pagination.getItemsPerPage())
 							.list();
@@ -248,6 +271,25 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 		} catch (Exception e) {
 			logger.error("Greska pri brisanju posta. Uzrok: "+e.getMessage());
 			return false;
+		}		
+	}
+	
+	@Override
+	@Transactional
+	public IntroPost getIntroBackgroundPost() {
+		String hql = "select ip from IntroPost ip where lang = :lang";
+		IntroPost intro = null;
+		try {
+			intro = (IntroPost) currentSession().createQuery(hql).setString("lang", getPostLanguage())
+												.setMaxResults(1).uniqueResult();
+			if(intro == null) {
+				intro = (IntroPost) currentSession().createQuery(hql).setString("lang", StringUtil.DEFAULT_LANG_CODE)
+												.setMaxResults(1).uniqueResult();
+			}
+			return intro;
+		} catch (Exception e) {
+			logger.error("Greska pri dohvatanju intro pozadine. Uzrok: "+e.getMessage());
+			return null;
 		}		
 	}
 }

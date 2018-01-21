@@ -6,6 +6,7 @@ package org.sobakaisti.mvt.controllers;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -140,7 +141,7 @@ public class DashboardController {
 	
 	@RequestMapping(value="/article/submit", method=RequestMethod.POST)
 	public String submitArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult, 
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, Locale locale) {
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.article", bindingResult);
@@ -151,8 +152,8 @@ public class DashboardController {
 			Article posted = articleService.processAndSaveSubmittedPost(article);
 			redirectAttributes.addFlashAttribute("article", posted);
 			logger.info("Uspesno publikovan: "+article);
-		}		
-		return "redirect:/sbk-admin/articles/new";		
+		}
+		return String.format("redirect:/%ssbk-admin/articles/new", locale != null ? (locale.getLanguage()+"/") : "");		
 	}
 	
 	

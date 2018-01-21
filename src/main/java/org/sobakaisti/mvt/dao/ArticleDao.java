@@ -18,19 +18,6 @@ import org.sobakaisti.util.PostFilter;
 public interface ArticleDao extends PostDao<Article> {
 	
 	public static final String INTRO_ARTICLE_SLUG = "manifesto";
-
-	/**
-	 * Metoda vraca clanak na onovu prosledjenog lang koda.
-	 * @param langCode	Kod jezika (rs, en, it, fr...)
-	 * */
-	public String getintroArticleByLanguage(String langCode);
-	
-	/**
-	 * Vraca sam sadrzaj clanka koji sluzi kao pozadina intro animacije
-	 * prosledjujemo languag code
-	 * @param langCode
-	 * */
-	public String findIntroArticle(String langCode);
 	
 	public List<Article> getArticlesSortedByDate(Pagination pagination, PostFilter filter);
 	
@@ -89,10 +76,5 @@ public interface ArticleDao extends PostDao<Article> {
 	 * */
 	public List<Article> findNextAndPreviousArticle(Article article);
 	
-	/**
-	 * Formira objekat za paginaciju
-	 * @param pagination
-	 * @param filter
-	 * */
-	public Pagination createPostPagination(Pagination pagination, PostFilter filter);
+	
 }

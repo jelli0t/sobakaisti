@@ -11,8 +11,6 @@ import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.IntroArticle;
-import org.sobakaisti.mvt.service.impl.ArticleServiceImpl;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.stereotype.Repository;
@@ -21,38 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleDao {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleDaoImpl.class);
-
-	@Override
-	@Transactional
-	public String getintroArticleByLanguage(String langCode) {
-		String HQL = "FROM IntroArticle ia WHERE ia.lang=:langCode";
-		IntroArticle article = (IntroArticle) currentSession().createQuery(HQL).setString("langCode", langCode).uniqueResult();
-		String content = article.getContent();
-		if(content != null){
-			return content;
-		}else{
-			return "";
-		}
-	}
-	
-	@Override
-	@Transactional
-	public String findIntroArticle(String langCode) {
-		String HQL = "FROM Article a WHERE a.slug = :slug and a.lang=:langCode";
-		try {
-			Article introArticle = (Article) currentSession().createQuery(HQL)
-									.setString("slug", ArticleDao.INTRO_ARTICLE_SLUG)
-									.setString("langCode", langCode)
-									.uniqueResult();
-			if(introArticle != null) {
-				return introArticle.getContent();
-			}
-		} catch (Exception e) {
-			return null;
-		}
-		return null;
-	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -81,27 +47,6 @@ public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleD
 		return articles;
 	}
 	
-	
-	@Override
-	@Transactional
-	public Pagination createPostPagination(Pagination pagination, PostFilter filter) {
-		String HQL = "select count(a) from Article a where a.postDate is not null"
-					+(filter.isActive() ? " and a.active = 1" : " and a.active = 0")
-					+(filter.isNonactiveInlude() ? " or a.active = 0" : "") 
-					+(filter.hasAuthor() ? " and a.author = :author" : "")
-					+" order by date(a.postDate) desc, a.id desc";
-		try {
-			Query query = currentSession().createQuery(HQL);
-			if(filter.hasAuthor())
-				query.setParameter("author", filter.getAuthor());
-			Long count = (Long) query.uniqueResult();
-			pagination.setMaxItems(count.intValue());
-			System.out.println("Ima ukupno "+count.longValue()+" postova");
-		} catch (Exception e) {
-			System.err.println("Greska pri brojanju postova! "+e.getMessage());
-		}
-		return pagination;
-	}
 
 	//TODO napravi metodu univerzalnom i podigni je u superklasu
 	@Deprecated

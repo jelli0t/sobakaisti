@@ -25,7 +25,6 @@ import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
-import org.sobakaisti.mvt.service.TagService;
 import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
@@ -34,7 +33,6 @@ import org.sobakaisti.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -72,7 +70,8 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 	public List<String> getRowsFromArticleWithDimension(int width, int height, double charWidth, String lang) {
 		charsPerRow = (int) Math.floor(width / charWidth);
 		rowsPerPage = (int) Math.floor(height / LINE_HEIGHT);
-		String content = articleDao.getintroArticleByLanguage(lang);
+		
+		String content = articleDao.getIntroBackgroundPost().getContent();
 		int length = content.length();
 		charsToFill = (int) (charsPerRow - Math.ceil(length % charsPerRow));
 		
@@ -153,7 +152,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 	
 	@Override
 	public List<Article> getArticlesOrderByDate(Pagination pagination, PostFilter filter) {
-		return articleDao.getArticlesSortedByDate(pagination, filter);
+		return articleDao.findPostsSortedByDate(pagination, filter);
 	}
 
 	@Override
@@ -332,7 +331,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 				post.setFeaturedImage(featuredImageMedia);
 			}
 			/* set language*/
-			post.setLang("rs");
+			post.setLang(getPostLanguage());
 			logger.info("Cuvam: "+post);
 			Article result = articleDao.saveOrUpdate(post);
 			if (result != null) {

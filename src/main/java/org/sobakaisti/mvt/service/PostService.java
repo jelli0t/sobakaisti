@@ -132,4 +132,10 @@ public interface PostService<T extends Post> {
 	 * Dohvata podrazumevanu kategoriju
 	 * */
 	Category getDefaultCategory();
+
+	/**
+	 * iz LocaleContexHolder-a dohvata locale i uzima
+	 * language kod i vraca ga kao string.
+	 * */
+	String getPostLanguage();
 }
