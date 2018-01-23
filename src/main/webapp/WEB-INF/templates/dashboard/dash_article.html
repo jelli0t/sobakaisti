@@ -7,9 +7,10 @@
 <body>
 <!-- Top header of dashboard section -->
 <header th:replace="~{commons/dash_header :: dash_header}"></header>
+<!-- Sidebar -->
+<section th:replace="~{commons/dash_sidebar :: dash_sidebar}"></section>
 
-<section th:replace="~{commons/dash_sidebar :: dash_sidebar}">
-</section>
+<th:block th:if="${article != null}" th:include="~{commons/dash_header :: languageNavFragment}"></th:block>
 
 <form th:action="@{/__${#strings.defaultString(lang,'')}__sbk-admin/article/submit}" id="new-post-form" name="new-post-form" 
 	th:object="${article}" method="post" onkeypress="return event.keyCode != 13;">	

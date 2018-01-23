@@ -340,4 +340,32 @@
 		</div>			
 	</th:block>
 	
+	
+	
+	
+	<div th:fragment="translationFormFragment">
+		<!-- Left content -->
+		<div class="left-container">
+			<div class="form-tr">
+				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" id="publication-title" 
+					class="title-input full-width"  th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field' : ''" 
+					th:value="${article?.title}">
+				<!-- validation error message -->
+				<div class="validation-error" th:errors="*{title}"></div>	
+				<!-- link preview -->
+				<div class="post-path-container">
+					<span class="post-path path-label">Putanja na radovima: </span>
+					<span class="post-path path-static">http://sobakaisti.org/art/</span>
+					<span class="post-path path-slug">
+						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" th:value="${article?.slug}" readonly>
+					</span>
+				</div>
+			</div>			
+			<!-- contet textarea -->	
+			<div class="article-input-wrapper form-tr">
+				<textarea name="content" id="article-content" th:field="*{content}"></textarea>
+			</div>
+		</div>
+	</div>
+	
 </html>
