@@ -23,12 +23,48 @@ ul {
 	padding: 0; 
 	box-sizing: border-box;
 	}
-.fleft {
-	float: left !important;
+
+/* Basic Flax Layout */
+.flex-container {
+	background-color: #fffabe;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-webkit-flex-flow: row wrap;
+	flex-flow: row wrap;
+
+	-webkit-align-items: stretch;
+	align-items: stretch;
 }
-.fright {
-	float: right !important;
+.flex-container > header, 
+.flex-container > footer {
+	-webkit-flex: 1 100%;
+	flex: 1 100%;
+	background: #d2e9b9;
 }
+.flex-container > main {
+	background: #96bbde;
+	-webkit-flex: 2 0px;
+	flex: 2 0px;
+	-webkit-order: 2;
+	order: 2;
+}
+.flex-container > aside {
+	background: #e4c5a8;
+	-webkit-order: 1;
+	order: 1;
+}
+.flex-container > footer {
+	-webkit-order: 3;
+	order: 3;
+}
+/* End of Flex Layout */
+
+.fleft { float: left !important; }
+.fright { float: right !important; }
 
 .icon::BEFORE {
 	font-family: 'Pe-icon-7-stroke';
