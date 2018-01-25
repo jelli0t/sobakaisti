@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"></head>
 
-<section th:fragment="dash_sidebar" class="dash-sidebar">
-
+	
+	
+<aside th:fragment="dash_sidebar" class="dash-sidebar">
 	<ul class="side-nav">
 		<li><a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/}">
 			<span></span><span th:text="#{nav.item.dahboard}">Dashboard</span>
@@ -33,8 +34,8 @@
 				<span></span><span th:text="#{nav.item.publication}">Publications</span><span class="side-nav-item-arrow"></span>
 			</a>
 		</li>
-	</ul>
+	</ul>	
+</aside>
 	
-</section>
 
 </html>
