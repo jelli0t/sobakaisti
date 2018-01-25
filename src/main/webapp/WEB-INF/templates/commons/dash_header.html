@@ -1,8 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"></head>
+
+<!-- Header for Admin panel -->
 <header th:fragment="dash_header" class="dash-topbar">
 	<div class="response-message"></div>
 </header>
+
 <div th:fragment="dash_breadcrumbs(li)" class="dash-breadcrumbs">
 	<ul class="breadcrumb">
 		<li><a th:href="@{/sbk-admin}">Početak</a></li>
