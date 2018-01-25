@@ -2,15 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="commons/dash_head :: dash_head(~{::title})">
-	<title>Article | Sobakaisti</title>	
+	<title th:text="${#strings.isEmpty(article?.title) ? #messages.msg(label.newArticle) : article.title}">Article | Dashboard</title>	
 </head>
-<body>
+<body class="flex-container">
+	
 <!-- Top header of dashboard section -->
 <header th:replace="~{commons/dash_header :: dash_header}"></header>
-<!-- Sidebar -->
-<section th:replace="~{commons/dash_sidebar :: dash_sidebar}"></section>
 
-<th:block th:if="${article != null}" th:include="~{commons/dash_header :: languageNavFragment}"></th:block>
+<!-- Sidebar -->
+<aside th:replace="~{commons/dash_sidebar :: dash_sidebar}"></aside>
+
+<!-- Main -->	
+<main>
+	<!-- Lang Nav -->
+	<th:block th:if="${article != null}" th:include="~{commons/dash_header :: languageNavFragment}"></th:block>
+	<section id="editable-body-holder">
+	</section>
+</main>
 
 <form th:action="@{/__${#strings.defaultString(lang,'')}__sbk-admin/article/submit}" id="new-post-form" name="new-post-form" 
 	th:object="${article}" method="post" onkeypress="return event.keyCode != 13;">	
