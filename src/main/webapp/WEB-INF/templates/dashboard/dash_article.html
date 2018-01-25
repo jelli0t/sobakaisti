@@ -14,8 +14,10 @@
 
 <!-- Main -->	
 <main>
-	<!-- Lang Nav -->
-	<th:block th:if="${article != null}" th:include="~{commons/dash_header :: languageNavFragment}"></th:block>
+	<div>
+		<!-- Lang Nav -->
+		<th:block th:if="${article != null}" th:include="~{commons/dash_header :: languageNavFragment}"></th:block>
+	</div>	
 	<section id="editable-body-holder">
 	</section>
 </main>
