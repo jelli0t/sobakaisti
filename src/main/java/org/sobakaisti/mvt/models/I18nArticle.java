@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.sobakaisti.mvt.i18n;
+package org.sobakaisti.mvt.models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,8 +15,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
-import org.sobakaisti.mvt.models.Article;
 
 /**
  * @author jelli0t

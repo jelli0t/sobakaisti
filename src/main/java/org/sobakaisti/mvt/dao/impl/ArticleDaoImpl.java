@@ -1,6 +1,7 @@
 package org.sobakaisti.mvt.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -11,6 +12,7 @@ import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.stereotype.Repository;
@@ -250,6 +252,29 @@ public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleD
 		bothArticles.add(0, nextArticle);
 		bothArticles.add(1, previousArticle);
 		return bothArticles;
+	}
+
+
+	@Override
+	@Transactional
+	public Article getTranslatedPost(String slug, String lang) {
+//		int id, String title, String slug, Calendar postDate, String lang, int active, Author author, String content, Media featuredImage
+//		String HQL = "select new Article(a.id, a.title, a.slug, a.postDate, a.lang, a.active, a.author, a.content, a.featuredImage)"
+//				+ " from Article a"
+//				+ " where a.slug = :slug and a.lang = :lang";
+		
+		String HQL = "select new Article(a.id, a.title) from Article a where a.slug = :slug and a.lang = :lang";
+		try {
+			System.out.println(currentSession().createQuery(HQL).getQueryString());
+			
+			Article i18nArticle = (Article) currentSession().createQuery(HQL).setString("slug", slug)
+					.setString("lang", lang).setMaxResults(1).uniqueResult();
+			logger.info("Preveden "+ i18nArticle);
+			return i18nArticle;
+		} catch (Exception e) {
+			logger.warn("Greska pri dohvatanju prevoda articlea! "+e.getMessage());
+			return null;
+		}		
 	}
 	
 	

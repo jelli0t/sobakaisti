@@ -15,6 +15,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PublicationDaoImpl extends AbstractPostDao<Publication> implements PublicationDao {
 
+	@Override
+	public Publication getTranslatedPost(String slug, String lang) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 		
 }

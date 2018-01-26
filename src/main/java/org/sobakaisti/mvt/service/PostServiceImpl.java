@@ -193,4 +193,17 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 		return null;
 	}
 	
+	@Override
+	public T getTranslatedPost(String slug, String lang) {
+		T t = null;
+		if(StringUtil.notEmpty(slug)) {
+			logger.info("Za slug '"+slug+"' trazim post na jeziki: "+lang);
+			if(lang.equals(StringUtil.DEFAULT_LANG_CODE)) {
+				t = postDao.findBySlug(slug);
+			} else {
+				t = postDao.getTranslatedPost(slug, lang);
+			}
+		}
+		return t;
+	}
 }

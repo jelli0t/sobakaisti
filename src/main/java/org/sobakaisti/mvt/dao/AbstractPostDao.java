@@ -292,4 +292,7 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 			return null;
 		}		
 	}
+	
+	@Override
+	public abstract T getTranslatedPost(String slug, String lang);
 }

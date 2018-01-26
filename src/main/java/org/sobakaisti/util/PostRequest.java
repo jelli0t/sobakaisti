@@ -29,9 +29,7 @@ public class PostRequest extends Post{
 	private MediaType mediaType;
 	
 	/* default constructor */
-	public PostRequest() {
-		super();
-	}
+	public PostRequest() {}
 	
 	/* MultipartFile instance constructor */
 	public PostRequest(MultipartFile media) {

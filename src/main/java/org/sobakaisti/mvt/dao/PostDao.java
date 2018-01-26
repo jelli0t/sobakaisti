@@ -104,5 +104,11 @@ public interface PostDao<T extends Post> {
 	
 
 	public IntroPost getIntroBackgroundPost();
+
+	/**
+	 * Dohvata prevedeni post na osnovu slua -a
+	 * za zadati jezika
+	 * */
+	public T getTranslatedPost(String slug, String lang);
 	
 }

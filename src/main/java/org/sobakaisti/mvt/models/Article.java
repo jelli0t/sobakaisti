@@ -1,5 +1,6 @@
 package org.sobakaisti.mvt.models;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,8 +16,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="article")
-public class Article extends Post {	
-	
+public class Article extends Post {		
+
 	@Lob
 	@Column(name="content")
 	private String content;
@@ -56,6 +57,22 @@ public class Article extends Post {
         targetEntity = Media.class)
 	@JoinColumn(name="featured_img_id")
 	private Media featuredImage;
+	
+	public Article() {}
+	
+	// TODO just test
+	public Article(int id, String title) {
+		setId(id);
+		setTitle(title);
+		System.out.println("new Article, id:"+id+"; title:"+title);
+	}
+
+	public Article(int id, String title, String slug, Calendar postDate, String lang, int active, Author author, 
+			String content, Media featuredImage) {
+		super(id, title, slug, postDate, lang, active, author);
+		this.content = content;
+		this.featuredImage = featuredImage;
+	}	
 	
 	public String getContent() {
 		return content;

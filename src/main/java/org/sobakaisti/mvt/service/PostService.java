@@ -138,4 +138,6 @@ public interface PostService<T extends Post> {
 	 * language kod i vraca ga kao string.
 	 * */
 	String getPostLanguage();
+	
+	public T getTranslatedPost(String slug, String lang);
 }

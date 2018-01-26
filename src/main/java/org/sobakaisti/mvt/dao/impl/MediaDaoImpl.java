@@ -14,5 +14,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MediaDaoImpl extends AbstractPostDao<Media> implements MediaDao {
+
+	@Override
+	public Media getTranslatedPost(String slug, String lang) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

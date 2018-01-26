@@ -128,6 +128,9 @@ public class DashboardController {
 	
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
 	public String createNewArticle(Model model){
+		
+		Article i18nArticle = articleService.getTranslatedPost("manifesto", StringUtil.LANG_CODE_EN);
+		logger.info(i18nArticle.toString());
 				
 		if(!model.containsAttribute("article")) {
 			model.addAttribute("article", new Article());
