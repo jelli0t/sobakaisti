@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.dao;
 
 import java.util.List;
 
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.IntroPost;
 import org.sobakaisti.mvt.models.Post;
@@ -15,7 +16,7 @@ import org.sobakaisti.util.PostFilter;
  * @author jelli0t
  * 
  */
-public interface PostDao<T extends Post> {
+public interface PostDao<T extends Post, I extends I18nPost> {
 	
 	/**
 	 * Pronalazi post po id
@@ -104,11 +105,13 @@ public interface PostDao<T extends Post> {
 	
 
 	public IntroPost getIntroBackgroundPost();
-
+	
 	/**
 	 * Dohvata prevedeni post na osnovu slua -a
 	 * za zadati jezika
 	 * */
-	public T getTranslatedPost(String slug, String lang);
+	public T getTranslatedPostBySlug(String slug, String lang);
+	
+	public T getTranslatedPostById(int id, String lang);
 	
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.dao.PostDao;
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
@@ -27,10 +28,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 @Service
-public abstract class PostServiceImpl<T extends Post> implements PostService<T> {
+public abstract class PostServiceImpl<T extends Post, I extends I18nPost> implements PostService<T> {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PostServiceImpl.class);
-	private PostDao<T> postDao;
+	private PostDao<T, I> postDao;
 	
 	@Autowired
 	protected AuthorDao authorDao;
@@ -46,7 +47,7 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 	private Class<T> t;
 		
 	@SuppressWarnings("unchecked")
-	public PostServiceImpl(PostDao<T> postDao) {
+	public PostServiceImpl(PostDao<T, I> postDao) {
 		super();
 		this.t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		this.postDao = postDao;
@@ -201,7 +202,7 @@ public abstract class PostServiceImpl<T extends Post> implements PostService<T> 
 			if(lang.equals(StringUtil.DEFAULT_LANG_CODE)) {
 				t = postDao.findBySlug(slug);
 			} else {
-				t = postDao.getTranslatedPost(slug, lang);
+				t = postDao.getTranslatedPostBySlug(slug, lang);
 			}
 		}
 		return t;

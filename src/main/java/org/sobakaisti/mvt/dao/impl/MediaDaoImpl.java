@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.dao.impl;
 
 import org.sobakaisti.mvt.dao.AbstractPostDao;
 import org.sobakaisti.mvt.dao.MediaDao;
+import org.sobakaisti.mvt.i18n.model.I18nMedia;
 import org.sobakaisti.mvt.models.Media;
 import org.springframework.stereotype.Repository;
 
@@ -13,12 +14,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class MediaDaoImpl extends AbstractPostDao<Media> implements MediaDao {
+public class MediaDaoImpl extends AbstractPostDao<Media, I18nMedia> implements MediaDao {
 
-	@Override
-	public Media getTranslatedPost(String slug, String lang) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }

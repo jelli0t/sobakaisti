@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.IntroPost;
 import org.sobakaisti.mvt.models.Post;
@@ -30,16 +32,19 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SuppressWarnings("unchecked")
 @Repository
-public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
+public abstract class AbstractPostDao<T extends Post, I extends I18nPost> 
+	implements PostDao<T, I> {
 	private static final Logger logger = LoggerFactory.getLogger(AbstractPostDao.class);
    
 	@Autowired
 	private SessionFactory sessionFactory;
     
 	protected Class<T> entity;
+	protected Class<I> i18nPost;
 
 	public AbstractPostDao() {        
         this.entity = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.i18nPost = (Class<I>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 	}
 	
 	protected Session currentSession() {
@@ -294,5 +299,35 @@ public abstract class AbstractPostDao<T extends Post> implements PostDao<T> {
 	}
 	
 	@Override
-	public abstract T getTranslatedPost(String slug, String lang);
+	@Transactional
+	public T getTranslatedPostBySlug(String slug, String lang) {
+		try {
+			final String post = entity.getSimpleName().toLowerCase();
+//			String HQL = "select new "+ entity.getName() +"(ip." +post+ ", ip)"
+//					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
+//					+ " where p.slug = :slug and ip.lang = :lang";
+			
+//			String HQL = "select new "+ entity.getName() +"(ip)"
+//					+ " from "+ i18nPost.getName() +" ip"
+//					+ " where ip." +post+ ".slug = :slug and ip.lang = :lang";
+			
+			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
+		
+			T translated = (T) currentSession().createQuery(HQL).setString("slug", slug)
+					.setString("lang", lang).uniqueResult();
+			
+			logger.info("Preveden "+ translated);
+			return translated;
+		} catch (Exception e) {
+			logger.warn("Greska pri dohvatanju prevoda articlea! "+e.getMessage());
+			return null;
+		}	
+	}
+	
+	@Override
+	public T getTranslatedPostById(int id, String lang) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

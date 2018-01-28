@@ -18,6 +18,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PublicationService;
@@ -129,8 +130,11 @@ public class DashboardController {
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
 	public String createNewArticle(Model model){
 		
-		Article i18nArticle = articleService.getTranslatedPost("manifesto", StringUtil.LANG_CODE_EN);
+		Article i18nArticle = articleService.getTranslatedPost("jednostavan-clanka-za-prevod", StringUtil.LANG_CODE_EN);
 		logger.info(i18nArticle.toString());
+		for(Category c : i18nArticle.getCategories()) {
+			System.out.println(c);
+		}
 				
 		if(!model.containsAttribute("article")) {
 			model.addAttribute("article", new Article());
@@ -156,7 +160,9 @@ public class DashboardController {
 			redirectAttributes.addFlashAttribute("article", posted);
 			logger.info("Uspesno publikovan: "+article);
 		}
-		return String.format("redirect:/%ssbk-admin/articles/new", locale != null ? (locale.getLanguage()+"/") : "");		
+		String localeLang = (locale != null && !locale.getLanguage().equals(StringUtil.DEFAULT_LANG_CODE)) ?
+				(locale.getLanguage()+"/") : "";
+		return String.format("redirect:/%ssbk-admin/articles/new", localeLang);		
 	}
 	
 	

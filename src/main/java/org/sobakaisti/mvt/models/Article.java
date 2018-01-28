@@ -12,7 +12,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.sobakaisti.mvt.i18n.model.I18nArticle;
 
 @Entity
 @Table(name="article")
@@ -58,21 +61,26 @@ public class Article extends Post {
 	@JoinColumn(name="featured_img_id")
 	private Media featuredImage;
 	
+	@OneToMany(fetch = FetchType.LAZY, cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        },
+        targetEntity = I18nArticle.class, 
+        mappedBy = "article")
+	private List<I18nArticle> i18nArticles;
+	
 	public Article() {}
 	
-	// TODO just test
-	public Article(int id, String title) {
-		setId(id);
-		setTitle(title);
-		System.out.println("new Article, id:"+id+"; title:"+title);
+	
+	public Article(I18nArticle i18nArticle) {
+		if(i18nArticle != null && i18nArticle.getArticle() != null) {
+			System.out.println("new Article: "+i18nArticle.getArticle());
+			this.categories = i18nArticle.getArticle().getCategories();
+		}
 	}
-
-	public Article(int id, String title, String slug, Calendar postDate, String lang, int active, Author author, 
-			String content, Media featuredImage) {
-		super(id, title, slug, postDate, lang, active, author);
-		this.content = content;
-		this.featuredImage = featuredImage;
-	}	
 	
 	public String getContent() {
 		return content;
@@ -100,6 +108,15 @@ public class Article extends Post {
 		this.featuredImage = featuredImage;
 	}
 	
+	
+	public List<I18nArticle> getI18nArticles() {
+		return i18nArticles;
+	}
+	public void setI18nArticles(List<I18nArticle> i18nArticles) {
+		this.i18nArticles = i18nArticles;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("article: {");
@@ -107,7 +124,8 @@ public class Article extends Post {
 		sb.append(getTitle() != null ? "title : "+getTitle() + ", " : "");
 		sb.append(getAuthor() != null ? "author_id : "+getAuthor().getId() + ", " : "");
 		sb.append(getAuthor() != null ? "author : "+getAuthor().getFirstName() + ", " : "");
-		sb.append(this.categories != null ? "categories_size : "+this.categories.size() : "");
+		sb.append(this.categories != null ? "categories_size : "+this.categories.size()+", " : "");
+		sb.append(this.tags != null ? "tags_size : "+this.tags.size() : "");
 		return sb.append("}").toString();
 	}
 	

@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.dao;
 
 import java.util.List;
 
+import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
@@ -15,7 +16,7 @@ import org.sobakaisti.util.PostFilter;
  * @author jelles
  *
  */
-public interface ArticleDao extends PostDao<Article> {
+public interface ArticleDao extends PostDao<Article, I18nArticle> {
 	
 	public static final String INTRO_ARTICLE_SLUG = "manifesto";
 	

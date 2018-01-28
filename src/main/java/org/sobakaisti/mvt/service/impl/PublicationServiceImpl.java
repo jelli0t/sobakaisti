@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.dao.PublicationDao;
+import org.sobakaisti.mvt.i18n.model.I18nPublication;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Publication;
@@ -32,14 +33,14 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 @Service
-public class PublicationServiceImpl extends PostServiceImpl<Publication> implements PublicationService {
+public class PublicationServiceImpl extends PostServiceImpl<Publication, I18nPublication> implements PublicationService {
 	private static final Logger logger = LoggerFactory.getLogger(PublicationServiceImpl.class);
 	
 	private PublicationDao publicationDao;
 	
 	@Autowired
 	public PublicationServiceImpl(
-			@Qualifier("publicationDaoImpl") PostDao<Publication> postDao) {
+			@Qualifier("publicationDaoImpl") PostDao<Publication, I18nPublication> postDao) {
 		super(postDao);
 		this.publicationDao = (PublicationDao) postDao;
 	}

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AbstractPostDao;
 import org.sobakaisti.mvt.dao.ArticleDao;
+import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleDao {
+public class ArticleDaoImpl extends AbstractPostDao<Article, I18nArticle> implements ArticleDao {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleDaoImpl.class);
 
 	@SuppressWarnings("unchecked")
@@ -254,28 +255,5 @@ public class ArticleDaoImpl extends AbstractPostDao<Article> implements ArticleD
 		return bothArticles;
 	}
 
-
-	@Override
-	@Transactional
-	public Article getTranslatedPost(String slug, String lang) {
-//		int id, String title, String slug, Calendar postDate, String lang, int active, Author author, String content, Media featuredImage
-//		String HQL = "select new Article(a.id, a.title, a.slug, a.postDate, a.lang, a.active, a.author, a.content, a.featuredImage)"
-//				+ " from Article a"
-//				+ " where a.slug = :slug and a.lang = :lang";
-		
-		String HQL = "select new Article(a.id, a.title) from Article a where a.slug = :slug and a.lang = :lang";
-		try {
-			System.out.println(currentSession().createQuery(HQL).getQueryString());
-			
-			Article i18nArticle = (Article) currentSession().createQuery(HQL).setString("slug", slug)
-					.setString("lang", lang).setMaxResults(1).uniqueResult();
-			logger.info("Preveden "+ i18nArticle);
-			return i18nArticle;
-		} catch (Exception e) {
-			logger.warn("Greska pri dohvatanju prevoda articlea! "+e.getMessage());
-			return null;
-		}		
-	}
-	
 	
 }

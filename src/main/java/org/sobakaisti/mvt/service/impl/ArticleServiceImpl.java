@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.PostDao;
+import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
@@ -41,7 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 @Service
-public class ArticleServiceImpl extends PostServiceImpl<Article> implements ArticleService {
+public class ArticleServiceImpl extends PostServiceImpl<Article, I18nArticle> implements ArticleService {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 	
 	private ArticleDao articleDao;
@@ -56,7 +57,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article> implements Arti
 	
 	@Autowired
 	public ArticleServiceImpl(
-			@Qualifier("articleDaoImpl") PostDao<Article> postDao) {
+			@Qualifier("articleDaoImpl") PostDao<Article, I18nArticle> postDao) {
 		super(postDao);
 		this.articleDao = (ArticleDao) postDao;
 	}
