@@ -75,16 +75,6 @@ public abstract class Post {
 		super();
 	}
 
-	public Post(int id, String title, String slug, Calendar postDate, String lang, int active, Author author) {
-		this.id = id;
-		this.title = title;
-		this.slug = slug;
-		this.postDate = postDate;
-		this.lang = lang;
-		this.active = active;
-		this.author = author;
-	}
-	
 	public int getId() {
 		return id;
 	}

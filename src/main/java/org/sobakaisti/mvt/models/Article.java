@@ -1,6 +1,5 @@
 package org.sobakaisti.mvt.models;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
