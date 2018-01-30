@@ -2,6 +2,8 @@ package org.sobakaisti.mvt.models;
 
 import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 
 @Entity
 @Table(name="article")
@@ -59,26 +62,15 @@ public class Article extends Post {
         targetEntity = Media.class)
 	@JoinColumn(name="featured_img_id")
 	private Media featuredImage;
+		
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade =
-        {
-                CascadeType.DETACH,
-                CascadeType.MERGE,
-                CascadeType.REFRESH,
-                CascadeType.PERSIST
-        },
-        targetEntity = I18nArticle.class, 
-        mappedBy = "article")
-	private List<I18nArticle> i18nArticles;
-	
-	public Article() {}
-	
+	public Article() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Article(I18nArticle i18nArticle) {
-		if(i18nArticle != null && i18nArticle.getArticle() != null) {
-			System.out.println("new Article: "+i18nArticle.getArticle());
-			this.categories = i18nArticle.getArticle().getCategories();
-		}
+		System.out.println(i18nArticle.getArticle());
 	}
 	
 	public String getContent() {
@@ -107,14 +99,6 @@ public class Article extends Post {
 		this.featuredImage = featuredImage;
 	}
 	
-	
-	public List<I18nArticle> getI18nArticles() {
-		return i18nArticles;
-	}
-	public void setI18nArticles(List<I18nArticle> i18nArticles) {
-		this.i18nArticles = i18nArticles;
-	}
-
 
 	@Override
 	public String toString() {
@@ -127,13 +111,17 @@ public class Article extends Post {
 		sb.append(this.tags != null ? "tags_size : "+this.tags.size() : "");
 		return sb.append("}").toString();
 	}
+
+
+//	@Override
+//	@OneToMany(fetch = FetchType.LAZY, cascade =
+//		{
+//		        CascadeType.DETACH,
+//		        CascadeType.MERGE,
+//		        CascadeType.REFRESH,
+//		        CascadeType.PERSIST
+//		},
+//		targetEntity = I18nArticle.class, 
+//		mappedBy = "article")
 	
-	/* meta podaci za postDate */
-//	public CalendarUtil getPostDateMeta() {
-//		if(this.postDate != null) {
-//			return new CalendarUtil(this.postDate);
-//		} else {
-//			return new CalendarUtil();
-//		}
-//	}	
 }

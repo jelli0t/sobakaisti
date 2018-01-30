@@ -307,11 +307,11 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 //					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
 //					+ " where p.slug = :slug and ip.lang = :lang";
 			
-//			String HQL = "select new "+ entity.getName() +"(ip)"
-//					+ " from "+ i18nPost.getName() +" ip"
-//					+ " where ip." +post+ ".slug = :slug and ip.lang = :lang";
+			String HQL = "select new "+ entity.getName() +"(ip)"
+					+ " from "+ i18nPost.getName() +" ip"
+					+ " where ip." +post+ ".slug = :slug and ip.lang = :lang";
 			
-			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
+//			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
 		
 			T translated = (T) currentSession().createQuery(HQL).setString("slug", slug)
 					.setString("lang", lang).uniqueResult();

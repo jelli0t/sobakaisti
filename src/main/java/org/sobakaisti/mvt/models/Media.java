@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -154,4 +155,5 @@ public class Media extends Post {
 		sb.append(this.contentType != null ? "contentType:"+this.contentType : "");
 		return sb.append(" }").toString();
 	}
+
 }

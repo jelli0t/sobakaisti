@@ -2,6 +2,7 @@ package org.sobakaisti.util;
 
 import java.util.List;
 
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Media.MediaType;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Tag;
@@ -113,4 +114,5 @@ public class PostRequest extends Post{
 		sb.append(getTags() != null ? "tags: "+getTags().size() : "");
 		return sb.append('}').toString();
 	}
+
 }

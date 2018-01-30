@@ -130,11 +130,11 @@ public class DashboardController {
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
 	public String createNewArticle(Model model){
 		
-		Article i18nArticle = articleService.getTranslatedPost("jednostavan-clanka-za-prevod", StringUtil.LANG_CODE_EN);
+		Article i18nArticle = articleService.getTranslatedPost("najnoviji-clanak-za-prevodenje", StringUtil.LANG_CODE_EN);
 		logger.info(i18nArticle.toString());
-		for(Category c : i18nArticle.getCategories()) {
-			System.out.println(c);
-		}
+//		for(Category c : i18nArticle.getCategories()) {
+//			System.out.println(c);
+//		}
 				
 		if(!model.containsAttribute("article")) {
 			model.addAttribute("article", new Article());

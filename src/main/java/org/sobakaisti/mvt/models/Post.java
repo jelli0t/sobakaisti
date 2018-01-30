@@ -5,6 +5,8 @@ package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -19,6 +21,7 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -65,16 +68,12 @@ public abstract class Post {
         targetEntity = Author.class)
 	private Author author;
 	
+	
 	@Transient
 	private Boolean commited;
 	@Transient
 	private String commitMessage;	
 	
-		
-	public Post() {
-		super();
-	}
-
 	public int getId() {
 		return id;
 	}

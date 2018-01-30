@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.sobakaisti.mvt.i18n.model.I18nPost;
+
 /**
  * @author jelles
  *
@@ -122,4 +124,5 @@ public class Publication extends Post {
 		sb.append(getTags() != null ? "tags: "+getTags().size() : "");
 		return sb.append('}').toString();
 	}
+	
 }
