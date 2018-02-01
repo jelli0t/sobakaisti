@@ -16,6 +16,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PublicationDaoImpl extends AbstractPostDao<Publication, I18nPublication> implements PublicationDao {
 
-
-		
 }

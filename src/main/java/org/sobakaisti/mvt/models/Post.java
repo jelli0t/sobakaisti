@@ -72,7 +72,23 @@ public abstract class Post {
 	@Transient
 	private Boolean commited;
 	@Transient
-	private String commitMessage;	
+	private String commitMessage;		
+	
+	
+	public Post() {
+		super();
+	}
+
+	public Post(int id, String title, String slug, Calendar postDate, String lang, int active, Author author) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.slug = slug;
+		this.postDate = postDate;
+		this.lang = lang;
+		this.active = active;
+		this.author = author;
+	}
 	
 	public int getId() {
 		return id;

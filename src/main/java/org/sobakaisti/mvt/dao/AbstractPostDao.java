@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,10 +15,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.i18n.model.I18nPost;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.IntroPost;
+import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.StringUtil;
@@ -307,13 +313,22 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 //					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
 //					+ " where p.slug = :slug and ip.lang = :lang";
 			
-			String HQL = "select new "+ entity.getName() +"(ip)"
-					+ " from "+ i18nPost.getName() +" ip"
-					+ " where ip." +post+ ".slug = :slug and ip.lang = :lang";
+//			String HQL = "select new "+ entity.getName() +"(ip)"
+//					+ " from "+ i18nPost.getName() +" ip"
+//					+ " where ip." +post+ ".slug = :slug and ip.lang = :lang";
+			
+//			public Article(int id, String title, String slug, Calendar postDate, String lang, int active, Author author, 
+//					String content, List<Tag> tags, List<Category> categories, Media featuredImage) {
+			
+			String HQL = "select p.id, ip.title, p.slug, p.postDate, ip.lang, p.active, p.author, ip.content, p.featuredImage"
+					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
+					+ " where p.slug = :slug and ip.lang = :lang";
 			
 //			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
 		
-			T translated = (T) currentSession().createQuery(HQL).setString("slug", slug)
+			T translated = (T) currentSession().createQuery(HQL)
+					.setResultTransformer(new I18nPostResultTransformer<Article, I18nArticle>())
+					.setString("slug", slug)
 					.setString("lang", lang).uniqueResult();
 			
 			logger.info("Preveden "+ translated);

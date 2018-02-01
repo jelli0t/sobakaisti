@@ -1,5 +1,6 @@
 package org.sobakaisti.mvt.models;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -66,9 +67,17 @@ public class Article extends Post {
 	
 	public Article() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
+	}	
 	
+	public Article(int id, String title, String slug, Calendar postDate, String lang, int active, Author author, 
+			String content, Media featuredImage) {
+		super(id, title, slug, postDate, lang, active, author);
+		this.content = content;
+		this.featuredImage = featuredImage;
+	}
+
+
+
 	public Article(I18nArticle i18nArticle) {
 		System.out.println(i18nArticle.getArticle());
 	}
