@@ -327,9 +327,10 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 //			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
 		
 			T translated = (T) currentSession().createQuery(HQL)
-					.setResultTransformer(new I18nPostResultTransformer<Article, I18nArticle>())
 					.setString("slug", slug)
-					.setString("lang", lang).uniqueResult();
+					.setString("lang", lang)
+					.setResultTransformer(new I18nPostResultTransformer())
+					.uniqueResult();
 			
 			logger.info("Preveden "+ translated);
 			return translated;
