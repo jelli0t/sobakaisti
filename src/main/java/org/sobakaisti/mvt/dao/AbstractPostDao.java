@@ -13,6 +13,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
@@ -313,24 +314,36 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 //					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
 //					+ " where p.slug = :slug and ip.lang = :lang";
 			
-//			String HQL = "select new "+ entity.getName() +"(ip)"
-//					+ " from "+ i18nPost.getName() +" ip"
-//					+ " where ip." +post+ ".slug = :slug and ip.lang = :lang";
-			
-//			public Article(int id, String title, String slug, Calendar postDate, String lang, int active, Author author, 
-//					String content, List<Tag> tags, List<Category> categories, Media featuredImage) {
-			
-			String HQL = "select p.id, ip.title, p.slug, p.postDate, ip.lang, p.active, p.author, ip.content, p.featuredImage"
-					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
-					+ " where p.slug = :slug and ip.lang = :lang";
+			String HQL = "select p.id, ip.title, p.slug, p.postDate, ip.lang, p.active, p.author, ip.content"
+					+ " from I18nArticle ip left join ip.article p where p.slug = :slug and ip.lang = :lang";
+					
+//			String HQL = "select p.id, ip.title, p.slug, p.postDate, ip.lang, p.active, p.author, ip.content, p.featuredImage"
+//					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
+//					+ " where p.slug = :slug and ip.lang = :lang";
 			
 //			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
 			System.out.println("Query was: " + currentSession().createQuery(HQL).getQueryString());
 		
+			@SuppressWarnings("serial")
 			T translated = (T) currentSession().createQuery(HQL)
 					.setString("slug", slug)
 					.setString("lang", lang)
-					.setResultTransformer(new I18nPostResultTransformer())
+					.setResultTransformer(new ResultTransformer() {						
+						@Override
+						public Object transformTuple(Object[] tuple, String[] aliases) {
+							System.out.println("ResultTransfor: "+(int) tuple[0]+", title: "+ (String) tuple[1] +", slug: "+ (String) tuple[2]
+									+ " date: "+((Calendar) tuple[3]).getTime() +" lang: "+(String) tuple[4] + " active: "+(int) tuple[5]
+									+ " author: "+(Author) tuple[6] +" content: "+(String) tuple[7]);
+							
+//							return (Article) tuple[0];
+//							return new Article((int) tuple[0], (String) tuple[1], (String) tuple[2], (Calendar) tuple[3], (String) tuple[4], 
+//									(int) tuple[5], (Author) tuple[6], (String) tuple[7], (Media) tuple[8]);
+							return new Article((int) tuple[0], (String) tuple[1], (String) tuple[2], (Calendar) tuple[3], 
+									(String) tuple[4], (int) tuple[5], (Author) tuple[6], (String) tuple[7], null);
+						}						
+						@Override
+						public List transformList(List collection) { return collection; }
+					})
 					.uniqueResult();
 			
 			logger.info("Preveden "+ translated);
