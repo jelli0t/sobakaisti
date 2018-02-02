@@ -325,6 +325,7 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 					+ " where p.slug = :slug and ip.lang = :lang";
 			
 //			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
+			System.out.println("Query was: " + currentSession().createQuery(HQL).getQueryString());
 		
 			T translated = (T) currentSession().createQuery(HQL)
 					.setString("slug", slug)
