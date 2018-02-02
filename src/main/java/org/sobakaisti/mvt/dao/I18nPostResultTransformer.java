@@ -17,7 +17,7 @@ import org.sobakaisti.mvt.models.Post;
  * @author jelli0t
  *
  */
-public class I18nPostResultTransformer<P extends Post, I extends I18nPost> implements ResultTransformer {
+public class I18nPostResultTransformer implements ResultTransformer {
 
 	private static final long serialVersionUID = -6953387781583945455L;	
 
