@@ -1,7 +1,6 @@
 package org.sobakaisti.mvt.dao.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -13,7 +12,6 @@ import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.stereotype.Repository;

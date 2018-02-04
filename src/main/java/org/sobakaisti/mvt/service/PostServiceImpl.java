@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.dao.PostDao;
+import org.sobakaisti.mvt.i18n.dao.I18nPostDao;
 import org.sobakaisti.mvt.i18n.model.I18nPost;
+import org.sobakaisti.mvt.i18n.service.I18nPostService;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
@@ -28,9 +30,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 @Service
-public abstract class PostServiceImpl<T extends Post, I extends I18nPost> implements PostService<T> {
-	
+public abstract class PostServiceImpl<T extends Post, I extends I18nPost> 
+		implements PostService<T>, I18nPostService<T, I> {	
 	private static final Logger logger = LoggerFactory.getLogger(PostServiceImpl.class);
+	/*
+	 * Post DAO dependecies
+	 * */
 	private PostDao<T, I> postDao;
 	
 	@Autowired
@@ -66,8 +71,25 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost> implem
 	}
 	
 	@Override
-	public T findById(int id) {
-		return postDao.find(id);
+	public T findById(int id) {	
+		final String langCode = getPostLanguage();
+		if(langCode.equals(StringUtil.DEFAULT_LANG_CODE)) 
+			return postDao.find(id);
+		else if(StringUtil.NON_DEFAULT_LANGS_LIST.contains(langCode))
+			return postDao.getTranslatedPostById(id, langCode);
+		else
+			return null;
+	}
+	
+	@Override
+	public T findBySlug(String slug) {
+		final String langCode = getPostLanguage();
+		if(langCode.equals(StringUtil.DEFAULT_LANG_CODE)) 
+			return postDao.findBySlug(slug);
+		else if(StringUtil.NON_DEFAULT_LANGS_LIST.contains(langCode))
+			return postDao.getTranslatedPostBySlug(slug, langCode);
+		else
+			return null;
 	}
 	
 	@Override
@@ -100,6 +122,11 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost> implem
 		Pagination pagination = postDao.createPostPagination(new Pagination(), filter);		
 		return (List<T>) postDao.findPostsSortedByDate(pagination, filter);
 	}
+	
+    @Override
+    public I saveOrUpdateTranslatedPost(I i) {
+    	return postDao.saveOrUpdate(i);
+    }
 	
 	@Override
 	public boolean delete(int id) {
@@ -149,6 +176,7 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost> implem
 	@Override
 	public abstract T processAndSaveSubmittedPost(T post);
 	
+	
 
 	@Override
 	public List<Tag> fatchPostFullTagList(T t) {
@@ -192,19 +220,5 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost> implem
 		PostFilter filter = new PostFilter(isActive, false, author);
 		
 		return null;
-	}
-	
-	@Override
-	public T getTranslatedPost(String slug, String lang) {
-		T t = null;
-		if(StringUtil.notEmpty(slug)) {
-			logger.info("Za slug '"+slug+"' trazim post na jeziki: "+lang);
-			if(lang.equals(StringUtil.DEFAULT_LANG_CODE)) {
-				t = postDao.findBySlug(slug);
-			} else {
-				t = postDao.getTranslatedPostBySlug(slug, lang);
-			}
-		}
-		return t;
 	}
 }

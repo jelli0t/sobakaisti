@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
+import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
@@ -128,14 +129,7 @@ public class DashboardController {
 	 * */
 	
 	@RequestMapping(value="/articles/new", method=RequestMethod.GET)
-	public String createNewArticle(Model model){
-		
-		Article i18nArticle = articleService.getTranslatedPost("najnoviji-clanak-za-prevodenje", StringUtil.LANG_CODE_EN);
-		logger.info(i18nArticle.toString());
-//		for(Category c : i18nArticle.getCategories()) {
-//			System.out.println(c);
-//		}
-				
+	public String createNewArticle(Model model) {				
 		if(!model.containsAttribute("article")) {
 			model.addAttribute("article", new Article());
 			System.out.println("Ne sadrzi Article! pravim novi...");
@@ -165,6 +159,25 @@ public class DashboardController {
 		return String.format("redirect:/%ssbk-admin/articles/new", localeLang);		
 	}
 	
+	
+	@RequestMapping(value="/article/{lang}/submit", method=RequestMethod.POST)
+	public String submitArticleTranslation(@ModelAttribute("i18nArticle") @Valid I18nArticle i18nArticle, BindingResult bindingResult, 
+			@PathVariable("lang") String lang, RedirectAttributes redirectAttributes, Locale locale) {
+		
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.i18nArticle", bindingResult);
+			redirectAttributes.addFlashAttribute("i18nArticle", i18nArticle);
+			logger.warn("Ima gresaka pri validaciji!");
+		} else {
+			I18nArticle translated = articleService.saveOrUpdateTranslatedPost(i18nArticle);
+			redirectAttributes.addFlashAttribute("i18nArticle", translated);
+			logger.info("Uspesno sacuvan: "+i18nArticle);
+		}
+		redirectAttributes.addFlashAttribute("translationCode", lang);
+		String localeLang = (locale != null && !locale.getLanguage().equals(StringUtil.DEFAULT_LANG_CODE)) ?
+				(locale.getLanguage()+"/") : "";
+		return String.format("redirect:/%ssbk-admin/articles/new", localeLang);	
+	}
 	
 	
 	@RequestMapping(value="/slug/new", method=RequestMethod.PUT)

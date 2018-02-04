@@ -4,6 +4,8 @@
 package org.sobakaisti.mvt.service;
 
 import java.util.List;
+
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
@@ -31,6 +33,14 @@ public interface PostService<T extends Post> {
 	
 	
 	public T findById(int id);
+	
+	/**
+	 * Pronalazi post prema prosledjenom slug-u.
+	 * Uzima uu obzir jezik iz locale-a i na osnovu toga
+	 * dohvata post na defaultnom jeziku ili preveden
+	 * @param slug
+	 * */
+	public T findBySlug(String slug);
 	
 	/**
 	 * Pronadji apsolutno sve objekte jednog entiteta
@@ -113,6 +123,9 @@ public interface PostService<T extends Post> {
 	* @param post
 	* */
 	public T processAndSaveSubmittedPost(T post);
+	
+	
+//	public I18nPost saveTranslatedPost(I18nPost i18nPost);
 
 	/**
 	 * Na osnovu prosledjenog coda dohvata odgovarajucu poruku iz property fajla
@@ -138,6 +151,4 @@ public interface PostService<T extends Post> {
 	 * language kod i vraca ga kao string.
 	 * */
 	String getPostLanguage();
-	
-	public T getTranslatedPost(String slug, String lang);
 }

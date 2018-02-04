@@ -4,7 +4,7 @@
 <head th:replace="commons/dash_head :: dash_head(~{::title})">
 	<title th:text="${#strings.isEmpty(article?.title) ? #messages.msg('label.newArticle') : article.title}">Article | Dashboard</title>	
 </head>
-<body class="flex-container">
+<body>
 	
 <!-- Top header of dashboard section -->
 <header th:replace="~{commons/dash_header :: dash_header}"></header>
@@ -13,10 +13,11 @@
 <aside th:replace="~{commons/dash_sidebar :: dash_sidebar}"></aside>
 
 <!-- Main -->	
-<main>
-	<div>
+<main class="dash-page-container">
+	<div class="dash-page-header">
 		<!-- Lang Nav -->
-		<th:block th:if="${article != null}" th:include="~{commons/dash_header :: languageNavFragment}"></th:block>
+		<th:block th:include="~{commons/dash_header :: languageNavFragment (post=${article}, translationCode=${translationCode})}">
+		</th:block>
 	</div>	
 	<section id="editable-body-holder">	
 

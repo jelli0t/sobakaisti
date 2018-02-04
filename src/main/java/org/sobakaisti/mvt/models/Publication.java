@@ -16,8 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.sobakaisti.mvt.i18n.model.I18nPost;
+import org.sobakaisti.mvt.i18n.model.I18nPublication;
 
 /**
  * @author jelles
@@ -70,6 +69,22 @@ public class Publication extends Post {
         targetEntity = Media.class)
 	@JoinColumn(name="featured_img_id")
 	private Media featuredImage;
+	
+	/* Default constructor */
+	public Publication() {
+		super();
+	}
+	
+	/* Construct translated Publication*/	
+	public Publication(Publication p, I18nPublication ip) {
+		super(p.getId(), ip.getTitle(), p.getSlug(), p.getPostDate(), ip.getLang(), p.getActive(), p.getAuthor());
+		this.content = ip.getContent();
+		this.path = p.getPath();
+		this.downloaded = p.getDownloaded();
+		this.tags = p.getTags();
+		this.media = p.getMedia();
+		this.featuredImage = p.getFeaturedImage();
+	}
 	
 	public String getContent() {
 		return content;

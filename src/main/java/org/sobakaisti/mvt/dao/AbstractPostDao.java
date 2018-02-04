@@ -5,26 +5,19 @@ package org.sobakaisti.mvt.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sobakaisti.mvt.i18n.model.I18nArticle;
+import org.sobakaisti.mvt.i18n.dao.I18nPostResultTransformer;
 import org.sobakaisti.mvt.i18n.model.I18nPost;
-import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
-import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.IntroPost;
-import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
-import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.StringUtil;
@@ -110,6 +103,18 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 			logger.warn("Greska pri cuvanju enititeta. Uzrok: "+e.getMessage());
 			return null;
 		}		
+	}
+	
+	@Override
+	@Transactional
+	public I saveOrUpdate(I i) {
+		try {
+			currentSession().saveOrUpdate(i);
+			return i;
+		} catch (Exception e) {
+			logger.warn("Greska pri cuvanju prevoda posta. Uzrok: "+e.getMessage());
+			return null;
+		}	
 	}
 	
 	@Override
@@ -309,55 +314,43 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 	@Transactional
 	public T getTranslatedPostBySlug(String slug, String lang) {
 		try {
-			final String post = entity.getSimpleName().toLowerCase();
-//			String HQL = "select new "+ entity.getName() +"(ip." +post+ ", ip)"
-//					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
-//					+ " where p.slug = :slug and ip.lang = :lang";
+			final String post = entity.getSimpleName().toLowerCase();			
+			String HQL = "select p, ip from "+i18nPost.getName()+" ip left join ip."+ post +" p"
+					   + " where p.slug = :slug and ip.lang = :lang";
 			
-			String HQL = "select p.id, ip.title, p.slug, p.postDate, ip.lang, p.active, p.author, ip.content"
-					+ " from I18nArticle ip left join ip.article p where p.slug = :slug and ip.lang = :lang";
-					
-//			String HQL = "select p.id, ip.title, p.slug, p.postDate, ip.lang, p.active, p.author, ip.content, p.featuredImage"
-//					+ " from "+ i18nPost.getName() +" ip join ip."+ post +" p"
-//					+ " where p.slug = :slug and ip.lang = :lang";
-			
-//			String HQL = "from Article a join fetch a.i18nArticles ia where a.slug = :slug and ia.lang = :lang";
-			System.out.println("Query was: " + currentSession().createQuery(HQL).getQueryString());
-		
-			@SuppressWarnings("serial")
 			T translated = (T) currentSession().createQuery(HQL)
 					.setString("slug", slug)
 					.setString("lang", lang)
-					.setResultTransformer(new ResultTransformer() {						
-						@Override
-						public Object transformTuple(Object[] tuple, String[] aliases) {
-							System.out.println("ResultTransfor: "+(int) tuple[0]+", title: "+ (String) tuple[1] +", slug: "+ (String) tuple[2]
-									+ " date: "+((Calendar) tuple[3]).getTime() +" lang: "+(String) tuple[4] + " active: "+(int) tuple[5]
-									+ " author: "+(Author) tuple[6] +" content: "+(String) tuple[7]);
-							
-//							return (Article) tuple[0];
-//							return new Article((int) tuple[0], (String) tuple[1], (String) tuple[2], (Calendar) tuple[3], (String) tuple[4], 
-//									(int) tuple[5], (Author) tuple[6], (String) tuple[7], (Media) tuple[8]);
-							return new Article((int) tuple[0], (String) tuple[1], (String) tuple[2], (Calendar) tuple[3], 
-									(String) tuple[4], (int) tuple[5], (Author) tuple[6], (String) tuple[7], null);
-						}						
-						@Override
-						public List transformList(List collection) { return collection; }
-					})
+					.setResultTransformer(new I18nPostResultTransformer())
 					.uniqueResult();
 			
 			logger.info("Preveden "+ translated);
 			return translated;
 		} catch (Exception e) {
-			logger.warn("Greska pri dohvatanju prevoda articlea! "+e.getMessage());
+			logger.warn("Greska pri dohvatanju prevoda posta! "+e.getMessage());
 			return null;
 		}	
 	}
 	
 	@Override
 	public T getTranslatedPostById(int id, String lang) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			final String post = entity.getSimpleName().toLowerCase();			
+			String HQL = "select p, ip from "+i18nPost.getName()+" ip left join ip."+ post +" p"
+					   + " where p.id = :id and ip.lang = :lang";
+			
+			T translated = (T) currentSession().createQuery(HQL)
+					.setInteger("id", id)
+					.setString("lang", lang)
+					.setResultTransformer(new I18nPostResultTransformer())
+					.uniqueResult();
+			
+			logger.info("Preveden "+ translated);
+			return translated;
+		} catch (Exception e) {
+			logger.warn("Greska pri dohvatanju prevoda posta! "+e.getMessage());
+			return null;
+		}
 	}
-	
+		
 }

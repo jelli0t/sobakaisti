@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.PostDao;
+import org.sobakaisti.mvt.i18n.dao.I18nPostDao;
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;

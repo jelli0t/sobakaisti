@@ -16,7 +16,6 @@ import org.sobakaisti.mvt.i18n.model.I18nPublication;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Publication;
-import org.sobakaisti.mvt.models.Tag;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.sobakaisti.mvt.service.PublicationService;

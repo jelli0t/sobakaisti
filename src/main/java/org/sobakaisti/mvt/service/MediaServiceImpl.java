@@ -10,7 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.MediaDao;
 import org.sobakaisti.mvt.dao.PostDao;
+import org.sobakaisti.mvt.i18n.dao.I18nPostDao;
+import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.i18n.model.I18nMedia;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.util.CommitResult;
@@ -29,7 +32,8 @@ public class MediaServiceImpl extends PostServiceImpl<Media, I18nMedia> implemen
 	@Value( "${media.uploads.path.img}" ) private String imgUploadsPath;
 	
 	@Autowired
-	public MediaServiceImpl(@Qualifier("mediaDaoImpl") PostDao<Media, I18nMedia> postDao) {
+	public MediaServiceImpl(
+			@Qualifier("mediaDaoImpl") PostDao<Media, I18nMedia> postDao) {
 		super(postDao);
 		this.mediaDao = (MediaDao) postDao;
 	}	

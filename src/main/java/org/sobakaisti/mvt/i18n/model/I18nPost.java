@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.sobakaisti.mvt.models.Post;
@@ -34,7 +35,12 @@ public abstract class I18nPost {
 	private String content;
 	
 	@Column(name="lang")
-	private String lang;	
+	private String lang;
+	
+	@Transient
+	private Boolean commited;
+	@Transient
+	private String commitMessage;
 	
 	public int getId() {
 		return id;
@@ -68,4 +74,19 @@ public abstract class I18nPost {
 		this.lang = lang;
 	}
 
+	public Boolean getCommited() {
+		return commited;
+	}
+
+	public void setCommited(Boolean commited) {
+		this.commited = commited;
+	}
+
+	public String getCommitMessage() {
+		return commitMessage;
+	}
+
+	public void setCommitMessage(String commitMessage) {
+		this.commitMessage = commitMessage;
+	}
 }

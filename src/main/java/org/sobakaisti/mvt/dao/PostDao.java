@@ -45,6 +45,12 @@ public interface PostDao<T extends Post, I extends I18nPost> {
 	public T saveOrUpdate(T t);
 	
 	/**
+	 * Radi save ili update entiteta 
+	 * koji reprezentuje preveden post.
+	 * */
+	public I saveOrUpdate(I i);
+	
+	/**
 	 *  Brise post sa prosledjenim ID
 	 *  @param id
 	 * */
@@ -112,6 +118,13 @@ public interface PostDao<T extends Post, I extends I18nPost> {
 	 * */
 	public T getTranslatedPostBySlug(String slug, String lang);
 	
+	/**
+	 * Dohvata prevod post sa odredjenim ID na jeziku 
+	 * ciji lang code saljemo kao argument
+	 * @param id	ID postojeceg posta na default jeziku
+	 * @param lang	Lang code: en / es / de...
+	 * @return vraca preveden post ili null ukoliko prevod ne postoji
+	 * */
 	public T getTranslatedPostById(int id, String lang);
 	
 }

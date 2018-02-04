@@ -69,17 +69,13 @@ public class Article extends Post {
 		super();
 	}	
 	
-	public Article(int id, String title, String slug, Calendar postDate, String lang, int active, Author author, 
-			String content, Media featuredImage) {
-		super(id, title, slug, postDate, lang, active, author);
-		this.content = content;
-		this.featuredImage = featuredImage;
-	}
 
-
-
-	public Article(I18nArticle i18nArticle) {
-		System.out.println(i18nArticle.getArticle());
+	public Article(Article a, I18nArticle ia) {
+		super(a.getId(), ia.getTitle(), a.getSlug(), a.getPostDate(), ia.getLang(), a.getActive(), a.getAuthor());
+		this.content = ia.getContent();
+		this.categories = a.getCategories();
+		this.tags = a.getTags();
+		this.featuredImage = a.getFeaturedImage();
 	}
 	
 	public String getContent() {

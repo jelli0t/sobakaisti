@@ -4,8 +4,10 @@
 package org.sobakaisti.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -26,11 +28,16 @@ public class StringUtil {
 	public static final String LANG_CODE_IT = "it";
 	public static final String LANG_CODE_FR = "fr";
 	public static final String LANG_CODE_RU = "ru";
-	public static final String LANG_CODE_CH = "ch";
+	public static final String LANG_CODE_CN = "cn";
 	public static final String[] LANG_CODES = {LANG_CODE_RS, LANG_CODE_EN, LANG_CODE_ES, LANG_CODE_DE, LANG_CODE_IT,
-			LANG_CODE_FR, LANG_CODE_RU, LANG_CODE_CH};
+			LANG_CODE_FR, LANG_CODE_RU, LANG_CODE_CN};	
 	/* set default lang_code */
 	public static final String DEFAULT_LANG_CODE = LANG_CODE_RS;
+	/* niz jezika bez rs */
+	public static final String[] NON_DEFAULT_LANGS = {LANG_CODE_EN, LANG_CODE_ES, LANG_CODE_DE, LANG_CODE_IT,
+			LANG_CODE_FR, LANG_CODE_RU, LANG_CODE_CN};
+	/* lista jezika bez RS */
+	public static final List<String> NON_DEFAULT_LANGS_LIST =  Arrays.asList(NON_DEFAULT_LANGS);
 	
 	public static final char SLASH_CHAR = '\u002F';
 	
