@@ -17,14 +17,21 @@
 	<th:block th:fragment="languageNavFragment(post, translationCode)">
 		<nav class="lang-nav-container">
 			<ul>
-				<li th:appendclass="${#strings.equals(translationCode, 'rs') ? '':''}">Srpski</li>
+				<li>
+					<a href="#" class="nav-active-tab" th:appendclass="${#strings.equals(translationCode, 'rs') ? '':''}">
+						<span class="rs-lang-label">RS</span>
+					</a>
+				</li>
 				<th:block th:if="${post != null and not #strings.isEmpty(translationCode)}">
-					<li>Engleski</li>
-					<li>Spanski</li>
+					<li><a href="#">EN</a></li>
+				    <li><a href="#">ES</a></li>
+				    <li><a href="#">IT</a></li>
+				    <li><a href="#">FR</a></li>
+				    <li><a href="#">RU</a></li>
+				    <li><a href="#">CN</a></li>
 				</th:block>
 			</ul>
 		</nav>
-
 	</th:block>
 
 </html>

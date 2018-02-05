@@ -351,6 +351,67 @@ select.def-input {
 	font-weight: 700;
 }
 
+/*
+ * Tabs Menu
+*/
+.lang-nav-container {
+	position: relative;
+	margin: 0 3%;
+	box-sizing: border-box;
+}
+
+.lang-nav-container > ul  > li {
+	display: inline-block;
+	margin-bottom: -1px;
+}
+
+.lang-nav-container > ul  > li > a {
+    display: block;
+    padding: 7px 15px 8px;
+    color: #586069;
+    white-space: nowrap;
+    border: solid transparent;
+    border-width: 3px 1px 1px;
+    border-radius: 3px 3px 0 0; 
+    /* posebna klasa */
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+.lang-nav-container > ul  > li > a:hover {
+	-webkit-filter: none;
+	filter: none;
+	color: #24292e;
+}
+
+.lang-nav-container > 
+ul  > li > a.nav-active-tab {
+	color: #24292e;
+	background-color: #fff;
+	border-color: #e36209 #e1e4e8 transparent;
+	-webkit-filter: none;
+	filter: none;
+}
+.lang-nav-container > 
+ul  > li > a > span {
+  	padding-left: 24px;  
+}
+
+.lang-nav-container > 
+ul  > li > a > span:before {
+	position: absolute;
+	left: 15px;
+	width: 18px;
+	height: 18px;
+	content: " ";
+	background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/70/Flag_of_Serbia_%28bordered%29.PNG');
+	background-size: cover;
+	display: inline-block;
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+}
+   
+
 /*	main content container	*/
 .dash-main-container {
 	position: absolute;
