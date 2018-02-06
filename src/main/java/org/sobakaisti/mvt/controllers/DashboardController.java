@@ -71,6 +71,8 @@ public class DashboardController {
 	public void prepare(Model model){
 		List<Author> authors = authorDao.getAllAuthors();
 		model.addAttribute("authors", authors);
+		model.addAttribute("nonDefaultLangs", StringUtil.NON_DEFAULT_LANGS);
+		model.addAttribute("defaultLang", StringUtil.DEFAULT_LANG_CODE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

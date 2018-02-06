@@ -354,20 +354,24 @@ select.def-input {
 /*
  * Tabs Menu
 */
-.lang-nav-container {
+.tabs-nav-container {
 	position: relative;
 	margin: 0 3%;
 	box-sizing: border-box;
 }
-
-.lang-nav-container > ul  > li {
+.tabs-nav-container > 
+ul.tabs-nav-list > 
+li.tabs-nav-item {
 	display: inline-block;
 	margin-bottom: -1px;
+	text-transform: uppercase;
+	font-size: 0.8em;
 }
-
-.lang-nav-container > ul  > li > a {
+.tabs-nav-container > 
+ul.tabs-nav-list > 
+li.tabs-nav-item > a {
     display: block;
-    padding: 7px 15px 8px;
+    padding: 7px 15px 8px 38px;
     color: #586069;
     white-space: nowrap;
     border: solid transparent;
@@ -377,14 +381,16 @@ select.def-input {
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
 }
-.lang-nav-container > ul  > li > a:hover {
+.tabs-nav-container > 
+ul.tabs-nav-list > 
+li.tabs-nav-item > a:hover {
 	-webkit-filter: none;
 	filter: none;
 	color: #24292e;
 }
-
-.lang-nav-container > 
-ul  > li > a.nav-active-tab {
+.tabs-nav-container > 
+ul.tabs-nav-list > 
+li.tabs-nav-item > a.active-tab {
 	color: #24292e;
 	background-color: #fff;
 	border-color: #e36209 #e1e4e8 transparent;
@@ -395,9 +401,9 @@ ul  > li > a.nav-active-tab {
 ul  > li > a > span {
   	padding-left: 24px;  
 }
-
-.lang-nav-container > 
-ul  > li > a > span:before {
+.tabs-nav-container > 
+ul.tabs-nav-list > 
+li.tabs-nav-item > a:before {
 	position: absolute;
 	left: 15px;
 	width: 18px;

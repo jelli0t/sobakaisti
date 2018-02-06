@@ -15,20 +15,16 @@
 </div>
 
 	<th:block th:fragment="languageNavFragment(post, translationCode)">
-		<nav class="lang-nav-container">
-			<ul>
-				<li>
-					<a href="#" class="nav-active-tab" th:appendclass="${#strings.equals(translationCode, 'rs') ? '':''}">
-						<span class="rs-lang-label">RS</span>
-					</a>
+		<nav class="tabs-nav-container">
+			<ul class="tabs-nav-list">
+				<li class="tabs-nav-item">
+					<a href="#" th:classappend="${#strings.isEmpty(translationCode) ? 'active-tab':''}" 
+						th:text="${#strings.defaultString(defaultLang,'rs')}"></a>
 				</li>
-				<th:block th:if="${post != null and not #strings.isEmpty(translationCode)}">
-					<li><a href="#">EN</a></li>
-				    <li><a href="#">ES</a></li>
-				    <li><a href="#">IT</a></li>
-				    <li><a href="#">FR</a></li>
-				    <li><a href="#">RU</a></li>
-				    <li><a href="#">CN</a></li>
+				<th:block th:if="${post != null and not #arrays.isEmpty(nonDefaultLangs)}">					
+					<li th:each="code : ${nonDefaultLangs}" class="tabs-nav-item">
+						<a href="#" th:appendclass="${#strings.equals(translationCode, code) ? 'active-tab':''}" th:text="${code}">XX</a>
+					</li>					
 				</th:block>
 			</ul>
 		</nav>
