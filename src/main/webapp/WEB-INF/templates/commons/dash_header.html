@@ -18,12 +18,14 @@
 		<nav class="tabs-nav-container">
 			<ul class="tabs-nav-list">
 				<li class="tabs-nav-item">
-					<a href="#" th:classappend="${#strings.isEmpty(translationCode) ? 'active-tab':''}" 
-						th:text="${#strings.defaultString(defaultLang,'rs')}"></a>
+					<a href="#" th:class="__${#strings.defaultString(defaultLang,'rs')}__-nav-item" 
+					   th:classappend="${#strings.isEmpty(translationCode) ? 'active-tab':''}" 
+					   th:text="${#strings.defaultString(defaultLang,'rs')}"></a>
 				</li>
 				<th:block th:if="${post.id != 0 and not #arrays.isEmpty(nonDefaultLangs)}">					
 					<li th:each="code : ${nonDefaultLangs}" class="tabs-nav-item">
-						<a href="#" th:appendclass="${#strings.equals(translationCode, code) ? 'active-tab':''}" th:text="${code}">XX</a>
+						<a href="#" th:class="__${code}__-nav-item"
+						   th:appendclass="${#strings.equals(translationCode, code) ? 'active-tab':''}" th:text="${code}">XX</a>
 					</li>					
 				</th:block>
 			</ul>
