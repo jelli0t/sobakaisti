@@ -18,7 +18,8 @@
 		<h3 class="breadcrumb">
 			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/}" >dashboard</a>
 			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles}" th:text="#{label.articles}">articles</a>
-			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/article}" th:text="#{label.article}">article</a>
+			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/article}" 
+			   th:text="${#strings.isEmpty(article?.title) ? #messages.msg('label.article') : article.title}">article</a>
 		</h3>
 		<!-- Lang Nav -->
 		<th:block th:include="~{commons/dash_header :: languageNavFragment (post=${article}, translationCode=${translationCode})}">
