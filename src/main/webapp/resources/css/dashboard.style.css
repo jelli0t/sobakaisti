@@ -352,6 +352,25 @@ select.def-input {
 }
 
 /*
+* breadcrumb nav
+*/
+.breadcrumb {
+	font-size: 0.9em;
+  	text-transform: lowercase;
+}
+.breadcrumb > a {
+  	margin-right: 3px;
+}
+
+.breadcrumb > a:after {
+	content: '/';
+	margin-left: 6px;
+}
+.breadcrumb > a:last-of-type:after {
+  	display: none;
+}
+
+/*
  * Tabs Menu
 */
 .tabs-nav-container {
