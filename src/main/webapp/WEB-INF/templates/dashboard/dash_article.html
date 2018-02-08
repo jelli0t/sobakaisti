@@ -14,6 +14,11 @@
 
 <!-- Main -->	
 <main class="dash-page-container">
+	<!-- Commit result -->
+	<div th:if="${article.commited != null}" class="commit-response-holder full-width" id="commit-result"
+	     th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(article.commited)}, message=${article.commitMessage})}">
+	</div>
+	<!-- Page Header -->
 	<div class="dash-page-header">
 		<h3 class="breadcrumb">
 			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/}" >dashboard</a>
@@ -29,9 +34,7 @@
 <form th:action="@{/__${#strings.defaultString(lang,'')}__sbk-admin/article/submit}" id="new-post-form" name="new-post-form" 
 	th:object="${article}" method="post" onkeypress="return event.keyCode != 13;">	
 	<div class="main-dash-content" th:with="article=${article}">
-		<div th:if="${article.commited != null}" class="commit-response-holder full-width" id="commit-result"
-		     th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(article.commited)}, message=${article.commitMessage})}">
-		</div>
+		
 		<!-- Post ID -->
 		<input type="hidden" name="id" th:value="${article?.id}">
 		<!-- Right panel -->

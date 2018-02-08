@@ -66,7 +66,7 @@ ul {
 
 .dash-page-header {
 	position: relative;
-    padding-top: 20px;
+    padding-top: 1px;
     background-color: #fafbfc;
     border-bottom: 1px solid #e1e4e8;
 }
@@ -356,12 +356,14 @@ select.def-input {
 */
 .breadcrumb {
 	font-size: 0.9em;
+	font-weight: normal;
   	text-transform: lowercase;
+  	margin: 18px 3%;
 }
 .breadcrumb > a {
   	margin-right: 3px;
+  	color: #025bc0;
 }
-
 .breadcrumb > a:after {
 	content: '/';
 	margin-left: 6px;
@@ -390,14 +392,14 @@ li.tabs-nav-item {
 ul.tabs-nav-list > 
 li.tabs-nav-item > a {
     display: block;
-    padding: 7px 15px 8px 38px;
+    padding: 7px 15px 8px;
     color: #586069;
     white-space: nowrap;
     border: solid transparent;
     border-width: 3px 1px 1px;
     border-radius: 3px 3px 0 0; 
     /* posebna klasa */
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    -webkit-filter: grayscale(100%); Safari 6.0 - 9.0
     filter: grayscale(100%);
 }
 .tabs-nav-container > 
@@ -423,19 +425,27 @@ ul  > li > a > span {
 .tabs-nav-container > 
 ul.tabs-nav-list > 
 li.tabs-nav-item > a:before {
-	position: absolute;
-	left: 15px;
+/* 	position: absolute; */
+/* 	left: 15px; */
 	width: 18px;
 	height: 18px;
-	content: " ";
-	background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/70/Flag_of_Serbia_%28bordered%29.PNG');
+	margin-right: 6px;
+	content: " ";	
 	background-size: cover;
 	display: inline-block;
 	border-radius: 100%;
 	-webkit-border-radius: 100%;
 	-moz-border-radius: 100%;
+	vertical-align: middle;
 }
-   
+a.rs-nav-item:before { background-image: url('../img/icons/flags/rs.svg'); }
+a.en-nav-item:before { background-image: url('../img/icons/flags/en.svg'); }  
+a.es-nav-item:before { background-image: url('../img/icons/flags/es.svg'); }
+a.de-nav-item:before { background-image: url('../img/icons/flags/de.svg'); }
+a.it-nav-item:before { background-image: url('../img/icons/flags/it.svg'); }  
+a.fr-nav-item:before { background-image: url('../img/icons/flags/fr.svg'); }
+a.cn-nav-item:before { background-image: url('../img/icons/flags/cn.svg'); }
+a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }  
 
 /*	main content container	*/
 .dash-main-container {

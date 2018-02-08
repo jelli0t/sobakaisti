@@ -281,8 +281,9 @@ img {
 .commit-response-holder {
 	position: absolute;
 	display: block;
-	margin: -12px auto 0 auto;
-	text-align: center;	
+	margin: 20px auto 0 auto;
+	text-align: center;
+	z-index: 999;
 }
 .affirmative-border { border: 1px solid #28a745 !important; }
 .affirmative-background {
