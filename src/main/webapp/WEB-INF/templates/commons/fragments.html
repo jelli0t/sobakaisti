@@ -342,30 +342,35 @@
 	
 	
 	
-	
+	<!-- 
+	*	Translation post form	*
+	 -->
 	<div th:fragment="translationFormFragment">
 		<!-- Left content -->
-		<div class="left-container">
-			<div class="form-tr">
-				<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" id="publication-title" 
-					class="title-input full-width"  th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field' : ''" 
-					th:value="${article?.title}">
-				<!-- validation error message -->
-				<div class="validation-error" th:errors="*{title}"></div>	
-				<!-- link preview -->
-				<div class="post-path-container">
-					<span class="post-path path-label">Putanja na radovima: </span>
-					<span class="post-path path-static">http://sobakaisti.org/art/</span>
-					<span class="post-path path-slug">
-						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" th:value="${article?.slug}" readonly>
-					</span>
+		<form th:action="@{/__${#strings.defaultString(lang,'')}__sbk-admin/article/trans/{code}/submit(code=${translationCode})}"
+			th:object="${i18nArticle}" method="post" onkeypress="return event.keyCode != 13;">
+		<div class="main-dash-content">
+			<div class="left-container" th:with="article=${i18nArticle}">
+				<div class="form-tr">
+					<input type="text" th:placeholder="#{title.attr.articleTitle}" name="title" title="Naslov" id="publication-title" 
+						class="title-input full-width"  
+						th:value="${article?.title}">
+	<!-- 					th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field' : ''" -->
+					<!-- validation error message -->
+	<!-- 				<div class="validation-error" th:errors="*{title}"></div>	 -->
+					<!-- link preview -->
+				</div>			
+				<!-- contet textarea -->	
+				<div class="article-input-wrapper form-tr">
+					<textarea name="content" id="article-content" th:field="*{content}"></textarea>
 				</div>
-			</div>			
-			<!-- contet textarea -->	
-			<div class="article-input-wrapper form-tr">
-				<textarea name="content" id="article-content" th:field="*{content}"></textarea>
 			</div>
 		</div>
+		</form>
 	</div>
+	
+	
+	
+	 
 	
 </html>

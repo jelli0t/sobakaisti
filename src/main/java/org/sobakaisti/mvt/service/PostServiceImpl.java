@@ -125,6 +125,7 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 	
     @Override
     public I saveOrUpdateTranslatedPost(I i) {
+    	
     	return postDao.saveOrUpdate(i);
     }
 	

@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.i18n.model.I18nPost;
 
@@ -38,6 +40,7 @@ public class Article extends Post {
 	@JoinTable(name = "article_tag", joinColumns = {
 			@JoinColumn(name = "article_id")},
 			inverseJoinColumns = { @JoinColumn(name = "tag_id")})
+	@Fetch(FetchMode.SELECT)
 	private List<Tag> tags;
 		
 	@ManyToMany(fetch = FetchType.EAGER, cascade =
@@ -51,6 +54,7 @@ public class Article extends Post {
 	@JoinTable(name="article_category", 
 				joinColumns={@JoinColumn(name="article_id")}, 
 				inverseJoinColumns={@JoinColumn(name="category_id")})
+	@Fetch(FetchMode.SELECT)
 	private List<Category> categories;	
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade =

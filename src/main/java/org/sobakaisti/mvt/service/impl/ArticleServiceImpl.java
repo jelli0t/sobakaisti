@@ -63,10 +63,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article, I18nArticle> im
 		this.articleDao = (ArticleDao) postDao;
 	}
 	
-	@Override
-	public Article findById(int id) {		
-		return articleDao.find(id);
-	}
+	
 	
 	@Override
 	public List<String> getRowsFromArticleWithDimension(int width, int height, double charWidth, String lang) {

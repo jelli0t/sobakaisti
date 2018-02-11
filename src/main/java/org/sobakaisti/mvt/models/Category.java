@@ -5,8 +5,10 @@ package org.sobakaisti.mvt.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,8 +40,7 @@ public class Category {
 	@Column(name="parent_category_id")
 	private int parentId;
 	
-	@JsonIgnore
-	@ManyToMany
+	@ManyToMany(mappedBy="categories")
 	private List<Article> articles;
 	
 	public int getId() {

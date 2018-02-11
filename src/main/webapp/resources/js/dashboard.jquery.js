@@ -296,6 +296,14 @@ $(function() {
 			  $('#commit-result').slideUp(300);
 		  }, 4000);
 	  }
+	  
+	  /* Call translation */
+//	  $('.lang-nav-item > a').on('click', function(evt){
+////		  evt.stopPropagation();
+//		  evt.preventDefault();
+//		  alert('YeaH!!');
+//		  $(this).loadFragmentInto('#editable-body-holder');
+//	  });
 	
 }); // End Of Ready
 
@@ -1103,6 +1111,23 @@ $.fn.appendSelectedTag = function(index) {
 	.done(function( html ) {
 		$('.selected-tags').append(html);
 		$tag.remove();
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})	
+}
+
+$.fn.loadFragmentInto = function(container) {
+	var href = $(this).attr('href');
+	alert('call: '+href);
+	$.ajax({
+	    url: href,
+	    type: 'GET',	   
+	    dataType: 'html'
+	})
+	.done(function( html ) {
+		$(container).html(html);
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Error: " + errorThrown );

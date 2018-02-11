@@ -17,9 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
+import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PublicationService;
@@ -141,6 +143,22 @@ public class DashboardController {
 		return "dashboard/dash_article";
 	}
 	
+	@RequestMapping(value="/article/trans/{langCode}/{postId}", method=RequestMethod.GET)
+	public String showPostTransaltionForm(@PathVariable("langCode") String langCode, @PathVariable("postId") int postId, Model model) {
+		logger.info("Clanak sa ID:"+langCode+" prevodimo na lang: "+langCode);
+		if(!model.containsAttribute("i18nPost")) {
+			Article post = new Article();
+			post.setId(postId);
+			I18nArticle i18nPost = new I18nArticle();
+			i18nPost.setArticle(post);
+			model.addAttribute("i18nPost", i18nPost);
+			System.out.println("Ne sadrzi Article! pravim novi...");
+		}
+		model.addAttribute("translationCode", langCode);
+//		return "commons/fragments :: translationFormFragment";
+		return "dashboard/dash_i18nPost";
+	}
+	
 	
 	@RequestMapping(value="/article/submit", method=RequestMethod.POST)
 	public String submitArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult, 
@@ -166,11 +184,15 @@ public class DashboardController {
 	public String submitArticleTranslation(@ModelAttribute("i18nArticle") @Valid I18nArticle i18nArticle, BindingResult bindingResult, 
 			@PathVariable("lang") String lang, RedirectAttributes redirectAttributes, Locale locale) {
 		
+		logger.info("Uhvacen preveden: "+i18nArticle);
+		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.i18nArticle", bindingResult);
 			redirectAttributes.addFlashAttribute("i18nArticle", i18nArticle);
 			logger.warn("Ima gresaka pri validaciji!");
 		} else {
+			if(i18nArticle.getArticle() != null) 
+				i18nArticle.setArticle(articleService.findById(i18nArticle.getArticle().getId()));
 			I18nArticle translated = articleService.saveOrUpdateTranslatedPost(i18nArticle);
 			redirectAttributes.addFlashAttribute("i18nArticle", translated);
 			logger.info("Uspesno sacuvan: "+i18nArticle);

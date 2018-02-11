@@ -34,10 +34,7 @@ public interface ArticleService extends PostService<Article>, I18nPostService<Ar
 	
 	public Article getArticleBySlug(String slug, String lang);
 	
-	/**
-	 * Pronalazi entitet po prosledjenom ID-u
-	 * */
-	public Article findById(int id);
+	
 	
 	/**
 	 * Metoda cuva novi 

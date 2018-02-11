@@ -18,14 +18,15 @@
 		<nav class="tabs-nav-container">
 			<ul class="tabs-nav-list">
 				<li class="tabs-nav-item lang-nav-item">
-					<a href="#" th:class="__${#strings.defaultString(defaultLang,'rs')}__-nav-item" 
+					<a th:href="@{/sbk-admin/article/edit/{id}(id=${post.id})}" 
+						th:class="__${#strings.defaultString(defaultLang,'rs')}__-nav-item" 
 					   th:classappend="${#strings.isEmpty(translationCode) ? 'active-tab':''}" 
 					   th:text="${#strings.defaultString(defaultLang,'rs')}"></a>
 				</li>
-				<th:block th:if="${post.id != 0 and not #arrays.isEmpty(nonDefaultLangs)}">					
+				<th:block th:if="${post != null and not #arrays.isEmpty(nonDefaultLangs)}">					
 					<li th:each="code : ${nonDefaultLangs}" class="tabs-nav-item lang-nav-item">
-						<a th:href="@{/sbk-admin/article/edit/{lang}/{postId}(lang=${code}, postId=${post.id})}" th:class="__${code}__-nav-item"
-						   th:appendclass="${#strings.equals(translationCode, code) ? 'active-tab':''}" th:text="${code}">XX</a>
+						<a th:href="@{/sbk-admin/article/trans/{lang}/{postId}(lang=${code}, postId=${post.id})}" th:class="__${code}__-nav-item"
+						   th:classappend="${#strings.equals(translationCode, code) ? 'active-tab':''}" th:text="${code}">XX</a>
 					</li>					
 				</th:block>
 			</ul>
