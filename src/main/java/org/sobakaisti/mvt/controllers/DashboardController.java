@@ -200,7 +200,7 @@ public class DashboardController {
 		redirectAttributes.addFlashAttribute("translationCode", lang);
 		String localeLang = (locale != null && !locale.getLanguage().equals(StringUtil.DEFAULT_LANG_CODE)) ?
 				(locale.getLanguage()+"/") : "";
-		return String.format("redirect:/%ssbk-admin/articles/new", localeLang);	
+		return String.format("redirect:/%ssbk-admin/article/trans/%s/%s", localeLang, lang, i18nArticle.getId());	 
 	}
 	
 	
