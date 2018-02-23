@@ -146,16 +146,19 @@ public class DashboardController {
 	@RequestMapping(value="/article/trans/{langCode}/{postId}", method=RequestMethod.GET)
 	public String showPostTransaltionForm(@PathVariable("langCode") String langCode, @PathVariable("postId") int postId, Model model) {
 		logger.info("Clanak sa ID:"+langCode+" prevodimo na lang: "+langCode);
-		if(!model.containsAttribute("i18nPost")) {
-			Article post = new Article();
-			post.setId(postId);
-			I18nArticle i18nPost = new I18nArticle();
-			i18nPost.setArticle(post);
+		I18nArticle i18nPost = null;
+		if(!model.containsAttribute("i18nPost")) {			
+			i18nPost = articleService.findI18nPostByPostId(postId);
+			if(i18nPost == null) {
+				i18nPost = new I18nArticle();
+				Article post = new Article();
+				post.setId(postId);
+				i18nPost.setArticle(post);
+			}			
 			model.addAttribute("i18nPost", i18nPost);
 			System.out.println("Ne sadrzi Article! pravim novi...");
 		}
 		model.addAttribute("translationCode", langCode);
-//		return "commons/fragments :: translationFormFragment";
 		return "dashboard/dash_i18nPost";
 	}
 	
@@ -181,26 +184,26 @@ public class DashboardController {
 	
 	
 	@RequestMapping(value="/article/{lang}/submit", method=RequestMethod.POST)
-	public String submitArticleTranslation(@ModelAttribute("i18nArticle") @Valid I18nArticle i18nArticle, BindingResult bindingResult, 
+	public String submitArticleTranslation(@ModelAttribute("i18nPost") @Valid I18nArticle i18nPost, BindingResult bindingResult, 
 			@PathVariable("lang") String lang, RedirectAttributes redirectAttributes, Locale locale) {
 		
-		logger.info("Uhvacen preveden: "+i18nArticle);
+		logger.info("Uhvacen preveden: "+i18nPost);
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.i18nArticle", bindingResult);
-			redirectAttributes.addFlashAttribute("i18nArticle", i18nArticle);
+			redirectAttributes.addFlashAttribute("i18nPost", i18nPost);
 			logger.warn("Ima gresaka pri validaciji!");
 		} else {
-			if(i18nArticle.getArticle() != null) 
-				i18nArticle.setArticle(articleService.findById(i18nArticle.getArticle().getId()));
-			I18nArticle translated = articleService.saveOrUpdateTranslatedPost(i18nArticle);
-			redirectAttributes.addFlashAttribute("i18nArticle", translated);
-			logger.info("Uspesno sacuvan: "+i18nArticle);
+			if(i18nPost.getArticle() != null) 
+				i18nPost.setArticle(articleService.findById(i18nPost.getArticle().getId()));
+			I18nArticle translated = articleService.saveOrUpdateTranslatedPost(i18nPost);
+			redirectAttributes.addFlashAttribute("i18nPost", translated);
+			logger.info("Uspesno sacuvan: "+i18nPost);
 		}
 		redirectAttributes.addFlashAttribute("translationCode", lang);
 		String localeLang = (locale != null && !locale.getLanguage().equals(StringUtil.DEFAULT_LANG_CODE)) ?
 				(locale.getLanguage()+"/") : "";
-		return String.format("redirect:/%ssbk-admin/article/trans/%s/%s", localeLang, lang, i18nArticle.getId());	 
+		return String.format("redirect:/%ssbk-admin/article/trans/%s/%s", localeLang, lang, i18nPost.getId());	 
 	}
 	
 	

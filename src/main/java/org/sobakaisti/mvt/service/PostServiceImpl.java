@@ -29,6 +29,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javafx.geometry.Pos;
+
 @Service
 public abstract class PostServiceImpl<T extends Post, I extends I18nPost> 
 		implements PostService<T>, I18nPostService<T, I> {	
@@ -124,9 +126,13 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 	}
 	
     @Override
-    public I saveOrUpdateTranslatedPost(I i) {
-    	
+    public I saveOrUpdateTranslatedPost(I i) {    	
     	return postDao.saveOrUpdate(i);
+    }
+    
+    @Override
+    public I findI18nPostByPostId(int postId) {
+    	return postDao.findI18nPostByPostId(postId);
     }
 	
 	@Override

@@ -118,6 +118,20 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 	}
 	
 	@Override
+	public I findI18nPostByPostId(int postId) {
+		final String post = entity.getSimpleName().toLowerCase();	
+		String HQL = "from "+i18nPost.getName()+" ip where ip."+post+".id = :post_id";
+		try {
+			Query query = currentSession().createQuery(HQL);
+			query.setInteger("post_id", postId);
+			return (I) query.uniqueResult();
+		}catch (Exception e) {
+			logger.warn("Greska pri trazenju prevoda posta sa ID: "+postId+". Uzrok: "+e.getMessage());
+			return null;
+		}		
+	}
+	
+	@Override
 	@Transactional
 	public List<T> findAllPostsByActiveStatus(int status) {
 		String HQL = "from "+entity.getName()+" t where t.postDate is not null" 
