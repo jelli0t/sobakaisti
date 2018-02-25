@@ -75,8 +75,8 @@ public class AppRootConfiguration {
 		hibernateProperties.setProperty("hibernate.connection.CharSet", "utf8");
 		hibernateProperties.setProperty("hibernate.connection.characterEncoding", "utf8");
 		hibernateProperties.setProperty("hibernate.connection.useUnicode", "true");
-		hibernateProperties.setProperty("hibernate.show_sql", "true");
-		hibernateProperties.setProperty("hibernate.format_sql", "true");
+//		hibernateProperties.setProperty("hibernate.show_sql", "true");
+//		hibernateProperties.setProperty("hibernate.format_sql", "true");
 		return hibernateProperties;	
 	}	
 }

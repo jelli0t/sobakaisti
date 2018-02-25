@@ -147,14 +147,13 @@ public class DashboardController {
 	public String showPostTransaltionForm(@PathVariable("langCode") String langCode, @PathVariable("postId") int postId, Model model) {
 		logger.info("Clanak sa ID:"+langCode+" prevodimo na lang: "+langCode);
 		I18nArticle i18nPost = null;
-		if(!model.containsAttribute("i18nPost")) {			
-			i18nPost = articleService.findI18nPostByPostId(postId);
+		if(!model.containsAttribute("i18nPost")) {		
+			i18nPost = articleService.findI18nPostByPostId(postId, langCode, true);
 			if(i18nPost == null) {
 				i18nPost = new I18nArticle();
-				Article post = new Article();
-				post.setId(postId);
+				Article post = articleService.findById(postId);
 				i18nPost.setArticle(post);
-			}			
+			}
 			model.addAttribute("i18nPost", i18nPost);
 			System.out.println("Ne sadrzi Article! pravim novi...");
 		}
@@ -203,7 +202,7 @@ public class DashboardController {
 		redirectAttributes.addFlashAttribute("translationCode", lang);
 		String localeLang = (locale != null && !locale.getLanguage().equals(StringUtil.DEFAULT_LANG_CODE)) ?
 				(locale.getLanguage()+"/") : "";
-		return String.format("redirect:/%ssbk-admin/article/trans/%s/%s", localeLang, lang, i18nPost.getId());	 
+		return String.format("redirect:/%ssbk-admin/article/trans/%s/%s", localeLang, lang, i18nPost.getArticle().getId());	 
 	}
 	
 	

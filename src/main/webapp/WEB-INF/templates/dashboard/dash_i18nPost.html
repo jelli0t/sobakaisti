@@ -23,7 +23,7 @@
 		<h3 class="breadcrumb">
 			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/}" >dashboard</a>
 			<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/articles}" th:text="#{label.articles}">articles</a>
-			<a href="javascript:void(0)" th:text="${#strings.isEmpty(i18nPost?.title) ? #messages.msg('label.article') : article.title}">article</a>
+			<a href="javascript:void(0)" th:text="${#strings.isEmpty(i18nPost.title) ? #messages.msg('label.article') : i18nPost.title}">article</a>
 		</h3>
 		<!-- Lang Nav -->
 		<th:block th:include="~{commons/dash_header :: languageNavFragment (post=${i18nPost.article}, translationCode=${translationCode})}">
@@ -48,17 +48,7 @@
 					<span class="panel-title">Objava</span>
 				</div>
 				<div class="panel-element panel-body">
-<!-- 					<div class="select-wrapper"> -->
-					<!-- Authors -->
-<!-- 					<select th:field="*{author.id}" class="bttn bttn-default bttn-select" th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field'" th:value="${article?.author?.id}" > -->
-<!-- 						<option value="0" th:text="#{form.label.select.author}">Odaberi autora</option> -->
-<!-- 						<option th:each="author : ${authors}" th:value="${author.id}"  -->
-<!-- 								th:selected="${article?.author?.id == author.id}"  -->
-<!-- 								th:text="${author.firstName}+' '+${author.lastName}">sobakaista</option> -->
-<!-- 					</select> -->
-					<!-- validation error message -->
-<!-- 					<div class="validation-error" th:errors="*{author.id}"></div> -->
-<!-- 					</div> -->
+
 				<!-- Post info details -->
 <!-- 				<div class="post-info-box"> -->
 <!-- 					<label class="post-info-label"> -->
@@ -118,84 +108,12 @@
 <!-- 					</div>					 -->
 <!-- 				</div>				 -->
 				<!-- SUBMIT -->
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${i18nPost != null && i18nPost.id != 0} ? 'A�uriraj' : 'Prevedi'">Objavi</button>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right" 
+					th:text="${i18nPost != null && i18nPost.id != 0 ? #messages.msg('button.label.update') : #messages.msg('button.label.post')}">Objavi</button>
 			</div>
 		</div>
-		
-		<!-- Kategorije | desno  -->
-<!-- 		<div class="panel small-panel"> -->
-<!-- 			<div class="panel-element panel-header"> -->
-<!-- 				<span class="panel-title" th:text="#{label.categories}">kategorije</span> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-element panel-body"> -->
-<!-- 				<div th:unless="${#lists.isEmpty(categories)}" class="" -->
-<!-- 				     th:include="~{commons/fragments :: categorySelectionFragment (all=${categories}, chosen=${article.categories})}">						   -->
-<!-- 				</div> -->
-<!-- 			</div>			 -->
-<!-- 		</div> -->
-		
-		<!-- Tags selection -->
-<!-- 		<div class="panel small-panel"> -->
-<!-- 			<div class="panel-element panel-header"> -->
-<!-- 				<span class="panel-title" th:text="#{label.tags}">Oznake</span> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-element panel-body"> -->
-<!-- 				<div class="js-select-container full-width">		 -->
-<!-- 					<button class="bttn bttn-default bttn-select js-modal-select" type="button" th:text="#{label.tags}">Oznake</button> -->
-<!-- 					dropdown menu -->
-<!-- 					<div class="select-menu-modal-holder"> -->
-<!-- 						<div class="select-menu-modal" id="tags-modal"> -->
-<!-- 							select header -->
-<!-- 							<div class="select-menu-header"> -->
-<!-- 							  <svg aria-label="Close" class="bttn-menu-close js-menu-bttn-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"> -->
-<!-- 							    <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path> -->
-<!-- 							  </svg> -->
-<!-- 							  <span class="select-menu-title">Pretraga oznaka</span> -->
-<!-- 							</div> -->
-<!-- 							<div class="select-menu-text-filter"> -->
-<!-- 								na osnovu tipa eventa nad ovim poljem dodaje se sufiks na url -->
-<!-- 								<input type="text" class="select-menu-search-field js-search-filed" placeholder="Oznaka" th:src="@{/sbk-admin/tags/}"> -->
-<!-- 							</div> -->
-											
-<!-- 							<div class="select-menu-search-result"></div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div>	 -->
-<!-- 				Postojece oznake na clanku -->
-<!-- 				<div class="selected-tags selected-result"> -->
-<!-- 					<th:block th:unless="${#lists.isEmpty(article?.tags)}" th:include="~{commons/fragments :: tagBonesFragment}"  -->
-<!-- 						  th:with="tags=${article.tags}">						   -->
-<!-- 					</th:block> -->
-<!-- 				</div>						 -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-element panel-footer"></div> -->
-<!-- 		</div> -->
-		<!-- End of Tag selection -->
-			
-		<!-- Featured Image selection -->
-<!-- 		<div class="panel small-panel"> -->
-<!-- 			<div class="panel-element panel-header"> -->
-<!-- 				<span class="panel-title" th:text="#{label.image.featured}">Featured image</span> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-element panel-body"> -->
-<!-- 				Input file button	 -->
-<!-- 				<a th:href="@{/__${#strings.defaultString(lang,'')}__sbk-admin/media/select(type=featured)}" class="show-media-lib bttn bttn-default"> -->
-<!-- 					<img alt="" th:src="@{/resources/img/icons/svg/file-media.svg}" height="16">  -->
-<!-- 					<span th:text="#{button.label.upload.featuredImg}">Odaberi fotografiju</span> -->
-<!-- 				</a>				 -->
-<!-- 				Featured IMG preview -->
-<!-- 				<div id="featured-prev-container"> -->
-<!-- 					<th:block th:if="${article?.featuredImage != null}"> -->
-<!-- 						<img alt="Featured Image" th:src="@{/uploads/images/{filename}(filename=${article.featuredImage.fileName})}"  -->
-<!-- 						     th:title="${article.featuredImage.title}" width="180"> -->
-<!-- 						<input type="hidden" name="featuredImageId" th:value="${article.featuredImage.id}"> -->
-<!-- 					</th:block> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="panel-element panel-footer"></div> -->
-<!-- 		</div> -->
-		</div>		
-		
+		</div>
+
 		<!-- Left content -->
 		<div class="left-container">
 			<div class="form-tr">
@@ -203,22 +121,14 @@
 					class="title-input full-width"  th:classappend="${#fields.hasErrors('title')} ? 'non-valid-field' : ''" 
 					th:src="@{/publications/slug/new}" th:value="${i18nPost?.title}">
 				<!-- validation error message -->
-				<div class="validation-error" th:errors="*{title}"></div>	
-				<!-- link preview -->
-<!-- 				<div class="post-path-container"> -->
-<!-- 					<span class="post-path path-label">Putanja na radovima: </span> -->
-<!-- 					<span class="post-path path-static">http://sobakaisti.org/art/</span> -->
-<!-- 					<span class="post-path path-slug"> -->
-<!-- 						<input type="text" name="slug" class="path-slug-input" size="0" id="slug" th:value="${article?.slug}" readonly> -->
-<!-- 					</span> -->
-<!-- 				</div> -->
+				<div class="validation-error" th:errors="*{title}"></div>
 			</div>			
 			<!-- contet textarea -->	
 			<div class="article-input-wrapper form-tr">
 				<textarea name="content" id="article-content" th:field="*{content}"></textarea>
 			</div>
-		</div>
-	</div>
+		</div>	
+</div>
 <!-- end of the form -->
 </form>
 </section>

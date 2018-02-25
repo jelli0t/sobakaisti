@@ -118,12 +118,16 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 	}
 	
 	@Override
-	public I findI18nPostByPostId(int postId) {
+	@Transactional
+	public I findI18nPostByPostId(int postId, String lang, boolean fetchingPost) {
 		final String post = entity.getSimpleName().toLowerCase();	
-		String HQL = "from "+i18nPost.getName()+" ip where ip."+post+".id = :post_id";
+		String HQL = "from "+i18nPost.getName()+" ip"
+				+ (fetchingPost ? " join fetch ip."+post+"" : "")
+				+ " where ip."+post+".id = :post_id and ip.lang = :lang";
 		try {
 			Query query = currentSession().createQuery(HQL);
 			query.setInteger("post_id", postId);
+			query.setString("lang", lang);
 			return (I) query.uniqueResult();
 		}catch (Exception e) {
 			logger.warn("Greska pri trazenju prevoda posta sa ID: "+postId+". Uzrok: "+e.getMessage());

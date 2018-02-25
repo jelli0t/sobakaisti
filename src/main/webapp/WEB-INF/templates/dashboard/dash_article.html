@@ -114,7 +114,8 @@
 					</div>					
 				</div>				
 				<!-- SUBMIT -->
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right" th:text="${article != null && article.id != 0} ? 'Ažuriraj' : 'Objavi'">Objavi</button>
+				<button type="submit" class="bttn bttn-sm bttn-primary float-right" 
+						th:text="${article != null and article.id != 0 ? #messages.msg('button.label.update') : #messages.msg('button.label.post')}">Objavi</button>
 			</div>
 		</div>
 		

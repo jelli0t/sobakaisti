@@ -131,8 +131,8 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
     }
     
     @Override
-    public I findI18nPostByPostId(int postId) {
-    	return postDao.findI18nPostByPostId(postId);
+    public I findI18nPostByPostId(int postId, String lang, boolean fetchingPost) {
+    	return postDao.findI18nPostByPostId(postId, lang, fetchingPost);
     }
 	
 	@Override

@@ -52,10 +52,10 @@ public interface PostDao<T extends Post, I extends I18nPost> {
 	
 	/**
 	 * Pronalazi preveden clanak za Post sa prosledjenim ID.
-	 * Ako ne pronadje pravi novi objekat sa referencom na Post sa ID
 	 * @param postId
+	 * @param fetchingPost 	ako je true dohvata i original post
 	 * */
-	public I findI18nPostByPostId(int postId);
+	public I findI18nPostByPostId(int postId, String lang, boolean fetchingPost);
 	
 	/**
 	 *  Brise post sa prosledjenim ID

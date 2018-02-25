@@ -22,5 +22,5 @@ public interface I18nPostService<P extends Post, I extends I18nPost> {
 	 * Ako ne pronadje pravi novi objekat sa referencom na Post sa ID
 	 * @param postId
 	 * */
-	public I findI18nPostByPostId(int postId);
+	public I findI18nPostByPostId(int postId, String lang, boolean fetchingPost);
 }
