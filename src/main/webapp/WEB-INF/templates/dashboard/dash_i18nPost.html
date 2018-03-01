@@ -71,44 +71,8 @@
 			</div>
 			
 			<div class="panel-element panel-footer">
-<!-- 				Select visability -->
-<!-- 				<div class="js-select-container">		 -->
-<!-- 					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select"> -->
-<!-- 						<span th:if="${article?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span> -->
-<!-- 						<span th:if="${article?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				 -->
-<!-- 					</a> -->
-					
-<!-- 					<div class="select-menu-modal-holder"> -->
-<!-- 						<div class="select-menu-modal"> -->
-<!-- 							select header -->
-<!-- 							<div class="select-menu-header"> -->
-<!-- 							  <svg aria-label="Close" class="bttn-menu-close js-menu-bttn-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"> -->
-<!-- 							    <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path> -->
-<!-- 							  </svg> -->
-<!-- 							  <span class="select-menu-title">Vidljivost</span> -->
-<!-- 							</div> -->
-<!-- 							select body   -->
-<!-- 							<ul class="select-menu-list"> -->
-<!-- 								<li class="select-menu-item"> -->
-<!-- 									<input type="radio" name="active" value="1" id="input-public-scope" th:checked="${publication?.active == 1}" > -->
-<!-- 								    <label for="input-public-scope"> -->
-<!-- 								    	<span><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span> -->
-<!-- 								      	<span>�lanak ce biti objavljen javno</span> -->
-<!-- 								    </label> -->
-<!-- 								</li> -->
-<!-- 							  	<li class="select-menu-item"> -->
-<!-- 							  		<input type="radio" name="active" value="0" id="input-private-scope" th:checked="${publication?.active == 0}" > -->
-<!-- 						    		<label for="input-private-scope"> -->
-<!-- 						      			<span><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span> -->
-<!-- 						      			<span>�lanak dostupan samo autoru</span>    -->
-<!-- 						    		</label> -->
-<!-- 							  	</li> -->
-<!-- 							</ul> -->
-<!-- 						</div> -->
-<!-- 					</div>					 -->
-<!-- 				</div>				 -->
 				<!-- SUBMIT -->
-				<button type="submit" class="bttn bttn-sm bttn-primary float-right" 
+				<button type="submit" class="bttn bttn-sm bttn-primary" 
 					th:text="${i18nPost != null && i18nPost.id != 0 ? #messages.msg('button.label.update') : #messages.msg('button.label.post')}">Objavi</button>
 			</div>
 		</div>
