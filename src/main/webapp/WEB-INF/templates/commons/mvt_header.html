@@ -124,8 +124,38 @@
 			<span>&#124;</span>
 			<a th:href="@{/arts/popular/{art}/{author}(art=${arts[0].slug}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" 
 				class="sorting-bttn"><span th:text="#{button.label.popular}" th:classappend="${popular} ? '' : inactive">Popularno</span></a>
-		</div>
-		
+		</div>	
 	</div>	
+	
+	<header> 
+	  <div class="header-content-wrapper center-main-width">
+	    <div class="header-top fx-box fx-justify-sbtw">
+	      <a th:href="@{/rs/movement}">
+	      	<img alt="Pokret" th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="26" title="Pokret Sobakaisti">
+	      </a>
+	      <div>
+	        Socials
+	      </div>
+	    </div>
+	    
+	    <div class="header-middle fx-box fx-justify-cnt fx-wrap">
+	      <div class="header-author-filter">
+	        levi autori
+	      </div>
+	      <div>
+	        indikator strane
+	      </div>
+	      <div class="header-author-filter">
+	        desni autori
+	      </div>
+	    </div>
+	    
+	    <div class="header-bottom fx-box fx-justify-cnt">
+	      <a href="#">Popularno</a> | 
+	      <a href="#">Hronološki</a>
+	    </div>
+	  </div>  
+	</header>
+	
 </header>
 </html>
