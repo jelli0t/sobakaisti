@@ -127,6 +127,36 @@
 		</div>	
 	</div>	
 	
+	
+	<nav class="mvt-top-navigation" th:fragment="mvtTopNavigation">
+	  <div class="nav-content-wrapper center-main-width fx-box fx-justify-sbtw">
+	  	<!-- Topbar Logo -->
+	    <div class="mvt-top-logo">
+			<a th:href="@{/rs/movement}"><img alt="Pokret" th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="26"></a>
+		</div> 
+	       
+	    <ul class="mvt-top-menu">
+			<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li>
+			<li><a th:href="@{/arts}" th:text="#{nav.item.arts}" th:title="#{nav.item.arts}"></a>
+	<!-- 					<ul> -->
+	<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+	<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+	<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+	<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+	<!-- 						<li><a th:href="@{/arts/literature}" th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}"></a></li> -->
+	<!-- 					</ul> -->
+			</li>
+			<li><a th:href="@{/authors}" th:text="#{nav.item.authors}" th:title="#{nav.item.authors}"></a></li>
+			<li><a th:href="@{/publications}" th:text="#{nav.item.published}" th:title="#{nav.item.published}"></a></li>
+			<li><a th:href="@{/shop}" th:text="#{nav.item.shop}" th:title="#{nav.item.shop}"></a></li>
+			<li><a th:href="@{/contact}" th:text="#{nav.item.contact}" th:title="#{nav.item.contact}"></a></li>
+		</ul> 
+	    <div>
+	      login
+	    </div>
+	  </div>  
+	</nav>
+	
 	<header> 
 	  <div class="header-content-wrapper center-main-width">
 	    <div class="header-top fx-box fx-justify-sbtw">
