@@ -217,7 +217,7 @@
 			<div class="header-middle fx-box fx-wrap">
 				<!-- left autor filter div -->
 				<div class="header-author-filter fx-grow2 fx-1st">
-					<ul th:if="${authors != null}" class="author-filter-list left-author">
+					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list left-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
 							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
@@ -229,10 +229,10 @@
 				</div>
 				<!-- center indicator continer -->
 				<div class="header-page-indicator fx-grow1 fx-2nd">
-					<a th:href="@{/arts/{art}(art=${arts[0].slug})}" th:if="${arts != null}"> 
+					<a th:href="@{/arts/{art}(art=${arts[0].slug})}" th:if="${not #lists.isEmpty(arts)}"> 
 						<span class="circle page-indikator-circle">
 							<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:title="${arts[0].name}"> 
-							<span th:if="${arts == null}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
+							<span th:if="${not #lists.isEmpty(arts)}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
 						</span>
 					</a> 
 					<a th:href="@{/manifesto}" th:if="${arts == null}"> 
@@ -241,10 +241,8 @@
 						</span>
 					</a>
 					<!-- Arts subcategories -->
-					<a th:href="@{/arts/{art}(art=${art.slug})}"
-						th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}"
-						th:title="${art.name}"> <img alt=""
-						th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}"
+					<a th:href="@{/arts/{art}(art=${art.slug})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}" th:title="${art.name}"> 
+						<img th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}"
 						class="arts-submenu-icon"
 						th:classappend="'submenu-icon-' + ${itemStat.index}"
 						th:alt="${art.name}" />
@@ -252,7 +250,7 @@
 				</div>
 				<!-- right author filter div -->
 				<div class="header-author-filter fx-grow2 fx-3rd">
-					<ul th:if="${authors != null}" class="author-filter-list right-author">
+					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
 							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}"
 								th:alt="${author.firstName + ' ' + author.lastName}"> <span
