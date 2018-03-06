@@ -245,25 +245,6 @@ nav.mvt-top-navigation >
 }
 
 /* Header navigation */
-.header-nav-container {
-	/* 	display: none; */
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 60px;
-	margin-top: -34px;
-	z-index: 999;
-	box-sizing: border-box;
-}
-
-.header-nav-container>.header-nav-menu {
-	position: absolute;
-	top: 0;
-	width: 100%;
-	height: 36px;
-	background-color: #fff;
-}
 
 /* https://css-tricks.com/reading-position-indicator/ */
 .header-nav-container>progress {
@@ -319,33 +300,6 @@ progress::-moz-progress-bar {
 		rgba(255, 255, 255, 1)); /* Standard syntax (must be last)*/
 }
 
-/* main header navigation	*/
-.header-nav-main {
-	position: relative;
-	text-align: center;
-	height: 36px;
-	max-width: 980px;
-	margin: 0 auto;
-	/* 	padding: 0 16px; */
-	background-color: #fff;
-	box-sizing: border-box;
-	border-bottom: 2px solid #343434;
-}
-/* trougao na top menu */
-.header-nav-main:before {
-	position: absolute;
-	top: 36px;
-	left: 50%;
-	margin-left: -16px;
-	content: ' ';
-	width: 0;
-	height: 0;
-	border-left: 16px solid transparent;
-	border-right: 16px solid transparent;
-	border-top: 15px solid #343434;
-	z-index: 999;
-}
-
 .mvt-top-menu {
 	display: inline-block;
 	line-height: 38px;
@@ -370,88 +324,15 @@ progress::-moz-progress-bar {
 	color: #1fa0ae;
 }
 
-/* .header-nav-main>.logo-wrapper { */
-/* 	float: left; */
-/* 	margin-top: 4px; */
-/* } */
-
-/* .header-nav-main>.logo-navigation { */
-/* 	display: none; */
-/* } */
-
-.header-nav-main>.navigation-social {
-	display: none;
-	float: right;
-	margin: 3px 0 0 5px;
-}
-
-/* .header-navigation ul { */
-/* 	display: none; */
-/* 	position: absolute; */
-/* 	top: 100%; */
-/* 	margin-left: 90px; */
-/* 	border: 1px solid red; */
-/* 	background: #fff; */
-/* 	padding: 10px; */
-/* 	z-index: 999; */
-/* } */
-
-.header-navigation li:hover>ul {
-	display: block
-}
-
-/* button for resposive menu	*/
-.header-nav-menu>.header-nav-bttn {
-	display: none;
-	float: right;
-	width: 24px;
-	height: 24px;
-	border: 1px solid #343434;
-	border-radius: 30px;
-	margin: 3px 18px 0 15px;
-	box-sizing: border-box;
-	background-repeat: no-repeat;
-	background-position: top right;
-	background-size: 12px 12px;
-	background-position: center;
-	background-image: url('../img/social/menu-button.svg');
-	cursor: pointer;
-}
-
 /* HEADER CONTENT */
 .mvt-header {
 	position: relative;
 	margin: 70px 0 30px;
 }
 
-
-.header-content {
-	position: relative;
-	display: block;
-	max-width: 980px;
-	min-height: 100px;
-	margin: 50px auto 0 auto;
-	box-sizing: border-box;
-}
-
-.header-content-tophalf {
-	display: table;
-	width: 100%;
-}
-
-.header-content-bottomhalf {
-	display: table;
-	table-layout: fixed;
-	width: 100%;
-	height: auto;
-	/* 	border: 1px solid red; */
-}
-
 .header-author-filter {
 	position: relative;
-	flex-basis: 260px;
-/* 	display: table-cell; */
-/* 	height: 90px; */
+	flex-basis: 50%;
 	padding: 0 15px;
 /* 	border: 1px solid red; */
 }
@@ -495,7 +376,7 @@ progress::-moz-progress-bar {
 .header-page-indicator {
 	position: relative;
 /* 	display: table-cell; */
-/* 	flex-basis: 160px; */
+	flex-basis: 180px;
 	/* 	border: 1px solid blue; */
 	height: 90px;
 	padding: 0;
@@ -530,7 +411,7 @@ progress::-moz-progress-bar {
 	font-size: 11px;
 	line-height: 38px;
 	margin: 4px;
-	opacity: 0.4;
+	opacity: 0.6;
 }
 
 .circle-filter:hover {
@@ -577,22 +458,15 @@ progress::-moz-progress-bar {
 	height: 46px;
 	vertical-align: middle;
 }
-
 .header-sorting-container {
-	text-align: center;
 	text-transform: uppercase;
 	padding-top: 15px;
 	font-size: 0.8em;
 	font-weight: 700;
 }
+.header-sorting-container > a.sorting-bttn { margin: 0 15px; }
+.header-sorting-container a.sorting-bttn:hover { color: #1fa0ae; }
 
-.header-sorting-container a:hover {
-	color: #1fa0ae;
-}
-
-.sorting-bttn {
-	margin: 0 15px;
-}
 
 .authors-container {
 	width: 100%;
@@ -1270,22 +1144,6 @@ footer .footer-container .footer-row {
 @media only screen and (max-width: 730px) {
 	.single-circle {
 		display: none;
-	}
-	.header-nav-container {
-		display: block;
-		margin-top: 0;
-	}
-	.header-nav-menu>.header-nav-main {
-		display: none;
-	}
-	.header-nav-menu>.header-nav-bttn {
-		display: block;
-	}
-	.header-content-tophalf {
-		display: none;
-	}
-	.header-content-bottomhalf {
-		height: 70px;
 	}
 	.author-filter-list {
 		line-height: normal;
