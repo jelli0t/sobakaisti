@@ -9,6 +9,37 @@
 <!-- Main Page Header -->
 <th:block th:insert="~{commons/mvt_header :: mvtHeader}"></th:block>
 
+<!-- Top articles  -->
+<section class="mvt-top-posts">
+	<div class="top-posts-wrapper center-main-width fx-box fx-wrap fx-justify-sbtw">
+		<!-- top section header -->
+		<div class="top-posts-header">
+		    <span>Izdvajamo</span>
+		</div>		
+		<!-- posts -->
+		<article class="fx-box fx-nowrap fx-dir-row top-post-prev" th:each="post : ${initArticles}">
+		    <!-- fotka -->
+		    <!-- th:style="'background:url(' + @{/<path-to-image>} + ');'" 
+		    
+		    style="background:url('https://cdn-images-1.medium.com/max/2000/1*DLIqBteIIJchIhaiUfCFdQ.jpeg');"    
+		    -->
+		    <aside th:if="${post.featuredImage != null}" th:with="media = ${post.featuredImage}">
+		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
+		      </a>
+		    </aside>
+		    <div>
+		      	<header>
+		        	<h3 th:text="${post.title}" th:title="${post.title}">Neki članak #1</h3>        
+		      	</header>
+			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 290)}"
+			    	class="post-prev-content">
+			    </div>
+		    	<footer>Nemanja Jelesijeic</footer>
+			</div>
+		</article>
+	</div>
+</section>
+
 <div class="site-content-container">
 	<!-- Top article preview -->
 	<div class="article-top-container" th:if="${initArticles != null}">

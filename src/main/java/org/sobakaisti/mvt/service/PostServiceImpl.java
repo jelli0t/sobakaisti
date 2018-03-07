@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.dao.PostDao;
-import org.sobakaisti.mvt.i18n.dao.I18nPostDao;
 import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.i18n.service.I18nPostService;
 import org.sobakaisti.mvt.models.Article;
@@ -29,7 +28,6 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import javafx.geometry.Pos;
 
 @Service
 public abstract class PostServiceImpl<T extends Post, I extends I18nPost> 
