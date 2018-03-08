@@ -19,26 +19,36 @@
 		<!-- posts -->
 		<article class="fx-box fx-nowrap fx-dir-row top-post-prev" th:each="post : ${initArticles}">
 		    <!-- fotka -->
-		    <!-- th:style="'background:url(' + @{/<path-to-image>} + ');'" 
-		    
-		    style="background:url('https://cdn-images-1.medium.com/max/2000/1*DLIqBteIIJchIhaiUfCFdQ.jpeg');"    
-		    -->
 		    <aside th:if="${post.featuredImage != null}" th:with="media = ${post.featuredImage}">
 		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
 		      </a>
 		    </aside>
+			<!-- Right side of preview -->
 		    <div>
-		      	<header>
-		        	<h3 th:text="${post.title}" th:title="${post.title}">Neki članak #1</h3>        
-		      	</header>
+			<header>
+				<a href="#" th:title="${post.title}">	
+					<h3 th:text="${post.title}" class="mvt-postprev-title">Neki članak #1</h3>
+				</a>
+			</header>
 			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 290)}"
-			    	class="post-prev-content">
+				class="post-prev-content">
 			    </div>
-		    	<footer>Nemanja Jelesijeic</footer>
+		    	<footer class="fx-box fx-justify-sbtw fx-dir-row" th:with="author=${post.author}">
+				<div></div>
+				<div>
+					<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" 
+							th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+					</address>
+					<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+				</div>
+			    	<div></div>
+			</footer>
 			</div>
 		</article>
 	</div>
 </section>
+	
 
 <div class="site-content-container">
 	<!-- Top article preview -->
