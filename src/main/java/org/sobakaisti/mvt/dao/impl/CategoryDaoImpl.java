@@ -9,6 +9,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -80,7 +81,8 @@ public class CategoryDaoImpl implements CategoryDao{
 	@Override
 	public List<Category> findAllSubcategoriesByParent(String parentSlug) {
 		Session session = sessionFactory.getCurrentSession();
-		String HQL = "from Category c where c.parentId = (select cin.id from Category cin where cin.slug = :parentSlug)";
+//		String HQL = "from Category c where c.parentId = (select cin.id from Category cin where cin.slug = :parentSlug)";
+		String HQL = "from Category c where c.parent.slug = :parentSlug";
 		try{
 			@SuppressWarnings("unchecked")
 			List<Category> categories = (List<Category>) session.createQuery(HQL).setString("parentSlug", parentSlug).list();
@@ -90,6 +92,29 @@ public class CategoryDaoImpl implements CategoryDao{
 			System.err.println("Greska pri dohvatanju kategorija: "+he.getMessage());
 			return null;
 		}
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")	
+	public List<String> fetchArtsSlugsSortedBySelectedArt(String selectedSlug) {
+		List<String> artsSlugs = null;
+//		String HQL = "select c.slug from Category c join fetch c.parent pc where pc.slug = :arts"
+//				+ " order by case when c.slug = :selectedSlug then 1 else 2 end asc";
+		String HQL = "select c.slug from Category c where c.parent.slug = :arts"
+				+ " order by case when c.slug = :selectedSlug then 1 else 2 end asc";
+		
+		try{
+			Session session = sessionFactory.getCurrentSession();
+			Query query = session.createQuery(HQL);
+			query.setString("arts", Category.CATEGORY_ARTS);
+			query.setString("selectedSlug", selectedSlug);
+			artsSlugs = query.list();			
+			System.out.println("Dohvatio sam slugs size: "+artsSlugs.size());
+			return artsSlugs;
+		}catch (HibernateException he) {
+			System.err.println("Greska pri dohvatanju slugova: "+he.getMessage());
+		}
+		return artsSlugs;
 	}
 
 	@Override

@@ -45,4 +45,11 @@ public interface CategoryDao {
 	public Category findCategoryBySlug(String slug);
 
 	List<Category> findListOfCategoriesByIds(List<Integer> ids);
+
+	/**
+	 * Dohvata listu slug-ova za kategorije koji za parenta imaju "arts"
+	 * i sortira listu tako da prosledjeni slug bude na vrhu.
+	 * @param	selectedSlug
+	 * */
+	List<String> fetchArtsSlugsSortedBySelectedArt(String selectedSlug);
 }

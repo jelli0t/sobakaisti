@@ -12,7 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,8 +39,12 @@ public class Category {
 	@Column(name="slug")
 	private String slug;
 
-	@Column(name="parent_category_id")
-	private int parentId;
+//	@Column(name="parent_category_id")
+//	private int parentId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="parent_category_id")
+	private Category parent;
 	
 	@ManyToMany(mappedBy="categories")
 	private List<Article> articles;
@@ -74,13 +80,21 @@ public class Category {
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
+	
+//	public int getParentId() {
+//		return parentId;
+//	}
+//
+//	public void setParentId(int parentId) {
+//		this.parentId = parentId;
+//	}
 
-	public int getParentId() {
-		return parentId;
+	public Category getParent() {
+		return parent;
 	}
 
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
+	public void setParent(Category parent) {
+		this.parent = parent;
 	}
 
 	@Override

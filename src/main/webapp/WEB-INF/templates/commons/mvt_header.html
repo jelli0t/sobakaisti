@@ -152,7 +152,7 @@
 				<div class="header-page-indicator">
 					<a th:href="@{/arts/{art}(art=${arts[0].slug})}" th:if="${not #lists.isEmpty(arts)}"> 
 						<span class="circle page-indikator-circle">
-							<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:title="${arts[0].name}"> 
+							<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:title="#{label.arts.__${arts[0].slug}__}"> 
 							<span th:if="${not #lists.isEmpty(arts)}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
 						</span>
 					</a> 

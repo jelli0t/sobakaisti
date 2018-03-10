@@ -29,6 +29,10 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public List<Category> findAllSortedSubcategories(String categorySlug, String parentCategorySlug) {
+		List<String> slugs = categoryDao.fetchArtsSlugsSortedBySelectedArt(categorySlug);
+		for(String slug : slugs)
+			System.out.println(slug);
+		
 		List<Category> subcategories = this.findAllSubcategoriesByParent(parentCategorySlug);		
 		if(subcategories != null){
 			List<Category> sortedCategories = new ArrayList<Category>(subcategories.size());
