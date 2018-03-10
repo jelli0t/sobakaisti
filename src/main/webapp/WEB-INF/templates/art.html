@@ -9,7 +9,9 @@
 <!-- Main Page Header -->
 <th:block th:insert="~{commons/mvt_header :: mvtHeader}"></th:block>
 
-<!-- Top articles  -->
+<!-- 
+*	Top articles  *
+-->
 <section class="mvt-top-posts">
 	<div class="top-posts-wrapper center-main-width fx-box fx-wrap fx-justify-sbtw">
 		<!-- top section header -->
@@ -17,7 +19,7 @@
 		    <span>Izdvajamo</span>
 		</div>		
 		<!-- posts -->
-		<article class="fx-box fx-nowrap fx-dir-row top-post-prev" th:each="post : ${initArticles}">
+		<article class="fx-box fx-nowrap fx-dir-row top-post-prev" th:each="post, item : ${initArticles}" th:unless="${item.index < 4}">
 		    <!-- fotka -->
 		    <aside th:if="${post.featuredImage != null}" th:with="media = ${post.featuredImage}">
 		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
@@ -34,23 +36,44 @@
 					class="mvt-postprev-snippet">
 			    </div>
 		    	<footer class="fx-box fx-justify-sbtw fx-dir-row" th:with="author=${post.author}">
-					<div class="">
-						<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
-					</div>
-					<div>
-						<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" 
-								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-						</span>
-						<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
-					</div>
-			    	<div></div>
+		    		<!--  -->
+					<div class="fx-box"> 
+			    		<!-- Authors avatar -->
+						<div class="mvt-postprev-author-avatar">
+							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+							</a>
+						</div>
+						<!-- Authors full name and post date -->
+						<div class="mvt-postprev-info">
+							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" 
+									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+							</span>
+							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+						</div>
+					</div>	
+			    	<div class="mvt-postprev-tools">
+			            T
+			        </div>				    
 			</footer>
 			</div>
 		</article>
 	</div>
-</section>
-	
+</section>	
+
+<!-- 
+*	The rest of the Posts  *
+-->
+<section class="mvt-rest-posts">
+	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw">
+		<!-- top section header -->
+		<div class="top-posts-header">
+		    <span>Preostali članci</span>
+		</div>
+	</div>
+</section>	
+
 
 <div class="site-content-container">
 	<!-- Top article preview -->
