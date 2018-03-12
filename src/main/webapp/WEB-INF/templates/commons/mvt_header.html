@@ -140,7 +140,7 @@
 				<div class="header-author-filter">
 					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list left-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}"> 
+							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
 								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
@@ -173,7 +173,7 @@
 				<div class="header-author-filter">
 					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}"
+							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}"
 								th:alt="${author.firstName + ' ' + author.lastName}"> <span
 								class="circle circle-filter"
 								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
