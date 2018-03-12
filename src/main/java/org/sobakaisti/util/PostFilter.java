@@ -19,6 +19,17 @@ public class PostFilter {
 	private Category category;
 	private Tag tag;
 	private String lang;
+	/*
+	 * Slugs
+	 * */
+	private String authorSlug;
+	private String categorySlug;
+	private String tagSlug;
+	/*
+	 * Limits
+	 * */
+	private int from;
+	private int size;
 		
 	/**
 	 * Basic constructor
@@ -59,6 +70,27 @@ public class PostFilter {
 		this.lang = lang;
 	}
 	
+	/**
+	 * Slug related post filter
+	 * */	
+	public PostFilter(boolean active, String lang, String authorSlug, String categorySlug) {
+		super();
+		this.active = active;
+		this.lang = lang;
+		this.authorSlug = authorSlug;
+		this.categorySlug = categorySlug;
+	}
+	
+	public PostFilter(boolean active, String lang, String authorSlug, String categorySlug, int from, int size) {
+		super();
+		this.active = active;
+		this.lang = lang;
+		this.authorSlug = authorSlug;
+		this.categorySlug = categorySlug;
+		this.from = from;
+		this.size = size;
+	}
+
 	public boolean isActive() {
 		return active;
 	}
@@ -99,6 +131,22 @@ public class PostFilter {
 		this.lang = lang;
 	}
 	
+	public int getFrom() {
+		return from;
+	}
+
+	public void setFrom(int from) {
+		this.from = from;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	public boolean hasAuthor() {
 		return this.author != null ? true : false;
 	}

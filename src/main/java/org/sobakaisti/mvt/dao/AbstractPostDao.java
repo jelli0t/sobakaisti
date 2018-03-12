@@ -248,7 +248,20 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 			logger.error("Greska pri trazenju autora koji su postovali. Uzrok: "+e.getMessage());
 			return null;
 		}	
-	}	
+	}
+	
+	@Override
+	public List<Author> findAllPostsAuthorsInCategory(String categorySlug) {
+		String HQL = "select distinct p.author from "+entity.getName()+" p left join p.categories cat"
+				+ " where cat.slug = :categorySlug and p.active = 1";
+		try {
+			List<Author> authors = currentSession().createQuery(HQL).list();
+			return authors;
+		} catch (Exception e) {
+			logger.error("Greska pri trazenju autora koji su postovali. Uzrok: "+e.getMessage());
+			return null;
+		}
+	}
 	
 	@Override
 	@Transactional
@@ -370,5 +383,4 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 			return null;
 		}
 	}
-		
 }

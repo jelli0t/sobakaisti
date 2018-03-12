@@ -133,5 +133,10 @@ public interface PostDao<T extends Post, I extends I18nPost> {
 	 * @return vraca preveden post ili null ukoliko prevod ne postoji
 	 * */
 	public T getTranslatedPostById(int id, String lang);
+
+	/**
+	 * Dohvata sve autore koji su postovali u zadatoj kategoriji
+	 * */
+	List<Author> findAllPostsAuthorsInCategory(String categorySlug);
 	
 }

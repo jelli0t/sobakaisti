@@ -226,4 +226,9 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 		
 		return null;
 	}
+	
+//	public List<Post> getPostBundle(PostFilter postFilter) {
+//		
+//		
+//	}
 }

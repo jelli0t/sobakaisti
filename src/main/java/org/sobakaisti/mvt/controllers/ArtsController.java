@@ -11,6 +11,7 @@ import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
+import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,7 @@ public class ArtsController {
 	}
 	
 	@RequestMapping(value="/{category}", method=RequestMethod.GET)
-	public String showLiteratureHome(Model model, @PathVariable String category){
+	public String showArtCategoryHome(Model model, @PathVariable String category){
 		model = populateModelFromParameters(model, category, "", 0, ArticleService.INIT_ARTICLES_BUNDLE_SIZE);
 		return "art";
 	}
@@ -134,6 +135,8 @@ public class ArtsController {
 		List<Author> authors  = null;
 		Author chosenAuthor = null;
 		List<Article> initArticles = null;
+		
+		PostFilter filter = new PostFilter(false, articleService.getPostLanguage(), authorSlug, category, startIndex, size);
 		
 		if(category !=null && !category.isEmpty()) {
 			subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
