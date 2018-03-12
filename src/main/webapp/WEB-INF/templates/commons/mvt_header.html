@@ -153,7 +153,7 @@
 					<a th:href="@{/arts/{art}(art=${arts[0].slug})}" th:if="${not #lists.isEmpty(arts)}"> 
 						<span class="circle page-indikator-circle">
 							<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:title="#{label.arts.__${arts[0].slug}__}"> 
-							<span th:if="${not #lists.isEmpty(arts)}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
+							<!--<span th:if="${not #lists.isEmpty(arts)}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span> -->
 						</span>
 					</a> 
 					<a th:href="@{/manifesto}" th:if="${#lists.isEmpty(arts)}"> 
@@ -163,10 +163,8 @@
 					</a>
 					<!-- Arts subcategories -->
 					<a th:href="@{/arts/{art}(art=${art.slug})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}" th:title="${art.name}"> 
-						<img th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}"
-						class="arts-submenu-icon"
-						th:classappend="'submenu-icon-' + ${itemStat.index}"
-						th:alt="${art.name}" />
+						<img th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}" class="arts-submenu-icon"	th:classappend="'submenu-icon-' + ${itemStat.index}"
+							th:alt="${art.name}" />
 					</a>
 				</div>
 				<!-- right author filter div -->
@@ -174,13 +172,11 @@
 					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
 							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}"
-								th:alt="${author.firstName + ' ' + author.lastName}"> <span
-								class="circle circle-filter"
-								th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
-								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
-								<span class="author-fullname-bubble"
-								th:text="${author.firstName + ' ' + author.lastName}"></span>
-						</a>
+								th:alt="${author.firstName + ' ' + author.lastName}"> 
+								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
+									th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
+								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+							</a>
 						</li>
 					</ul>
 				</div>
