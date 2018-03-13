@@ -151,6 +151,22 @@ public class PostFilter {
 		return this.author != null ? true : false;
 	}
 	
+	public String getAuthorSlug() {
+		return authorSlug;
+	}
+
+	public void setAuthorSlug(String authorSlug) {
+		this.authorSlug = authorSlug;
+	}
+
+	public String getCategorySlug() {
+		return categorySlug;
+	}
+
+	public void setCategorySlug(String categorySlug) {
+		this.categorySlug = categorySlug;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("filter: {");

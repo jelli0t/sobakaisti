@@ -100,6 +100,8 @@ public interface PostService<T extends Post> {
 	 * */
 	public List<Author> findAllPostsAuthors();
 	
+	List<Author> findAllPostsAuthorsInCategory(String categorySlug);
+	
 	/**
 	 * Dohvata potpunu listu tagova za prosledjeni entitet
 	 * koji nasledjuje Post
@@ -154,4 +156,6 @@ public interface PostService<T extends Post> {
 	 * language kod i vraca ga kao string.
 	 * */
 	String getPostLanguage();
+
+	
 }

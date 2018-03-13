@@ -22,6 +22,7 @@ import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.StringUtil;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -166,6 +167,14 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 	@Override
 	public List<Author> findAllPostsAuthors() {
 		return postDao.findAllPostsAuthors();
+	}
+	
+	@Override
+	public List<Author> findAllPostsAuthorsInCategory(String categorySlug)  {
+		List<Author> authorsInCat = null;
+		if(TextUtil.notEmpty(categorySlug))
+			authorsInCat = postDao.findAllPostsAuthorsInCategory(categorySlug);		
+		return authorsInCat;
 	}
 
 	@Override

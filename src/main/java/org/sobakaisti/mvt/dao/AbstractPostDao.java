@@ -21,6 +21,7 @@ import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.StringUtil;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Repository;
@@ -80,6 +81,12 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 			return null;
 		}
 	}
+	
+//	public List<T> find(PostFilter postFilter) {
+//		String HQL = "from "+entity.getName()+" p where"
+//				+ (TextUtil.notEmpty(postFilter.getAuthorSlug()) ? " and p.author.slug = :authorSlug" : "")
+//				+ (TextUtil.notEmpty(postFilter.getCategorySlug()) ? " and p.categories = :categorySlug" : "");
+//	}
 	
 	@Override
 	@Transactional
@@ -251,11 +258,12 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 	}
 	
 	@Override
+	@Transactional
 	public List<Author> findAllPostsAuthorsInCategory(String categorySlug) {
 		String HQL = "select distinct p.author from "+entity.getName()+" p left join p.categories cat"
 				+ " where cat.slug = :categorySlug and p.active = 1";
 		try {
-			List<Author> authors = currentSession().createQuery(HQL).list();
+			List<Author> authors = currentSession().createQuery(HQL).setString("categorySlug", categorySlug).list();
 			return authors;
 		} catch (Exception e) {
 			logger.error("Greska pri trazenju autora koji su postovali. Uzrok: "+e.getMessage());

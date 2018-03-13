@@ -141,7 +141,9 @@ public class ArtsController {
 		if(category !=null && !category.isEmpty()) {
 			subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
 			chosenArt = (subcategories != null && !subcategories.isEmpty()) ? subcategories.get(0) : null;
-			authors = articleService.findAllArticlesAuthorsByCategory(chosenArt);
+//			authors = articleService.findAllArticlesAuthorsByCategory(chosenArt);
+			
+			authors = articleService.findAllPostsAuthorsInCategory(category);
 			
 			model.addAttribute("chosenArt", chosenArt);
 			model.addAttribute("authors", authors);		
