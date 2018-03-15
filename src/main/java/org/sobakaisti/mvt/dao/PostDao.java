@@ -31,6 +31,12 @@ public interface PostDao<T extends Post, I extends I18nPost> {
 	public T findBySlug(String slug);
 	
 	/**
+	 * Pronalazi listu postova na osnovu parametara iz filtera
+	 * @param postFilter
+	 * */
+	List<T> find(PostFilter postFilter);
+	
+	/**
 	 * Radi save ili update prosledjenog entiteta
 	 * @param t
 	 * */
@@ -138,5 +144,7 @@ public interface PostDao<T extends Post, I extends I18nPost> {
 	 * Dohvata sve autore koji su postovali u zadatoj kategoriji
 	 * */
 	List<Author> findAllPostsAuthorsInCategory(String categorySlug);
+
+	
 	
 }

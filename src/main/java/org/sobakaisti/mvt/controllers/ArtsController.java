@@ -9,6 +9,7 @@ import java.util.List;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.util.PostFilter;
@@ -42,7 +43,7 @@ public class ArtsController {
 	
 	@RequestMapping(value="/{category}", method=RequestMethod.GET)
 	public String showArtCategoryHome(Model model, @PathVariable String category){
-		model = populateModelFromParameters(model, category, "", 0, ArticleService.INIT_ARTICLES_BUNDLE_SIZE);
+		model = populateModelFromParameters(model, category, null, 0, ArticleService.INIT_ARTICLES_BUNDLE_SIZE);
 		return "art";
 	}
 	
@@ -136,7 +137,7 @@ public class ArtsController {
 		Author chosenAuthor = null;
 		List<Article> initArticles = null;
 		
-		PostFilter filter = new PostFilter(false, articleService.getPostLanguage(), authorSlug, category, startIndex, size);
+		PostFilter filter = new PostFilter(true, articleService.getPostLanguage(), authorSlug, category, startIndex, size);
 		
 		if(category !=null && !category.isEmpty()) {
 			subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
@@ -161,11 +162,16 @@ public class ArtsController {
 		}
 		System.out.println("Dohvatam clanke za kategoriju: "+chosenArt.getName()+"; od indeksa: "+startIndex+" size: "+size);
 		/* ako je odabran autor dohvati samo njegove clanke */
-		if(chosenAuthor != null) {
-			initArticles = articleService.findArticlesBundleForCategoryByAuthor(chosenArt, chosenAuthor, startIndex, size, true);
-		}else {
-			initArticles = articleService.findAriclesBundleByCategory(chosenArt, startIndex, size, true);
-		}
+//		if(chosenAuthor != null) {
+//			initArticles = articleService.findArticlesBundleForCategoryByAuthor(chosenArt, chosenAuthor, startIndex, size, true);
+//		}else {
+//			initArticles = articleService.findAriclesBundleByCategory(chosenArt, startIndex, size, true);
+//		}
+		
+		initArticles = articleService.find(filter);
+		for(Article p : initArticles)
+			System.out.println(p);
+		
 		/* postavi broj dohvacenh clanaka */		
 		if(startIndex == 0) {
 			initFetched = initArticles != null ? initArticles.size() : 0;

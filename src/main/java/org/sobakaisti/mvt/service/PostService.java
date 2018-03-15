@@ -15,6 +15,7 @@ import org.sobakaisti.mvt.models.Media;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
+import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
 import org.springframework.ui.Model;
 
@@ -49,6 +50,12 @@ public interface PostService<T extends Post> {
 	 * Pronadji apsolutno sve objekte jednog entiteta
 	 * */
 	public List<T> findAll();
+	
+	/**
+	 * Dohvata listu postova na osnovu parametara iz filtera 
+	 * @param postFilter
+	 * */
+	List<T> find(PostFilter postFilter);
 	
 	/**
 	 * Pronalazi sve objave sortirane po datumu objavljivnja
@@ -156,6 +163,8 @@ public interface PostService<T extends Post> {
 	 * language kod i vraca ga kao string.
 	 * */
 	String getPostLanguage();
+
+	
 
 	
 }

@@ -20,9 +20,9 @@
 		</div>		
 		<!-- posts -->
 		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight" 
-				th:each="post, item : ${initArticles}" th:unless="${item.index < 4}">
+				th:each="post, item : ${initArticles}" th:if="${item.index < 4}">
 		    <!-- fotka -->
-		    <aside th:if="${post.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover">
+		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover">
 		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
 		      </a>
 		    </aside>
@@ -73,7 +73,7 @@
 		    <span>Preostali članci</span>
 		</div>
 		<article class="fx-box fx-nowrap fx-dir-col mvt-postprev-basic"
-				th:each="post, item : ${initArticles}" th:unless="${item.index > 3}">
+				th:each="post, item : ${initArticles}" th:unless="${item.index < 4}">
 		    <!-- fotka -->
 		    <aside th:if="${post.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover mvt-postprev-top-cover">
 		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">

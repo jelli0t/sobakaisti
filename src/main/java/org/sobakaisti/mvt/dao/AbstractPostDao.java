@@ -82,11 +82,26 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 		}
 	}
 	
-//	public List<T> find(PostFilter postFilter) {
-//		String HQL = "from "+entity.getName()+" p where"
-//				+ (TextUtil.notEmpty(postFilter.getAuthorSlug()) ? " and p.author.slug = :authorSlug" : "")
-//				+ (TextUtil.notEmpty(postFilter.getCategorySlug()) ? " and p.categories = :categorySlug" : "");
-//	}
+	@Override
+	@Transactional
+	public List<T> find(PostFilter postFilter) {
+		String HQL = "select p from "+entity.getName()+" p"
+				+ (TextUtil.notEmpty(postFilter.getCategorySlug()) ? 
+						" left join p.categories cat where cat.slug = :categorySlug" : " where")				
+				+ (TextUtil.notEmpty(postFilter.getAuthorSlug()) ? " and p.author.slug = :authorSlug" : "")				
+				+ (postFilter.isActive() ? " and p.active = 1" : "")
+				+ " and p.postDate is not null order by date(p.postDate) desc, p.id desc";
+	
+		Query query = currentSession().createQuery(HQL);
+		if(TextUtil.notEmpty(postFilter.getAuthorSlug()))
+			query.setString("authorSlug", postFilter.getAuthorSlug());
+		if(TextUtil.notEmpty(postFilter.getCategorySlug()))
+			query.setString("categorySlug", postFilter.getCategorySlug());
+		query.setFirstResult(postFilter.getFrom());
+		query.setMaxResults(postFilter.getSize());		
+		
+		return query.list();
+	}
 	
 	@Override
 	@Transactional

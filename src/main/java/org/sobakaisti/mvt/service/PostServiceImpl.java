@@ -94,6 +94,11 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 	}
 	
 	@Override
+	public List<T> find(PostFilter postFilter) {
+		return postDao.find(postFilter);
+	}
+	
+	@Override
 	public List<T> findAll() {
 		return postDao.findAllPostsByActiveStatus(1);
 	}
