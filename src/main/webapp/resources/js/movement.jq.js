@@ -53,6 +53,12 @@ $(function() {
 	
 	/* kad dohvati dno strane ucitaj jos */
 	$(window).on('scroll', scrollNearToBottom);
+//	
+//	$(window).scroll(function() {
+//	   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+//	       alert("bottom!");
+//	   }
+//	});
 	
 });
 
@@ -67,7 +73,8 @@ function resizeTriangle(labelWidth){
 }
 
 /* proverava da li je scroll stigao blizu dna */
-function scrollNearToBottom(){
+function scrollNearToBottom() {
+	console.log('scrollNearToBottom()');
 	 if (($(document).height() - 100) <= ($(window).height() + $(window).scrollTop())) {
      	console.log('Near Bottom!');
      	$(document).loadMoreArticlesPreviews();
@@ -84,18 +91,24 @@ $.fn.loadMoreArticlesPreviews = function() {
 	}
 	$(window).off('scroll');
 	var uri = $('#load-content-link').attr('href');
+	var post_counter = $('#post-counter').val();
 	if(typeof uri == 'undefined') return;
 	
 	$.ajax({
-		url: uri,
+		url: uri + '?loaded=' + post_counter,
 		type : 'GET',
 		dataType: 'html',
-	}).done(function( article ) {			
-		if (article) {
+	}).done(function( posts ) {			
+		if (posts) {
 			console.log('Uspesno dohvacen fragment, ');
-			$('.site-content-container').adjustContentHeight();
-			$('.site-content-container').append(article);
-			$('.post-prev-item > .fadein').fadeIn(600);
+//			$('.site-content-container').adjustContentHeight();
+//			$('.site-content-container').append(article);
+//			$('.post-prev-item > .fadein').fadeIn(600);
+			$('.mvt-rest-posts > .mvt-postprev-container').append(posts);
+			var loaded = $('.mvt-postprev-content', posts).length;
+			
+			$('#post-counter').val(parseInt(post_counter) + parseInt(loaded));
+			console.log('Loaded posts: '+loaded);
 			$(window).on('scroll', scrollNearToBottom);
 		}else {	
 			console.log('Nemam sta da dohvatim, document je prazan! ');

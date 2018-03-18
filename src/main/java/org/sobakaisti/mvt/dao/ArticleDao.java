@@ -27,8 +27,6 @@ public interface ArticleDao extends PostDao<Article, I18nArticle> {
 	 * */
 	public List<Article> findAllArticlesForCategory(Category category, boolean isActive);
 
-	List<Author> findAllArticlesAuthorsByCategory(Category category);
-
 	/**
 	 * Dohvata grupu clanaka na osnovu prosledjene kategorije od zadatog ideksa i broja max rezultata
 	 * @param category

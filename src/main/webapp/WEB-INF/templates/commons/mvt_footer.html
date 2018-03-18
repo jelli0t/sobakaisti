@@ -1,7 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"></head>
+
 <footer th:fragment="mvt_footer" class="mvt-footer">
-	<div class="footer-container">
+	<div class="footer-container center-main-width fx-box fx-wrap fx-justify-sbtw">
+	
 		<div class="footer-row">
 			<!-- footer sobaka icon -->
 			<div class="footer-row"><img th:src="@{/resources/img/icons/sobakaisti_dog.svg}" title="Sobakaisti" width="16" height="16"/></div>
@@ -36,17 +38,22 @@
 </footer>
 
 
+<!-- 
+*	MAIN MVT FOOTER		*
+ -->
 <footer th:fragment="mvt_main_footer" class="mvt-main-footer">
-	<div class="mvt-footer-container">
+	
+	<div class="mvt-footer-container center-main-width fx-box fx-wrap fx-dir-row fx-justify-sbtw">
 		<!-- footer logo container -->
-		<div class="main-footer-logo footer-td">
-			<a th:href="@{/rs/movement}" title="Sobakaisti">
-				<img alt="Sobakaisti" th:src="@{/resources/img/icons/sobakaisti_full_logo.svg}" width="130px">
+		<div class="mvt-footer-logo">
+			<a th:href="@{/rs/movement}" th:title="#{mvt.title.full}">
+				<img alt="Sobakaisti" th:src="@{/resources/img/icons/sobakaisti_full_logo_wh.svg}" height="32px">
 			</a>
+			<p class="mvt-footer-about"></p>
 		</div>
 		<!-- footer movement navigation -->
-		<nav class="main-footer-nav footer-td">
-			<h5 th:text="#{nav.item.movement}" class="footer-td-title">Pokret</h5>
+		<nav class="main-footer-nav">
+			<h4 th:text="#{nav.item.movement}" th:title="#{nav.item.movement}">Pokret</h4>
 			<ul class="footer-nav-list">
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"></a></li>
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.arts}"></a></li>
@@ -56,9 +63,9 @@
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.contact}"></a></li>
 			</ul>
 		</nav>
-		
-		<nav class="main-footer-authors footer-td">
-			<h5 th:text="#{nav.item.authors}" class="footer-td-title">Autori</h5>
+		<!-- Footer Authors -->
+		<nav class="main-footer-authors">
+			<h4 th:text="#{nav.item.authors}" th:title="#{nav.item.authors}">Autori</h4>
 			<ul class="footer-nav-list">
 				
 			</ul>

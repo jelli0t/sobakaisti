@@ -173,6 +173,10 @@ public class PostFilter {
 		sb.append(isActive() ? "active : 1, " : "");
 		sb.append("nonactive_included : " + (isNonactiveInlude() ? "true, " : "false, "));
 		sb.append(hasAuthor() ? "author : " + this.author.getFirstName() +", " : "");
+		sb.append(TextUtil.notEmpty(authorSlug) ? ", author: "+authorSlug : "");
+		sb.append(TextUtil.notEmpty(categorySlug) ? ", category: " + categorySlug : "");
+		sb.append(", from: "+from);
+		sb.append(", size: "+size);
 		return sb.append("}").toString();
 	}
 }

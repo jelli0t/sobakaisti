@@ -36,4 +36,11 @@ public interface CategoryService {
 	 * @param ids
 	 * */
 	List<Category> findListOfCategoriesByIdsArray(int[] ids);
+
+	/**
+	 * Pronalazi sve podkategorije za 'Radovi' (Art) i sortira ih
+	 * tako da prosledjena kategorija bude na vrhu liste.
+	 * @param categorySlug
+	 * */
+	List<String> findArtsSlugsSortedBySelectedArt(String categorySlug);
 }

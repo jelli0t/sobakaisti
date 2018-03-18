@@ -54,12 +54,7 @@ public interface ArticleService extends PostService<Article>, I18nPostService<Ar
 	 * Pronalazi sve clanke za datu kategoriju.
 	 * */
 	public List<Article> findAllArticlesForCategory(Category category, boolean isActive);
-	
-	/**
-	 * Nalazi sve autore koji su pisali u datoj kategoriji
-	 * */
-	public List<Author> findAllArticlesAuthorsByCategory(Category category);
-
+		
 	 
 	public List<Article> findAriclesBundleByCategory(Category category, int from, int size, boolean isActive);
 

@@ -12,6 +12,7 @@ import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
+import org.sobakaisti.mvt.service.PostService;
 import org.sobakaisti.util.PostFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import sun.util.logging.resources.logging;
 
 /**
  * @author jelles
@@ -43,7 +47,7 @@ public class ArtsController {
 	
 	@RequestMapping(value="/{category}", method=RequestMethod.GET)
 	public String showArtCategoryHome(Model model, @PathVariable String category){
-		model = populateModelFromParameters(model, category, null, 0, ArticleService.INIT_ARTICLES_BUNDLE_SIZE);
+		model = populateModelFromParameters(model, category, null, 0, PostService.INIT_POST_BUNDLE_SIZE);
 		return "art";
 	}
 	
@@ -70,18 +74,30 @@ public class ArtsController {
 	}
 	
 	@RequestMapping(value="/{category}/more", method=RequestMethod.GET)
-	public String loadAdditionalArticlePreviewsFragment(Model model, @PathVariable String category){
-		int fetched = 0;
-		boolean isInit = false;
-		if(initFetched > 0) {
-			fetched = initFetched;
-			isInit = true;	
-		}else {
-			fetched = articlesFetched;
+	public String loadAdditionalArticlePreviewsFragment(Model model, @PathVariable String category, @RequestParam("loaded") int loaded){
+		
+		int remaind = 0;
+		int mod16 = PostService.INIT_POST_BUNDLE_SIZE + PostService.LOADED_POST_BUNDLE_SIZE;
+		if(loaded != 0) {
+			if(loaded < PostService.INIT_POST_BUNDLE_SIZE) {
+				remaind = (int) (loaded % PostService.INIT_POST_BUNDLE_SIZE);	
+			} 
 		}
-		int size = calculateNumberOfArticlesToFetch(fetched, ArticleService.ARTICLES_PREV_ROW_SIZE, isInit);
-		model = populateModelFromParameters(model, category, "", fetched, size);		
-		model.addAttribute("art", category);
+		
+		int size = remaind + PostService.LOADED_POST_BUNDLE_SIZE;
+		System.out.println("Dohvatam clanakla: "+size);
+		
+//		int fetched = 0;
+//		boolean isInit = false;
+//		if(initFetched > 0) {
+//			fetched = initFetched;
+//			isInit = true;	
+//		}else {
+//			fetched = articlesFetched;
+//		}
+//		int size = calculateNumberOfArticlesToFetch(fetched, ArticleService.ARTICLES_PREV_ROW_SIZE, isInit);
+		model = populateModelFromParameters(model, category, null, loaded, size);		
+//		model.addAttribute("art", category);
 		return "commons/artArticlePreviews :: artsArticlePreviews";
 	}
 	
@@ -136,19 +152,26 @@ public class ArtsController {
 		List<Author> authors  = null;
 		Author chosenAuthor = null;
 		List<Article> initArticles = null;
+		List<String> arts = null;
 		
 		PostFilter filter = new PostFilter(true, articleService.getPostLanguage(), authorSlug, category, startIndex, size);
+		System.out.println(filter);
 		
 		if(category !=null && !category.isEmpty()) {
-			subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
-			chosenArt = (subcategories != null && !subcategories.isEmpty()) ? subcategories.get(0) : null;
-//			authors = articleService.findAllArticlesAuthorsByCategory(chosenArt);
-			
+//			subcategories = categoryService.findAllSortedSubcategories(category, Category.CATEGORY_ARTS);
+//			chosenArt = (subcategories != null && !subcategories.isEmpty()) ? subcategories.get(0) : null;
+			/*
+			 * Dohvata autore
+			 * */
 			authors = articleService.findAllPostsAuthorsInCategory(category);
+			/*
+			 * Dohvata slug-ove svih radova
+			 * */
+			arts = categoryService.findArtsSlugsSortedBySelectedArt(category);
 			
-			model.addAttribute("chosenArt", chosenArt);
+			model.addAttribute("chosenArt", arts.get(0));
 			model.addAttribute("authors", authors);		
-			model.addAttribute("arts", subcategories);
+			model.addAttribute("arts", arts);
 		}
 		/* ako je prosledjeni autor slug nije prazan nadji autora */
 		if(authorSlug != null && !authorSlug.isEmpty()) {
@@ -160,7 +183,6 @@ public class ArtsController {
 			}
 			model.addAttribute("chosenAuthor", chosenAuthor);
 		}
-		System.out.println("Dohvatam clanke za kategoriju: "+chosenArt.getName()+"; od indeksa: "+startIndex+" size: "+size);
 		/* ako je odabran autor dohvati samo njegove clanke */
 //		if(chosenAuthor != null) {
 //			initArticles = articleService.findArticlesBundleForCategoryByAuthor(chosenArt, chosenAuthor, startIndex, size, true);
@@ -169,20 +191,18 @@ public class ArtsController {
 //		}
 		
 		initArticles = articleService.find(filter);
-		for(Article p : initArticles)
-			System.out.println(p);
 		
 		/* postavi broj dohvacenh clanaka */		
-		if(startIndex == 0) {
-			initFetched = initArticles != null ? initArticles.size() : 0;
-			articlesFetched = initFetched;
-			System.out.println("inicijalni fetch: "+initFetched+" clanaka.");
-		}else {
-			articlesFetched += initArticles != null ? initArticles.size() : 0;
-			initFetched = 0;
-			System.out.println("ajax fetch: "+articlesFetched+" clanaka.");
-		}
-		
+//		if(startIndex == 0) {
+//			initFetched = initArticles != null ? initArticles.size() : 0;
+//			articlesFetched = initFetched;
+//			System.out.println("inicijalni fetch: "+initFetched+" clanaka.");
+//		}else {
+//			articlesFetched += initArticles != null ? initArticles.size() : 0;
+//			initFetched = 0;
+//			System.out.println("ajax fetch: "+articlesFetched+" clanaka.");
+//		}
+		System.out.println("ajax fetch: "+initArticles+" clanaka.");
 		model.addAttribute("initArticles", initArticles);
 		return model;
 	}

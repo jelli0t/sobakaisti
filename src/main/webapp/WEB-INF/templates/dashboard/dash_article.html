@@ -80,8 +80,11 @@
 				<!-- Select visability -->
 				<div class="js-select-container">		
 					<a href="javascript:void(0)" class="bttn-plain-select js-modal-select">
-						<span th:if="${article?.active == 1}"><img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno</span>
-						<span th:if="${article?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>				
+						<span th:if="${article?.active == 1}">
+							<img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">Javno							
+						</span>
+						<span th:if="${article?.active == 0}"><img th:src="@{/resources/img/icons/svg/lock.svg}" height="14">Privatno</span>
+						<input type="hidden" name="active" th:value="${article.active}">				
 					</a>
 					
 					<div class="select-menu-modal-holder">
@@ -185,7 +188,7 @@
 					<th:block th:if="${article?.featuredImage != null}">
 						<img alt="Featured Image" th:src="@{/uploads/images/{filename}(filename=${article.featuredImage.fileName})}" 
 						     th:title="${article.featuredImage.title}" width="180">
-						<input type="hidden" name="featuredImageId" th:value="${article.featuredImage.id}">
+						<input type="hidden" name="featuredImage.id" th:value="${article.featuredImage.id}">
 					</th:block>
 				</div>
 			</div>

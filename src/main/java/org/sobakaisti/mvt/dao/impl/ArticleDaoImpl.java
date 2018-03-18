@@ -81,22 +81,7 @@ public class ArticleDaoImpl extends AbstractPostDao<Article, I18nArticle> implem
 			return new ArrayList<Article>(0);
 		}		
 	}
-	
-	@Override
-	@Transactional
-	public List<Author> findAllArticlesAuthorsByCategory(Category category) {		
-		String hql = "select distinct ar.author from Article ar where ar.id in (select a.id from Article a join a.categories c where c.id = :id and a.active = 1)";
-		try {
-			@SuppressWarnings("unchecked")
-			List<Author> authors = currentSession().createQuery(hql).setInteger("id", category.getId()).list();	//.setParameterList("categories", categories).list();
-			System.out.println("Dohvatio sam: "+authors.size()+" autora za "+category.getName()+" katekoriju!");
-			return authors;
-		} catch (Exception e) {
-			System.err.println("Exception: "+e.getMessage());
-			return new ArrayList<Author>(0);
-		}
-	}
-	
+		
 	@Override
 	@Transactional
 	public List<Article> findAllArticlesForCategory(Category category, boolean isActive) {

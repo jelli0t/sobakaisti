@@ -98,21 +98,17 @@ public class CategoryDaoImpl implements CategoryDao{
 	@SuppressWarnings("unchecked")	
 	public List<String> fetchArtsSlugsSortedBySelectedArt(String selectedSlug) {
 		List<String> artsSlugs = null;
-//		String HQL = "select c.slug from Category c join fetch c.parent pc where pc.slug = :arts"
-//				+ " order by case when c.slug = :selectedSlug then 1 else 2 end asc";
 		String HQL = "select c.slug from Category c where c.parent.slug = :arts"
-				+ " order by case when c.slug = :selectedSlug then 1 else 2 end asc";
-		
+				+ " order by case when c.slug = :selectedSlug then 1 else 2 end asc";		
 		try{
 			Session session = sessionFactory.getCurrentSession();
 			Query query = session.createQuery(HQL);
 			query.setString("arts", Category.CATEGORY_ARTS);
 			query.setString("selectedSlug", selectedSlug);
-			artsSlugs = query.list();			
-			System.out.println("Dohvatio sam slugs size: "+artsSlugs.size());
+			artsSlugs = query.list();
 			return artsSlugs;
 		}catch (HibernateException he) {
-			System.err.println("Greska pri dohvatanju slugova: "+he.getMessage());
+			logger.warn("Greska pri dohvatanju slugova: "+he.getMessage());
 		}
 		return artsSlugs;
 	}

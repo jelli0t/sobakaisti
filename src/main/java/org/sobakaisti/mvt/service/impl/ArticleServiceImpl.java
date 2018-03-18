@@ -193,12 +193,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article, I18nArticle> im
 		}
 		return articles;
 	}
-	
-	@Override
-	public List<Author> findAllArticlesAuthorsByCategory(Category category) {
-		return articleDao.findAllArticlesAuthorsByCategory(category);
-	}
-	
+		
 	@Override
 	public List<Article> findAllArticlesForCategory(Category category, boolean isActive) {
 		// TODO Auto-generated method stub

@@ -107,6 +107,8 @@
 			</ul>
 			<div>login</div>
 		</div>
+		<!-- top read indicator -->
+		<progress value="0"></progress>
 	</nav>
 
 	<!-- 
@@ -140,7 +142,7 @@
 				<div class="header-author-filter">
 					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list left-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
-							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}"> 
+							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
 								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
@@ -150,9 +152,9 @@
 				</div>
 				<!-- center indicator continer -->
 				<div class="header-page-indicator">
-					<a th:href="@{/arts/{art}(art=${arts[0].slug})}" th:if="${not #lists.isEmpty(arts)}"> 
+					<a th:href="@{/arts/{art}(art=${arts[0]})}" th:if="${not #lists.isEmpty(arts)}"> 
 						<span class="circle page-indikator-circle">
-							<img th:src="@{${'/resources/img/icons/'+ arts[0].slug +'.svg'}}" class="selected-art-icon" th:title="#{label.arts.__${arts[0].slug}__}"> 
+							<img th:src="@{/resources/img/icons/__${arts[0]}__.svg}" class="selected-art-icon" th:title="#{label.arts.__${arts[0]}__}"> 
 							<!--<span th:if="${not #lists.isEmpty(arts)}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span> -->
 						</span>
 					</a> 
@@ -162,16 +164,16 @@
 						</span>
 					</a>
 					<!-- Arts subcategories -->
-					<a th:href="@{/arts/{art}(art=${art.slug})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}" th:title="${art.name}"> 
-						<img th:src="@{${'/resources/img/icons/'+ art.slug +'.svg'}}" class="arts-submenu-icon"	th:classappend="'submenu-icon-' + ${itemStat.index}"
-							th:alt="${art.name}" />
+					<a th:href="@{/arts/{art}(art=${art})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}" th:title="#{label.arts.__${art}__}"> 
+						<img th:src="@{/resources/img/icons/__${art}__.svg}" class="arts-submenu-icon"	th:classappend="'submenu-icon-' + ${itemStat.index}"
+							th:alt="#{label.arts.__${art}__}" />
 					</a>
 				</div>
 				<!-- right author filter div -->
 				<div class="header-author-filter">
 					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
-							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}"
+							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}"
 								th:alt="${author.firstName + ' ' + author.lastName}"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 									th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
@@ -183,11 +185,11 @@
 			</div>
 			<!-- Sorting option -->
 			<div class="header-bottom header-sorting-container fx-box fx-justify-cnt fx-align-mid">
-				<a th:href="@{/arts/{art}/{author}(art=${arts[0].slug}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" class="sorting-bttn">
+				<a th:href="@{/arts/{art}/{author}(art=${arts[0]}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" class="sorting-bttn">
 					<span th:text="#{button.label.chronological}" th:classappend="${popular} ? inactive : ''">Hronoloski</span>
 				</a>
 				<span>&#124;</span>
-				<a th:href="@{/arts/popular/{art}/{author}(art=${arts[0].slug}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" class="sorting-bttn">
+				<a th:href="@{/arts/popular/{art}/{author}(art=${arts[0]}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" class="sorting-bttn">
 					<span th:text="#{button.label.popular}" th:classappend="${popular} ? '' : inactive">Popularno</span>
 				</a>
 			</div>

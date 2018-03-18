@@ -2,32 +2,80 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"></head>
 
+<!-- 	<th:block th:fragment="artsArticlePreviews" th:unless="${#lists.isEmpty(initArticles)}" > -->
+<!-- 	 	<li class="post-prev-item" th:each="article,itemStat : ${initArticles}"> -->
+<!-- 			<article class="fadein"> -->
+<!-- 				<header> -->
+<!-- 					<a class="post-prev-img"></a> -->
+<!-- 					<a th:href="@{/arts/{category}/{slug}(category=${article.categories[0].slug}, slug=${article.slug})}"  -->
+<!-- 						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a> -->
+<!-- 				</header> -->
+<!-- 				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div> -->
+<!-- 				<footer class="post-prev-footer" th:with="author=${article.author}"> -->
+<!-- 					<div class="post-prev-avatar"> -->
+<!-- 						<span class="circle circle-small"  -->
+<!-- 							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span> -->
+<!-- 					</div> -->
+<!-- 					<div class="post-prev-author-details"> -->
+<!-- 						<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}"> -->
+<!-- 							<a th:href="@{/arts/{art}/by/{author}(art=${art}, author=${author.slug})}"  -->
+<!-- 								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a> -->
+<!-- 						</address> -->
+<!-- 						<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></time> -->
+<!-- 					</div> -->
+<!-- 					<div class="post-prev-meta"> -->
+<!-- 						<span class="post-prev-comment-count">999</span> -->
+<!-- 					</div> -->
+<!-- 				</footer> -->
+<!-- 			</article> -->
+<!-- 		</li> -->
+<!-- 	  </th:block> -->
+
+	
+
 	<th:block th:fragment="artsArticlePreviews" th:unless="${#lists.isEmpty(initArticles)}" >
-	 	<li class="post-prev-item" th:each="article,itemStat : ${initArticles}">
-			<article class="fadein">
+		<article class="fx-box fx-nowrap fx-dir-col mvt-postprev-basic"
+				th:each="post, item : ${initArticles}">
+		    <!-- fotka -->
+		    <aside th:if="${post.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover mvt-postprev-top-cover">
+		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
+		      </a>
+		    </aside>
+			<!-- Right side of preview -->
+			<div class="fx-box fx-dir-col fx-justify-sbtw fx-basis-full mvt-postprev-content">
 				<header>
-					<a class="post-prev-img"></a>
-					<a th:href="@{/arts/{category}/{slug}(category=${article.categories[0].slug}, slug=${article.slug})}" 
-						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
+					<h3 class="mvt-postprev-title">
+						<a href="#" th:title="${post.title}" th:text="${post.title}"></a>
+					</h3>
 				</header>
-				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div>
-				<footer class="post-prev-footer" th:with="author=${article.author}">
-					<div class="post-prev-avatar">
-						<span class="circle circle-small" 
-							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
-					</div>
-					<div class="post-prev-author-details">
-						<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-							<a th:href="@{/arts/{art}/by/{author}(art=${art}, author=${author.slug})}" 
-								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-						</address>
-						<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
-					</div>
-					<div class="post-prev-meta">
-						<span class="post-prev-comment-count">999</span>
-					</div>
-				</footer>
-			</article>
-		</li>
-	  </th:block>
+			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 300)}"
+					class="mvt-postprev-snippet">
+			    </div>
+		    	<footer class="fx-box fx-justify-sbtw fx-dir-row" th:with="author=${post.author}">
+		    		<!--  -->
+					<div class="fx-box"> 
+			    		<!-- Authors avatar -->
+						<div class="mvt-postprev-author-avatar">
+							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+							</a>
+						</div>
+						<!-- Authors full name and post date -->
+						<div class="mvt-postprev-info">
+							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
+									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+							</span>
+							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+						</div>
+					</div>	
+			    	<div class="mvt-postprev-tools">
+			            T
+			        </div>				    
+			</footer>
+			</div>
+		</article>
+		
+	</th:block>
 </html>
+

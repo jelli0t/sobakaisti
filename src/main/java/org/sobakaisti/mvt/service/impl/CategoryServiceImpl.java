@@ -50,6 +50,11 @@ public class CategoryServiceImpl implements CategoryService{
 		}
 		return null;
 	}
+	
+	@Override
+	public List<String> findArtsSlugsSortedBySelectedArt(String categorySlug) {
+		return categoryDao.fetchArtsSlugsSortedBySelectedArt(categorySlug);
+	}
 
 	@Override
 	public Category findCategoryBySlug(String slug) {
