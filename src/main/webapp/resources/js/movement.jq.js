@@ -53,12 +53,11 @@ $(function() {
 	
 	/* kad dohvati dno strane ucitaj jos */
 	$(window).on('scroll', scrollNearToBottom);
-//	
-//	$(window).scroll(function() {
-//	   if($(window).scrollTop() + $(window).height() == $(document).height()) {
-//	       alert("bottom!");
-//	   }
-//	});
+	
+	$('li.author-circle > a').on('click', function() {
+		var selected_author = $(this).clone();		
+		$('#chosen-author-box').html($(selected_author).addClass('circle'));
+	});
 	
 });
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.service.ArticleService;
+import org.sobakaisti.mvt.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,9 @@ public class HomeController {
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private AuthorService authorService;
 	
 	@RequestMapping(value="/")
 	public String displayHome(){		
@@ -52,5 +56,12 @@ public class HomeController {
 	@RequestMapping(value="/movement/sitemap", method=RequestMethod.GET )
 	public String showSiteMap() {
 		return "sitemap";
+	}
+	
+	
+	@RequestMapping(value="/movement/authors", method=RequestMethod.GET)
+	public String showAuthorsHome(Model model) {
+		model.addAttribute("authors", authorService.findAll());
+		return "authors";
 	}
 }

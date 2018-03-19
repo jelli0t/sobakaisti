@@ -32,30 +32,25 @@
 			<!-- left autor filter div -->
 			<div class="header-author-filter">
 				<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list left-author">
-					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
-						<a rel="author" href="javascript:;" 
-						   th:alt="${author.firstName + ' ' + author.lastName}" 
-						   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
-							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
-							>Sobakaisti</span>
-							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}" class="circle author-circle">
+						<a rel="author" href="javascript:;" th:alt="${author.firstName + ' ' + author.lastName}" 
+						   	th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">							
 						</a>
 					</li>
 				</ul>
 			</div>
 			<!-- center indicator continer -->
-			<div class="header-page-indicator">
+			<div id="chosen-author-box">
 				<span class="circle page-indikator-circle" th:text="#{nav.item.authors}">Autori</span>				
 			</div>
 			<!-- right author filter div -->
 			<div class="header-author-filter">
 				<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
-					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
-						<a rel="author" href="javascript:;"
-						   th:alt="${author.firstName + ' ' + author.lastName}" 
-						   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
-							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">Sobakaisti</span>
-							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}" class="circle author-circle">
+						<a rel="author" href="javascript:;" th:alt="${author.firstName + ' ' + author.lastName}" 
+							th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">
 						</a>
 					</li>
 				</ul>
@@ -64,11 +59,17 @@
 	</div>
 </header>
 
-	<section>
-		<div class="center-main-width fx-box fx-nowrap fx-justify-sbtw"></div>
-	</section>
-
-
+<section>
+	<div class="center-main-width fx-box fx-nowrap fx-justify-cnt">
+		<div class="fx-box fx-nowrap fx-justify-end half">
+	    	<span>left</span>
+	    </div>
+	    
+		<div class="half fx-box fx-justify-start">
+		  	<span>right</span>
+		</div>		
+	</div>
+</section>
 
 <th:block th:insert="~{commons/mvt_footer :: mvt_main_footer}"></th:block>
 </body>
