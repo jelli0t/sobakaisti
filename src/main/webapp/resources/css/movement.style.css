@@ -364,6 +364,49 @@ progress::-moz-progress-bar {
 }
 
 /* HEADER CONTENT */
+a.cloud-hoverable::after, 
+a.cloud-hoverable::before {
+	display: block;
+	visibility: hidden;
+	position: absolute;  
+	color: #fdfdff;  
+	opacity: 0; 
+	-moz-transition: opacity .5s ease-out;
+	-webkit-transition: opacity .5s ease-out;
+	-o-transition: opacity .5s ease-out;
+	transition: opacity .5s ease-out;
+}
+a.cloud-hoverable::after {  
+	top: 35px;
+	left: -75%;
+	width: 60px;
+	content:attr(data-title);  
+	text-align: center;
+	font-size: 12px;
+	line-height: 14px;
+	padding: 3px 0;
+	background-color: #1fa0ae;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+a.cloud-hoverable::before {
+	top: 25px;
+	left: 50%;
+	width: 0; 
+	height: 0; 
+	margin-left: -10px; 
+	content: ' ';  
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;  
+	border-bottom: 12px solid #1fa0ae;
+}
+a.cloud-hoverable:hover::after,
+a.cloud-hoverable:hover::before {
+	visibility: visible;
+	opacity: 1;
+}
+
 .mvt-header {
 	position: relative;
 	margin: 70px 0 30px;
