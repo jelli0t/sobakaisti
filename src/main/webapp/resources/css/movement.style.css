@@ -364,6 +364,7 @@ progress::-moz-progress-bar {
 }
 
 /* HEADER CONTENT */
+
 a.cloud-hoverable::after, 
 a.cloud-hoverable::before {
 	display: block;
@@ -377,21 +378,22 @@ a.cloud-hoverable::before {
 	transition: opacity .5s ease-out;
 }
 a.cloud-hoverable::after {  
-	top: 35px;
+	top: 40px;
 	left: -75%;
 	width: 60px;
 	content:attr(data-title);  
 	text-align: center;
 	font-size: 12px;
-	line-height: 14px;
-	padding: 3px 0;
+	line-height: 13px;
+	padding: 4px 2px;
 	background-color: #1fa0ae;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	box-sizing: border-box;
 }
 a.cloud-hoverable::before {
-	top: 25px;
+	top: 30px;
 	left: 50%;
 	width: 0; 
 	height: 0; 
