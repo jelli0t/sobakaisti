@@ -7,7 +7,64 @@
 <!-- Top Navigation -->
 <th:block th:insert="~{commons/mvt_header :: mvtTopNavigation}"></th:block>
 
-
+<header class="mvt-header">
+	<div class="header-content-wrapper center-main-width">
+		<div class="header-top fx-box fx-justify-sbtw">
+			<a th:href="@{/rs/movement}"> 
+				<img alt="Pokret" th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="30" title="Pokret Sobakaisti">
+			</a>
+			<!-- social networks -->
+			<div class="social-container fright header-social">
+				<span class="facebook-ico social-ico"> 
+					<a th:href="@{https://www.facebook.com/sobakaisti/}" target="_blank" title="Facebook"></a>
+				</span>
+				<span class="twitter-ico social-ico">
+					<a th:href="@{https://twitter.com/sobakaisti}" target="_blank" title="Twitter"></a>
+				</span>
+				<span class="youtube-ico social-ico"></span>
+				<span class="tumblr-ico social-ico"> 
+					<a th:href="@{http://sobakaisti.tumblr.com/}" target="_blank" title="Tumblr"></a>
+				</span>
+			</div>
+		</div>
+	
+		<div class="header-middle fx-box fx-nowrap fx-justify-cnt fx-align-mid">
+			<!-- left autor filter div -->
+			<div class="header-author-filter">
+				<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list left-author">
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
+						<a rel="author" href="javascript:;" 
+						   th:alt="${author.firstName + ' ' + author.lastName}" 
+						   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
+							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
+							>Sobakaisti</span>
+							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- center indicator continer -->
+			<div class="header-page-indicator">
+				<a th:href="@{/arts/{art}(art=${arts[0]})}"> 
+					<span class="circle page-indikator-circle" th:text="#{nav.item.authors}"></span>
+				</a>				
+			</div>
+			<!-- right author filter div -->
+			<div class="header-author-filter">
+				<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
+					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
+						<a rel="author" href="javascript:;"
+						   th:alt="${author.firstName + ' ' + author.lastName}" 
+						   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
+							<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">Sobakaisti</span>
+							<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
 
 	<section>
 		<div class="center-main-width fx-box fx-nowrap fx-justify-sbtw"></div>
