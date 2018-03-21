@@ -385,6 +385,10 @@ a.cloud-hoverable::before {
   -webkit-transition: opacity .5s ease-out;
   -o-transition: opacity .5s ease-out;
    transition: opacity .5s ease-out;
+   
+   -webkit-box-shadow: 0 3px 9px rgba(27,31,35,0.15);
+    -moz-box-shadow: 0 3px 9px rgba(27,31,35,0.15);
+    box-shadow: 0 3px 9px rgba(27,31,35,0.15);
    z-index: 998;
 }
 a.cloud-hoverable::after {  
@@ -421,22 +425,15 @@ a.cloud-hoverable:hover::before {
   opacity: 1;
 }
 
-.authors-main-content::before {
-  display: block;
-  position: absolute;
-  content: ''; 
-  left: 50%;  
-  height: 100%;
-  width: 1px;
-  border-left: 1px dotted gray;
-  z-index: 997;
-}
-	
-
 /*
 * Authors Qutations
 */
-blockquote.author-quote-bubble {   
+.quotes-left-container{
+	border-right: 1px dotted gray;
+}
+
+blockquote.author-quote-bubble {
+	display: inline-block;
     max-width:300px;
     padding: 15px 18px;
     color: #333;
@@ -455,13 +452,18 @@ blockquote.author-quote-bubble {
 blockquote.left-bubble { margin-bottom: 75px; }
 blockquote.right-bubble { margin-top:75px; }
 blockquote.author-quote-bubble > .quotation-mark {
-/*   font-size: 2em; */
-/*   font-weight: 700; */
   float: left;
   margin-right: 10px;
 }
-
-
+blockquote.left-bubble:after {
+/* 	position: absolute; */
+	width: 0;
+	height: 0;
+  
+	border-top: 12px solid transparent;
+	border-bottom: 12px solid transparent;  
+	border-left: 16px solid green;
+}
 
 .mvt-header {
 	position: relative;
@@ -550,7 +552,8 @@ blockquote.author-quote-bubble > .quotation-mark {
 	font-size: 11px;
 	line-height: 38px;
 	margin: 4px;
-	opacity: 0.6;
+	border-width: 1px;
+	opacity: 0.8;
 }
 .circle-filter:hover,
 .author-circle:hover {

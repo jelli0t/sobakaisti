@@ -147,7 +147,7 @@
 							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
-								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+<!-- 								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span> -->
 							</a>
 						</li>
 					</ul>
@@ -180,7 +180,7 @@
 							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 									th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
-								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span>
+<!-- 								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span> -->
 							</a>
 						</li>
 					</ul>
