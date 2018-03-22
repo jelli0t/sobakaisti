@@ -431,8 +431,8 @@ a.cloud-hoverable:hover::before {
 .quotes-left-container{
 	border-right: 1px dotted gray;
 }
-
 blockquote.author-quote-bubble {
+	position: relative;
 	display: inline-block;
     max-width:300px;
     padding: 15px 18px;
@@ -449,21 +449,38 @@ blockquote.author-quote-bubble {
     -moz-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
     box-shadow: 0 3px 12px rgba(27,31,35,0.15);
 }
-blockquote.left-bubble { margin-bottom: 75px; }
-blockquote.right-bubble { margin-top:75px; }
+blockquote.left-bubble { margin: 0 2em 3.5em; }
+blockquote.right-bubble { margin: 3.5em 2em 0; }
+
 blockquote.author-quote-bubble > .quotation-mark {
   float: left;
   margin-right: 10px;
 }
-blockquote.left-bubble:after {
-/* 	position: absolute; */
-	width: 0;
-	height: 0;
-  
-	border-top: 12px solid transparent;
-	border-bottom: 12px solid transparent;  
-	border-left: 16px solid green;
+blockquote.left-bubble:after,
+blockquote.right-bubble:before {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    display: block;
+    width: 0;
+    top: 20px;
+    bottom: auto;
+    border-color: transparent rgba(27,31,35,0.10);
+    z-index: 998;
 }
+blockquote.left-bubble:after {
+    left: auto;
+    right: -20px;
+    border-width: 10px 0 10px 20px;
+}
+blockquote.right-bubble:before {    
+    left: -20px;
+    right: auto;    
+    border-width: 10px 20px 10px 0;
+}
+/*
+* End of Authors Qutations
+*/
 
 .mvt-header {
 	position: relative;
