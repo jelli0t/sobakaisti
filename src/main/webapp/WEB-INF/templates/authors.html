@@ -33,8 +33,9 @@
 			<div class="header-author-filter">
 				<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list left-author">
 					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}" class="circle author-circle">
-						<a rel="author" href="javascript:;" th:alt="${author.firstName + ' ' + author.lastName}" 
-						   	th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+						<a rel="author" href="javascript:;" th:href="@{/authors/bio/{authorSlug}(authorSlug=${author.slug})}" 
+							th:alt="${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+						   	th:attr="data-title=${author.firstName + ' ' + author.lastName}" 
 							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">							
 						</a>
 					</li>
@@ -48,8 +49,9 @@
 			<div class="header-author-filter">
 				<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
 					<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}" class="circle author-circle">
-						<a rel="author" href="javascript:;" th:alt="${author.firstName + ' ' + author.lastName}" 
-							th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+						<a rel="author" href="javascript:;" th:href="@{/authors/bio/{authorSlug}(authorSlug=${author.slug})}"
+							th:alt="${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+							th:attr="data-title=${author.firstName + ' ' + author.lastName}" 
 							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">
 						</a>
 					</li>
@@ -60,7 +62,7 @@
 </header>
 
 <section>
-	<div class="center-main-width fx-box fx-nowrap fx-justify-cnt authors-main-content">
+	<div class="center-main-width fx-box fx-nowrap fx-justify-cnt" id="authors-main-content">
 		<div class="fx-box fx-dir-col fx-align-end quotes-left-container">
 			
 	    		<blockquote class="author-quote-bubble left-bubble">

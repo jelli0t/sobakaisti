@@ -54,9 +54,11 @@ $(function() {
 	/* kad dohvati dno strane ucitaj jos */
 	$(window).on('scroll', scrollNearToBottom);
 	
-	$('li.author-circle > a').on('click', function() {
+	$('li.author-circle > a').on('click', function(evt) {
+		evt.preventDefault();
 		var selected_author = $(this).clone();		
-		$('#chosen-author-box').html($(selected_author).addClass('circle'));
+		$('#chosen-author-box').html($(selected_author).addClass('circle').removeClass('cloud-hoverable'));
+		$(this).replace_authors_conentn();
 	});
 	
 });
@@ -148,3 +150,8 @@ $.fn.loadFooterAtEnd = function(height) {
 	})
 }
 
+$.fn.replace_authors_conentn = function() {
+	var $container = $('#authors-main-content');
+    
+    $container.empty();
+}

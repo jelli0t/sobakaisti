@@ -59,7 +59,7 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value="/movement/authors", method=RequestMethod.GET)
+	@RequestMapping(value="/authors", method=RequestMethod.GET)
 	public String showAuthorsHome(Model model) {
 		model.addAttribute("authors", authorService.findAll());
 		return "authors";
