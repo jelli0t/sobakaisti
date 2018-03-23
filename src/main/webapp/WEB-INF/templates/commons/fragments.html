@@ -371,6 +371,13 @@
 	
 	
 	
-	 
-	
+	 <!--
+	*	AUTHORS: Bio container	*
+	-->
+	<th:block th:fragment="authorBioFragment" th:if="${author != null}">
+		<div class="fx-box fx-wrap fx-dir-col fx-justify-cnt fx-align-mid author-bio-container" th:width="a=${author}">
+  			<span class="author-fullname" th:text="${#strings.concat(a.firstName, ' ', a.lastName)}">Autor</span>
+  			<div class="author-bio-content"></div>
+		</div>
+	</th:block>
 </html>
