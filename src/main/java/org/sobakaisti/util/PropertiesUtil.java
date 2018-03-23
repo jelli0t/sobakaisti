@@ -14,9 +14,9 @@ public final class PropertiesUtil {
 		String fileName = propreties_prefix + getLocaleLanguage() + ".properties";
 		try {			
 			properties.load(new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream(fileName), "UTF-8"));
-			log.info("variables.properties file loaded successfully");
+			//log.info("variables.properties file loaded successfully");
 		} catch (Exception e) {
-			log.error(fileName + " file not found: ", e);
+			//log.error(fileName + " file not found: ", e);
 		}
  	}
 	
@@ -24,7 +24,13 @@ public final class PropertiesUtil {
 		return properties;
 	}
 	
-	
+	/**
+	* Za zadati kljuc dohvata odgovarajucu vrednost
+	* @param key
+	* */
+	public String valueOf(String key) {
+		return getProperties().getProperty(key).trim();
+	}
 	
 	public String getLocaleLanguage() {
 		Locale locale = LocaleContextHolder.getLocale();		
