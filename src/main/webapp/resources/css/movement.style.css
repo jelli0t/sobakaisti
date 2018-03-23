@@ -481,6 +481,41 @@ blockquote.right-bubble:before {
 /*
 * End of Authors Qutations
 */
+/* Author bio container */
+.author-bio-container {
+    max-width: 360px;
+    padding: 15px 18px;
+    color: #333;   
+}
+.author-bio-container > * {
+    padding: 15px 18px;  
+    background: #ffffde;
+    margin: 15px 0;
+    -webkit-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+    -moz-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+    box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+    box-sizing: border-box;
+}
+.author-bio-container > .author-fullname {
+    display: block;
+    position: relative;
+}
+.author-bio-container > .author-fullname::before {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  right: auto;
+  margin-left: -12px;
+  width: 0; 
+  height: 0;
+  content: ' ';  
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;  
+  border-bottom: 16px solid #1fa0ae;
+}
+.author-bio-container > .author-bio-content {  
+}
+/* End of author bio container */
 
 .mvt-header {
 	position: relative;
