@@ -63,30 +63,18 @@
 
 <section>
 	<div class="center-main-width fx-box fx-nowrap fx-justify-cnt" id="authors-main-content">
-		<div class="fx-box fx-dir-col fx-align-end quotes-left-container">
-			
-	    		<blockquote class="author-quote-bubble left-bubble">
+		<div class="fx-box fx-dir-col fx-align-end quotes-left-container">			
+	    	<blockquote class="author-quote-bubble left-bubble" th:each="quote, item : ${quotes}" th:if="${item.odd}">
 				<img th:src="@{/resources/img/icons/svg/quote.svg}" class="quotation-mark" height="18"> 
-				Ми смо Собакаисти. Нисмо се удружили из политичких разлога, није нас никаква пропаганда спојила, не држе нас националне ни верске стеге.
-			</blockquote> 
-		      
-			<blockquote class="author-quote-bubble left-bubble">
-				<img th:src="@{/resources/img/icons/svg/quote.svg}" class="quotation-mark" height="18"> 
-				Ми смо Собакаисти. Нисмо се удружили из политичких разлога, није нас никаква пропаганда спојила
-			</blockquote> 
-	    	</div>
+				<span th:text="${quote}"></span>
+			</blockquote> 		   
+	   	</div>
 	    
-		<div class="fx-box fx-dir-col fx-align-start">
-			
-			<blockquote class="author-quote-bubble right-bubble">
-		    		<img th:src="@{/resources/img/icons/svg/quote.svg}" class="quotation-mark" height="18"> 
-		        	Ми смо Собакаисти. Ми смо пси што бесно гризу за уметност, ми смо чувари богате ризнице светске културне традиције
-		    	</blockquote>
-			
-			<blockquote class="author-quote-bubble right-bubble">
-		    		<img th:src="@{/resources/img/icons/svg/quote.svg}" class="quotation-mark" height="18"> 
-		        	Ми смо Собакаисти. Ми смо пси што бесно гризу за уметност, ми смо чувари богате ризнице 
-		    	</blockquote>
+		<div class="fx-box fx-dir-col fx-align-start">			
+			<blockquote class="author-quote-bubble right-bubble" th:each="quote, item : ${quotes}" th:if="${item.even}">
+	    		<img th:src="@{/resources/img/icons/svg/quote.svg}" class="quotation-mark" height="18">
+	    		<span th:text="${quote}"></span> 
+	    	</blockquote>
 		</div>		
 	</div>
 </section>

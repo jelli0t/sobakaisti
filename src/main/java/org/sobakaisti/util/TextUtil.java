@@ -1,6 +1,9 @@
 package org.sobakaisti.util;
 
 public final class TextUtil {
+	
+	public static final char HASH_CHAR = 0x23;
+	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 	/**
 	* Default private constrictor prevents class to be instantiated
 	* */

@@ -73,6 +73,7 @@ public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements A
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
+		
 	@Bean
 	public LocaleResolver localeResolver(){
 		SessionLocaleResolver localeResover = new SessionLocaleResolver();

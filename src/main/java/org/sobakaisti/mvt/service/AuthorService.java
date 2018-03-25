@@ -17,4 +17,9 @@ public interface AuthorService {
 	 * Pronalazi sve autore u sistemu
 	 * */
 	public List<Author> findAll();
+	
+	/**
+	 * Dohvata listu citata iz manifesta
+	 * */
+	public List<String> getAuthorsManifestQuotes();
 }
