@@ -71,27 +71,19 @@ var background = function(dimension,$circle){
 	}).always(function( xhr, status ) {
 		console.log( "loaded: " + status );
 		
-		var $ul = $('#circle-menu');
-		
-		
-		
-//		$('li').animate({marginLeft: '0'},{
-//            duration: 3000,
-//            easing: 'linear'
-//        }).promise().done(function(){
-//        	$circle.removeClass('loader');
-//        	$circle.remove();
-//        	$('.circle-menu-item').css({'position':'static', 'margin':'0 15px'}).animate({
-//        		opacity: '1.0'
-//        	}, 1000);        	
-//    	});
-		$('#circle-menu').delay(2500).queue(function() {
+		/* new */
+		$('.mvt-menu-container').delay(2000).queue(function() {
+			$('nav.mvt-intro-menu', this).css({'visibility':'visible','max-width':'680px','opacity':'1'});
+			$(this).dequeue();
+		});
+				
+		/* old */
+		$('#circle-menu').delay(2500).queue(function() {			
 			$('#loading-container').detach();
 			$circle.remove();
-            $(this).expandCircleMenu();
-            $(this).dequeue();
-        });
-		
+			$(this).expandCircleMenu();
+			$(this).dequeue();
+		});		
 	});
 };	
 /**
