@@ -24,6 +24,18 @@
 	</div>
 	
 	<span class="circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span>
+	
+	<!-- Movement Intro Menu Container -->
+	<div class="mvt-menu-container">
+		<nav class="fx-box fx-wrap fx-dir-row fx-justify-sbtw mvt-intro-menu">
+			<a th:href="@{/manifesto}" class="circle circle-nav" th:title="#{nav.item.manifesto}" th:text="#{nav.item.manifesto}">Manifest</a>
+			<a th:href="@{/arts}" class="circle circle-nav" th:title="#{nav.item.arts}" th:text="#{nav.item.arts}">Radovi</a>
+			<a th:href="@{/authors}" class="circle circle-nav" th:title="#{nav.item.authors}" th:text="#{nav.item.authors}">Autori</a>
+			<a th:href="@{/publications}" class="circle circle-nav" th:title="#{nav.item.publications}" th:text="#{nav.item.publications}">Izdanja</a>
+			<a th:href="@{/shop}" class="circle circle-nav" th:title="#{nav.item.shop}" th:text="#{nav.item.shop}">Ducan</a>
+			<a th:href="@{/contact}" class="circle circle-nav" th:title="#{nav.item.contact}" th:text="#{nav.item.contact}">Kotakt</a>  
+		</nav>
+	</div>
 
 <!-- <span class="single-circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span> -->
 <ul id="circle-menu">
