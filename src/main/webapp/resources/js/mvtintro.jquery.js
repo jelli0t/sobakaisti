@@ -73,7 +73,7 @@ var background = function(dimension,$circle){
 		
 		/* new */
 		$('.mvt-menu-container').delay(2000).queue(function() {
-			$('nav.mvt-intro-menu', this).css({'visibility':'visible','max-width':'680px','opacity':'1'});
+			$('nav.mvt-intro-menu', this).css({'max-width':'680px', 'opacity':'1', 'visibility':'visible'});
 			$(this).dequeue();
 		});
 				
