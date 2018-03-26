@@ -72,8 +72,9 @@ var background = function(dimension,$circle){
 		console.log( "loaded: " + status );
 		
 		/* new */
-		$('.mvt-menu-container').delay(2000).queue(function() {
-			$('nav.mvt-intro-menu', this).css({'max-width':'680px', 'opacity':'1', 'visibility':'visible'});
+		$('nav.mvt-intro-menu').delay(2000).queue(function() {
+			console.log( 'loading menu...' );
+			$(this).css({'max-width':'680px', 'opacity':'1', 'visibility':'visible'});
 			$(this).dequeue();
 		});
 				
