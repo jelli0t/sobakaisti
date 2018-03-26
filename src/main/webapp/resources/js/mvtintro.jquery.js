@@ -11,7 +11,9 @@ $(function() {
 				'charWidth':char_width
 				};
 		console.log('Ucitavam pozadinu prema seledecim dimenzijama: w:'+width+' h:'+height+' char_w:'+char_width);
-		background(dimension,$circle);			
+//		background(dimension,$circle);		
+		$( document ).loadBackground($circle);
+		
 	});
 	
 //	background(dimension,$circle);	
@@ -51,7 +53,13 @@ $(function() {
 /**
  * funkcija koja loaduje tekst kao pozadinu
  * */
-var background = function(dimension,$circle){
+$.fn.loadBackground = function($circle) {
+	var dimension = {
+			'width': $(this).width(),
+			'height': $(this).height(),
+			'charWidth': $('.test-char').width()
+			};
+//var background = function(dimension,$circle){
 	$.ajax({
 		url: window.location.href+'/load_background',
 		type : 'GET',
@@ -72,32 +80,13 @@ var background = function(dimension,$circle){
 		console.log( "loaded: " + status );
 		
 		/* new */
-		$('nav.mvt-intro-menu').delay(2000).queue(function() {
+		$('nav.mvt-intro-menu').delay(2200).queue(function() {
+			$('#loading-container').detach();
+			$circle.remove();
 			console.log( 'loading menu...' );
 			$(this).css({'max-width':'680px', 'opacity':'1', 'visibility':'visible'});
 			$(this).dequeue();
 		});
-				
-		/* old */
-		$('#circle-menu').delay(2500).queue(function() {			
-			$('#loading-container').detach();
-			$circle.remove();
-			$(this).expandCircleMenu();
-			$(this).dequeue();
-		});		
+		
 	});
 };	
-/**
- * metoda prikazuje i siri menu na uvodnoj animaciji
- * */
-$.fn.expandCircleMenu = function() {
-	$(this).show();
-	var fromLeft = 0;
-	$('li', this).each(function (i, item){	
-		$(this).animate({left: fromLeft+'px'},{
-			duration: 500,
-			easing: 'linear'
-		});
-		fromLeft += 110;
-	});	
-};
