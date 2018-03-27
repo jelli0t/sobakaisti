@@ -79,12 +79,11 @@
 	*	TOP NAVIGATION	*
 	 -->
 	<nav class="mvt-top-navigation" th:fragment="mvtTopNavigation">
-		<div class="nav-content-wrapper center-main-width fx-box fx-justify-sbtw">
+		<div class="nav-content-wrapper center-main-width fx-box fx-dir-row fx-justify-sbtw fx-valign-cnt">
 			<!-- Topbar Logo -->
-			<div class="mvt-top-logo">
-				<a th:href="@{/rs/movement}"><img alt="Pokret"
-					th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="26"></a>
-			</div>
+			<a th:href="@{/rs/movement}" class="mvt-top-logo" th:title="#{mvt.title.full}">
+				<img alt="Pokret" th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="32" alt="Sobakaisti">
+			</a>
 	
 			<ul class="mvt-top-menu">
 				<li><a th:href="@{/manifesto}" th:text="#{nav.item.manifesto}"
@@ -120,7 +119,7 @@
 			<div class="header-top fx-box fx-justify-sbtw">
 				<a th:href="@{/rs/movement}"> <img alt="Pokret"
 					th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="30"
-					title="Pokret Sobakaisti">
+					th:title="#{mvt.title.full}">
 				</a>
 				<!-- social networks -->
 				<div class="social-container fright header-social">
