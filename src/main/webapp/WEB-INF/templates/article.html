@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:with="chosenArt=${arts[0]}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/mvt_head :: mvt_head(~{::title})">
-	<title th:text="${article.title}">Literature</title>
+	<title th:text="${post.title}">Literature</title>
 	<!-- fb graf linkovi -->
 </head>
 <body>
-<header th:replace="~{commons/mvt_header :: mvt_header}"></header>
+<!-- <header th:replace="~{commons/mvt_header :: mvt_header}"></header> -->
+<th:block th:insert="~{commons/mvt_header :: mvtTopNavigation}"></th:block>
+<!-- Main Page Header -->
+<th:block th:insert="~{commons/mvt_header :: mvtHeader}"></th:block>
+	
+<section>
+	<div class="center-main-width fx-box fx-justify-cnt mvt-post-container">
+		<article th:with="post=${article}" class="post">
+			<!-- header of the article -->
+			<header class="post-header">
+				<h1 th:text="${post.title}" th:title="${post.title}" class="post-title"></h1>
+				<!-- post details -->
+				<div th:with="author=${post.author}" class="post-details">
+					<!-- Author avatar -->
+					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+						<span class="circle circle-post-author" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+					</a>
+					<!-- Author name -->
+					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}" 
+						th:text="${author.firstName + ' ' + author.lastName}" class="post-author-name">Sobakaisti</a>
+					<!-- Post date -->
+					<span>objavljeno dana</span>
+					<time class="post-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy.')}"></time>	
+				</div>
+			</header>
+			<!-- featured image -->
+			<div th:if="${post.featuredImage != null}" class="post-img-container">
+				<img alt="" th:src="@{/resources/img/{img}(img=${post.featuredImage})}" class="post-img">
+			</div>
 
+			<div class="post-body" th:utext="${post.content}">
+
+			</div>
+		</article>
+	</div>
+</section>	
+	
+	
 <div class="site-content-container">
 
 	<article th:with="a=${article}" class="post">
