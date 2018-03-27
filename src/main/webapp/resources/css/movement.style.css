@@ -1053,6 +1053,9 @@ h3.article-prev-title {
 /*
 *	POST
 */
+.mvt-post-related {
+	background: #fafafa;
+}
 .post {
 	position: relative;
 	max-width: 980px;
@@ -1061,8 +1064,8 @@ h3.article-prev-title {
 	margin-bottom: 5em !important;
 	/* 	border: 1px solid gray; */
 }
-
-.post>.post-header {
+.post > 
+.post-header {
 	width: 100%;
 	overflow-wrap: break-word;
 	word-wrap: break-word;
@@ -1070,13 +1073,15 @@ h3.article-prev-title {
 	margin-bottom: 1.5em !important;
 }
 
-.post>.post-header>.post-title {
+.post > .post-header >
+.post-title {
 	margin-bottom: .25em !important;
 	margin-top: 0;
 	font-size: 28px;
 }
 
-.post>.post-header>.post-details {
+.post > .post-header >
+.post-details {
 	line-height: 32px;
 	font-size: 14px;
 }
