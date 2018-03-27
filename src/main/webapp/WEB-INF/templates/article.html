@@ -38,9 +38,68 @@
 			<div class="post-body" th:utext="${post.content}">
 
 			</div>
+			<footer>
+				<div class="post-tags"></div>
+			</footer>
 		</article>
 	</div>
 </section>	
+	
+<!-- 
+*	Top Recomendation articles  *
+-->
+<section class="mvt-post-related">
+	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
+		<!-- top section header -->
+		<div class="top-posts-header">
+		    <span>Izdvajamo</span>
+		</div>		
+		<!-- posts -->
+		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight" 
+				th:each="rl_post, item : ${relatedPosts}" th:if="${item.index < 4}">
+		    <!-- fotka -->
+		    <aside th:if="${rl_post?.featuredImage != null}" th:with="media = ${rl_post.featuredImage}" class="mvt-postprev-cover">
+		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
+		      </a>
+		    </aside>
+			<!-- Right side of preview -->
+		    <div class="fx-box fx-dir-col fx-justify-sbtw fx-basis-60 mvt-postprev-content">
+				<header>
+					<h3 class="mvt-postprev-title">
+						<a href="#" th:title="${rl_post.title}" th:text="${rl_post.title}"></a>
+					</h3>
+				</header>
+			    <div th:if="${rl_post.content != null}" th:utext="${#strings.abbreviate(rl_post.content, rl_post.featuredImage != null ? 145 : 300)}"
+					class="mvt-postprev-snippet">
+			    </div>
+		    	<footer class="fx-box fx-justify-sbtw fx-dir-row" th:with="author=${rl_post.author}">
+		    		<!--  -->
+					<div class="fx-box"> 
+			    		<!-- Authors avatar -->
+						<div class="mvt-postprev-author-avatar">
+							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+							</a>
+						</div>
+						<!-- Authors full name and post date -->
+						<div class="mvt-postprev-info">
+							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
+									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+							</span>
+							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+						</div>
+					</div>	
+			    	<div class="mvt-postprev-tools">
+			            T
+			        </div>				    
+			</footer>
+			</div>
+		</article>
+	</div>
+</section>
+	
+	
 	
 	
 <div class="site-content-container">
