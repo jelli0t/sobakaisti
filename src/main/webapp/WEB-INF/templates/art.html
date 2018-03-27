@@ -30,7 +30,7 @@
 		    <div class="fx-box fx-dir-col fx-justify-sbtw fx-basis-60 mvt-postprev-content">
 				<header>
 					<h3 class="mvt-postprev-title">
-						<a href="#" th:title="${post.title}" th:text="${post.title}"></a>
+						<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
 					</h3>
 				</header>
 			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 300)}"
@@ -83,7 +83,7 @@
 			<div class="fx-box fx-grow2 fx-dir-col fx-justify-sbtw mvt-postprev-content">
 				<header>
 					<h3 class="mvt-postprev-title">
-						<a href="#" th:title="${post.title}" th:text="${post.title}"></a>
+						<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
 					</h3>
 				</header>
 			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 300)}"

@@ -132,7 +132,7 @@ public class ArtsController {
 			List<Category> arts = new ArrayList<Category>(1);
 			arts.add(categoryService.findCategoryBySlug(category));
 			System.out.println("Cat: "+category+"; Art_slug: "+article);
-			Article fullArticle = articleService.findArticleBySlug(article);
+			Article fullArticle = articleService.findBySlug(article);
 			List<Article> recommended = articleService.findRelatedLatestArticles(fullArticle);
 //			model.addAttribute("sideArticles", articleService.findNextAndPreviousArticle(fullArticle));
 			model.addAttribute("sideArticles", articleService.choosePrevAndNextArticle(fullArticle, recommended));
