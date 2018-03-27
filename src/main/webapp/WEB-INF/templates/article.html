@@ -52,18 +52,17 @@
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
 		<!-- top section header -->
 		<div class="top-posts-header">
-		    <span>Izdvajamo</span>
-		</div>		
-		<!-- posts -->
-		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight" 
-				th:each="rl_post, item : ${relatedPosts}" th:if="${item.index < 4}">
+		    <span>Preostali članci</span>
+		</div>
+		<article class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-basic"
+				th:each="rl_post, item : ${relatedPosts}" th:if="${item.index > 3}">
 		    <!-- fotka -->
-		    <aside th:if="${rl_post?.featuredImage != null}" th:with="media = ${rl_post.featuredImage}" class="mvt-postprev-cover">
-		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
-		      </a>
+		    <aside th:if="${rl_post?.featuredImage != null}" th:with="media = ${rl_post.featuredImage}" class="mvt-postprev-cover mvt-postprev-top-cover">
+				<a th:href="@{/arts/{slug}(slug=${rl_post.slug})}" th:title="${rl_post.title}"
+				   th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'"></a>
 		    </aside>
 			<!-- Right side of preview -->
-		    <div class="fx-box fx-dir-col fx-justify-sbtw fx-basis-60 mvt-postprev-content">
+			<div class="fx-box fx-grow2 fx-dir-col fx-justify-sbtw mvt-postprev-content">
 				<header>
 					<h3 class="mvt-postprev-title">
 						<a href="#" th:title="${rl_post.title}" th:text="${rl_post.title}"></a>
@@ -72,7 +71,7 @@
 			    <div th:if="${rl_post.content != null}" th:utext="${#strings.abbreviate(rl_post.content, rl_post.featuredImage != null ? 145 : 300)}"
 					class="mvt-postprev-snippet">
 			    </div>
-		    	<footer class="fx-box fx-justify-sbtw fx-dir-row" th:with="author=${rl_post.author}">
+		    	<footer class="fx-box fx-dir-row fx-justify-sbtw" th:with="author=${rl_post.author}">
 		    		<!--  -->
 					<div class="fx-box"> 
 			    		<!-- Authors avatar -->
@@ -87,7 +86,7 @@
 								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
 									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
 							</span>
-							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+							<time class="post-prev-date" th:text="${#dates.format(rl_post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
 						</div>
 					</div>	
 			    	<div class="mvt-postprev-tools">
