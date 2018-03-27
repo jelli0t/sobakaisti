@@ -288,14 +288,23 @@ nav.mvt-top-navigation >
 	border-top: 15px solid #343434;
 	z-index: 999;
 }
-
-nav.mvt-top-navigation>.nav-content-wrapper>.mvt-top-logo {
-	display: inline-block;
-	/* 	height:38px; */
-	line-height: 38px;
-	border: 1px solid red;
+/* top bar logo */
+nav.mvt-top-navigation > 
+.nav-content-wrapper > 
+a.mvt-top-logo {
+	position: relative;
+	margin: 0;
+	padding: 0;
 }
-
+a.mvt-top-logo::after {
+	position: absolute;
+	right: -16px;
+	left: auto;
+	top: 5px;
+	content: '';
+	height: 28px;
+	border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
 /* Header navigation */
 
 /* https://css-tricks.com/reading-position-indicator/ */
