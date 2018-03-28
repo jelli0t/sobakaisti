@@ -508,6 +508,7 @@ blockquote.right-bubble:before {
 .author-bio-container > .author-fullname {
     display: block;
     position: relative;
+    text-align: center;
 }
 .author-bio-container > .author-fullname::before {
   position: absolute;

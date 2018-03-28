@@ -31,4 +31,9 @@ public class AuthorServiceImpl implements AuthorService {
 		return PropertiesUtil.quotes.getBundleValues(PropertiesUtil.MANIFEST_QUOTES_BUNDLE_KEY);
 	}
 
+	@Override
+	public Author findBySlug(String slug) {
+		return authorDao.findAuthorBySlug(slug);
+	}
+
 }

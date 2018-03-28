@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,4 +66,13 @@ public class HomeController {
 		model.addAttribute("quotes", authorService.getAuthorsManifestQuotes());
 		return "authors";
 	}
+	
+	@RequestMapping(value="/authors/bio/{authorSlug}", method=RequestMethod.GET)
+	public String showAuthorBio(@PathVariable String authorSlug, Model model) {
+		if(TextUtil.notEmpty(authorSlug)) {
+			model.addAttribute("author", authorService.findBySlug(authorSlug));
+		}
+		return "commons/fragments :: authorBioFragment";
+	}
+	
 }

@@ -375,9 +375,14 @@
 	*	AUTHORS: Bio container	*
 	-->
 	<th:block th:fragment="authorBioFragment" th:if="${author != null}">
-		<div class="fx-box fx-wrap fx-dir-col fx-justify-cnt fx-align-mid author-bio-container" th:width="a=${author}">
-  			<span class="author-fullname" th:text="${#strings.concat(a.firstName, ' ', a.lastName)}">Autor</span>
-  			<div class="author-bio-content"></div>
+		<div class="fx-box fx-wrap fx-dir-col fx-justify-cnt fx-align-mid author-bio-container" th:with="a=${author}">
+  			<h4 class="author-fullname" th:text="${#strings.concat(a.firstName, ' ', a.lastName)}">Autor</h4>
+  			<div class="author-bio-content">
+  				<div th:utext="${a.shortBio}"></div>
+  				<p th:if="${not #strings.isEmpty(a.website)}">
+  					<a th:href="@{http://__${a.website}__}" target="_blank" th:text="${a.website}"></a>
+  				</p>
+  			</div>
 		</div>
 	</th:block>
 </html>

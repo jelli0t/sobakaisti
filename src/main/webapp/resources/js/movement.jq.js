@@ -58,7 +58,7 @@ $(function() {
 		evt.preventDefault();
 		var selected_author = $(this).clone();		
 		$('#chosen-author-box').html($(selected_author).addClass('circle').removeClass('cloud-hoverable'));
-		$(this).replace_authors_conentn();
+		$(this).replace_authors_content();
 	});
 	
 });
@@ -150,8 +150,22 @@ $.fn.loadFooterAtEnd = function(height) {
 	})
 }
 
-$.fn.replace_authors_conentn = function() {
+$.fn.replace_authors_content = function() {
 	var $container = $('#authors-main-content');
-    
-    $container.empty();
+    $.ajax({
+		url: $(this).attr('href'),
+		type : 'GET',
+		dataType: 'html',
+	}).done(function( bio ) {			
+		if (bio) {
+			$container.empty();
+			console.log('Uspesno dohvacen autorov bio');
+			$container.hide().html(bio).fadeIn(400);
+		}else {
+			console.log('Nema sta da dohvatim, document je prazan! ');
+		}		
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})    
 }

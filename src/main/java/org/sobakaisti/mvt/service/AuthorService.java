@@ -19,6 +19,13 @@ public interface AuthorService {
 	public List<Author> findAll();
 	
 	/**
+	 * Dohvata autora na osnovu prosledjenog slug-a
+	 * 
+	 * @param slug
+	 * */
+	public Author findBySlug(String slug);
+	
+	/**
 	 * Dohvata listu citata iz manifesta
 	 * */
 	public List<String> getAuthorsManifestQuotes();
