@@ -59,7 +59,7 @@ $.fn.loadBackground = function($circle) {
 			'height': $(this).height(),
 			'charWidth': $('.test-char').width()
 			};
-//var background = function(dimension,$circle){
+	var $progress = $('.circular-progress-container > .circular-progress');
 	$.ajax({
 		url: window.location.href+'/load_background',
 		type : 'GET',
@@ -68,21 +68,25 @@ $.fn.loadBackground = function($circle) {
 		dataType: 'html'
 	}).done(function( data ) {
 		if(data) {
+			/* Start circle progress animation */
+			$('.circular-progress-value', $progress).addClass('circular-progress-animation');
+			/* Append background rows on list */
 			$('.bgd-list').append(data);
 		} else {
 			console.log('Data ne postoji!');
 		}		
 	}).fail(function( xhr, status, errorThrown ) {
-	    console.log( "Error: " + errorThrown );
-	    console.log( "Status: " + status );
-	    console.dir( xhr );
+		console.log( "Error: " + errorThrown );
+		console.log( "Status: " + status );
+		console.dir( xhr );
 	}).always(function( xhr, status ) {
-		console.log( "loaded: " + status );
-		
+		console.log( "loaded: " + status );		
 		/* new */
 		$('nav.mvt-intro-menu').delay(2200).queue(function() {
 			$('#loading-container').detach();
 			$circle.remove();
+			/* Ukloni circular progress */
+			$progress.parent().remove();			
 			console.log( 'loading menu...' );
 			$(this).css({'max-width':'680px', 'opacity':'1', 'visibility':'visible'});
 			$(this).dequeue();
