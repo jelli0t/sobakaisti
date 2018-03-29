@@ -13,30 +13,18 @@
 			<img th:alt="#{hover.title.backToIntro}" th:src="@{/resources/img/icons/dog_house.svg}">
 		</a>
 	</span>
-	<!-- Circle loading -->
-	<div id="loading-container">
-	    <div id="halfclip">
-	        <div class="halfcircle" id="clipped">
-	        </div>
-	    </div>
-	    <div class="halfcircle" id="fixed">
-	    </div>
-	</div>
-	
-	<span class="circle mvt-init-circle" th:text="#{nav.item.movement}">pokret</span>
-	
-	<!-- 
-	*	Circular progress bar 	*
-	-->
-	<div class="circular-progress-container" th:attr="data-title=#{nav.item.movement}">
-	    <svg class="circular-progress" width="120" height="120" viewBox="0 0 120 120">
-		<circle cx="60" cy="60" r="54" fill="none" stroke="#e6e6e6" stroke-width="3" />
-		<circle class="circular-progress-value" cx="60" cy="60" r="54" fill="none" stroke="#343434" stroke-width="3" />    
-	    </svg>
-	</div>
-	
+		
 	<!-- Movement Intro Menu Container -->
 	<div class="mvt-menu-container">
+		<!-- 
+		*	Circular progress bar 	*
+		-->
+		<div class="circular-progress-container" th:attr="data-title=#{nav.item.movement}">
+		    <svg class="circular-progress" width="90" height="90" viewBox="0 0 90 90">
+				<circle cx="45" cy="45" r="42" fill="none" stroke="#e6e6e6" stroke-width="3" />
+				<circle class="circular-progress-value" cx="45" cy="45" r="42" fill="none" stroke="#343434" stroke-width="3" />    
+		    </svg>
+		</div>
 		<nav class="fx-box fx-wrap fx-dir-row fx-justify-sbtw mvt-intro-menu">
 			<a th:href="@{/manifesto}" class="circle circle-nav" th:title="#{nav.item.manifesto}" th:text="#{nav.item.manifesto}">Manifest</a>
 			<a th:href="@{/arts}" class="circle circle-nav" th:title="#{nav.item.arts}" th:text="#{nav.item.arts}">Radovi</a>

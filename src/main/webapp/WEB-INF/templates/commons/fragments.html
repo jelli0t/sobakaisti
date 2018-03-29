@@ -393,7 +393,7 @@
 					<!-- Birthplace -->	
 					<li th:unless="${#strings.isEmpty(a.birthplace)}" class="author-info-item">
 						<img th:src="@{/}" th:title="#{form.label.birthplace}">
-						<span th:text="${a.birthplace}"></a>
+						<span th:text="${a.birthplace}"></span>
 					</li>
 					<!-- DOB -->	
 					<li th:if="${a.dob != null}" class="author-info-item">
