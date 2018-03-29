@@ -733,7 +733,58 @@ header.basic-header {
  100% {opacity: 1;}
 }
 
-
+/*
+* Circular Progress Bar
+*/
+.circular-progress-container {
+	display: inline-block;
+}
+.circular-progress-container::before {
+	position: absolute;  
+	content:attr(data-title);
+	width: 120px;
+	height: auto;
+	font-size: 1em;
+	font-weight: 700;
+	line-height: 120px;
+	text-align: center;
+	text-transform: uppercase;
+	z-index: 999;
+}
+.circular-progress {
+	-webkit-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+.circular-progress > 
+.circular-progress-value {
+	stroke-dasharray: 339.292;
+	stroke-dashoffset: 339.292;    
+}
+.circular-progress-animation {
+	-webkit-animation: circular-progress 2s 1 ease-in normal forwards;
+	-moz-animation: circular-progress 2s 1 ease-in normal forwards;
+	-o-animation: circular-progress 2s 1 ease-in normal forwards;
+	animation: circular-progress 2s 1 ease-in normal forwards;
+}
+@-webkit-keyframes circular-progress {
+    from { stroke-dashoffset: 339.292; }
+    to { stroke-dashoffset: 0; }
+}
+@-moz-keyframes circular-progress {
+    from { stroke-dashoffset: 339.292; }
+    to { stroke-dashoffset: 0; }
+}
+@-o-keyframes circular-progress {
+    from { stroke-dashoffset: 339.292; }
+    to { stroke-dashoffset: 0; }
+}
+@keyframes circular-progress {
+    from { stroke-dashoffset: 339.292; }
+    to { stroke-dashoffset: 0; }
+}
+/*	End of Cirular progress		*/
 
 /*	MEDIA	*/
 @media only screen and (max-width:640px) {
