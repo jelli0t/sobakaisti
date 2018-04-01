@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
+import org.sobakaisti.util.PropertiesUtil;
+import org.sobakaisti.util.Socials;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -70,7 +72,8 @@ public class HomeController {
 	@RequestMapping(value="/authors/bio/{authorSlug}", method=RequestMethod.GET)
 	public String showAuthorBio(@PathVariable String authorSlug, Model model) {
 		if(TextUtil.notEmpty(authorSlug)) {
-			model.addAttribute("author", authorService.findBySlug(authorSlug));
+			model.addAttribute("author", authorService.findBySlug(authorSlug));			
+			model.addAttribute("socials", PropertiesUtil.socials.findSocialNetworkProfilesForAuthor(authorSlug));			
 		}
 		return "commons/fragments :: authorBioFragment";
 	}

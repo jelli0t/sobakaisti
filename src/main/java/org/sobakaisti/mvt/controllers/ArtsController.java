@@ -129,16 +129,23 @@ public class ArtsController {
 	@RequestMapping(value="/{category}/{article}", method=RequestMethod.GET)
 	public String showArticleBySlug(@PathVariable("category") String category,  @PathVariable("article") String article, Model model) {
 		if(article != null && !article.isEmpty()) {
-			List<Category> arts = new ArrayList<Category>(1);
-			arts.add(categoryService.findCategoryBySlug(category));
-			System.out.println("Cat: "+category+"; Art_slug: "+article);
+			List<Author> authors  = new ArrayList<Author>(1);
+			Author chosenAuthor = null;
+			List<String> arts = new ArrayList<String>(1);
+			arts.add(category);
+			
 			Article fullArticle = articleService.findBySlug(article);
+			chosenAuthor = fullArticle.getAuthor();
+			authors.add(chosenAuthor);
 			List<Article> recommended = articleService.findRelatedLatestArticles(fullArticle);
 //			model.addAttribute("sideArticles", articleService.findNextAndPreviousArticle(fullArticle));
-			model.addAttribute("sideArticles", articleService.choosePrevAndNextArticle(fullArticle, recommended));
+//			model.addAttribute("sideArticles", articleService.choosePrevAndNextArticle(fullArticle, recommended));
 			model.addAttribute("arts", arts);
 			model.addAttribute("article", fullArticle);
 			model.addAttribute("initArticles", recommended);
+			model.addAttribute("authors", authors);
+			model.addAttribute("chosenAuthor", chosenAuthor);
+			model.addAttribute(PostService.POST_SORTING_ALLOWED_PARAM, false);
 		}
 		return "article";
 	}
@@ -172,6 +179,7 @@ public class ArtsController {
 			model.addAttribute("chosenArt", arts.get(0));
 			model.addAttribute("authors", authors);		
 			model.addAttribute("arts", arts);
+			model.addAttribute(PostService.POST_SORTING_ALLOWED_PARAM, true);
 		}
 		/* ako je prosledjeni autor slug nije prazan nadji autora */
 		if(authorSlug != null && !authorSlug.isEmpty()) {

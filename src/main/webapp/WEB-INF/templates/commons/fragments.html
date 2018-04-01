@@ -382,23 +382,28 @@
 				<ul class="author-info-list">
 					<!-- Website -->	
 					<li th:unless="${#strings.isEmpty(a.website)}" class="author-info-item">
-						<img th:src="@{/}" th:title="#{form.label.website}">
+						<img th:src="@{/resources/img/icons/svg/link.svg}" th:title="#{form.label.website}" height="14">
 						<a th:href="@{http://__${a.website}__}" target="_blank" th:text="${a.website}"></a>
 					</li>
 					<!-- E-mail -->	
 					<li th:unless="${#strings.isEmpty(a.email)}" class="author-info-item">
-						<img th:src="@{/}" th:title="#{form.label.email}">
+						<img th:src="@{/resources/img/icons/svg/mail.svg}" th:title="#{form.label.email}" height="14">
 						<a th:href="@{mailto:__${a.email}__}" th:text="${a.email}" th:title="#{title.attr.mailto}"></a>
 					</li>
 					<!-- Birthplace -->	
 					<li th:unless="${#strings.isEmpty(a.birthplace)}" class="author-info-item">
-						<img th:src="@{/}" th:title="#{form.label.birthplace}">
+						<img th:src="@{/resources/img/icons/svg/location.svg}" th:title="#{form.label.birthplace}" height="14">
 						<span th:text="${a.birthplace}"></span>
 					</li>
 					<!-- DOB -->	
 					<li th:if="${a.dob != null}" class="author-info-item">
-						<img th:src="@{/}" th:title="#{form.label.dob}">
+						<img th:src="@{/resources/img/icons/svg/gift.svg}" th:title="#{form.label.dob}" height="14">
 						<time th:text="${#dates.format(a.dob, 'dd. MMM yyyy.')}"></time>
+					</li>
+					<!-- Social Networks -->					
+					<li th:unless="${#lists.isEmpty(socials)}" th:each="soc : ${socials}" class="author-info-item">
+						<img th:src="@{__${soc.iconPath}__}" th:title="${soc.name}" height="14">
+						<a th:href="@{__${soc.url}__}" th:text="${soc.username}"></a>
 					</li>
 				</ul>
 				

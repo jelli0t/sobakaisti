@@ -28,6 +28,8 @@ public interface PostService<T extends Post> {
 	public static final int INIT_POST_BUNDLE_SIZE = 10;
 	public static final int LOADED_POST_BUNDLE_SIZE = 6;
 	
+	public static final String POST_SORTING_ALLOWED_PARAM = "postSortingAllowed";
+	
 	public static final String ACTIVE_STATUS = "active";
 	public static final String NONACTIVE_STATUS = "nonactive";
 	/* Full class names */

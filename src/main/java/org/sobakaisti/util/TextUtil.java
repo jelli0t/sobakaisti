@@ -3,6 +3,11 @@ package org.sobakaisti.util;
 public final class TextUtil {
 	
 	public static final char HASH_CHAR = 0x23;
+	public static final char SPACE_CHAR = 0x20;
+	public static final char NULL_CHAR = 0x0;
+	public static final char DOT_CHAR = 0x2e;
+	public static final char SEMICOLON_CHAR = 0x3b;
+	public static final String EMPTY = "";
 	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 	/**
 	* Default private constrictor prevents class to be instantiated

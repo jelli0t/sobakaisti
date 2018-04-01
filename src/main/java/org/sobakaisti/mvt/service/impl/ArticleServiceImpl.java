@@ -226,7 +226,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article, I18nArticle> im
 		Article nextArticle = null;
 		Article previousArticle = null;
 		Calendar postDate = article.getPostDate();
-		for(Article art : recommended) {			
+		for(Article art : recommended) {
 			if(art.getAuthor().getId() == art.getAuthor().getId()) {
 				if(art.getPostDate().after(postDate)) {
 					nextArticle = art;	

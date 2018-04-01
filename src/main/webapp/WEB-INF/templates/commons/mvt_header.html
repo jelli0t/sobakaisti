@@ -185,7 +185,7 @@
 				</div>
 			</div>
 			<!-- Sorting option -->
-			<div class="header-bottom header-sorting-container fx-box fx-justify-cnt fx-align-mid">
+			<div class="header-bottom header-sorting-container fx-box fx-justify-cnt fx-align-mid" th:if="${#bools.isTrue(postSortingAllowed)}">
 				<a th:href="@{/arts/{art}/{author}(art=${arts[0]}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" class="sorting-bttn">
 					<span th:text="#{button.label.chronological}" th:classappend="${popular} ? inactive : ''">Hronoloski</span>
 				</a>
