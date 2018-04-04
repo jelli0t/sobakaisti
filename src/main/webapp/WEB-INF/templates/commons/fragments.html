@@ -400,7 +400,8 @@
 						<img th:src="@{/resources/img/icons/svg/gift.svg}" th:title="#{form.label.dob}" height="14">
 						<time th:text="${#dates.format(a.dob, 'dd. MMM yyyy.')}"></time>
 					</li>
-					<!-- Social Networks -->					
+					<!-- Social Networks -->
+					<li th:unless="${#lists.isEmpty(socials)}"><hr class="socials-info-separator" data-title="Drustvene mreze"></li>
 					<li th:unless="${#lists.isEmpty(socials)}" th:each="soc : ${socials}" class="author-info-item">
 						<img th:src="@{__${soc.iconPath}__}" th:title="${soc.name}" height="14">
 						<a th:href="@{__${soc.url}__}" th:text="${soc.username}"></a>
