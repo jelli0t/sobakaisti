@@ -484,27 +484,52 @@ blockquote.author-quote-bubble > .quotation-mark {
   float: left;
   margin-right: 10px;
 }
+blockquote.left-bubble:before,
+blockquote.right-bubble:before,
 blockquote.left-bubble:after,
-blockquote.right-bubble:before {
+blockquote.right-bubble:after {
     content: "";
     position: absolute;
     border-style: solid;
     display: block;
-    width: 0;
-    top: 20px;
-    bottom: auto;
-    border-color: transparent rgba(27,31,35,0.10);
-    z-index: 998;
+    width: 0;    
+    bottom: auto;    
+    z-index: 999;
 }
-blockquote.left-bubble:after {
+blockquote.left-bubble:before {
+  top: 20px;
     left: auto;
     right: -20px;
     border-width: 10px 0 10px 20px;
+    border-color: transparent rgba(27,31,35,0.15);    
 }
-blockquote.right-bubble:before {    
+blockquote.left-bubble:after {
+    top: 21px;
+    left: auto;
+    right: -19px;
+    border-width: 9px 0 9px 20px;
+    border-color: transparent #FFFFEA;
+}
+blockquote.right-bubble:before {
+    top: 20px;  
     left: -20px;
     right: auto;    
     border-width: 10px 20px 10px 0;
+    border-color: transparent rgba(27,31,35,0.15);
+}
+blockquote.right-bubble:after {
+    top: 21px;
+    left: -19px;
+    right: auto; 
+    border-width: 9px 20px 9px 0;
+    border-color: transparent #FFFFEA;
+}
+
+blockquote.author-quote-bubble > .quotation-mark {
+  font-size: 2em;
+  font-weight: 700;
+  float: left;
+  margin-right: 10px;
 }
 /*
 * End of Authors Qutations
