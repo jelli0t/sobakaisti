@@ -376,8 +376,8 @@
 	-->
 	<th:block th:fragment="authorBioFragment" th:if="${author != null}">
 		<div class="fx-box fx-wrap fx-dir-col fx-justify-cnt fx-align-mid author-bio-container" th:with="a=${author}">
-  			<h4 class="author-fullname shadow-def" th:text="${#strings.concat(a.firstName, ' ', a.lastName)}">Autor</h4>
-  			<div class="author-bio-content shadow-def">
+  			<h4 class="author-fullname border-6-rad shadow-def" th:text="${#strings.concat(a.firstName, ' ', a.lastName)}">Autor</h4>
+  			<div class="author-bio-content border-6-rad shadow-def">
   				<div class="author-shortbio" th:utext="${a.shortBio}"></div>
 				<ul class="author-info-list">
 					<!-- Website -->	
