@@ -27,7 +27,7 @@
 		      </a>
 		    </aside>
 			<!-- Right side of preview -->
-		    <div class="fx-box fx-dir-col fx-justify-sbtw fx-basis-60 mvt-postprev-content">
+		    <div class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-content" th:classappend="${post?.featuredImage != null} ? fx-basis-60 : fx-basis-full">
 				<header>
 					<h3 class="mvt-postprev-title">
 						<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
