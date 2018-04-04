@@ -471,8 +471,8 @@ blockquote.author-quote-bubble {
 	display: inline-block;
     max-width:300px;
     padding: 15px 18px;
-    color: #333;
-    background: #ffffd6;
+    color: #343434;
+    background: #FFFFEA;
     font-size: 1.1em;
     font-style: italic;
     background-clip: padding-box;
@@ -501,7 +501,7 @@ blockquote.left-bubble:before {
     left: auto;
     right: -20px;
     border-width: 10px 0 10px 20px;
-    border-color: transparent rgba(27,31,35,0.15);    
+    border-color: transparent rgba(27,31,35,0.2);    
 }
 blockquote.left-bubble:after {
     top: 21px;
@@ -515,7 +515,7 @@ blockquote.right-bubble:before {
     left: -20px;
     right: auto;    
     border-width: 10px 20px 10px 0;
-    border-color: transparent rgba(27,31,35,0.15);
+    border-color: transparent rgba(27,31,35,0.2);
 }
 blockquote.right-bubble:after {
     top: 21px;
