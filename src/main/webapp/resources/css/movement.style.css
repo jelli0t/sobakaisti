@@ -477,8 +477,8 @@ blockquote.author-quote-bubble {
     font-style: italic;
     background-clip: padding-box;
 }
-blockquote.left-bubble { margin: 0 2em 3.5em; }
-blockquote.right-bubble { margin: 3.5em 2em 0; }
+blockquote.left-bubble { margin: 0 2em 3.5em 10px; }
+blockquote.right-bubble { margin: 3.5em 10px 0 2em; }
 
 blockquote.author-quote-bubble > .quotation-mark {
   float: left;
@@ -1589,4 +1589,10 @@ h3.article-prev-title {
 	.author-fullname-bubble {
 		margin: 6px 0 0 0;
 	}
+	
+	/* authors quotes */
+	blockquote.author-quote-bubble {
+	    font-size: 0.8em;
+	    padding: 7px 9px;
+	  }
 }
