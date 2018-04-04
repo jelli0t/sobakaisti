@@ -64,17 +64,17 @@
 <section>
 	<div class="center-main-width fx-box fx-nowrap fx-justify-cnt" id="authors-main-content">
 		<div class="fx-box fx-dir-col fx-align-end quotes-left-container">			
-	    	<blockquote class="author-quote-bubble left-bubble shadow-def" th:each="quote, item : ${quotes}" th:if="${item.odd}">
+	    		<blockquote class="author-quote-bubble left-bubble border-12-rad shadow-def" th:each="quote, item : ${quotes}" th:if="${item.odd}">
 				<img th:src="@{/resources/img/icons/svg/quote.svg}" class="quotation-mark" height="18"> 
 				<span th:text="${quote}"></span>
 			</blockquote> 		   
 	   	</div>
 	    
 		<div class="fx-box fx-dir-col fx-align-start">			
-			<blockquote class="author-quote-bubble right-bubble shadow-def" th:each="quote, item : ${quotes}" th:if="${item.even}">
+			<blockquote class="author-quote-bubble right-bubble border-12-rad shadow-def" th:each="quote, item : ${quotes}" th:if="${item.even}">
 	    		<img th:src="@{/resources/img/icons/svg/quote.svg}" class="quotation-mark" height="18">
 	    		<span th:text="${quote}"></span> 
-	    	</blockquote>
+	    		</blockquote>
 		</div>		
 	</div>
 </section>
