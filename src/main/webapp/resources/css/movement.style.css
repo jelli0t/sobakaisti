@@ -171,6 +171,15 @@ ul { list-style: none; }
 .inactive {
 	opacity: 0.5;
 }
+/* default box shadow */
+.shadow-def {
+	border: 1px solid rgba(27,31,35,0.10);
+	-webkit-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+	-moz-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+	box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+}
+
+
 
 /*	HEADER	*/
 
@@ -493,37 +502,66 @@ blockquote.right-bubble:before {
 /* Author bio container */
 .author-bio-container {
     max-width: 360px;
-    padding: 15px 18px;
-    color: #333;   
+    padding: 13px 10px;
+    color: #343434;   
 }
 .author-bio-container > * {
     padding: 15px 18px;  
-    background: #ffffde;
+    background: #FFFFEA;
     margin: 15px 0;
-    -webkit-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
-    -moz-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
-    box-shadow: 0 3px 12px rgba(27,31,35,0.15);
-    box-sizing: border-box;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	box-sizing: border-box;
 }
 .author-bio-container > .author-fullname {
     display: block;
     position: relative;
     text-align: center;
 }
-.author-bio-container > .author-fullname::before {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  right: auto;
-  margin-left: -12px;
-  width: 0; 
-  height: 0;
-  content: ' ';  
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;  
-  border-bottom: 16px solid #1fa0ae;
+.author-bio-container > 
+.author-fullname::before, 
+.author-bio-container > 
+.author-fullname::after {
+	position: absolute;
+	left: 50%;
+	right: auto;
+	width: 0; 
+	height: 0;
+	content: ' ';
 }
-.author-bio-container > .author-bio-content {  
+.author-bio-container > 
+.author-fullname::before {  
+	top: -16px;
+	margin-left: -12px;
+	border-left: 14px solid transparent;
+	border-right: 14px solid transparent;  
+	border-bottom: 16px solid rgba(27,31,35,0.15);
+}
+.author-bio-container > 
+.author-fullname::after {
+	top: -15px;
+	margin-left: -11px;
+	border-left: 13px solid transparent;
+	border-right: 13px solid transparent;  
+	border-bottom: 16px solid #FFFFEA;
+}
+.author-bio-container > 
+.author-bio-content >
+.author-info-list {
+	margin: 15px 0;
+}
+.author-bio-container > 
+.author-bio-content >
+.author-info-list > li > img {
+	vertical-align: middle;
+	margin-right: 5px;
+	max-height: 14px;
+}
+.author-bio-container > 
+.author-bio-content >
+.author-info-list > li > a:link {
+	color: #3f6884;
 }
 /* End of author bio container */
 
