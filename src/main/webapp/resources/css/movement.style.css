@@ -595,6 +595,28 @@ blockquote.author-quote-bubble > .quotation-mark {
 .author-info-list > li > a:link {
 	color: #3f6884;
 }
+/* socials line separator */
+hr.socials-info-separator {
+    border: 0;
+    height: 0;
+    margin: 15px 0 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+hr.socials-info-separator:before {
+	position: absolute;
+	height: 16px;
+	content:attr(data-title);
+	margin: -8px 0 0 7px;
+	font-size: 10px;
+	font-weight: 300;
+	padding: 0 5px;
+	background: #FFFFEA;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	line-height: 15px;
+	box-sizing: border-box;
+	opacity: 0.8;  
+}
 /* End of author bio container */
 
 .mvt-header {
