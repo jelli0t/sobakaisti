@@ -178,7 +178,24 @@ ul { list-style: none; }
 	-moz-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
 	box-shadow: 0 3px 12px rgba(27,31,35,0.15);
 }
-
+/*
+* Border Radiuses
+*/
+.border-3-rad {
+  	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.border-6-rad {
+  	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+.border-12-rad {
+  	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+}
 
 
 /*	HEADER	*/
@@ -456,16 +473,9 @@ blockquote.author-quote-bubble {
     padding: 15px 18px;
     color: #333;
     background: #ffffd6;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
     font-size: 1.1em;
     font-style: italic;
     background-clip: padding-box;
-    border: 1px solid rgba(27,31,35,0.05);
-    -webkit-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
-    -moz-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
-    box-shadow: 0 3px 12px rgba(27,31,35,0.15);
 }
 blockquote.left-bubble { margin: 0 2em 3.5em; }
 blockquote.right-bubble { margin: 3.5em 2em 0; }
@@ -509,9 +519,6 @@ blockquote.right-bubble:before {
     padding: 15px 18px;  
     background: #FFFFEA;
     margin: 15px 0;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
 	box-sizing: border-box;
 }
 .author-bio-container > .author-fullname {
