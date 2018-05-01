@@ -150,7 +150,9 @@
 						</li>
 					</ul>
 				</div>
-				<!-- center indicator continer -->
+				<!-- 
+				*	center indicator continer
+				-->
 				<div class="header-page-indicator">
 					<a th:href="@{/arts/{art}(art=${arts[0]})}" th:if="${not #lists.isEmpty(arts)}"> 
 						<span class="circle page-indikator-circle">
@@ -168,6 +170,14 @@
 						<img th:src="@{/resources/img/icons/__${art}__.svg}" class="arts-submenu-icon"	th:classappend="'submenu-icon-' + ${itemStat.index}"
 							th:alt="#{label.arts.__${art}__}" />
 					</a>
+					<!-- Single Author on filter -->
+					<th:block th:if="${#bools.isTrue(META_CIRCLE_ALLOWED)}">
+						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}"
+							class="circle circle-filter chosen-author meta-circle cloud-hoverable"	
+							th:attr="data-title=${author.firstName + ' ' + author.lastName}"				
+							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">
+						</a>
+					</th:block>
 				</div>
 				<!-- right author filter div -->
 				<div class="header-author-filter">

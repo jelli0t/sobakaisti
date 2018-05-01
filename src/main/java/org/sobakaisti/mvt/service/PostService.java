@@ -29,6 +29,8 @@ public interface PostService<T extends Post> {
 	public static final int LOADED_POST_BUNDLE_SIZE = 6;
 	
 	public static final String POST_SORTING_ALLOWED_PARAM = "postSortingAllowed";
+	public static final String META_CIRCLE_ALLOWED_ATTR = "META_CIRCLE_ALLOWED";
+	public static final String AUTHOR_ON_FILTER_ATTR = "AUTHOR_ON_FILTER";
 	
 	public static final String ACTIVE_STATUS = "active";
 	public static final String NONACTIVE_STATUS = "nonactive";

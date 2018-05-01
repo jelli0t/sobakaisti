@@ -19,11 +19,11 @@
 				<!-- post details -->
 				<div th:with="author=${post.author}" class="post-details">
 					<!-- Author avatar -->
-					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+					<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 						<span class="circle circle-post-author" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
 					</a>
 					<!-- Author name -->
-					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}" 
+					<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}" 
 						th:text="${author.firstName + ' ' + author.lastName}" class="post-author-name">Sobakaisti</a>
 					<!-- Post date -->
 					<span>objavljeno dana</span>
@@ -31,9 +31,13 @@
 				</div>
 			</header>
 			<!-- featured image -->
-			<div th:if="${post.featuredImage != null}" class="post-img-container">
-				<img alt="" th:src="@{/resources/img/{img}(img=${post.featuredImage})}" class="post-img">
-			</div>
+<!-- 			<div th:if="${post.featuredImage != null}" class="post-img-container"> -->
+<!-- 				<img alt="" th:src="@{/resources/img/{img}(img=${post.featuredImage})}" class="post-img"> -->
+<!-- 			</div> -->
+			<!-- fotka -->
+		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="post-img-container"
+		    	th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') no-repeat center center; background-size: contain;'">
+		    </aside>
 
 			<div class="post-body" th:utext="${post.content}">
 
@@ -52,20 +56,20 @@
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
 		<!-- top section header -->
 		<div class="top-posts-header">
-		    <span>Preostali ƒçlanci</span>
+		    <span>PreporuËujemo</span>
 		</div>
 		<article class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-basic"
-				th:each="rl_post, item : ${relatedPosts}" th:if="${item.index > 3}">
+				th:each="rl_post, item : ${relatedPosts}" th:unless="${item.index > 2}">
 		    <!-- fotka -->
 		    <aside th:if="${rl_post?.featuredImage != null}" th:with="media = ${rl_post.featuredImage}" class="mvt-postprev-cover mvt-postprev-top-cover">
-				<a th:href="@{/arts/{slug}(slug=${rl_post.slug})}" th:title="${rl_post.title}"
+				<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${rl_post.slug})}" th:title="${rl_post.title}"
 				   th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'"></a>
 		    </aside>
 			<!-- Right side of preview -->
 			<div class="fx-box fx-grow2 fx-dir-col fx-justify-sbtw mvt-postprev-content">
 				<header>
 					<h3 class="mvt-postprev-title">
-						<a href="#" th:title="${rl_post.title}" th:text="${rl_post.title}"></a>
+						<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${rl_post.slug})}" th:title="${rl_post.title}" th:text="${rl_post.title}"></a>
 					</h3>
 				</header>
 			    <div th:if="${rl_post.content != null}" th:utext="${#strings.abbreviate(rl_post.content, rl_post.featuredImage != null ? 145 : 300)}"
@@ -101,73 +105,6 @@
 	
 	
 	
-<div class="site-content-container">
-
-	<article th:with="a=${article}" class="post">
-		<!-- header of the article -->
-		<header class="post-header">
-			<h1 th:text="${a.title}" th:title="${a.title}" class="post-title"></h1>
-			<!-- post details -->
-			<div th:with="author=${a.author}" class="post-details">
-				<!-- Author avatar -->
-				<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
-					<span class="circle circle-post-author" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
-				</a>
-				<!-- Author name -->
-				<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}" 
-					th:text="${author.firstName + ' ' + author.lastName}" class="post-author-name">Sobakaisti</a>
-				<!-- Post date -->
-				<span>objavljeno dana</span>
-				<time class="post-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy.')}"></time>	
-			</div>
-		</header>
-		<!-- featured image -->
-		<div th:if="${a.featuredImage != null}" class="post-img-container">
-			<img alt="" th:src="@{/resources/img/{img}(img=${a.featuredImage})}" class="post-img">
-		</div>
-		
-		<div class="post-body" th:utext="${a.content}">
-		
-		</div>
-	</article>
-	
-	<!-- Realated articles -->
-	
-	<ul th:if="${initArticles != null}" class="post-prev-list">
-		<!-- List of articles previews -->
-		<li class="post-prev-item" th:each="article,itemStat : ${initArticles}">
-			<article>
-				<header>
-					<!-- Article featured image -->
-					<a th:href="@{/arts/{slug}(slug=${article.slug})}" class="post-prev-img" th:if="${article.featuredImage != null}" th:title="${article.title}">
-						<img alt="" th:src="@{/resources/img/{img}(img=${article.featuredImage})}">
-					</a>
-					<!-- Article title -->
-					<a th:href="@{/arts/{art}/{slug}(art=${arts[0].slug}, slug=${article.slug})}" 
-						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
-				</header>
-				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div>
-				<footer class="post-prev-footer" th:with="author=${article.author}">
-					<div class="post-prev-avatar">
-						<span class="circle circle-small" 
-							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
-					</div>
-					<div class="post-prev-author-details">
-						<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}" 
-								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-						</address>
-						<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
-					</div>
-					<div class="post-prev-meta">
-						<span class="post-prev-comment-count">999</span>
-					</div>
-				</footer>
-			</article>
-		</li>
-	</ul>
-</div>		
-
 <!-- Next an previous article -->
 
 	<article th:if="${sideArticles != null && sideArticles[0] != null}" class="side-article-prev left-article-prev" th:with="article=${sideArticles[0]}">

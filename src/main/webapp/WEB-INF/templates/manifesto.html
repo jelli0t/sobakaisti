@@ -4,14 +4,21 @@
 	<title>Manifest | Sobakaisti</title>
 </head>
 <body>
-<header th:replace="~{commons/mvt_header :: mvt_header}">
-</header>
+<!-- <header th:replace="~{commons/mvt_header :: mvt_header}"></header> -->
+<th:block th:insert="~{commons/mvt_header :: mvtTopNavigation}"></th:block>
+<!-- Main Page Header -->
+<th:block th:insert="~{commons/mvt_header :: mvtHeader}"></th:block>
+	
+<section>
+	<div class="center-main-width fx-box fx-justify-cnt mvt-post-container">
+		<article th:with="post=${article}" class="post">
+			<div class="post-body" th:utext="${post.content}"></div>
+		</article>
+	</div>
+</section>	
+
 
 	<div class="article-container">
-		<div class="article-content" th:utext="${article.content}">
-		
-		</div>
-		
 		<!-- Authors signatures container -->
 		<div class="authors-container" th:if="${authorsForSignatures != null}">
 		<h3 th:text="#{heading.members}">Members of Sobakaisti</h3>
@@ -25,9 +32,6 @@
 		</div>
 	</div>
 
-<footer th:replace="~{commons/mvt_footer :: mvt_footer}">
-</footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{/resources/js/movement.jq.js}"></script>
+<th:block th:insert="~{commons/mvt_footer :: mvt_main_footer}"></th:block>
 </body>
 </html>
