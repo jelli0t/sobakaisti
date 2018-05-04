@@ -159,11 +159,14 @@
 							<img th:src="@{/resources/img/icons/__${arts[0]}__.svg}" class="selected-art-icon" th:title="#{label.arts.__${arts[0]}__}"> 
 							<!--<span th:if="${not #lists.isEmpty(arts)}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span> -->
 						</span>
-					</a> 
-					<a th:href="@{/manifesto}" th:if="${#lists.isEmpty(arts)}"> 
-						<span class="circle page-indikator-circle"> 
-							<span th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span>
-						</span>
+					</a>
+					<!-- Show Manifest indicator -->
+					<a th:href="@{/manifesto}" th:if="${#lists.isEmpty(arts)}" class="circle page-indikator-circle"
+					   th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}">Menifest
+					</a>
+					<!-- Publications Indicator -->
+					<a th:href="@{/publication}" th:if="${#lists.isEmpty(arts)} and #bools.isTrue(PUBLICATION_INDICATOR_ON)"
+					   class="circle page-indikator-circle" th:title="#{nav.item.publications}" th:text="#{nav.item.publications}">Publication			
 					</a>
 					<!-- Arts subcategories -->
 					<a th:href="@{/arts/{art}(art=${art})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}" th:title="#{label.arts.__${art}__}"> 
