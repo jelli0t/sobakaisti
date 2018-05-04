@@ -39,12 +39,12 @@ public class PublicationsController {
 	@Autowired
 	private AuthorDao authorDao;
 	@Autowired
-	private PublicationService publicationService;
-	
+	private PublicationService publicationService;	
 		
 	@ModelAttribute
 	public void prepare(Model model){
 		model.addAttribute("authors", publicationService.findAllPostsAuthors());
+		model.addAttribute(PUBLICATION_INDICATOR_ON_ATTR, true);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
