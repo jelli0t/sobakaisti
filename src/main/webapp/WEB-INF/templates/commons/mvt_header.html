@@ -165,7 +165,7 @@
 					   th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}">Menifest
 					</a>
 					<!-- Publications Indicator -->
-					<a th:href="@{/publication}" th:if="${#lists.isEmpty(arts)} and #bools.isTrue(PUBLICATION_INDICATOR_ON)"
+					<a th:href="@{/publication}" th:if="${#lists.isEmpty(arts) and #bools.isTrue(PUBLICATION_INDICATOR_ON)}"
 					   class="circle page-indikator-circle" th:title="#{nav.item.publications}" th:text="#{nav.item.publications}">Publication			
 					</a>
 					<!-- Arts subcategories -->
