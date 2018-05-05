@@ -5,6 +5,7 @@ package org.sobakaisti.mvt.controllers;
 
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.service.ArticleService;
+import org.sobakaisti.mvt.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class ManifestoController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String displayManifestoPage(Model model){
+		model.addAttribute(PostService.MANIFESTO_INDICATOR_ON_ATTR, true);
 		model.addAttribute("article", articleService.findBySlug(MANIFESTO_SLUG));		
 		model.addAttribute("authorsForSignatures", authorDao.getAllAuthors());
 		return "manifesto";

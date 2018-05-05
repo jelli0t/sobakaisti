@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/mvt_head :: mvt_head(~{::title})">
-	<title th:text="${article.title}">Literature</title>
+	<title th:text="${post.title}">Literature</title>
 	<!-- fb graf linkovi -->
 </head>
 <body>
@@ -12,18 +12,18 @@
 	
 <section>
 	<div class="center-main-width fx-box fx-justify-cnt mvt-post-container">
-		<article th:with="post=${article}" class="post">
+		<article th:with="post=${post}" class="post">
 			<!-- header of the article -->
 			<header class="post-header">
 				<h1 th:text="${post.title}" th:title="${post.title}" class="post-title"></h1>
 				<!-- post details -->
 				<div th:with="author=${post.author}" class="post-details">
 					<!-- Author avatar -->
-					<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+					<a th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 						<span class="circle circle-post-author" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
 					</a>
 					<!-- Author name -->
-					<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}" 
+					<a th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}" 
 						th:text="${author.firstName + ' ' + author.lastName}" class="post-author-name">Sobakaisti</a>
 					<!-- Post date -->
 					<span>objavljeno dana</span>
@@ -62,14 +62,14 @@
 				th:each="rl_post, item : ${relatedPosts}" th:unless="${item.index > 2}">
 		    <!-- fotka -->
 		    <aside th:if="${rl_post?.featuredImage != null}" th:with="media = ${rl_post.featuredImage}" class="mvt-postprev-cover mvt-postprev-top-cover">
-				<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${rl_post.slug})}" th:title="${rl_post.title}"
+				<a th:href="@{/{url_basis}/{slug}(url_basis=${URL_BASIS}, slug=${rl_post.slug})}" th:title="${rl_post.title}"
 				   th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'"></a>
 		    </aside>
 			<!-- Right side of preview -->
 			<div class="fx-box fx-grow2 fx-dir-col fx-justify-sbtw mvt-postprev-content">
 				<header>
 					<h3 class="mvt-postprev-title">
-						<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${rl_post.slug})}" th:title="${rl_post.title}" th:text="${rl_post.title}"></a>
+						<a th:href="@{/{url_basis}/{slug}(url_basis=${URL_BASIS}, slug=${rl_post.slug})}" th:title="${rl_post.title}" th:text="${rl_post.title}"></a>
 					</h3>
 				</header>
 			    <div th:if="${rl_post.content != null}" th:utext="${#strings.abbreviate(rl_post.content, rl_post.featuredImage != null ? 145 : 300)}"
@@ -80,21 +80,21 @@
 					<div class="fx-box"> 
 			    		<!-- Authors avatar -->
 						<div class="mvt-postprev-author-avatar">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+							<a th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
 							</a>
 						</div>
 						<!-- Authors full name and post date -->
 						<div class="mvt-postprev-info">
 							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
+								<a th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}" 
 									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
 							</span>
 							<time class="post-prev-date" th:text="${#dates.format(rl_post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
 						</div>
 					</div>	
 			    	<div class="mvt-postprev-tools">
-			            T
+			            Tool
 			        </div>				    
 			</footer>
 			</div>

@@ -261,8 +261,9 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 	}
 
 	@Override
+	@Transactional
 	public List<Author> findAllPostsAuthors() {
-		String HQL = "select distinct t.author from "+entity.getName()+" t where t.active = 1";	
+		String HQL = "select distinct p.author from "+entity.getName()+" p where p.active = 1";	
 		try {
 			List<Author> authors = currentSession().createQuery(HQL).list();
 			return authors;

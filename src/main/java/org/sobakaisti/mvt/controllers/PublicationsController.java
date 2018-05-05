@@ -3,16 +3,22 @@
  */
 package org.sobakaisti.mvt.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.mvt.service.PostService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.StringUtil;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,12 +49,14 @@ public class PublicationsController {
 		
 	@ModelAttribute
 	public void prepare(Model model){
-		model.addAttribute("authors", publicationService.findAllPostsAuthors());
-		model.addAttribute(PUBLICATION_INDICATOR_ON_ATTR, true);
+		
+		model.addAttribute(TextUtil.URL_BASIS_ATTR_NAME, "publications");
+		model.addAttribute(PostService.PUBLICATION_INDICATOR_ON_ATTR, true);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String showPublicationHomepage(Model model) {		
+	public String showPublicationHomepage(Model model) {
+		model.addAttribute("authors", publicationService.findAllPostsAuthors());
 		model.addAttribute("publications", publicationService.findAllPostOrderedByDate());
 		return "publications";
 	}
@@ -58,11 +66,27 @@ public class PublicationsController {
 		if(author != null && !author.isEmpty()) {
 			Author chosenAuthor = authorDao.findAuthorBySlug(author);
 			model.addAttribute("publications", publicationService.findAllOrderedPostsByAuthor(chosenAuthor));
+			model.addAttribute("authors", publicationService.findAllPostsAuthors());
 			model.addAttribute("chosenAuthor", chosenAuthor);
 			return "publications";
 		}else {
 			return showPublicationHomepage(model);
 		}		
+	}
+	
+	@RequestMapping(value="/{titleSlug}", method=RequestMethod.GET)
+	public String showArticleBySlug(@PathVariable("titleSlug") String titleSlug, Model model) {
+		if(TextUtil.notEmpty(titleSlug)) {			
+			Publication publication = publicationService.findBySlug(titleSlug);
+			List<Publication> relatedPosts = publicationService.findAllOrderedPostsByAuthor(publication.getAuthor());
+
+			model.addAttribute(TextUtil.POST_ATTR_NAME, publication);
+			model.addAttribute(TextUtil.RELATED_POSTS_ATTR_NAME, relatedPosts);
+			model.addAttribute("author", publication.getAuthor());
+			model.addAttribute(PostService.POST_SORTING_ALLOWED_PARAM, false);
+			model.addAttribute(PostService.META_CIRCLE_ALLOWED_ATTR, true);
+		}
+		return "article";
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)

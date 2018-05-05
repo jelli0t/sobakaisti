@@ -31,6 +31,7 @@ public interface PostService<T extends Post> {
 	public static final String POST_SORTING_ALLOWED_PARAM = "postSortingAllowed";
 	public static final String META_CIRCLE_ALLOWED_ATTR = "META_CIRCLE_ALLOWED";
 	public static final String AUTHOR_ON_FILTER_ATTR = "AUTHOR_ON_FILTER";
+	public static final String MANIFESTO_INDICATOR_ON_ATTR = "MANIFESTO_INDICATOR_ON";
 	public static final String PUBLICATION_INDICATOR_ON_ATTR = "PUBLICATION_INDICATOR_ON";
 	
 	public static final String ACTIVE_STATUS = "active";

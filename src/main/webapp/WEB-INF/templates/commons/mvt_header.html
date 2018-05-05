@@ -140,12 +140,11 @@
 				<div class="header-author-filter">
 					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list left-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
-							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
+							<a rel="author" th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}" 
 							   th:alt="${author.firstName + ' ' + author.lastName}" 
 							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
-<!-- 								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span> -->
 							</a>
 						</li>
 					</ul>
@@ -161,11 +160,11 @@
 						</span>
 					</a>
 					<!-- Show Manifest indicator -->
-					<a th:href="@{/manifesto}" th:if="${#lists.isEmpty(arts)}" class="circle page-indikator-circle"
+					<a th:href="@{/manifesto}" th:if="${#lists.isEmpty(arts) and #bools.isTrue(MANIFESTO_INDICATOR_ON)}" class="circle page-indikator-circle"
 					   th:text="#{nav.item.manifesto}" th:title="#{nav.item.manifesto}">Menifest
 					</a>
 					<!-- Publications Indicator -->
-					<a th:href="@{/publication}" th:if="${#lists.isEmpty(arts) and #bools.isTrue(PUBLICATION_INDICATOR_ON)}"
+					<a th:href="@{/publications}" th:if="${#lists.isEmpty(arts) and #bools.isTrue(PUBLICATION_INDICATOR_ON)}"
 					   class="circle page-indikator-circle" th:title="#{nav.item.publications}" th:text="#{nav.item.publications}">Publication			
 					</a>
 					<!-- Arts subcategories -->
@@ -175,7 +174,7 @@
 					</a>
 					<!-- Single Author on filter -->
 					<th:block th:if="${#bools.isTrue(META_CIRCLE_ALLOWED)}">
-						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}"
+						<a th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}"
 							class="circle circle-filter chosen-author meta-circle cloud-hoverable"	
 							th:attr="data-title=${author.firstName + ' ' + author.lastName}"				
 							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">
@@ -186,7 +185,7 @@
 				<div class="header-author-filter">
 					<ul th:if="${not #lists.isEmpty(authors)}" class="author-filter-list right-author">
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
-							<a rel="author" th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}"
+							<a rel="author" th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}"
 							   th:alt="${author.firstName + ' ' + author.lastName}" 
 							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"

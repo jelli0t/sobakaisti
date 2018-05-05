@@ -14,6 +14,7 @@ import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
 import org.sobakaisti.mvt.service.PostService;
 import org.sobakaisti.util.PostFilter;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -138,12 +139,13 @@ public class ArtsController {
 //			model.addAttribute("sideArticles", articleService.findNextAndPreviousArticle(fullArticle));
 //			model.addAttribute("sideArticles", articleService.choosePrevAndNextArticle(fullArticle, recommended));
 			model.addAttribute("arts", arts);
-			model.addAttribute("article", fullArticle);
-			model.addAttribute("relatedPosts", relatedPosts);
+			model.addAttribute(TextUtil.POST_ATTR_NAME, fullArticle);
+			model.addAttribute(TextUtil.RELATED_POSTS_ATTR_NAME, relatedPosts);
 //			model.addAttribute("authors", authors);
 			model.addAttribute("author", fullArticle.getAuthor());
 			model.addAttribute(PostService.POST_SORTING_ALLOWED_PARAM, false);
 			model.addAttribute(PostService.META_CIRCLE_ALLOWED_ATTR, true);
+			model.addAttribute(TextUtil.URL_BASIS_ATTR_NAME, "arts" + TextUtil.SLASH_CHAR + category);
 		}
 		return "article";
 	}
@@ -158,6 +160,7 @@ public class ArtsController {
 		Author chosenAuthor = null;
 		List<Article> initArticles = null;
 		List<String> arts = null;
+		String urlBasis = "arts";
 		
 		PostFilter filter = new PostFilter(true, articleService.getPostLanguage(), authorSlug, category, startIndex, size);
 		System.out.println(filter);
@@ -173,6 +176,7 @@ public class ArtsController {
 			 * Dohvata slug-ove svih radova
 			 * */
 			arts = categoryService.findArtsSlugsSortedBySelectedArt(category);
+			urlBasis += TextUtil.notEmpty(arts.get(0)) ? TextUtil.SLASH_CHAR + arts.get(0) : TextUtil.EMPTY;
 			
 			model.addAttribute("chosenArt", arts.get(0));
 			model.addAttribute("authors", authors);		
@@ -208,8 +212,8 @@ public class ArtsController {
 //			initFetched = 0;
 //			System.out.println("ajax fetch: "+articlesFetched+" clanaka.");
 //		}
-		System.out.println("ajax fetch: "+initArticles+" clanaka.");
 		model.addAttribute("initArticles", initArticles);
+		model.addAttribute(TextUtil.URL_BASIS_ATTR_NAME, urlBasis);
 		return model;
 	}
 	

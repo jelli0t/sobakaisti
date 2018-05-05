@@ -17,18 +17,18 @@
 		    <span>Izdvajamo</span>
 		</div>		
 		<!-- posts -->
-		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight" 
-				th:each="post, item : ${publications}" th:if="${item.index < 4}">
+		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight"	th:each="post, item : ${publications}">
 		    <!-- fotka -->
 		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover">
 		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
 		      </a>
 		    </aside>
 			<!-- Right side of preview -->
-		    <div class="fx-box fx-dir-col fx-justify-sbtw fx-basis-60 mvt-postprev-content">
+		    <div class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-content"
+		    	th:classappend="${post?.featuredImage != null} ? fx-basis-60 : fx-basis-full">
 				<header>
 					<h3 class="mvt-postprev-title">
-						<a href="#" th:title="${post.title}" th:text="${post.title}"></a>
+						<a th:href="@{/{url_basis}/{slug}(url_basis=${URL_BASIS}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
 					</h3>
 				</header>
 			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 300)}"
@@ -39,14 +39,14 @@
 					<div class="fx-box"> 
 			    		<!-- Authors avatar -->
 						<div class="mvt-postprev-author-avatar">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+							<a th:href="@{/publications/by/{author}(author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
 								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
 							</a>
 						</div>
 						<!-- Authors full name and post date -->
 						<div class="mvt-postprev-info">
 							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
+								<a th:href="@{/publications/by/{author}(author=${author.slug})}" 
 									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
 							</span>
 							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
@@ -60,41 +60,7 @@
 		</article>
 	</div>	
 </section>	
-	
 
-	
-<div class="site-content-container">
-	<ol th:if="${publications != null}" class="post-prev-list">
-	<!-- List of articles previews -->
-		<li class="post-prev-item" th:each="publication,itemStat : ${publications}">
-			<article>
-				<header>
-					<a class="post-prev-img"></a>
-					<a th:href="@{/publications/{slug}(slug=${publication.slug})}" 
-						class="post-prev-title" th:text="${publication.title}" th:alt="${publication.title}" th:title="${publication.title}"></a>
-				</header>
-				<div th:if="${publication.content != null}" th:utext="${#strings.abbreviate(publication.content,145)}" class="post-prev-content"></div>
-				<footer class="post-prev-footer" th:with="author=${publication.author}">
-					<div class="post-prev-avatar">
-						<span class="circle circle-small" 
-							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
-					</div>
-					<div class="post-prev-author-details">
-						<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-							<a th:href="@{/publications/by/{author-slug}(author-slug=${author.slug})}" 
-								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-						</address>
-						<time class="post-prev-date" th:text="${#dates.format(publication.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
-					</div>
-					<div class="post-prev-meta">
-						<span th:text="${publication.downloaded}" class="publication-prev-donwloaded"></span>
-					</div>
-				</footer>
-			</article>
-		</li>
-	</ol>
-</div>
-	
 	
 <th:block th:insert="~{commons/mvt_footer :: mvt_main_footer}"></th:block>
 </body>
