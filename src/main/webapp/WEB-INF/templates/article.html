@@ -39,9 +39,14 @@
 		    	th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') no-repeat center center; background-size: contain;'">
 		    </aside>
 
-			<div class="post-body" th:utext="${post.content}">
-
-			</div>
+			<div class="post-body" th:utext="${post.content}"></div>
+			
+			<th:block th:if="${post?.media != null}">				
+				<div th:with="media = ${post.media}">
+					<a th:href="@{/uploads/images/{filename}(filename=${media.fileName})}" 
+						class="show-media-lib bttn bttn-default" th:text="${media.title}" download>Download</a>
+				</div>
+			</th:block>
 			<footer>
 				<div class="post-tags"></div>
 			</footer>
