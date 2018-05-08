@@ -167,6 +167,10 @@
 					<a th:href="@{/publications}" th:if="${#lists.isEmpty(arts) and #bools.isTrue(PUBLICATION_INDICATOR_ON)}"
 					   class="circle page-indikator-circle" th:title="#{nav.item.publications}" th:text="#{nav.item.publications}">Publication			
 					</a>
+					<!-- Contact Indicator -->
+					<a th:href="@{/contact}" th:if="${#lists.isEmpty(arts) and #bools.isTrue(CONTACT_INDICATOR_ON)}"
+					   class="circle page-indikator-circle" th:title="#{nav.item.contact}" th:text="#{nav.item.contact}">Kontakt			
+					</a>
 					<!-- Arts subcategories -->
 					<a th:href="@{/arts/{art}(art=${art})}" th:each="art,itemStat : ${arts}" th:unless="${itemStat.index == 0}" th:title="#{label.arts.__${art}__}"> 
 						<img th:src="@{/resources/img/icons/__${art}__.svg}" class="arts-submenu-icon"	th:classappend="'submenu-icon-' + ${itemStat.index}"

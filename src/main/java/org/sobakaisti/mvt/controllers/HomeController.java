@@ -78,4 +78,12 @@ public class HomeController {
 		return "commons/fragments :: authorBioFragment";
 	}
 	
+	
+	@RequestMapping(value="/contact", method=RequestMethod.GET)
+	public String showContactPage(Model model) {
+		model.addAttribute(TextUtil.CONTACT_INDICATOR_ON_ATTR, true);
+		model.addAttribute("authors", authorService.findAll());
+		return "contact";
+	}
+	
 }

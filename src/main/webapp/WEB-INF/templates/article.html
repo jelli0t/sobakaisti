@@ -41,7 +41,7 @@
 
 			<div class="post-body" th:utext="${post.content}"></div>
 			
-			<th:block th:if="${post?.media != null}">				
+			<th:block th:if="${post instanceof T(org.sobakaisti.mvt.models.Publication) and post.media != null}">				
 				<div th:with="media = ${post.media}">
 					<a th:href="@{/uploads/images/{filename}(filename=${media.fileName})}" 
 						class="show-media-lib bttn bttn-default" th:text="${media.title}" download>Download</a>
@@ -61,7 +61,7 @@
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
 		<!-- top section header -->
 		<div class="top-posts-header">
-		    <span>Preporuèujemo</span>
+		    <span>Preporuï¿½ujemo</span>
 		</div>
 		<article class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-basic"
 				th:each="rl_post, item : ${relatedPosts}" th:unless="${item.index > 2}">
