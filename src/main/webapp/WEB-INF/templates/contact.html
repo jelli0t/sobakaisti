@@ -13,23 +13,23 @@
 		<form name="contactForm" th:action="@{/contact/message/submit}">
 			<article class="post border-6-rad shadow-def">
 				<div class="input-holder">
-			      		<label>prima:</label>
+			      		<label th:text="#{form.label.mailTo}">prima:</label>
 			      		<input type="text" name="to" class="" readonly>
 			    	</div>
 			    	<div class="input-holder">
-			      		<label>šalje:</label>
+			      		<label th:text="#{form.label.firstname}">šalje:</label>
 			      		<input type="text" name="name" placeholder="Unesite vaše ime">
 			    	</div>
 			    	<div class="input-holder">
-				      <label>e-mail:</label>
+				      <label th:text="#{form.label.email}">e-mail:</label>
 				      <input type="email" name="email">
 			    	</div>
 			    	<div class="input-holder">
-				      <label>naslov:</label>
+				      <label th:text="#{form.label.mailSubject}">naslov:</label>
 				      <input type="text" name="subject">
 			    	</div>
 			    	<div class="textarea-holder">
-				      <label>poruka:</label>
+				      <label th:text="#{form.label.mailBody}">poruka:</label>
 				      <textarea name="message"></textarea>
 			   	</div>
 			    	<div class="submit-holder" style="text-align:right;">
