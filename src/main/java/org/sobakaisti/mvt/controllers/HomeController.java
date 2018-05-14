@@ -86,7 +86,7 @@ public class HomeController {
 		return "contact";
 	}
 	
-	@RequestMapping(value="/contact/mailto/{author}", method=RequestMethod.GET)
+	@RequestMapping(value="/contact/by/{author}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<Author> getAuthorToContact(@PathVariable String author) {
 		Author contactAuthor = null;
