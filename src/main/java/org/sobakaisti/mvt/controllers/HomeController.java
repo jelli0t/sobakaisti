@@ -86,4 +86,15 @@ public class HomeController {
 		return "contact";
 	}
 	
+	@RequestMapping(value="/contact/mailto/{author}", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Author> getAuthorToContact(@PathVariable String author) {
+		Author contactAuthor = null;
+		if(TextUtil.notEmpty(authorSlug)) {
+			contactAuthor = authorService.findBySlug(author);
+			return new ResponseEntity<Author>(contactAuthor, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Author>(null, HttpStatus.SERVICE_UNAVAILABLE);
+		}	
+	}
 }
