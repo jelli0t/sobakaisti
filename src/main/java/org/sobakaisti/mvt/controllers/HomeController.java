@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.sobakaisti.mvt.dao.ArticleDao;
+import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
 import org.sobakaisti.util.PropertiesUtil;
@@ -14,6 +15,8 @@ import org.sobakaisti.util.Socials;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,11 +93,11 @@ public class HomeController {
 	@ResponseBody
 	public ResponseEntity<Author> getAuthorToContact(@PathVariable String author) {
 		Author contactAuthor = null;
-		if(TextUtil.notEmpty(authorSlug)) {
+		if(TextUtil.notEmpty(author)) {
 			contactAuthor = authorService.findBySlug(author);
 			return new ResponseEntity<Author>(contactAuthor, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Author>(null, HttpStatus.SERVICE_UNAVAILABLE);
+			return new ResponseEntity<Author>(contactAuthor, HttpStatus.SERVICE_UNAVAILABLE);
 		}	
 	}
 }

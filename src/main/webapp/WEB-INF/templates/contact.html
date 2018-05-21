@@ -10,33 +10,33 @@
 
 <section>
 	<div class="center-main-width fx-box fx-justify-cnt">
-		<form name="contactForm" th:action="@{/contact/message/submit}">
-			<article class="post border-6-rad shadow-def">
+<!-- 		<form name="contactForm" th:action="@{/contact/message/submit}"> -->
+			<article class="post border-6-rad shadow-def contact-post">
 				<div class="input-holder">
-			      		<label th:text="#{form.label.mailTo}">prima:</label>
-			      		<input type="text" name="to" id="mailto-input" readonly>
-			    	</div>
-			    	<div class="input-holder">
-			      		<label th:text="#{form.label.firstname}">šalje:</label>
-			      		<input type="text" name="name" placeholder="Unesite vaše ime">
-			    	</div>
-			    	<div class="input-holder">
-				      <label th:text="#{form.label.email}">e-mail:</label>
-				      <input type="email" name="email">
-			    	</div>
-			    	<div class="input-holder">
-				      <label th:text="#{form.label.mailSubject}">naslov:</label>
-				      <input type="text" name="subject">
-			    	</div>
-			    	<div class="textarea-holder">
-				      <label th:text="#{form.label.mailBody}">poruka:</label>
-				      <textarea name="message"></textarea>
+		      		<label th:text="#{form.label.mailTo}">prima:</label>
+		      		<input type="text" name="to" id="mailto-input" readonly>
+		    	</div>
+		    	<div class="input-holder">
+		      		<label th:text="#{form.label.firstname}">šalje:</label>
+		      		<input type="text" name="name" placeholder="Unesite vaše ime">
+		    	</div>
+		    	<div class="input-holder">
+			      <label th:text="#{form.label.email}">e-mail:</label>
+			      <input type="email" name="email">
+		    	</div>
+		    	<div class="input-holder">
+			      <label th:text="#{form.label.mailSubject}">naslov:</label>
+			      <input type="text" name="subject">
+		    	</div>
+		    	<div class="textarea-holder">
+			      <label th:text="#{form.label.mailBody}">poruka:</label>
+			      <textarea name="message"></textarea>
 			   	</div>
-			    	<div class="submit-holder" style="text-align:right;">
-			      		<input type="submit" value="Pošalji" class="bttn bttn-primary">
-			    	</div>
+		    	<div class="submit-holder" style="text-align:right;">
+		      		<input type="submit" value="Pošalji" class="bttn bttn-primary">
+		    	</div>
 			</article>
-		</form>
+<!-- 		</form> -->
 	</div>
 </section>
 
