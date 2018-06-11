@@ -38,6 +38,40 @@
 			</article>
 <!-- 		</form> -->
 	</div>
+	
+	<article class="inputs-container">
+		<form th:action="@{/contact/message/submit}">
+		  <div class="input-holder full-input-holder">
+			<label for="to" th:text="#{form.label.mailTo}">To</label>
+			<span class="fake-input" data-value="Andrea Kane" id="input-framed-val"></span>
+			<input type="hidden" name="to" value="info@sobakaisti.org" >    
+		  </div>
+
+		   <div class="input-holder half-input-holder" style="margin-right:1%;">
+		    	<label for="name" th:text="#{form.label.firstname}">Name</label>
+		    	<input type="text" name="name" placeholder="Enter your name">
+		  </div>  
+		  <div class="input-holder half-input-holder"> 
+		    	<label for="email" th:text="#{form.label.email}">E-mail</label>
+		    	<input type="email" name="email" placeholder="Enter your e-mail">
+		  </div>
+
+		  <div class="input-holder full-input-holder">
+		    	<label for="subject" th:text="#{form.label.mailSubject}">Subject</label>
+		   	<input type="text" name="subject" placeholder="Subject of the message">    
+		  </div>
+
+		  <div class="input-holder full-input-holder">
+			<label for="message" th:text="#{form.label.mailBody}">Message</label>
+			<textarea type="text" name="message" rows="5" placeholder="Enter your message"></textarea>
+		  </div>
+
+		  <div class="input-holder full-input-holder aright">    
+		 	<button type="submit" class="bttn bttn-primary">Send</button>  
+		  </div>
+		 </form> 
+	</article>
+	
 </section>
 
 <th:block th:insert="~{commons/mvt_footer :: mvt_main_footer}"></th:block>
