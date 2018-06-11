@@ -322,48 +322,64 @@ ul { list-style: none; }
 	box-sizing: border-box;
 }
 /*
-*	Form Input
+*	Form Input elements
 */
-.input-holder, .textarea-holder {
-  display: block;
-  border: 1px solid #ddd;
-  background-color: #eff3f6;
-  background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);
-  color: #24292e;
-  border-radius: 4px;
-  font-size: 14px;
-  overflow: hidden;
-  padding:0;
-  margin: 15px 0;
-  box-sizing: border-box;
+.inputs-container {
+	padding: 24px;
+	max-width: 700px;
+	box-sizing: border-box;
 }
-.input-holder > *, 
-.textarea-holder > * {
+.input-holder {
+	padding:0;
+	box-sizing: border-box;
+	margin-bottom: 15px;
+}
+.input-holder > label {
+	display: block; 
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+.input-holder > input,
+.input-holder > .fake-input,
+.input-holder > textarea {
+	display: block;
+	width: 100%;
+	min-height: 46px;
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	background-color: #fafbfc;
+
+	line-height: 20px;
+	color: #24292e;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	border: 1px solid #d1d5da;
+	outline: none;
+	box-shadow: inset 0 1px 1px rgba(27,31,35,0.075);
+	box-sizing: inherit;
+}
+.half-input-holder {
   display: inline-block;
-  height: 30px;
-  line-height: 30px;
-  margin: 0 !important;
-  border: none;
-  box-sizing: inherit;
-  box-shadow: none;
+  width: 49%;
 }
-.input-holder > label, 
-.textarea-holder > label {
-   width: 14%;
-   text-align: right;
-   padding-right: 2px;
-   font-weight: 700;
-   font-family: sans-serif;
+.input-holder > input:focus,
+.input-holder > textarea:focus {
+  background-color: #fff;
+  border-color: #2188ff;
 }
-.input-holder > input {
-  width: 85%;
-  padding: 0 12px; 
+#input-framed-val:before {
+  position: absolute;  
+  background-color: #fff;
+  border: 1px solid #d1d5da;
+  border-radius: 10px;
+  content: attr(data-value);
+  padding: 1px 8px;
+  font-size: 14px;
+  font-weight: 700;
 }
-.textarea-holder > textarea {
-  width: 100%;
-  height: 100px;
-  padding: 0 12px;
-}
+
 /*
 *	Top Navigation
 */
