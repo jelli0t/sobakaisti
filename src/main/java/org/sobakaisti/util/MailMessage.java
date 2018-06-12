@@ -27,5 +27,8 @@ public class MailMessage {
   * Sadrzaj E-mail poruke
   */
   private String message;
-  
+  /**
+  * flag za tip tela poruke. HTML vs. Plane text
+  */
+  private boolean html;
 }
