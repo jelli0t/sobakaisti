@@ -55,6 +55,12 @@
 		    <artifactId>spring-orm</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
 		
 		<!-- SECURITY -->
 		<dependency>
@@ -174,7 +180,14 @@
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>jul-to-slf4j</artifactId>
 		    <version>1.7.25</version>
-		</dependency>		  
+		</dependency>	
+		
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+			  
 	</dependencies>
 	<!-- End of Dependecies -->
 	<build>

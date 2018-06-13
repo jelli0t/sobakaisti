@@ -18,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -65,9 +67,15 @@ public class AppRootConfiguration {
 	}
 	
 	@Bean
-	 public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+	public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
-	 }
+	}
+	
+	@Bean(name="mailSender")
+	public JavaMailSender configureMailSender() {
+		JavaMailSender mailSender = new JavaMailSenderImpl();
+		return mailSender;
+	}
 	
 	private Properties getHibernateProperties(){
 		Properties hibernateProperties = new Properties();
