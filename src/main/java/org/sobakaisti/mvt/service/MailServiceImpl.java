@@ -10,6 +10,17 @@ public class MailServiceImpl implements MailService {
 
   @Override
   public boolean send(MailMessage message) {
-    return null;
+    boolean sent = false;
+    if(message != null) {
+      final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+      final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+      message.setFrom(message.getFromMail());
+      message.setTo(message.getTo());
+      message.setSubject(message.getSubject());
+      message.setText(message.getMessage());
+      
+      this.mailSender.send(mimeMessage);
+    }
+    return sent;
   }
 }
