@@ -1,4 +1,7 @@
 package org.sobakaisti.mvt.service;
+
+import org.sobakaisti.util.MailMessage;
+
 /**
  * @author jelli0t
  *

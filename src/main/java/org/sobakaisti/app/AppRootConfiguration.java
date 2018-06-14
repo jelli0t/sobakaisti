@@ -17,7 +17,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
@@ -79,7 +81,7 @@ public class AppRootConfiguration {
 	
 	@Bean(name="mailSender")
 	public JavaMailSender configureMailSender() {
-		JavaMailSender mailSender = new JavaMailSenderImpl();
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		/* SMTP props */
 		Properties properties = new Properties();
 		properties.setProperty("mail.transport.protocol", env.getProperty("mail.transport.protocol"));		
@@ -92,11 +94,11 @@ public class AppRootConfiguration {
 		mailSender.setHost(env.getProperty("mail.smtp.host"));
 		mailSender.setPort(Integer.parseInt(env.getProperty("mail.smtp.port")));
 		mailSender.setProtocol(env.getProperty("mail.transport.protocol"));
-		if(parseBoolean(env.getProperty("mail.smtp.auth"))) {
+		if(Boolean.parseBoolean(env.getProperty("mail.smtp.auth"))) {
 			mailSender.setUsername(env.getProperty("mail.smtp.auth.username"));
 			mailSender.setPassword(env.getProperty("mail.smtp.auth.password"));
 		}
-		mailSender.setJavaMailProperties(properties);		
+		mailSender.setJavaMailProperties(properties);
 		return mailSender;
 	}
 	
