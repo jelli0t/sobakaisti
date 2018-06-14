@@ -5,8 +5,8 @@ package org.sobakaisti.mvt.service;
  */
 public interface MailService {	
 	/**
-	 * 
+	 * Salje MailMessage
 	 * */
-	public MailMessage send(MailMessage message);
+	public boolean send(MailMessage message);
 
 }
