@@ -15,7 +15,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  */
 @Configuration
 @PropertySource("classpath:mail.properties")
-@ComponentScan({"org.sobakaisti.service"})
+@ComponentScan({"org.sobakaisti.mvt.service"})
 public class MailConfig {
 
 	private static final String EMAIL_TEMPLATE_ENCODING = "UTF-8";
