@@ -11,6 +11,8 @@ public final class TextUtil {
 	public static final char SEMICOLON_CHAR = 0x3b;
 	public static final char SLASH_CHAR = 0x2f;
 	
+	public static final String UTF8_CHAR_ENCODING = "UTF-8";
+	
 	public static final String EMPTY = "";
 	public static final String FILE_SEPARATOR = System.getProperty("file.separator");	
 	/*
