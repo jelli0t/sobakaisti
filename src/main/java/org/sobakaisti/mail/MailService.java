@@ -1,4 +1,4 @@
-package org.sobakaisti.mvt.service;
+package org.sobakaisti.mail;
 
 import org.sobakaisti.util.MailMessage;
 
@@ -7,9 +7,16 @@ import org.sobakaisti.util.MailMessage;
  *
  */
 public interface MailService {	
+	
+	public static final String DEFAULT_MAILTO_ADDRESS = "info@sobakaisti.org";
 	/**
 	 * Salje MailMessage
 	 * */
 	public boolean send(MailMessage message);
+	
+	/**
+	 * 
+	 * */
+	boolean sendPlaneTextMail(MailMessage mailMessage);
 
 }

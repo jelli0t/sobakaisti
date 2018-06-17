@@ -4,36 +4,50 @@
 	<title>Kontakt</title>
 </head>
 <body>
+
 <th:block th:insert="~{commons/mvt_header :: mvtTopNavigation}"></th:block>
 <!-- Main Page Header -->
 <th:block th:insert="~{commons/mvt_header :: mvtHeader}"></th:block>
 
+<!-- Commit message -->
+<div th:if="${commitResult != null}" class="commit-response-holder full-width" id="commit-result">
+     <th:block th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(commitResult.commited)}, message=${commitResult.commitMessage})}">
+	</th:block>
+</div>
+
 <section>	
 	<article class="inputs-container border-3-rad">
-		<form th:action="@{/contact/message/submit}">
+		<form th:action="@{/contact/message/submit}" th:object="${mailMessage}" method="post" onkeypress="return event.keyCode != 13;">
 		  <div class="input-holder full-input-holder">
 			<label for="to" th:text="#{form.label.mailTo}">To</label>
-			<span class="fake-input" data-value="Andrea Kane" id="input-framed-val"></span>
-			<input type="hidden" name="to" value="info@sobakaisti.org" >    
+			<span class="fake-input" data-value="info@sobakaisti.org" id="input-framed-val"></span>
+			<input type="hidden" name="to" value="info@sobakaisti.org">
 		  </div>
 
 		   <div class="input-holder half-input-holder" style="margin-right:1%;">
 		    	<label for="name" th:text="#{form.label.firstname}">Name</label>
-		    	<input type="text" name="name" placeholder="Enter your name">
+		    	<input type="text" th:field="*{fromName}" placeholder="Enter your name">
+		    	<div class="validation-error" th:errors="*{fromName}"></div> 
 		  </div>  
 		  <div class="input-holder half-input-holder"> 
 		    	<label for="email" th:text="#{form.label.email}">E-mail</label>
-		    	<input type="email" name="email" placeholder="Enter your e-mail">
+		    	<input type="email" th:field="*{fromMail}" placeholder="Enter your e-mail"
+		    		th:classappend="${#fields.hasErrors('fromMail')} ? 'non-valid-field'">
+		    	<div class="validation-error" th:errors="*{fromMail}"></div>
 		  </div>
 
 		  <div class="input-holder full-input-holder">
 		    	<label for="subject" th:text="#{form.label.mailSubject}">Subject</label>
-		   	<input type="text" name="subject" placeholder="Subject of the message">    
+				<input type="text" th:field="*{subject}" placeholder="Subject of the message"
+					th:classappend="${#fields.hasErrors('subject')} ? 'non-valid-field'">
+				<div class="validation-error" th:errors="*{subject}"></div>   
 		  </div>
 
 		  <div class="input-holder full-input-holder">
 			<label for="message" th:text="#{form.label.mailBody}">Message</label>
-			<textarea type="text" name="message" rows="5" placeholder="Enter your message"></textarea>
+			<textarea name="message" rows="5" placeholder="Enter your message"
+				th:classappend="${#fields.hasErrors('message')} ? 'non-valid-field'"></textarea>
+			<div class="validation-error" th:errors="*{message}"></div>
 		  </div>
 
 		  <div class="input-holder full-input-holder aright">    
@@ -45,5 +59,15 @@
 </section>
 
 <th:block th:insert="~{commons/mvt_footer :: mvt_main_footer}"></th:block>
+<script type="text/javascript">
+	/*
+	* Disable authors filter buttons
+	*/
+	var js_bttns = document.getElementsByClassName("js-author-contact");
+	for(var i=0; i < js_bttns.length; i++)
+	{
+		js_bttns[i].href="javascript:;";
+	}
+</script>
 </body>
 </html>

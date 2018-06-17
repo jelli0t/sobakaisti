@@ -5,11 +5,15 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import org.sobakaisti.mail.MailService;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
+import org.sobakaisti.util.CommitResult;
+import org.sobakaisti.util.MailMessage;
 import org.sobakaisti.util.PropertiesUtil;
 import org.sobakaisti.util.Socials;
 import org.sobakaisti.util.TextUtil;
@@ -20,12 +24,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 @Controller
@@ -36,6 +43,9 @@ public class HomeController {
 	
 	@Autowired
 	private AuthorService authorService;
+	
+	@Autowired
+	private MailService mailService;
 	
 	@RequestMapping(value="/")
 	public String displayHome(){		
@@ -85,19 +95,34 @@ public class HomeController {
 	@RequestMapping(value="/contact", method=RequestMethod.GET)
 	public String showContactPage(Model model) {
 		model.addAttribute(TextUtil.CONTACT_INDICATOR_ON_ATTR, true);
+		model.addAttribute(TextUtil.JS_BTTN_ON_ATTR_NAME, true);
+		model.addAttribute(TextUtil.JS_BTTN_CLASS_ATTR_NAME, "js-author-contact");
+		model.addAttribute(TextUtil.URL_BASIS_ATTR_NAME, "contact");
 		model.addAttribute("authors", authorService.findAll());
+		if (!model.containsAttribute("mailMessage")) {
+			model.addAttribute("mailMessage", new MailMessage());
+			System.out.println("nema message obj, pravim novi!");
+		}
 		return "contact";
 	}
 	
-	@RequestMapping(value="/contact/by/{author}", method=RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<Author> getAuthorToContact(@PathVariable String author) {
-		Author contactAuthor = null;
-		if(TextUtil.notEmpty(author)) {
-			contactAuthor = authorService.findBySlug(author);
-			return new ResponseEntity<Author>(contactAuthor, HttpStatus.OK);
+	
+	@RequestMapping(value="/contact/message/submit", method=RequestMethod.POST)
+	public String submitContactForm(@Valid @ModelAttribute("mailMessage") MailMessage mailMessage, BindingResult result,
+			RedirectAttributes redirectAttributes) {
+		boolean sent = false;
+		if(result.hasErrors()) {
+			System.out.println("Ima gresaka!");
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mailMessage", result);
+			redirectAttributes.addFlashAttribute("mailMessage", mailMessage);
 		} else {
-			return new ResponseEntity<Author>(contactAuthor, HttpStatus.SERVICE_UNAVAILABLE);
-		}	
-	}
+			System.out.println("from: "+mailMessage.getFromMail());
+			mailMessage.setHtml(false);
+			mailMessage.prefixMailSubject("[Kontakt forma]");	
+			sent = mailService.sendPlaneTextMail(mailMessage);
+			String commitMessage = sent ? "Hvala. Uspesno ste poslali mail." : "Dogodila se greska prilikom slanja poruke!";
+			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(sent, commitMessage));
+		}		
+		return "redirect:/contact";
+	} 
 }

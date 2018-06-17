@@ -18,6 +18,8 @@ public final class TextUtil {
 	/*
 	 * ModelAttributes names
 	 * */
+	public static final String JS_BTTN_ON_ATTR_NAME = "JS_BTTN_ON";
+	public static final String JS_BTTN_CLASS_ATTR_NAME = "JS_BTTN_CLASS";
 	public static final String URL_BASIS_ATTR_NAME = "URL_BASIS";
 	public static final String CONTACT_INDICATOR_ON_ATTR = "CONTACT_INDICATOR_ON";
 	public static final String POST_ATTR_NAME = "post";

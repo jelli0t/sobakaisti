@@ -142,7 +142,8 @@
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.odd}">
 							<a rel="author" th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}" 
 							   th:alt="${author.firstName + ' ' + author.lastName}" 
-							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
+							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+							   th:classappend="${#bools.isTrue(JS_BTTN_ON) ? #strings.toString(JS_BTTN_CLASS) : ''}"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 								th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
 							</a>
@@ -191,7 +192,8 @@
 						<li th:each="author,itemStat : ${authors}" th:if="${itemStat.even}">
 							<a rel="author" th:href="@{/{url_basis}/by/{author}(url_basis=${URL_BASIS}, author=${author.slug})}"
 							   th:alt="${author.firstName + ' ' + author.lastName}" 
-							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"> 
+							   th:attr="data-title=${author.firstName + ' ' + author.lastName}" class="cloud-hoverable"
+							   th:classappend="${#bools.isTrue(JS_BTTN_ON) ? #strings.toString(JS_BTTN_CLASS) : ''}"> 
 								<span class="circle circle-filter" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'"
 									th:classappend="${chosenAuthor != null && chosenAuthor.id == author.id} ? chosen-author : ''">Sobakaisti</span>
 <!-- 								<span class="author-fullname-bubble" th:text="${author.firstName + ' ' + author.lastName}"></span> -->

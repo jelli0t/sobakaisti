@@ -1,0 +1,19 @@
+Poštovani,
+
+Imate poruku sa kontakt forme!
+
+------------------------------------------------------------------
+[# th:if="${not #strings.isEmpty(fromName)}"]Šalje: [( ${fromName} )][/]
+[# th:if="${not #strings.isEmpty(fromMail)}"]Sa adrese: [( ${fromMail} )][/]
+------------------------------------------------------------------
+
+Naslov:  [( ${subject} )]
+
+
+[( ${message} )]
+
+-------------------------------------------------------------------
+[( ${#dates.format(sentOnDate, 'dd/MMM/yyyy HH:mm')} )]
+
+S poštovanjem,
+    Sobakaisti Team

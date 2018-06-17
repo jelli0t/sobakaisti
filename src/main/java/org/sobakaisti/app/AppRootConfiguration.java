@@ -31,10 +31,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
-@PropertySources({
-    @PropertySource("classpath:database.properties"),
-    @PropertySource("classpath:mail.properties")
-})
+@PropertySource("classpath:database.properties")
 @ComponentScan({"org.sobakaisti"})
 @EnableTransactionManagement
 @Import(AppSecurityConfiguration.class)
@@ -78,30 +75,7 @@ public class AppRootConfiguration {
 	public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
-	
-	@Bean(name="mailSender")
-	public JavaMailSender configureMailSender() {
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		/* SMTP props */
-		Properties properties = new Properties();
-		properties.setProperty("mail.transport.protocol", env.getProperty("mail.transport.protocol"));		
-		properties.setProperty("mail.smtp.starttls.enable", env.getProperty("mail.smtp.starttls.enable"));
-		properties.setProperty("mail.debug", env.getProperty("mail.debug"));
-		properties.setProperty("mail.smtp.port", env.getProperty("mail.smtp.port"));
-		properties.setProperty("mail.smtp.ssl.trust", env.getProperty("mail.smtp.ssl.trust"));		
-		properties.setProperty("mail.smtp.auth", env.getProperty("mail.smtp.auth"));
 		
-		mailSender.setHost(env.getProperty("mail.smtp.host"));
-		mailSender.setPort(Integer.parseInt(env.getProperty("mail.smtp.port")));
-		mailSender.setProtocol(env.getProperty("mail.transport.protocol"));
-		if(Boolean.parseBoolean(env.getProperty("mail.smtp.auth"))) {
-			mailSender.setUsername(env.getProperty("mail.smtp.auth.username"));
-			mailSender.setPassword(env.getProperty("mail.smtp.auth.password"));
-		}
-		mailSender.setJavaMailProperties(properties);
-		return mailSender;
-	}
-	
 	private Properties getHibernateProperties(){
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");

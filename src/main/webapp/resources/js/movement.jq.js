@@ -60,6 +60,15 @@ $(function() {
 		$('#chosen-author-box').html($(selected_author).addClass('circle').removeClass('cloud-hoverable'));
 		$(this).replace_authors_content();
 	});
+	/**
+	 * Menja polje To na kontakt formi. Postavlja puno ime autora
+	 * */
+	$('.js-author-contact').on('click', function(evt) {
+		evt.preventDefault();
+		$('.js-author-contact > span.circle-filter').removeClass('chosen-author');		
+		$('#input-framed-val').attr('data-value', $(this).attr('data-title'));
+		$('span.circle-filter', this).addClass('chosen-author');
+	});
 	
 });
 
@@ -158,6 +167,26 @@ $.fn.replace_authors_content = function() {
 		dataType: 'html',
 	}).done(function( bio ) {			
 		if (bio) {
+			$container.empty();
+			console.log('Uspesno dohvacen autorov bio');
+			$container.hide().html(bio).fadeIn(400);
+		}else {
+			console.log('Nema sta da dohvatim, document je prazan! ');
+		}		
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})    
+}
+
+$.fn.replace_contact_author = function() {
+	var $container = $('#authors-main-content');
+    $.ajax({
+		url: $(this).attr('href'),
+		type: 'GET',	   
+	    dataType: 'json'
+	}).done(function( author ) {			
+		if (author) {
 			$container.empty();
 			console.log('Uspesno dohvacen autorov bio');
 			$container.hide().html(bio).fadeIn(400);

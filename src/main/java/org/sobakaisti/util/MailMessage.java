@@ -1,5 +1,12 @@
 package org.sobakaisti.util;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * @author jelli0t Reprezentuje pomocni objekta za prihvatanje poruke sa kontakt
  *         forme i slanje tih podataka na e-mail.
@@ -17,14 +24,20 @@ public class MailMessage {
 	/**
 	 * E-mail adresa posiljaoca poruke
 	 */
+	@NotEmpty(message="{validation.warn.mail.notEmpty}")
+	@Pattern(regexp="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
+		message="{validation.warn.mailPattern}")
 	private String fromMail;
 	/**
 	 * Naslov E-mail poruke
 	 */
+	@NotEmpty(message="{validation.warn.suject.notEmpty}")
+	@Size(min=2, max=250, message="{validation.warn.title.size}")
 	private String subject;
 	/**
 	 * Sadrzaj E-mail poruke
 	 */
+	@NotEmpty(message="{validation.warn.mail.body.notEmpty}")	
 	private String message;
 	/**
 	 * flag za tip tela poruke. HTML vs. Plane text
@@ -79,4 +92,9 @@ public class MailMessage {
 		this.html = html;
 	}
 
+	public void prefixMailSubject(String prefix) {
+		if(TextUtil.notEmpty(prefix) & TextUtil.notEmpty(this.subject)) {
+			setSubject(prefix + TextUtil.SPACE_CHAR + this.subject);
+		}
+	}
 }
