@@ -40,12 +40,13 @@ public class MailServiceImpl implements MailService {
 				messageHelper.setTo(message.getTo());
 				messageHelper.setSubject(message.getSubject());
 				messageHelper.setText(message.getMessage());
+				// Send!
+				this.mailSender.send(mimeMessage);
+				sent = true;
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-
-			this.mailSender.send(mimeMessage);
+			}	
 		}
 		return sent;
 	}
