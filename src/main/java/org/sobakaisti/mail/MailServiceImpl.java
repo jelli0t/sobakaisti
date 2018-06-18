@@ -63,10 +63,10 @@ public class MailServiceImpl implements MailService {
 		ctx.setVariable("sentOnDate", new Date());
 		
 		MailTemplate mailTemplate = MailTemplate.findTemplateByName(mailMessage.getMailTemplateName());
-		for(String varName : mailTemplate.getMessageValNames())
-			ctx.setVariable(varName, mailMessage);
+		ctx.setVariables(mailTemplate.getMessageValMap());
 		
 		final String messageContent = this.mailTemplateEngine.process(mailTemplate.getName(), ctx);
+		
 		mailMessage.setMessage(messageContent);
 		System.out.println("mail_body: "+messageContent);
 
