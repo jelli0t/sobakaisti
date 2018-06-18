@@ -23,8 +23,8 @@ public class MailServiceImpl implements MailService {
 	@Autowired
 	private JavaMailSender mailSender;
 		
-    @Autowired
-    private TemplateEngine mailTemplateEngine;
+	@Autowired
+	private TemplateEngine mailTemplateEngine;
     
 //    @Autowired
 //    private TemplateEngine htmlTemplateEngine;
@@ -53,33 +53,32 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public boolean sendPlaneTextMail(MailMessage mailMessage) {
 		boolean sent = false;
-		
 		// Prepare the evaluation context
-        final Context ctx = new Context();
-        ctx.setVariable("fromName", mailMessage.getFromName());
-        ctx.setVariable("fromMail", mailMessage.getFromMail());
-        ctx.setVariable("subject", mailMessage.getSubject());
-        ctx.setVariable("message", mailMessage.getMessage());
-        ctx.setVariable("sentOnDate", new Date());
+		final Context ctx = new Context();
+		ctx.setVariable("fromName", mailMessage.getFromName());
+		ctx.setVariable("fromMail", mailMessage.getFromMail());
+		ctx.setVariable("subject", mailMessage.getSubject());
+		ctx.setVariable("message", mailMessage.getMessage());
+		ctx.setVariable("sentOnDate", new Date());
 
-        // Prepare message using a Spring helper
-        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
-        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, TextUtil.UTF8_CHAR_ENCODING);
-        
-        try {
-			message.setTo(DEFAULT_MAILTO_ADDRESS);		
-	        message.setFrom(mailMessage.getFromMail());
-	        message.setSubject(mailMessage.getSubject());	
-	        // Create the plain TEXT body using Thymeleaf
-	        final String textContent = this.mailTemplateEngine.process(MailTemplate.CONTACT_FORM_MAIL.getName(), ctx);
-	        message.setText(textContent);
-	        System.out.println("mail_body: "+textContent);
-	        this.mailSender.send(mimeMessage);
-	        sent = true;
-        } catch (MessagingException e) {
+		// Prepare message using a Spring helper
+		final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, TextUtil.UTF8_CHAR_ENCODING);
+
+		try {
+				message.setTo(DEFAULT_MAILTO_ADDRESS);		
+			message.setFrom(mailMessage.getFromMail());
+			message.setSubject(mailMessage.getSubject());	
+			// Create the plain TEXT body using Thymeleaf
+			final String textContent = this.mailTemplateEngine.process(MailTemplate.CONTACT_FORM_MAIL.getName(), ctx);
+			message.setText(textContent);
+			System.out.println("mail_body: "+textContent);
+			this.mailSender.send(mimeMessage);
+			sent = true;
+		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return sent;
+        	return sent;
 	}
 }
