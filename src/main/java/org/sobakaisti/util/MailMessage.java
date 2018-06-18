@@ -43,6 +43,10 @@ public class MailMessage {
 	 * flag za tip tela poruke. HTML vs. Plane text
 	 */
 	private boolean html;
+	/**
+	* Naziv mail template-a po kom kreiramo poruku
+	*/
+	private String mailTemplateName;
 
 	public String getTo() {
 		return to;
@@ -90,6 +94,14 @@ public class MailMessage {
 
 	public void setHtml(boolean html) {
 		this.html = html;
+	}
+	
+	public String getMailTemplateName() {
+		return mailTemplateName;
+	}
+
+	public void setMailTemplateName(String mailTemplateName) {
+		this.mailTemplateName = mailTemplateName;
 	}
 
 	public void prefixMailSubject(String prefix) {
