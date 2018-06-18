@@ -35,7 +35,7 @@ public class MailServiceImpl implements MailService {
 		if (message != null) {
 			final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
 			final MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
-			try {
+			try {			
 				messageHelper.setFrom(message.getFromMail());
 				messageHelper.setTo(message.getTo());
 				messageHelper.setSubject(message.getSubject());
@@ -60,9 +60,17 @@ public class MailServiceImpl implements MailService {
 		ctx.setVariable("subject", mailMessage.getSubject());
 		ctx.setVariable("message", mailMessage.getMessage());
 		ctx.setVariable("sentOnDate", new Date());
+		
+		MailTemplate mailTemplate = MailTemplate.findTemplateByName(mailMessage.getMailTemplateName());
+		for(String varName : mailTemplate.getMessageValNames())
+			ctx.setVariable(varName, mailMessage);
+		
+		final String messageContent = this.mailTemplateEngine.process(mailTemplate.getName(), ctx);
+		mailMessage.setMessage(messageContent);
+		System.out.println("mail_body: "+messageContent);
 
 		// Prepare message using a Spring helper
-		final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+	/*	final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
 		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, TextUtil.UTF8_CHAR_ENCODING);
 
 		try {
@@ -70,15 +78,18 @@ public class MailServiceImpl implements MailService {
 			message.setFrom(mailMessage.getFromMail());
 			message.setSubject(mailMessage.getSubject());	
 			// Create the plain TEXT body using Thymeleaf
-			final String textContent = this.mailTemplateEngine.process(MailTemplate.CONTACT_FORM_MAIL.getName(), ctx);
+			//final String textContent = this.mailTemplateEngine.process(MailTemplate.CONTACT_FORM_MAIL.getName(), ctx);
 			message.setText(textContent);
-			System.out.println("mail_body: "+textContent);
+			
 			this.mailSender.send(mimeMessage);
 			sent = true;
+	
+		
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        	return sent;
+	*/	
+        	return this.send(mailMessage);
 	}
 }
