@@ -40,7 +40,7 @@ public class MailTemplateHelper {
       return html;
     }    
 
-    public Map<String, Object> getMessageValMap) {
+    public Map<String, Object> getMessageValMap() {
       return messageValMap;
     }
     
