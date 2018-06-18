@@ -1,25 +1,27 @@
 package org.sobakaisti.mail;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.sobakaisti.util.MailMessage;
 
 public class MailTemplateHelper {
 
   protected static final String CONTACT_MESSAGE_VAL_NAME = "contactMessage";
   public static final String CONTACT_FORM_MAIL_TEMP_NAME = "contactFormMessage";
   
-  protected static final Map<String, MailMessage> CONTACT_MESSAGE_VAL_MAP = new HashMap<>(1) {
+  protected static final Map<String, MailMessage> CONTACT_MESSAGE_VAL_MAP = new HashMap<String, MailMessage>(1) {
     {
       put(CONTACT_MESSAGE_VAL_NAME, null);
     }
   };
   
-  protected static final List<String> CONTACT_MESSAGE_VAL_LIST = new ArrayList<>(Arrays.asList(new String[] {CONTACT_MESSAGE_VAL_NAME}));
-
  
   public enum MailTemplate {
     /**
      * Template poruke sa kontakt forme
      * */
-    CONTACT_FORM_MAIL(CONTACT_FORM_MAIL_TEMP_NAME, false, CONTACT_MESSAGE_VAL_MAP);
+    CONTACT_FORM_MAIL(CONTACT_FORM_MAIL_TEMP_NAME, false, null);
 
     private String name;
     private boolean html;
@@ -53,6 +55,5 @@ public class MailTemplateHelper {
     }
   }
   
-  public void delegate
   
 }

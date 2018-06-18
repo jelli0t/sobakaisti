@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.sobakaisti.mail.MailService;
+import org.sobakaisti.mail.MailTemplateHelper;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.service.ArticleService;
@@ -119,6 +120,7 @@ public class HomeController {
 			System.out.println("from: "+mailMessage.getFromMail());
 			mailMessage.setHtml(false);
 			mailMessage.prefixMailSubject("[Kontakt forma]");	
+			mailMessage.setMailTemplateName(MailTemplateHelper.CONTACT_FORM_MAIL_TEMP_NAME);
 			sent = mailService.sendPlaneTextMail(mailMessage);
 			String commitMessage = sent ? "Hvala. Uspesno ste poslali mail." : "Dogodila se greska prilikom slanja poruke!";
 			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(sent, commitMessage));

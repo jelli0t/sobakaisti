@@ -56,7 +56,7 @@ public class MailConfig implements ApplicationContextAware {
 		/* SMTP props */
 		Properties properties = new Properties();
 		properties.setProperty("mail.transport.protocol", env.getProperty("mail.transport.protocol"));		
-//		properties.setProperty("mail.smtp.starttls.enable", env.getProperty("mail.smtp.starttls.enable"));
+		properties.setProperty("mail.smtp.starttls.enable", env.getProperty("mail.smtp.starttls.enable"));
 //		properties.setProperty("mail.debug", env.getProperty("mail.debug"));
 		properties.setProperty("mail.smtp.port", env.getProperty("mail.smtp.port"));
 		properties.setProperty("mail.smtp.ssl.trust", env.getProperty("mail.smtp.ssl.trust"));		

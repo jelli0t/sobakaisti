@@ -7,8 +7,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sobakaisti.mail.MailTemplateHelper.MailTemplate;
 import org.sobakaisti.util.MailMessage;
-import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -25,10 +25,7 @@ public class MailServiceImpl implements MailService {
 		
 	@Autowired
 	private TemplateEngine mailTemplateEngine;
-    
-//    @Autowired
-//    private TemplateEngine htmlTemplateEngine;
-    
+  
 	@Override
 	public boolean send(MailMessage message) {
 		boolean sent = false;
