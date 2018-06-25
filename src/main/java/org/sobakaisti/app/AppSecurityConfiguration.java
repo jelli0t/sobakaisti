@@ -17,7 +17,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages="org.sobakaisti.mvt")
+//@ComponentScan(basePackages="org.sobakaisti.mvt")
 public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private AuthenticationFailureHandler accountAuthenticationFailureHandler;
