@@ -4,10 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+
 /**
 * ENUM wrapper class
 */
-public class Authority {
+public class Authority implements GrantedAuthority {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private Role role;
+	
+	public Authority(Role role) {
+		this.role = role;
+	}	
 
 	public enum Role {
 		ROLE_ADMIN(Permission.values()),
@@ -43,6 +53,12 @@ public class Authority {
 	public enum Permission {
 		READ_POST, WRITE_POST, EDIT_POST, DELETE_POST,
 		LEAVE_COMMENT;
+	}
+
+
+	@Override
+	public String getAuthority() {
+		return this.role.name();
 	}
 	
 	
