@@ -3,8 +3,6 @@ package org.sobakaisti.mvt;
 import java.util.Locale;
 
 import org.sobakaisti.app.PathLocaleChangeInterceptor;
-import org.sobakaisti.mvt.service.MediaService;
-import org.sobakaisti.util.MailMessage;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -19,9 +17,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -44,7 +40,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @EnableWebMvc
 @EnableTransactionManagement
 @PropertySource("classpath:variables.properties")
-@ComponentScan(basePackages="org.sobakaisti.mvt", basePackageClasses=MailMessage.class)
+@ComponentScan(basePackages="org.sobakaisti.mvt")
 public class MvtWebMvcConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 	
 	@Value( "${media.uploads.path.file}" ) private String imgUploadsFilePath;	

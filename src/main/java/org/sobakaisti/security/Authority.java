@@ -1,4 +1,4 @@
-package org.sobakaisti.mvt.security;
+package org.sobakaisti.security;
 
 import java.util.ArrayList;
 import java.util.Arrays;

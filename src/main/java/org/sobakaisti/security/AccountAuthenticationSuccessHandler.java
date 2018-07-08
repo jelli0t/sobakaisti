@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.sobakaisti.mvt.security;
+package org.sobakaisti.security;
 
 import java.io.IOException;
 import java.io.PrintWriter;

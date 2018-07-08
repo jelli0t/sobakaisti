@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/mvt_head :: mvt_head(~{::title})">
+	<title>Login</title>
+</head>
+<body>
+	<h1>Please log into the system!</h1>
+	
+	<article>
+		<header>
+			<div>Logo</div>
+			<div></div>
+		</header>
+		<div>
+		<form th:action="@{/login}" method="post">
+			<div class="validation-error" th:text="${message}"></div>
+		
+			<div class="input-holder half-input-holder" style="margin-right:1%;">
+			   	<label for="name" th:text="#{form.label.username}">Name</label>
+			   	<input type="text" name="username" placeholder="Enter your username">
+<!-- 			   	<div class="validation-error" th:errors="*{username}"></div>  -->
+		  	</div>  
+		  	<div class="input-holder half-input-holder"> 
+		    	<label for="email" th:text="#{form.label.password}">E-mail</label>
+		    	<input type="password" name="password" placeholder="Enter your password">
+<!-- 		    	<div class="validation-error" th:errors="*{password}"></div> -->
+		 	</div>
+		 	<div class="input-holder full-input-holder aright">    
+			 	<button type="submit" class="bttn bttn-primary">Login</button>  
+			  </div>
+		  </form>
+		</div>
+	</article>
+</body>
+</html>

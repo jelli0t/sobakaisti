@@ -34,7 +34,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:database.properties")
 @ComponentScan({"org.sobakaisti"})
 @EnableTransactionManagement
-@Import(AppSecurityConfiguration.class)
 public class AppRootConfiguration {
 	
 	@Autowired
@@ -53,7 +52,7 @@ public class AppRootConfiguration {
 	@Bean(name="sessionFactory")
 	public SessionFactory getSessionFactory(DataSource dataSource){
 		LocalSessionFactoryBuilder sessionFactory = new LocalSessionFactoryBuilder(dataSource);
-		sessionFactory.scanPackages("org.sobakaisti.mvt.models", "org.sobakaisti.mvt.i18n.model");
+		sessionFactory.scanPackages("org.sobakaisti.mvt.models", "org.sobakaisti.mvt.i18n.model", "org.sobakaisti.security.model");
 		sessionFactory.addProperties(getHibernateProperties());
 		return sessionFactory.buildSessionFactory();
 	}

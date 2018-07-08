@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.sobakaisti.mvt.security;
+package org.sobakaisti.security;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,19 +26,22 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 			AuthenticationException exception) throws IOException, ServletException {
 		System.out.println("Login failure exception: "+exception.getMessage());
 		
-		response.setContentType("text/plain");           
-        response.setHeader("Cache-Control", "no-cache");
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//		response.setContentType("text/plain");           
+//        response.setHeader("Cache-Control", "no-cache");
+//		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//		
+//		final String data = exception.getMessage();
+//		try{
+//			out = response.getWriter();
+//			out.print(data);
+//			out.flush();
+//		}catch(IOException ex){
+//			System.out.println("Neuspesno upisivanje odgovora.");
+//		}finally {
+//			out.close();
+//		}	
 		
-		final String data = exception.getMessage();
-		try{
-			out = response.getWriter();
-			out.print(data);
-			out.flush();
-		}catch(IOException ex){
-			System.out.println("Neuspesno upisivanje odgovora.");
-		}finally {
-			out.close();
-		}		
+		request.getSession().setAttribute("message", "Nespravan username ili password.");
+		response.sendRedirect("login");
 	}	
 }
