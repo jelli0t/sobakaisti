@@ -1580,6 +1580,52 @@ h3.article-prev-title {
 	color: #1fa0ae;
 }
 
+
+/*
+* LOGIN
+*/
+.login-container {
+  width: 340px;  
+  box-sizing: border-box;
+  margin: 5% auto;
+  border: 1px solid #d8dee2;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.70);
+  overflow: hidden;
+  box-shadow: 0 6px 6px rgba(0,0,0,0.3);
+}
+.login-options-list > li {  
+   display: inline-block;  
+   width:49%;
+   line-height: 32px;
+   text-align: center;
+}
+.login-options-list > li > a {
+  display: block;
+}
+.login-option-active {  
+  border-radius: 12px 12px 0 0;
+  background: rgba(255,255,255,0.6);
+}
+.input-container {
+  padding: 20px;
+  background: rgba(255,255,255,0.7);
+}
+.bgd-cover {
+	position: relative;
+/* 	 background-position: center center; */
+/* 	background-repeat: no-repeat; */
+/* 	background-attachment: fixed; */
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	 -o-background-size: cover;
+	 background-size: cover !important;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+}
+
+
 /* MAIN FOOTER */
 .mvt-main-footer {
 /* 	position: relative; */
