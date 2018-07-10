@@ -19,6 +19,12 @@
 	    </ul>
 	  <!-- MAIN -->
 	  <div class="input-container">
+	  	<!-- Commit result -->
+	  	<th:block th:if="${commitResult != null}">
+		<div class="commit-response-holder full-width" id="commit-result"
+		     th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(commitResult.commited)}, message=${commitResult.commitMessage})}">
+		</div>
+		</th:block>
 	  	<form th:action="@{/login}" method="post">
 				<div class="input-holder">
 					<label for="username">Name</label> <input type="text"
