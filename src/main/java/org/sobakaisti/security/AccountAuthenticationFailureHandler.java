@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.sobakaisti.util.CommitResult;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -44,14 +46,15 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 //		}		
 		
 		CommitResult result = null;
-		if(exception instanceof UsernameNotFoundException.class)
+		if(exception instanceof UsernameNotFoundException)
 			result = new CommitResult(false, "cannot find a user");
-		else if(exception instanceof BadCredentialsException.class)
+		else if(exception instanceof BadCredentialsException)
 			result = new CommitResult(false, "check your password");
 		else
 			result = new CommitResult(false, "dogodila se greska prilikom logovanja!");	
 				
 		request.getSession().setAttribute("commitResult", result);
-		response.sendRedirect("login");
+		request.getSession().setAttribute("poruka", "Grska pri logovanju!");
+		response.sendRedirect("login?error=true?message=greska");
 	}	
 }

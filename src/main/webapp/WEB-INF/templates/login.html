@@ -24,6 +24,8 @@
 		     	<th:block th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(commitResult.commited)}, message=${commitResult.commitMessage})}">
 			</th:block>
 		</div>
+		<p th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" ></p>
+		
 	  	<form th:action="@{/login}" method="post">
 				<div class="input-holder">
 					<label for="username">Name</label> <input type="text"
