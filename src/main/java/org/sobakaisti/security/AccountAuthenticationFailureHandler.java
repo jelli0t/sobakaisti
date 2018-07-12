@@ -41,9 +41,8 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 //			System.out.println("Neuspesno upisivanje odgovora.");
 //		}finally {
 //			out.close();
-//		}
+//		}		
 		
-		/*
 		CommitResult result = null;
 		if(exception instanceof UsernameNotFoundException.class)
 			result = new CommitResult(false, "cannot find a user");
@@ -51,8 +50,7 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 			result = new CommitResult(false, "check your password");
 		else
 			result = new CommitResult(false, "dogodila se greska prilikom logovanja!");	
-		
-		*/		
+				
 		request.getSession().setAttribute("commitResult", result);
 		response.sendRedirect("login");
 	}	
