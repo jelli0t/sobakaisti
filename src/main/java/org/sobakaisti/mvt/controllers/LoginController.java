@@ -8,6 +8,8 @@ import org.sobakaisti.mvt.models.Account;
 import org.sobakaisti.mvt.models.StatusReport;
 import org.sobakaisti.mvt.service.impl.AccountValidationServiceImpl;
 import org.sobakaisti.security.AccountAuthenticationProvider;
+import org.sobakaisti.util.CommitResult;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -34,6 +37,19 @@ public class LoginController {
 	@Qualifier("authenticationProvider")
 	private AccountAuthenticationProvider authenticationProvider;
 	
+	@RequestMapping(value="/login", method=RequestMethod.GET )
+	public String showLogin(@RequestParam(value="errorCode", required=false) String errorCode, Model model){
+		
+		if(TextUtil.notEmpty(errorCode)) {
+			String errorMessage = "";
+			model.addAttribute("commitResult", new CommitResult(false, errorCode));
+			
+		}
+		
+		
+		return "login";
+	}
+	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String getRegisterPage(Model model){
 		account = new Account();
@@ -48,8 +64,5 @@ public class LoginController {
 		return accountValidationServiceImpl.validateRegistration(newAccount);
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET )
-	public String showLogin(){
-		return "login";
-	}		
+			
 }

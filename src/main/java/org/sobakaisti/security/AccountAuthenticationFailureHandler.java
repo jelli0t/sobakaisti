@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.sobakaisti.util.CommitResult;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +29,7 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		
+		System.out.println("Login exception: "+exception.getClass());
 		System.out.println("Login failure exception: "+exception.getMessage());
 		
 //		response.setContentType("text/plain");           
@@ -45,16 +47,16 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 //			out.close();
 //		}		
 		
-		CommitResult result = null;
-		if(exception instanceof UsernameNotFoundException)
-			result = new CommitResult(false, "cannot find a user");
+		String errorCode = null;
+		if(exception instanceof AuthenticationCredentialsNotFoundException)
+			errorCode = "login.exception.emptyCredential";
+		else if(exception instanceof UsernameNotFoundException)
+			errorCode = "login.exception.notFound";
 		else if(exception instanceof BadCredentialsException)
-			result = new CommitResult(false, "check your password");
+			errorCode = "login.exception.badCredential";
 		else
-			result = new CommitResult(false, "dogodila se greska prilikom logovanja!");	
+			errorCode = "login.exception.general";	
 				
-		request.getSession().setAttribute("commitResult", result);
-		request.getSession().setAttribute("poruka", "Grska pri logovanju!");
-		response.sendRedirect("login?error=true?message=greska");
+		response.sendRedirect("login?errorCode="+errorCode);
 	}	
 }

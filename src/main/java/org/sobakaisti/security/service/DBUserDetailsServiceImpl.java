@@ -4,8 +4,10 @@
 package org.sobakaisti.security.service;
 
 import org.sobakaisti.security.dao.UserDao;
+import org.sobakaisti.security.model.User;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,10 +25,15 @@ public class DBUserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		//TODO baci exceptione za svaku situaciju
 		if(TextUtil.isEmpty(username))
-			return null;
+			throw new AuthenticationCredentialsNotFoundException("Username not passed");
 		
-		return userDao.findUserByUsername(username);
+		User user = userDao.findUserByUsername(username);
+		if(user == null)
+			throw new UsernameNotFoundException("Not found: "+username);
+		
+		return user;
 	}
 
 }

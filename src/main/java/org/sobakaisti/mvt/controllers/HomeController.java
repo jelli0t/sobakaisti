@@ -52,13 +52,7 @@ public class HomeController {
 	public String displayHome(){		
 		return "intro";  // home
 	}
-	
-	@RequestMapping(value="/do.login")
-	public String loginToAdmin() {
-		
-		return "redirect:sbk/admin";
-	}
-	
+			
 	@RequestMapping(value="/movement", method=RequestMethod.GET )
 	public String showMovementHome() {
 		return "mvt_intro";

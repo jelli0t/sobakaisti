@@ -8,36 +8,37 @@
 	<section class="bgd-cover" th:style="'background:url(' + @{/uploads/images/sunset.jpg} + ') no-repeat center center fixed;'">	
 	
 	<article class="login-container"> 	
-	    <div style="padding: 20px 0 18px; text-align: center;">
-	      <img th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="48">      <br />
-	      <span>Sign in to admin</span>
+	    <div style="padding: 22px 0 8px; text-align: center;">
+	      <img th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="38"> 
+	      <h3 style="font-weight:300; color:#333;" th:text="#{heading.signin.admmin}">Prijavi se</h3>
 	    </div>  
 	  <!-- Menu -->
 	    <ul class="login-options-list">
-	      <li class="login-option-active"><a href="#">Login</a></li>
-	      <li>Signup</li>
+	      <li class="login-options login-option-active"><a href="#" th:text="#{button.label.signin}">Login</a></li>
+	      <li class="login-option"><a href="#" th:text="#{button.label.signup}">Sign up</a></li>
 	    </ul>
 	  <!-- MAIN -->
 	  <div class="input-container">
 	  	<!-- Commit message -->
-		<div th:if="${commitResult != null}" class="commit-response-holder full-width" id="commit-result">
+		<div th:if="${commitResult != null}" class="commit-response-holder full-width input-holder" id="commit-result">
 		     	<th:block th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(commitResult.commited)}, message=${commitResult.commitMessage})}">
 			</th:block>
 		</div>
-		<p th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" ></p>
+<!-- 		<p th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" ></p> -->
 		
 	  	<form th:action="@{/login}" method="post">
 				<div class="input-holder">
-					<label for="username">Name</label> <input type="text"
-						name="username" placeholder="Enter your username">
+					<label for="username" th:text="#{form.label.username}">Username</label> 
+					<input type="text" name="username" class="def-input" placeholder="Enter your username">
 				</div>
 				<div class="input-holder">
-					<label for="password">Password</label> <input type="password"
-						name="password" placeholder="Enter your e-mail">
+					<label for="password" th:text="#{form.label.password}">Password</label> 
+					<input type="password" name="password" class="def-input" placeholder="Enter your password">
 				</div>
+				<br />
 				<div class="input-holder full-input-holder">    
-	      <button type="submit">Login </button>  
-	      </div>
+	      			<button type="submit" class="bttn bttn-primary full-width" th:text="#{button.label.signin}">Login </button>  
+	      		</div>
 	       </form>
 	  </div>	 
 	</article>

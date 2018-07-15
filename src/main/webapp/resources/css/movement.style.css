@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 @import
-	url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700&subset=latin,cyrillic-ext,latin-ext,cyrillic)
+	url(https://fonts.googleapis.com/css?family=Noto+Sans:300,400,700&subset=latin,cyrillic-ext,latin-ext,cyrillic)
 	;
 
 @font-face {
@@ -34,6 +34,10 @@ a {
 	color: #343434;
 	outline: none;
 	background-color: transparent;
+}
+.full-width {
+	width: 100%;
+	display: block;
 }
 /* List general style */
 ul { list-style: none; }
@@ -256,6 +260,36 @@ ul { list-style: none; }
     background-position: 0 -0.5em;
     border-color: rgba(27,31,35,0.35);
 }
+/*
+ Inputs
+*/
+.def-input {
+	display: block;
+	width: 100%;
+	
+	min-height: 34px;
+    padding: 6px 8px;
+    font-size: 0.9em;
+    line-height: 20px;
+
+	border-radius: 3px;
+	background-color: #fafbfc;	
+	color: #24292e;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	border: 1px solid #d1d5da;
+	outline: none;
+	box-shadow: inset 0 1px 1px rgba(27,31,35,0.075);
+	box-sizing: inherit;
+}
+
+.def-l-input {
+	min-height: 46px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
 
 
 /*	HEADER	*/
@@ -338,28 +372,28 @@ ul { list-style: none; }
 .input-holder > label {
 	display: block; 
 	margin-bottom: 5px;
-	font-size: 14px;
+	font-size: 12px;
 }
 .input-holder > input,
 .input-holder > .fake-input,
 .input-holder > textarea {
-	display: block;
-	width: 100%;
-	min-height: 46px;
-	padding: 10px;
-	font-size: 16px;
-	border-radius: 5px;
-	background-color: #fafbfc;
+/* 	display: block; */
+/* 	width: 100%; */
+/* 	min-height: 46px; */
+/* 	padding: 10px; */
+/* 	font-size: 16px; */
+/* 	border-radius: 5px; */
+/* 	background-color: #fafbfc; */
 
-	line-height: 20px;
-	color: #24292e;
-	vertical-align: middle;
-	background-repeat: no-repeat;
-	background-position: right 8px center;
-	border: 1px solid #d1d5da;
-	outline: none;
-	box-shadow: inset 0 1px 1px rgba(27,31,35,0.075);
-	box-sizing: inherit;
+/* 	line-height: 20px; */
+/* 	color: #24292e; */
+/* 	vertical-align: middle; */
+/* 	background-repeat: no-repeat; */
+/* 	background-position: right 8px center; */
+/* 	border: 1px solid #d1d5da; */
+/* 	outline: none; */
+/* 	box-shadow: inset 0 1px 1px rgba(27,31,35,0.075); */
+/* 	box-sizing: inherit; */
 }
 .half-input-holder {
   display: inline-block;
@@ -1480,6 +1514,67 @@ h3.article-prev-title {
 }
 .non-valid-field { border-color:#DD381D !important; }
 
+/* 
+	response messages 
+*/
+/* .commit-response-holder { */
+/* 	position: absolute; */
+/* 	display: block; */
+/* 	margin: 20px auto 0 auto; */
+/* 	text-align: center; */
+/* 	z-index: 999; */
+/* } */
+.affirmative-border { border: 1px solid #28a745 !important; }
+.affirmative-background {
+	background-color: #28a745;
+	background-image: -webkit-linear-gradient(270deg, #34d058 0%, #28a745 90%);
+	background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
+}
+.failure-border { border: 1px solid #dd381d !important; }
+.failure-background {
+	background-color: #dd381d;
+	background-image: -webkit-linear-gradient(270deg, #e77360 0%, #dd381d 90%);
+	background-image: linear-gradient(-180deg, #e77360 0%, #dd381d 90%);
+}
+
+.commit-message-container {
+	display: inline-block;  
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid transparent;
+	box-shadow: 0 10px 20px rgba(27,31,35,0.15);
+	background-color: #fff;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+.commit-message-container > span {
+	display: inline-block;
+	line-height: 32px;
+	padding: 0 9px;
+}
+
+.response-message {
+	position: fixed;
+	top: 0px;
+	left: 50%;
+	width: 360px;
+	margin-left: -180px;
+	display: inline;
+	padding: 5px 0;
+/* 	margin: 3px auto; */
+	text-align: center;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	-webkit-border-radius: 3px;
+  	-moz-border-radius: 3px;
+  	border-radius: 3px;
+  	box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+  	z-index: 1000;
+}
+
 /*	FOOTER	*/
 
 
@@ -1599,13 +1694,18 @@ h3.article-prev-title {
    width:49%;
    line-height: 32px;
    text-align: center;
+   font-size: 0.9em;
+   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
-.login-options-list > li > a {
+.login-options-list > 
+li.login-options > a {
   display: block;
 }
-.login-option-active {  
-  border-radius: 12px 12px 0 0;
-  background: rgba(255,255,255,0.6);
+
+.login-option-active {
+	color: #1c2024; /*#24292e; */
+	border-radius: 12px 12px 0 0;
+	background: rgba(255,255,255,0.7);
 }
 .input-container {
   padding: 20px;

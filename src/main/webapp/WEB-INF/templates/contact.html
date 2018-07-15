@@ -20,38 +20,38 @@
 		<form th:action="@{/contact/message/submit}" th:object="${mailMessage}" method="post" onkeypress="return event.keyCode != 13;">
 		  <div class="input-holder full-input-holder">
 			<label for="to" th:text="#{form.label.mailTo}">To</label>
-			<span class="fake-input" data-value="info@sobakaisti.org" id="input-framed-val"></span>
+			<span class="def-input def-l-input" data-value="info@sobakaisti.org" id="input-framed-val"></span>
 			<input type="hidden" name="to" value="info@sobakaisti.org">
 		  </div>
 
 		   <div class="input-holder half-input-holder" style="margin-right:1%;">
 		    	<label for="name" th:text="#{form.label.firstname}">Name</label>
-		    	<input type="text" th:field="*{fromName}" placeholder="Enter your name">
+		    	<input type="text" th:field="*{fromName}" class="def-input def-l-input" placeholder="Enter your name">
 		    	<div class="validation-error" th:errors="*{fromName}"></div> 
 		  </div>  
 		  <div class="input-holder half-input-holder"> 
 		    	<label for="email" th:text="#{form.label.email}">E-mail</label>
-		    	<input type="email" th:field="*{fromMail}" placeholder="Enter your e-mail"
+		    	<input type="email" class="def-input def-l-input" th:field="*{fromMail}" placeholder="Enter your e-mail"
 		    		th:classappend="${#fields.hasErrors('fromMail')} ? 'non-valid-field'">
 		    	<div class="validation-error" th:errors="*{fromMail}"></div>
 		  </div>
 
 		  <div class="input-holder full-input-holder">
 		    	<label for="subject" th:text="#{form.label.mailSubject}">Subject</label>
-				<input type="text" th:field="*{subject}" placeholder="Subject of the message"
+				<input type="text" th:field="*{subject}" class="def-input def-l-input" placeholder="Subject of the message"
 					th:classappend="${#fields.hasErrors('subject')} ? 'non-valid-field'">
 				<div class="validation-error" th:errors="*{subject}"></div>   
 		  </div>
 
 		  <div class="input-holder full-input-holder">
 			<label for="message" th:text="#{form.label.mailBody}">Message</label>
-			<textarea name="message" rows="5" placeholder="Enter your message"
+			<textarea name="message" rows="5" class="def-input def-l-input" placeholder="Enter your message"
 				th:classappend="${#fields.hasErrors('message')} ? 'non-valid-field'"></textarea>
 			<div class="validation-error" th:errors="*{message}"></div>
 		  </div>
 
 		  <div class="input-holder full-input-holder aright">    
-		 	<button type="submit" class="bttn bttn-primary">Send</button>  
+		 	<button type="submit" class="bttn bttn-primary" th:text="#{button.label.send}">Send</button>  
 		  </div>
 		 </form> 
 	</article>
