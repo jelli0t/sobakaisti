@@ -20,7 +20,7 @@
 	  <!-- MAIN -->
 	  <div class="input-container">
 	  	<!-- Commit message -->
-		<div th:if="${commitResult != null}" class="commit-response-holder full-width input-holder" id="commit-result">
+		<div th:if="${commitResult != null}" class="commit-response-holder full-width" style="text-align:center; padding:12px 0;" id="commit-result">
 		     	<th:block th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(commitResult.commited)}, message=${commitResult.commitMessage})}">
 			</th:block>
 		</div>

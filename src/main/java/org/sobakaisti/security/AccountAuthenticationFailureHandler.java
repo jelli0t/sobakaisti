@@ -48,10 +48,8 @@ public class AccountAuthenticationFailureHandler implements AuthenticationFailur
 //		}		
 		
 		String errorCode = null;
-		if(exception instanceof AuthenticationCredentialsNotFoundException)
-			errorCode = "login.exception.emptyCredential";
-		else if(exception instanceof UsernameNotFoundException)
-			errorCode = "login.exception.notFound";
+		if(exception instanceof UsernameNotFoundException)
+			errorCode = exception.getMessage();
 		else if(exception instanceof BadCredentialsException)
 			errorCode = "login.exception.badCredential";
 		else

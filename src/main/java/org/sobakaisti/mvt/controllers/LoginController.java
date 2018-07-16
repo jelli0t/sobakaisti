@@ -12,6 +12,8 @@ import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,12 +39,16 @@ public class LoginController {
 	@Qualifier("authenticationProvider")
 	private AccountAuthenticationProvider authenticationProvider;
 	
+	
+	@Autowired
+	private MessageSource messageSource;
+		
 	@RequestMapping(value="/login", method=RequestMethod.GET )
 	public String showLogin(@RequestParam(value="errorCode", required=false) String errorCode, Model model){
 		
 		if(TextUtil.notEmpty(errorCode)) {
-			String errorMessage = "";
-			model.addAttribute("commitResult", new CommitResult(false, errorCode));
+			String errorMessage = messageSource.getMessage(errorCode, null, LocaleContextHolder.getLocale());
+			model.addAttribute("commitResult", new CommitResult(false, errorMessage));
 			
 		}
 		

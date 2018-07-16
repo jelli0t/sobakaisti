@@ -7,6 +7,8 @@ import org.sobakaisti.security.dao.UserDao;
 import org.sobakaisti.security.model.User;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,18 +24,20 @@ public class DBUserDetailsServiceImpl implements UserDetailsService {
 	
 	@Autowired
 	private UserDao userDao;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//TODO baci exceptione za svaku situaciju
 		if(TextUtil.isEmpty(username))
-			throw new AuthenticationCredentialsNotFoundException("Username not passed");
+			throw new UsernameNotFoundException("login.exception.emptyCredential");
 		
 		User user = userDao.findUserByUsername(username);
 		if(user == null)
-			throw new UsernameNotFoundException("Not found: "+username);
+			throw new UsernameNotFoundException("login.exception.userNotFound");
 		
 		return user;
 	}
 
+	
+	
 }
