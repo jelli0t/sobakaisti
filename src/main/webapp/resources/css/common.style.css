@@ -65,13 +65,11 @@ html, body, div, img, ul, ol {
 	display: -webkit-flex;
 	display: flex;
 }
-
 .fx-wrap {
 	-webkit-flex-wrap: wrap;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 }
-
 .fx-justify-sbtw {
 	-webkit-justify-content: space-between; /* Safari 6.1+ */
 	justify-content: space-between;
@@ -88,7 +86,6 @@ html, body, div, img, ul, ol {
     -webkit-justify-content: flex-end; /* Safari 6.1+ */
     justify-content: flex-end;
 }
-
 .fx-valign-cnt {
 	-webkit-align-items: center;
 	align-items: center;
@@ -101,7 +98,6 @@ html, body, div, img, ul, ol {
 	-webkit-align-items: flex-end;
 	align-items: flex-end;
 }
-
 .fx-1st {
 	-ms-flex-order: 1; 
 	-webkit-order: 1; 
@@ -421,13 +417,7 @@ img {
 /* 
 * response messages 
 */
-.commit-response-holder {
-	position: absolute;
-	display: block;
-	margin: 20px auto 0 auto;
-	text-align: center;
-	z-index: 999;
-}
+.commit-response-holder { padding: 7px 0; background: transparent; }
 .affirmative-border { border: 1px solid #28a745 !important; }
 .affirmative-background {
 	background-color: #28a745;
@@ -452,8 +442,8 @@ img {
 	-ms-user-select: none;
 }
 .commit-message-container > span {
-	line-height: 1.1em; 
-  	padding: 6px 9px 3px 9px;
+	line-height: 1.2em; 
+  	padding: 6px 9px ;
 }
 /* TODO cemu sluzi? */
 .response-message {

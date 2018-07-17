@@ -20,27 +20,31 @@
 	  <!-- MAIN -->
 	  <div class="input-container">
 	  	<!-- Commit message -->
-		<div th:if="${commitResult != null}" class="commit-response-holder full-width" style="text-align:center; padding:12px 0;" id="commit-result">
+		<div th:if="${commitResult != null}" class="commit-response-holder full-width" id="commit-result">
 		     	<th:block th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(commitResult.commited)}, message=${commitResult.commitMessage})}">
 			</th:block>
 		</div>
 <!-- 		<p th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" ></p> -->
-		
-	  	<form th:action="@{/login}" method="post">
-				<div class="input-holder">
-					<label for="username" th:text="#{form.label.username}">Username</label> 
-					<input type="text" name="username" class="def-input" placeholder="Enter your username">
-				</div>
-				<div class="input-holder">
-					<label for="password" th:text="#{form.label.password}">Password</label> 
-					<input type="password" name="password" class="def-input" placeholder="Enter your password">
-				</div>
-				<br />
-				<div class="input-holder full-input-holder">    
-	      			<button type="submit" class="bttn bttn-primary full-width" th:text="#{button.label.signin}">Login </button>  
-	      		</div>
-	       </form>
-	  </div>	 
+			<th:block th:insert="~{commons/fragments :: ${#bools.isTrue(ENABLE_INIT_ADMIN_SINGUP)} ? 'userSignupFragment' : 'userSigninFragment'}">
+			</th:block>
+<!-- 				<form th:action="@{/login}" method="post"> -->
+<!-- 					<div class="input-holder"> -->
+<!-- 						<label for="username" th:text="#{form.label.username}">Username</label> -->
+<!-- 						<input type="text" name="username" class="def-input" -->
+<!-- 							placeholder="Enter your username"> -->
+<!-- 					</div> -->
+<!-- 					<div class="input-holder"> -->
+<!-- 						<label for="password" th:text="#{form.label.password}">Password</label> -->
+<!-- 						<input type="password" name="password" class="def-input" -->
+<!-- 							placeholder="Enter your password"> -->
+<!-- 					</div> -->
+<!-- 					<br /> -->
+<!-- 					<div class="input-holder full-input-holder"> -->
+<!-- 						<button type="submit" class="bttn bttn-primary full-width" -->
+<!-- 							th:text="#{button.label.signin}">Login</button> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
+			</div>	 
 	</article>
 </section>	
 </body>

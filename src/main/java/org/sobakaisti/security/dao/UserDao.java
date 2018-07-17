@@ -12,4 +12,6 @@ import org.sobakaisti.security.model.User;
 public interface UserDao {
 
 	User findUserByUsername(String username);
+
+	long countAllUsers();
 }

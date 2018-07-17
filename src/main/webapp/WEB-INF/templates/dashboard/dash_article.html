@@ -15,7 +15,7 @@
 <!-- Main -->	
 <main class="dash-page-container">
 	<!-- Commit result -->
-	<div th:if="${article.commited != null}" class="commit-response-holder full-width" id="commit-result"
+	<div th:if="${article.commited != null}" class="fx-box fx-justify-cnt commit-response-holder full-width" id="commit-result"
 	     th:insert="~{commons/fragments :: commitResultFragment (commited=${#bools.isTrue(article.commited)}, message=${article.commitMessage})}">
 	</div>
 	<!-- Page Header -->

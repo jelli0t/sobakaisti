@@ -8,6 +8,7 @@ import org.sobakaisti.mvt.models.Account;
 import org.sobakaisti.mvt.models.StatusReport;
 import org.sobakaisti.mvt.service.impl.AccountValidationServiceImpl;
 import org.sobakaisti.security.AccountAuthenticationProvider;
+import org.sobakaisti.security.service.UserService;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,25 +35,29 @@ public class LoginController {
 	private Account account;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private AccountValidationServiceImpl accountValidationServiceImpl;
 	@Autowired
 	@Qualifier("authenticationProvider")
 	private AccountAuthenticationProvider authenticationProvider;
-	
-	
+		
 	@Autowired
 	private MessageSource messageSource;
-		
+	
+	private static final String ENABLE_INIT_ADMIN_SINGUP_FLAG = "ENABLE_INIT_ADMIN_SINGUP";
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET )
-	public String showLogin(@RequestParam(value="errorCode", required=false) String errorCode, Model model){
+	public String showLogin(@RequestParam(value="errorCode", required=false) String errorCode, Model model) {
+		
+		boolean enableInitAdminSignup = !userService.haveUsersAtAll();
+		model.addAttribute(ENABLE_INIT_ADMIN_SINGUP_FLAG, enableInitAdminSignup);
 		
 		if(TextUtil.notEmpty(errorCode)) {
 			String errorMessage = messageSource.getMessage(errorCode, null, LocaleContextHolder.getLocale());
-			model.addAttribute("commitResult", new CommitResult(false, errorMessage));
-			
-		}
-		
-		
+			model.addAttribute("commitResult", new CommitResult(false, errorMessage));			
+		}		
 		return "login";
 	}
 	
