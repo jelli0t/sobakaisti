@@ -183,6 +183,24 @@ img {
 	vertical-align: middle;
 }
 .full-width { width: 100% !important; }
+/*
+* Border Radiuses
+*/
+.border-3-rad {
+  	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.border-6-rad {
+  	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+.border-12-rad {
+  	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+}
 
 /* BUTTONS */
 .bttn {
@@ -411,10 +429,8 @@ img {
 }
 
 .commit-message-container {
-	display: inline-block;  
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	max-width: 320px;
+	font-size: 0.9em;
 	border: 1px solid transparent;
 	box-shadow: 0 10px 20px rgba(27,31,35,0.15);
 	background-color: #fff;
@@ -423,9 +439,8 @@ img {
 	-ms-user-select: none;
 }
 .commit-message-container > span {
-	display: inline-block;
-	line-height: 32px;
-	padding: 0 9px;
+	line-height: 1.1em; 
+  	padding: 6px 9px 3px 9px;
 }
 
 .response-message {
