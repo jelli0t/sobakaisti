@@ -49,12 +49,12 @@
 	font-weight: normal;
 	font-style: normal;
 }
-html, body, div, ul, span {
+html, body, div, img, ul, ol {
 	margin: 0;
 	padding: 0;
+	font-family: 'Noto Sans', sans-serif;
 	box-sizing: border-box;
 }
-
 /* 
  Flex Properties 
 */
@@ -167,12 +167,14 @@ html, body, div, ul, span {
 	align-self: flex-end; 
 }
 
+/* List general style */
 ul { list-style: none; }
 
 a:link, a:VISITED {	
-	text-decoration: none; 
+	text-decoration: none;
+	color: #343434;
 	outline: none;
-	margin: 0;
+	background-color: transparent;
 }
 
 .float-left { float: left; }
@@ -182,7 +184,17 @@ img {
 	outline: none;
 	vertical-align: middle;
 }
-.full-width { width: 100% !important; }
+
+.full-width { display: block; width: 100% !important; }
+/* 
+* Box shadows 
+*/
+.shadow-def {
+	border: 1px solid rgba(27,31,35,0.10);
+	-webkit-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+	-moz-box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+	box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+}
 /*
 * Border Radiuses
 */
@@ -406,8 +418,9 @@ img {
 	content: '\e821';
 	color: #DD381D;
 }
-
-/* response messages */
+/* 
+* response messages 
+*/
 .commit-response-holder {
 	position: absolute;
 	display: block;
@@ -442,7 +455,7 @@ img {
 	line-height: 1.1em; 
   	padding: 6px 9px 3px 9px;
 }
-
+/* TODO cemu sluzi? */
 .response-message {
 	position: fixed;
 	top: 0px;
