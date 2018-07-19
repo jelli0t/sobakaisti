@@ -31,6 +31,9 @@ public class User implements UserDetails {
 	private String username;
 	private String password;
 	
+	@Column(name="email")
+	private String email;
+	
 	@Enumerated(EnumType.STRING)
 	private Authority.Role role;
 	
@@ -39,6 +42,7 @@ public class User implements UserDetails {
 	
 	@Column(name="locked", nullable = false, columnDefinition = "TINYINT", length = 1)
 	private boolean locked;
+	
 	
 	public int getId() {
 		return id;
