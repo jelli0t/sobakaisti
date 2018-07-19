@@ -14,4 +14,6 @@ public interface UserDao {
 	User findUserByUsername(String username);
 
 	long countAllUsers();
+	
+	public boolean checkIfUserExists(String username, String email);
 }
