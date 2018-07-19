@@ -23,7 +23,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages="org.sobakaisti.security")
-public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter{
+public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter {
+	private static final int BCRYPT_LOG_ITERATION = 12;
+	
 	@Autowired
 	private AuthenticationFailureHandler accountAuthenticationFailureHandler;
 	@Autowired
@@ -80,6 +82,11 @@ public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter{
 		 md5.setIterations(32);
 		 return md5;
 	 }
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(BCRYPT_LOG_ITERATION);
+	}
 	 
 	 @Bean
 	 public DaoAuthenticationProvider authProvider() {
