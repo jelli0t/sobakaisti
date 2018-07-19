@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.sobakaisti.security.model.User;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -54,9 +55,9 @@ public class UserDaoImpl implements UserDao {
 			Session session = sessionFactory.getCurrentSession();
 			Query query = session.createQuery(HQL_QUERY);
 
-			if(TextUtil.notEmpty(username)
+			if(TextUtil.notEmpty(username))
 			   query.setParameter("username", username);		
-			if(TextUtil.notEmpty(email)
+			if(TextUtil.notEmpty(email))
 			   query.setParameter("email", email);
 
 			Integer result = (Integer) query.uniqueResult();

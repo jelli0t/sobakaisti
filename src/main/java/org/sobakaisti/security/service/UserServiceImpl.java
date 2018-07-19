@@ -20,4 +20,8 @@ public class UserServiceImpl implements UserService {
 		return countAllUsers() > 0;
 	}
 	
+	@Override
+	public boolean checkIfUserExists(String username, String email) {
+		return userDao.checkIfUserExists(username, email);
+	}
 }

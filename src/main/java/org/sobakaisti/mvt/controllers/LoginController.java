@@ -4,12 +4,18 @@
 package org.sobakaisti.mvt.controllers;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.sobakaisti.mvt.models.Account;
 import org.sobakaisti.mvt.models.StatusReport;
 import org.sobakaisti.mvt.service.impl.AccountValidationServiceImpl;
 import org.sobakaisti.security.AccountAuthenticationProvider;
+import org.sobakaisti.security.Authority.Role;
+import org.sobakaisti.security.model.User;
 import org.sobakaisti.security.service.UserService;
 import org.sobakaisti.util.CommitResult;
+import org.sobakaisti.util.MailMessage;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +24,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,6 +60,8 @@ public class LoginController {
 		
 		boolean enableInitAdminSignup = !userService.haveUsersAtAll();
 		model.addAttribute(ENABLE_INIT_ADMIN_SINGUP_FLAG, enableInitAdminSignup);
+		if(enableInitAdminSignup)
+			model.addAttribute("newUser", new org.sobakaisti.security.model.User());
 		
 		if(TextUtil.notEmpty(errorCode)) {
 			String errorMessage = messageSource.getMessage(errorCode, null, LocaleContextHolder.getLocale());
@@ -73,6 +82,19 @@ public class LoginController {
 	@ResponseBody
 	public List<StatusReport> createNewAccount(@RequestBody Account newAccount){		
 		return accountValidationServiceImpl.validateRegistration(newAccount);
+	}
+	
+	@RequestMapping(value="/signup", method=RequestMethod.POST)
+	public String submitUserSignup(@Valid @ModelAttribute("newUser") User newUser, BindingResult result) {
+		System.out.println("new user: "+newUser.getUsername() + ", mail: "+newUser.getEmail());
+		boolean enableInitAdminSignup = !userService.haveUsersAtAll();
+		
+		boolean exists = userService.checkIfUserExists(newUser.getUsername(), newUser.getEmail());
+		
+		if(enableInitAdminSignup)
+			newUser.setRole(Role.ROLE_ADMIN);
+		
+		return "login";
 	}
 	
 			

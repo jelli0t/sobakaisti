@@ -6,4 +6,6 @@ public interface UserService {
 	
 	boolean haveUsersAtAll();
 
+	boolean checkIfUserExists(String username, String email);
+
 }

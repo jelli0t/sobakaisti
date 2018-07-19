@@ -58,14 +58,16 @@
 	 </th:block>
 	 
 	 <th:block th:fragment="userSignupFragment">
-	 	<form th:action="@{/signup}" method="post">
+	 	<form th:action="@{/signup}" method="post" th:object="${newUser}">
 				<div class="input-holder">
 					<label for="username" th:text="#{form.label.username}">Username</label> 
-					<input type="text" name="username" class="def-input" placeholder="Enter your username">
+					<input type="text" th:field="*{username}" class="def-input" placeholder="Enter your username">
+					<div class="validation-error" th:errors="*{username}"></div>
 				</div>
+				<input type="hidden" name="dummie" value="Some dummie value">
 				<div class="input-holder">
 					<label for="email" th:text="#{form.label.email}">E-mail</label> 
-					<input type="email" name="email" class="def-input" placeholder="Enter your e-mail">
+					<input type="email" th:field="*{email}" class="def-input" placeholder="Enter your e-mail">
 				</div>
 				<div class="input-holder">
 					<label for="password" th:text="#{form.label.password}">Password</label> 
