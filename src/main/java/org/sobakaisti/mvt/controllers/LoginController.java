@@ -60,7 +60,8 @@ public class LoginController {
 		
 		boolean enableInitAdminSignup = !userService.haveUsersAtAll();
 		model.addAttribute(ENABLE_INIT_ADMIN_SINGUP_FLAG, enableInitAdminSignup);
-		if(enableInitAdminSignup)
+		
+		if(enableInitAdminSignup & !model.containsAttribute("newUser"))
 			model.addAttribute("newUser", new org.sobakaisti.security.model.User());
 		
 		if(TextUtil.notEmpty(errorCode)) {
@@ -85,16 +86,33 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
-	public String submitUserSignup(@Valid @ModelAttribute("newUser") User newUser, BindingResult result) {
+	public String submitUserSignup(@Valid @ModelAttribute("newUser") User newUser, BindingResult result,
+				      RedirectAttributes redirectAttributes) {
 		System.out.println("new user: "+newUser.getUsername() + ", mail: "+newUser.getEmail());
-		boolean enableInitAdminSignup = !userService.haveUsersAtAll();
 		
+		if(result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newUser", result);
+			redirectAttributes.addFlashAttribute("newUser", newUser);
+			return "redirect:/login";
+		}
 		boolean exists = userService.checkIfUserExists(newUser.getUsername(), newUser.getEmail());
+		if(exists) {
+		//	result.rejectValue("email", "errors.signup.email", "Email address is already in use.");
+			String errorMessage = messageSource.getMessage("signup.exception.user.exists", null, LocaleContextHolder.getLocale());
+			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(false, errorMessage));			
+			return "redirect:/login";
+		}	
 		
+		//TODO mozda u servisni sloj
+		boolean enableInitAdminSignup = !userService.haveUsersAtAll();				
 		if(enableInitAdminSignup)
 			newUser.setRole(Role.ROLE_ADMIN);
+		else 
+			newUser.setRole(Role.ROLE_USER);
 		
-		return "login";
+		//TODO registruj novog usera 
+		
+		return "redirect:/sbk-admin";
 	}
 	
 			
