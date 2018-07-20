@@ -68,10 +68,12 @@
 				<div class="input-holder">
 					<label for="email" th:text="#{form.label.email}">E-mail</label> 
 					<input type="email" th:field="*{email}" class="def-input" placeholder="Enter your e-mail">
+					<div class="validation-error" th:errors="*{email}"></div>
 				</div>
 				<div class="input-holder">
 					<label for="password" th:text="#{form.label.password}">Password</label> 
 					<input type="password" name="password" class="def-input" placeholder="Enter your password">
+					<div class="validation-error" th:errors="*{password}"></div>
 				</div>
 				<br />
 				<div class="input-holder full-input-holder">    
