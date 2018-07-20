@@ -93,7 +93,7 @@ public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter {
 	 @Bean
 	 public DaoAuthenticationProvider authProvider() {
 		 DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
-//			daoProvider.setPasswordEncoder(md5PasswordEncoder());
+			daoProvider.setPasswordEncoder(passwordEncoder());
 			daoProvider.setUserDetailsService(dbUserDetailsService);
 //			ReflectionSaltSource saltHash = new ReflectionSaltSource();
 //			saltHash.setUserPropertyToUse("username");

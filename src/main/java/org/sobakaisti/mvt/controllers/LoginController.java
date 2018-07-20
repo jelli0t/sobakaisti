@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author jelles
@@ -102,15 +103,8 @@ public class LoginController {
 			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(false, errorMessage));			
 			return "redirect:/login";
 		}	
+		newUser = userService.initialAdministratorSignup(newUser);
 		
-		//TODO mozda u servisni sloj
-		boolean enableInitAdminSignup = !userService.haveUsersAtAll();				
-		if(enableInitAdminSignup)
-			newUser.setRole(Role.ROLE_ADMIN);
-		else 
-			newUser.setRole(Role.ROLE_USER);
-		
-		//TODO registruj novog usera 
 		
 		return "redirect:/sbk-admin";
 	}

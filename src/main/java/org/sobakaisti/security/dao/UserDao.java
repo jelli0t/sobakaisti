@@ -16,4 +16,6 @@ public interface UserDao {
 	long countAllUsers();
 	
 	public boolean checkIfUserExists(String username, String email);
+	
+	User saveUser(User user);
 }

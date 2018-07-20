@@ -23,7 +23,7 @@ public class Authority implements GrantedAuthority {
 		ROLE_ADMIN(Permission.values()),
 		ROLE_EDITOR(Permission.READ_POST, Permission.WRITE_POST, Permission.EDIT_POST, Permission.DELETE_POST),
 		ROLE_WRITER(Permission.READ_POST, Permission.WRITE_POST, Permission.EDIT_POST),		
-		ROLE_ANONYMOUS;
+		ROLE_USER;
 		
 		private Permission[] permissions;
 		private Role(Permission... permissions) {
