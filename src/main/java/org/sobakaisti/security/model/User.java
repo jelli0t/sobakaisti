@@ -27,10 +27,14 @@ public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int id;	
+	@NotEmpty(message="{validation.warn.notNull}")
 	private String username;
+	@NotEmpty(message="{validation.warn.notNull}")
 	private String password;
 	
+	@Pattern(regexp="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
+		message="{validation.warn.mailPattern}")
 	@Column(name="email")
 	private String email;
 	
