@@ -25,7 +25,7 @@ public final class TextUtil {
 	public static final String POST_ATTR_NAME = "post";
 	public static final String POSTS_ATTR_NAME = "posts";
 	public static final String RELATED_POSTS_ATTR_NAME = "relatedPosts";
-	
+		
 	/**
 	* Default private constrictor prevents class to be instantiated
 	* */

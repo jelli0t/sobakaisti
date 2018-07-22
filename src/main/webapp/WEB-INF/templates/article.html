@@ -50,15 +50,16 @@
 			<footer>
 				<div class="post-tags"></div>
 			</footer>
-		</article>
+		</article>		
+		 
 	</div>
 </section>	
-	
+
 <!-- 
 *	Top Recomendation articles  *
 -->
-<section class="mvt-post-related">
-	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
+<section class="bgd-lightgray y-2em-padding">
+	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw">
 		<!-- top section header -->
 		<div class="top-posts-header">
 		    <span>Preporu�ujemo</span>
@@ -107,7 +108,17 @@
 	</div>
 </section>
 	
-	
+<!-- 
+	Post Comments
+ -->
+<section class="bgd-lightgray y-1em-padding">
+	<div class="center-main-width fx-box fx-dir-col fx-justify-cnt">
+		<div class="top-posts-header">
+		    <span>Komentari</span>
+		</div>			
+		<th:block th:insert="~{commons/fragments :: leaveCommentFragment}"></th:block>
+	</div>
+</section>
 	
 	
 <!-- Next an previous article -->

@@ -12,6 +12,14 @@ import org.springframework.security.core.GrantedAuthority;
 public class Authority implements GrantedAuthority {
 	
 	private static final long serialVersionUID = 1L;
+	/*
+	 * Error codes
+	 * */
+	public static final String ERROR_CODE_ATTR_NAME = "errorCode";	
+	public static final String BAD_CREDENTIAL_ERROR_CODE = "login.exception.badCredential";	
+	public static final String ACCESS_DENIED_ERROR_CODE = "login.exception.accessDenied";
+	public static final String USER_NOT_FOUND_ERROR_CODE = "login.exception.userNotFound";
+	public static final String GENERAL_AUTH_ERROR_CODE = "login.exception.general";
 	
 	private Role role;
 	

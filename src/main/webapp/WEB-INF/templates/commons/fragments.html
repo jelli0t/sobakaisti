@@ -448,4 +448,27 @@
   			</div>
 		</div>
 	</th:block>
+	
+	
+	<!-- 
+		Comments
+	 -->
+	 <article th:fragment="leaveCommentFragment" style="max-width:740px;">
+	 	<form th:action="@{/comment/submit}" method="post" onkeypress="return event.keyCode != 13;">
+			<div class="input-holder full-input-holder">
+				 <div class="input-holder full-input-holder">
+					<input type="text" class="def-input" placeholder="Vase ime">
+	<!-- 				<div class="validation-error" th:errors="*{subject}"></div>    -->
+			  </div>
+			  
+				<textarea name="message" rows="5" class="def-input def" placeholder="Unesite vas komentar"></textarea>
+	<!-- 			<div class="validation-error" th:errors="*{message}"></div> -->
+			 </div>
+			 
+			 <div class="input-holder full-input-holder aright">    
+			 	<a href="javascript:;" class="bttn bttn-primary" th:text="#{button.label.send}">Send</a>  
+			  </div>
+		  </form>
+	 </article>
+	
 </html>

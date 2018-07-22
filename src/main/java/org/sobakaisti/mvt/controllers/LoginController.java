@@ -5,21 +5,22 @@ package org.sobakaisti.mvt.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.sobakaisti.mvt.models.Account;
 import org.sobakaisti.mvt.models.StatusReport;
 import org.sobakaisti.mvt.service.impl.AccountValidationServiceImpl;
 import org.sobakaisti.security.AccountAuthenticationProvider;
-import org.sobakaisti.security.Authority.Role;
+import org.sobakaisti.security.Authority;
 import org.sobakaisti.security.model.User;
 import org.sobakaisti.security.service.UserService;
 import org.sobakaisti.util.CommitResult;
-import org.sobakaisti.util.MailMessage;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -56,9 +57,13 @@ public class LoginController {
 	
 	private static final String ENABLE_INIT_ADMIN_SINGUP_FLAG = "ENABLE_INIT_ADMIN_SINGUP";
 	
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET )
-	public String showLogin(@RequestParam(value="errorCode", required=false) String errorCode, Model model) {
-		
+	public String showLogin(@RequestParam(
+			name=Authority.ERROR_CODE_ATTR_NAME, required=false) String errorCode, 
+			HttpServletRequest request,
+			Model model) {
+		System.out.println("code: "+errorCode);
 		boolean enableInitAdminSignup = !userService.haveUsersAtAll();
 		model.addAttribute(ENABLE_INIT_ADMIN_SINGUP_FLAG, enableInitAdminSignup);
 		
@@ -66,8 +71,7 @@ public class LoginController {
 			model.addAttribute("newUser", new org.sobakaisti.security.model.User());
 		
 		if(TextUtil.notEmpty(errorCode)) {
-			String errorMessage = messageSource.getMessage(errorCode, null, LocaleContextHolder.getLocale());
-			model.addAttribute("commitResult", new CommitResult(false, errorMessage));			
+			model.addAttribute("commitResult", new CommitResult(false, getMessage(errorCode)));			
 		}		
 		return "login";
 	}
@@ -86,6 +90,7 @@ public class LoginController {
 		return accountValidationServiceImpl.validateRegistration(newAccount);
 	}
 	
+	
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
 	public String submitUserSignup(@Valid @ModelAttribute("newUser") User newUser, BindingResult result,
 				      RedirectAttributes redirectAttributes) {
@@ -98,16 +103,20 @@ public class LoginController {
 		}
 		boolean exists = userService.checkIfUserExists(newUser.getUsername(), newUser.getEmail());
 		if(exists) {
-		//	result.rejectValue("email", "errors.signup.email", "Email address is already in use.");
-			String errorMessage = messageSource.getMessage("signup.exception.user.exists", null, LocaleContextHolder.getLocale());
-			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(false, errorMessage));			
+			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(false, getMessage("signup.exception.user.exists")));			
 			return "redirect:/login";
 		}	
-		newUser = userService.initialAdministratorSignup(newUser);
-		
+		newUser = userService.initialAdministratorSignup(newUser);		
 		
 		return "redirect:/sbk-admin";
 	}
 	
-			
+	
+	private String getMessage(String code) {
+		try {
+			return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
+		} catch (NoSuchMessageException e) {
+			return "Neispravan kod greške!";
+		}	
+	}
 }

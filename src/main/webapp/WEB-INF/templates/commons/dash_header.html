@@ -3,7 +3,20 @@
 
 <!-- Header for Admin panel -->
 <header th:fragment="dash_header" class="dash-topbar">
-	<div class="response-message"></div>
+<!-- 	<div class="response-message"></div> -->
+	
+	<section class="fx-box fx-justify-sbtw fx-dir-row">
+	 	<div>logo</div>
+	 	<ul>
+	 		<li> 
+	 			<form th:action="@{/logout}" method="post">
+					<button type="submit" class="bttn bttn-sm bttn-link-light">Logout</button>
+				</form>
+	 		</li>
+	 	</ul>
+	</section>
+	
+	
 </header>
 
 <div th:fragment="dash_breadcrumbs(li)" class="dash-breadcrumbs">

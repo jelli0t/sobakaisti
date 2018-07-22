@@ -752,10 +752,7 @@ hr.socials-info-separator:before {
 /* 
 * ARTS Content preview 
 */
-.mvt-postprev-container {
-	margin-top: 18px;
-	margin-bottom: 24px;
-}
+
 .top-posts-header {
 	display: block !important;
 	border-bottom: 1px solid rgba(0, 0, 0, .15);
@@ -1095,9 +1092,7 @@ h3.article-prev-title {
 /*
 *	POST
 */
-.mvt-post-related {
-	background: #fafafa;
-}
+
 .post {
 	position: relative;
 	max-width: 980px;
