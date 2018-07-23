@@ -131,12 +131,13 @@ public class HomeController {
 	
 	
 	@RequestMapping(value="/comment/submit", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String submitComment(@Valid @ModelAttribute Comment comment, BindingResult result) {
+	public String submitComment(@Valid @ModelAttribute Comment comment, BindingResult result, Model model) {
 		
 		if(result.hasErrors()) {
 			String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
 				false, "Greska neispravno polje!");
-		} else {
+		} else {			
+			model.addAttribute("comment", comment);
 			return "commons/fragments :: commentFragment";
 		}		
 	}
