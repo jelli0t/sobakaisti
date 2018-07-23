@@ -53,6 +53,7 @@ div { display: block; }
 	
 	min-height: 34px;
     padding: 6px 8px;
+    font-family: inherit;
     font-size: 0.9em;
     line-height: 20px;
 

@@ -11,6 +11,7 @@ import org.sobakaisti.mail.MailService;
 import org.sobakaisti.mail.MailTemplateHelper;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
 import org.sobakaisti.util.CommitResult;
@@ -21,6 +22,7 @@ import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -134,7 +136,7 @@ public class HomeController {
 	public String submitComment(@Valid @ModelAttribute Comment comment, BindingResult result, Model model) {
 		
 		if(result.hasErrors()) {
-			String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
+			return String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
 				false, "Greska neispravno polje!");
 		} else {			
 			model.addAttribute("comment", comment);

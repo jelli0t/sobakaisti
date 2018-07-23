@@ -71,13 +71,16 @@ $(function() {
 	});
 	
 	
-	$('#post-comment-bttn').on('click', function(evt) {
+	$('#comment-section').on('click', '#post-comment-bttn', function(evt) {
 		evt.preventDefault();
+		alert('klicked!');
 		/* Post comment via ajax */
 		$('#post-comment-form').post_comment();
-	});
+	});	
 	
 });
+
+
 function getCsrfParams() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -213,7 +216,7 @@ $.fn.replace_contact_author = function() {
 
 $.fn.post_comment = function() {
 	var $form = $(this);
-	var json = $(this).serializeObject();
+	var json = $(this).serialize();
 	var uri = $(this).attr('action');
 	var csrf = getCsrfParams();		
 	console.log(JSON.stringify(json));
