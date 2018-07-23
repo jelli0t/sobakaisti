@@ -127,4 +127,17 @@ public class HomeController {
 		}		
 		return "redirect:/contact";
 	} 
+	
+	
+	
+	@RequestMapping(value="/comment/submit", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String submitComment(@Valid @ModelAttribute Comment comment, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
+				false, "Greska neispravno polje!");
+		} else {
+			return "commons/fragments :: commentFragment";
+		}		
+	}
 }
