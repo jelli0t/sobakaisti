@@ -49,6 +49,9 @@ public class Comment {
 	
 	private boolean enabled;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Post post;
+	
 	public Comment(String content, String plainAuthor) {
 		super();
 		this.content = content;
