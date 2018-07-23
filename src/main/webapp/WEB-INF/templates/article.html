@@ -116,7 +116,7 @@
 		<div class="top-posts-header">
 		    <span>Komentari</span>
 		</div>			
-		<th:block th:insert="~{commons/fragments :: leaveCommentFragment}"></th:block>
+		<th:block th:insert="~{commons/fragments :: leaveCommentFragment(postId=${post.id})}"></th:block>
 	</div>
 </section>
 	
