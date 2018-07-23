@@ -293,7 +293,14 @@ img {
 /* 	font-weight: normal; */
 	padding: 3px 10px;
 }
-
+.bttn-outline {
+  background: transparent;
+  font-weight: normal;
+}
+.bttn-outline:hover {
+  color: #269f42;
+  border-color: #269f42;
+}
 .bttn-select {
 	width: 100%;
 	font-size: 0.8em;
