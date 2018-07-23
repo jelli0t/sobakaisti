@@ -453,7 +453,7 @@
 	<!-- 
 		Comments
 	 -->
-	 <article th:fragment="leaveCommentFragment" style="max-width:740px;" 
+	 <article th:fragment="leaveCommentFragment" style="max-width:720px;" 
 		  class="shadow-def border-3-rad x-1em-padding y-1em-padding">
 	 	<form th:action="@{/comment/submit}" method="post" onkeypress="return event.keyCode != 13;" id="post-comment-form">			
 				
@@ -469,4 +469,15 @@
 		  </form>
 	 </article>
 	
+	
+	<article th:fragment="commentFragment" th:if="${comment != null}" style="max-width:720px;" 
+		  class="shadow-def border-3-rad x-2em-padding y-1em-padding">
+		<header>
+			<div th:if="${comment.authenticatedAuthor != null}">User from msystem</div>
+			<div th:unless="${comment.authenticatedAuthor != null}">Anonymus user</div>
+		</header>
+		<!-- Comment body -->
+		<main th:text="${comment.content}"></main>
+		<footer></footer>
+	</article>
 </html>
