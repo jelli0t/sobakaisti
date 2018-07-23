@@ -74,6 +74,12 @@ div { display: block; }
     font-size: 16px;
     border-radius: 5px;
 }
+.flat-input {
+	background-color: #fff;
+	border: none;
+	box-shadow: none;
+}
+
 
 
 /*	HEADER	*/
