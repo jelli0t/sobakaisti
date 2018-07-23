@@ -70,8 +70,19 @@ $(function() {
 		$('span.circle-filter', this).addClass('chosen-author');
 	});
 	
+	
+	$('#post-comment-bttn').on('click', function(evt) {
+		evt.preventDefault();
+		/* Post comment via ajax */
+		$('#post-comment-form').post_comment();
+	});
+	
 });
-
+function getCsrfParams() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	return [ header, token ];
+}
 var endReached = false;
 
 function resizeTriangle(labelWidth){
@@ -197,4 +208,43 @@ $.fn.replace_contact_author = function() {
 	    console.log("Error: " + errorThrown );
 	    console.log( "Status: " + status );
 	})    
+}
+
+
+$.fn.post_comment = function() {
+	var $form = $(this);
+	var json = $(this).serializeObject();
+	var uri = $(this).attr('action');
+	var csrf = getCsrfParams();		
+	console.log(JSON.stringify(json));
+	$.ajax({
+		url: uri,
+		type : 'POST',
+		contentType: 'application/json; charset=utf-8',
+		data: JSON.stringify(json),
+		dataType : 'json',
+		beforeSend: function(xhr) {
+		    xhr.setRequestHeader(csrf[0], csrf[1]);
+		}
+	})
+	.done(function( json ) {
+		$('.response-message').showResponseMessage('Uspešno postovan članak.', true);
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Status: " + status );
+	    console.dir( xhr );
+	    
+	    var err = xhr.responseJSON;
+	    console.log(err);
+	    if(err.field === 'title'){
+	    	console.log(err.defaultMessage);
+	    	var $input = $('input[name=title]', $form);
+	    	$input.addClass('error-border');
+	    	$input.next('.validation-error').text(err.defaultMessage).show();
+	    }
+//	    $('#post-article-form input[name=title]').addClass('error-border');
+	    
+	}).always(function( xhr, status ) {
+		console.log( "After adding: " + status );		
+	});
 }
