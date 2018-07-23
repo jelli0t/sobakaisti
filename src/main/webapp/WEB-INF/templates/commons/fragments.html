@@ -453,10 +453,10 @@
 	<!-- 
 		Comments
 	 -->
-	 <article th:fragment="leaveCommentFragment" style="max-width:720px;" 
+	 <article th:fragment="leaveCommentFragment(postId)" style="max-width:720px;" 
 		  class="shadow-def border-3-rad x-1em-padding y-1em-padding">
 	 	<form th:action="@{/comment/submit}" method="post" onkeypress="return event.keyCode != 13;" id="post-comment-form">			
-				
+			<input type="hidden" name="post.id" th:value="${postId}">			
 			<input type="text" class="def-input flat-input" placeholder="Vase ime">
 	<!-- 		<div class="validation-error" th:errors="*{subject}"></div>    -->			
 			<hr />
