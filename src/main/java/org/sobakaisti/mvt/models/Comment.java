@@ -24,9 +24,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author jelli0t
  *
  */
-@Entity
-@Table(name="comment")
-public class Comment {
+@MappedSuperclass
+public abstract class Comment {
 	
 	public static final boolean COMMENT_DEFAULT_ENABLED = true;
 
@@ -49,30 +48,8 @@ public class Comment {
 	@Valid
 	private User authenticatedAuthor;
 	
-	private boolean enabled;
+	private boolean enabled;	
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	private Post post;
-	
-	public Comment() {}
-	
-	public Comment(String content, String plainAuthor) {
-		super();
-		this.content = content;
-		this.plainAuthor = plainAuthor;
-		this.postDate = Calendar.getInstance();
-		this.setEnabled(COMMENT_DEFAULT_ENABLED);
-	}	
-
-	public Comment(String content, User authenticatedAuthor) {
-		super();
-		this.content = content;
-		this.authenticatedAuthor = authenticatedAuthor;
-		this.postDate = Calendar.getInstance();
-		this.setEnabled(COMMENT_DEFAULT_ENABLED);
-	}
-
-
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -108,13 +85,5 @@ public class Comment {
 	public Calendar getPostDate() {
 		return postDate;
 	}
-
-//	public Post getPost() {
-//		return post;
-//	}
-//
-//	public void setPost(Post post) {
-//		this.post = post;
-//	}	
 		
 }
