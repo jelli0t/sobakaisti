@@ -133,9 +133,11 @@ public class HomeController {
 	
 	
 	@RequestMapping(value="/comment/submit", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String submitComment(@Valid @ModelAttribute Comment comment, BindingResult result, Model model) {
+	public String submitComment(@ModelAttribute Comment comment, Model model) {
 		
-		if(result.hasErrors()) {
+		//TODO uradi custom validaciju autora i poruke
+		
+		if(comment == null) {
 			return String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
 				false, "Greska neispravno polje!");
 		} else {			
