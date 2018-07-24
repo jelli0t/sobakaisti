@@ -33,6 +33,28 @@ public abstract class Post {
 	
 	public static final int ACTIVE = 1;
 	public static final int NONACTIVE = 0;
+	
+	public enum Origin {
+		ARTICLE(Article.class.geName()),
+		PUBLICATION(Publication.class.getName()),
+		MEDIA(Media.class.getName());
+		
+		private String entityName;
+
+		private Origin(String value) {
+			this.entityName = value;
+		}		
+		public String getEntityName() {
+			return this.entityName;
+		}
+		/**/
+		public static Origin getByEntityType(Class entityType) {
+			for(Origin origin : Arrays.asList(Origin.values())) {
+				if(origin.getEntityName().equals(entityType.getName()))
+					return origin;
+			}
+		}
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
