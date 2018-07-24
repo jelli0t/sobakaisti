@@ -5,6 +5,8 @@ package org.sobakaisti.mvt.models;
 @DiscriminatorValue(value = CommentOrigin.ARTICLE)
 public class ArticleComment extends Comment {
 
+  @Column(name="post_id")
+  private Article article;
 
-
+  //TODO getters setters
 }
