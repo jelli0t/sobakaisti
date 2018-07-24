@@ -59,12 +59,11 @@ public class Comment {
 	/**
 	* Default constructor
 	*/
-	public Comment() {}
-	/**
-	* Basic comment constructor
-	*/
-	
-	
+	public Comment() {
+		this.enabled = COMMENT_DEFAULT_ENABLED;
+		this.postDate = Calendar.getInstance();
+	}
+		
 	public boolean isEnabled() {
 		return enabled;
 	}
