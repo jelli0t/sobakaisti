@@ -3,6 +3,7 @@
  */
 package org.sobakaisti.mvt.models;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 import javax.persistence.Access;
@@ -35,7 +36,7 @@ public abstract class Post {
 	public static final int NONACTIVE = 0;
 	
 	public enum Origin {
-		ARTICLE(Article.class.geName()),
+		ARTICLE(Article.class.getName()),
 		PUBLICATION(Publication.class.getName()),
 		MEDIA(Media.class.getName());
 		
@@ -48,11 +49,12 @@ public abstract class Post {
 			return this.entityName;
 		}
 		/**/
-		public static Origin getByEntityType(Class entityType) {
+		public static Origin getByEntityType(Class<? extends Post> entityType) {
 			for(Origin origin : Arrays.asList(Origin.values())) {
 				if(origin.getEntityName().equals(entityType.getName()))
 					return origin;
 			}
+			return null;
 		}
 	}
 

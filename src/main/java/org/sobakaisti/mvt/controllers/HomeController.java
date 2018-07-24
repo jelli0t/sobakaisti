@@ -30,6 +30,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -132,9 +133,9 @@ public class HomeController {
 	
 	
 	
-	@RequestMapping(value="/comment/submit", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String submitComment(@ModelAttribute Comment comment, Model model) {
-		
+	@RequestMapping(value="/comment/submit", method=RequestMethod.POST)
+	public String submitComment(@RequestBody Comment comment, Model model) {
+		System.out.println("comment: "+comment.getContent() + "; author: "+comment.getAnonymousAuthor());
 		//TODO uradi custom validaciju autora i poruke
 		
 		if(comment == null) {

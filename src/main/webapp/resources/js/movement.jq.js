@@ -71,7 +71,7 @@ $(function() {
 	});
 	
 	
-	$('#comment-section').on('click', '#post-comment-bttn', function(evt) {
+	$('#post-comment-bttn').on('click', function(evt) {
 		evt.preventDefault();
 		alert('klicked!');
 		/* Post comment via ajax */
@@ -215,17 +215,19 @@ $.fn.replace_contact_author = function() {
 
 
 $.fn.post_comment = function() {
-	var $form = $(this);
+//	var $form = $(this);
+	var fdata = new FormData($(this)[0]);
 	var json = $(this).serialize();
 	var uri = $(this).attr('action');
-	var csrf = getCsrfParams();		
-	console.log(JSON.stringify(json));
+	var csrf = getCsrfParams();
+	console.log('form data: '+json);
+	console.log('URL: '+uri);
 	$.ajax({
 		url: uri,
 		type : 'POST',
 		contentType: 'application/json; charset=utf-8',
 		data: JSON.stringify(json),
-		dataType : 'json',
+		dataType: 'html',
 		beforeSend: function(xhr) {
 		    xhr.setRequestHeader(csrf[0], csrf[1]);
 		}

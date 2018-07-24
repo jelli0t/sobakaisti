@@ -456,14 +456,14 @@
 	 <article th:fragment="leaveCommentFragment(postId)" style="max-width:720px; background:#fff;" 
 		  class="shadow-def border-3-rad x-1em-padding y-1em-padding">
 	 	<form th:action="@{/comment/submit}" method="post" onkeypress="return event.keyCode != 13;" id="post-comment-form">			
-			<input type="hidden" name="post.id" th:value="${postId}">	
+			<input type="hidden" name="post_id" th:value="${postId}">	
 			<div class="input-holder">		
-				<input type="text" class="def-input flat-input" placeholder="Vase ime">
+				<input type="text" name="anonymousAuthor" class="def-input flat-input" placeholder="Vase ime">
 			</div>
 	<!-- 		<div class="validation-error" th:errors="*{subject}"></div>    -->			
 			<hr />
 			<div class="input-holder">
-				<textarea name="message" rows="5" class="def-input flat-input" placeholder="Unesite vas komentar"></textarea>
+				<textarea name="content" rows="5" class="def-input flat-input" placeholder="Unesite vas komentar"></textarea>
 	<!-- 		<div class="validation-error" th:errors="*{message}"></div> -->			
 			</div> 
 			<div class="input-holder full-input-holder aright">    

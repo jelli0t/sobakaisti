@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,9 +39,8 @@ public class Comment {
 	@Column(name="post_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Calendar postDate;
+	private Calendar postDate;	
 	
-	@NotEmpty(message="{validation.warn.mail.notEmpty}")
 	@Column(name="anonymous_author")
 	private String anonymousAuthor;
 	
@@ -47,6 +48,7 @@ public class Comment {
 	@Column(name="user_id")
 	private User authenticatedAuthor;
 	
+	@Column(name="enabled", nullable = false, columnDefinition = "TINYINT", length = 1)
 	private boolean enabled;
 	
 	@Column(name = "post_id")
@@ -74,21 +76,47 @@ public class Comment {
 	public long getId() {
 		return id;
 	}
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}	
 
-	public String getPlainAuthor() {
-		return plainAuthor;
+	public String getAnonymousAuthor() {
+		return anonymousAuthor;
 	}
 
-	public void setPlainAuthor(String plainAuthor) {
-		this.plainAuthor = plainAuthor;
+	public void setAnonymousAuthor(String anonymousAuthor) {
+		this.anonymousAuthor = anonymousAuthor;
+	}
+
+	public int getPostId() {
+		return postId;
+	}
+
+	public void setPostId(int postId) {
+		this.postId = postId;
+	}
+
+	public Post.Origin getCommentOrigin() {
+		return commentOrigin;
+	}
+
+	public void setCommentOrigin(Post.Origin commentOrigin) {
+		this.commentOrigin = commentOrigin;
+	}
+
+	public void setPostDate(Calendar postDate) {
+		this.postDate = postDate;
+	}
+
+	public void setAuthenticatedAuthor(User authenticatedAuthor) {
+		this.authenticatedAuthor = authenticatedAuthor;
 	}
 
 	public User getAuthenticatedAuthor() {
@@ -97,8 +125,8 @@ public class Comment {
 
 	public Calendar getPostDate() {
 		return postDate;
-	}
-		
+	}	
+
 	public boolean isAuthenticatedAuthor() {
 		return this.authenticatedAuthor != null;
 	}
