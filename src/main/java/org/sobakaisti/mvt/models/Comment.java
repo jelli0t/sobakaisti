@@ -24,10 +24,20 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author jelli0t
  *
  */
+@Entity
+@Table(name = "comment")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="comment_origin", discriminatorType=DiscriminatorType.STRING)
 @MappedSuperclass
 public abstract class Comment {
 	
 	public static final boolean COMMENT_DEFAULT_ENABLED = true;
+	
+	public enum CommentOrigin {
+	    ARTICLE,
+	    PUBLICATION,
+	    MEDIA
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,6 +59,10 @@ public abstract class Comment {
 	private User authenticatedAuthor;
 	
 	private boolean enabled;	
+	
+	@Enumerated(EnumType.STRING)
+   	@Column(name = "comment_origin", insertable = false, updatable = false)
+	private CommentOrigin commentOrigin;
 	
 	public boolean isEnabled() {
 		return enabled;
