@@ -55,9 +55,11 @@ public class Comment {
 	private Calendar postDate;
 	
 	@NotEmpty(message="{validation.warn.mail.notEmpty}")
-	private String plainAuthor;
+	@Column(name="anonymous_author")
+	private String anonymousAuthor;
 	
 	@Valid
+	@Column(name="user_id")
 	private User authenticatedAuthor;
 	
 	private boolean enabled;
@@ -68,6 +70,14 @@ public class Comment {
 	@Enumerated(EnumType.STRING)
    	@Column(name = "comment_origin")
 	private CommentOrigin commentOrigin;
+	
+	/**
+	* Default constructor
+	*/
+	public Comment() {}
+	/**
+	* Basic comment constructor
+	*/
 	
 	
 	public boolean isEnabled() {
@@ -105,4 +115,7 @@ public class Comment {
 		return postDate;
 	}
 		
+	public boolean isAuthenticatedAuthor() {
+		return this.authenticatedAuthor != null;
+	}
 }
