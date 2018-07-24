@@ -31,13 +31,20 @@ public class Comment {
 		PUBLICATION(Publication.class.getName()),
 		MEDIA(Media.class.getName());
 		
-		private String entity;
+		private String entityName;
 
 		private CommentOrigin(String value) {
-			this.entity = value;
+			this.entityName = value;
 		}		
-		public String getEntity() {
-			return this.entity;
+		public String getEntityName() {
+			return this.entityName;
+		}
+		
+		public static CommentOrigin getByEntityType(Class entityType) {
+			for(CommentOrigin origin : Arrays.asList(CommentOrigin.values())) {
+				if(origin.getEntityName().equals(entityType.getName()))
+					return origin;
+			}
 		}
 	}
 
