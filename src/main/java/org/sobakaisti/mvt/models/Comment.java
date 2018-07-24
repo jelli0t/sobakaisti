@@ -24,30 +24,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "comment")
 public class Comment {	
-	public static final boolean COMMENT_DEFAULT_ENABLED = true;
+	public static final boolean COMMENT_DEFAULT_ENABLED = true;	
 	
-	public enum CommentOrigin {
-		ARTICLE(Article.class.geName()),
-		PUBLICATION(Publication.class.getName()),
-		MEDIA(Media.class.getName());
-		
-		private String entityName;
-
-		private CommentOrigin(String value) {
-			this.entityName = value;
-		}		
-		public String getEntityName() {
-			return this.entityName;
-		}
-		
-		public static CommentOrigin getByEntityType(Class entityType) {
-			for(CommentOrigin origin : Arrays.asList(CommentOrigin.values())) {
-				if(origin.getEntityName().equals(entityType.getName()))
-					return origin;
-			}
-		}
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
@@ -76,7 +54,7 @@ public class Comment {
 	
 	@Enumerated(EnumType.STRING)
    	@Column(name = "comment_origin")
-	private CommentOrigin commentOrigin;
+	private Post.Origin commentOrigin;
 	
 	/**
 	* Default constructor
