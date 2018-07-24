@@ -28,15 +28,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "comment")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="comment_origin", discriminatorType=DiscriminatorType.STRING)
-@MappedSuperclass
-public abstract class Comment {
-	
+public abstract class Comment {	
 	public static final boolean COMMENT_DEFAULT_ENABLED = true;
 	
 	public enum CommentOrigin {
-	    ARTICLE,
-	    PUBLICATION,
-	    MEDIA
+		ARTICLE("ARTICLE"),
+		PUBLICATION("PUBLICATION"),
+		MEDIA("MEDIA");
+		
+		private String value;
+
+		private CommentOrigin(String value) {
+			this.value = value;
+		}
 	}
 
 	@Id
