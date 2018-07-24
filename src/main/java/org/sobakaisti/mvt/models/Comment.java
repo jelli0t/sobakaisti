@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
@@ -26,20 +23,21 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "comment")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="comment_origin", discriminatorType=DiscriminatorType.STRING)
-public abstract class Comment {	
+public class Comment {	
 	public static final boolean COMMENT_DEFAULT_ENABLED = true;
 	
 	public enum CommentOrigin {
-		ARTICLE("ARTICLE"),
-		PUBLICATION("PUBLICATION"),
-		MEDIA("MEDIA");
+		ARTICLE(Article.class.geName()),
+		PUBLICATION(Publication.class.getName()),
+		MEDIA(Media.class.getName());
 		
-		private String value;
+		private String entity;
 
 		private CommentOrigin(String value) {
-			this.value = value;
+			this.entity = value;
+		}		
+		public String getEntity() {
+			return this.entity;
 		}
 	}
 
@@ -62,16 +60,19 @@ public abstract class Comment {
 	@Valid
 	private User authenticatedAuthor;
 	
-	private boolean enabled;	
+	private boolean enabled;
+	
+	@Column(name = "post_id")
+	private int postId;
 	
 	@Enumerated(EnumType.STRING)
-   	@Column(name = "comment_origin", insertable = false, updatable = false)
+   	@Column(name = "comment_origin")
 	private CommentOrigin commentOrigin;
+	
 	
 	public boolean isEnabled() {
 		return enabled;
 	}
-
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
