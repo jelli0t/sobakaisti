@@ -216,11 +216,11 @@ $.fn.replace_contact_author = function() {
 
 $.fn.post_comment = function() {
 //	var $form = $(this);
-	var fdata = new FormData($(this)[0]);
-	var json = $(this).serialize();
+//	var fdata = new FormData($(this)[0]);
+	var json = $(this).serializeObject();
 	var uri = $(this).attr('action');
 	var csrf = getCsrfParams();
-	console.log('form data: '+json);
+	console.log('form data: '+JSON.stringify(json));
 	console.log('URL: '+uri);
 	$.ajax({
 		url: uri,
@@ -230,7 +230,7 @@ $.fn.post_comment = function() {
 		dataType: 'html',
 		beforeSend: function(xhr) {
 		    xhr.setRequestHeader(csrf[0], csrf[1]);
-		}
+		}		
 	})
 	.done(function( json ) {
 		$('.response-message').showResponseMessage('Uspešno postovan članak.', true);
@@ -238,18 +238,40 @@ $.fn.post_comment = function() {
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Status: " + status );
 	    console.dir( xhr );
+	    console.dir( xhr );
 	    
 	    var err = xhr.responseJSON;
 	    console.log(err);
-	    if(err.field === 'title'){
-	    	console.log(err.defaultMessage);
-	    	var $input = $('input[name=title]', $form);
-	    	$input.addClass('error-border');
-	    	$input.next('.validation-error').text(err.defaultMessage).show();
-	    }
+	  
 //	    $('#post-article-form input[name=title]').addClass('error-border');
 	    
 	}).always(function( xhr, status ) {
 		console.log( "After adding: " + status );		
 	});
 }
+
+$.fn.serializeObject = function()
+{ 
+    var o = {};    
+    var a = this.serializeArray();
+    $.each(a, function() {    	
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+            	var cat = {};
+            	cat['id'] = o[this.name];
+                o[this.name] = [cat];
+            }
+            var cat = {};
+        	cat['id'] = this.value || '';
+        	o[this.name].push(cat);
+        } else {
+        	o[this.name] = this.value || '';
+            if(this.name === 'author'){ 
+            	var author = {};
+            	author['id'] = this.value || '';
+            	o[this.name] = author;
+            }
+        }
+    });
+    return o;
+};

@@ -1,5 +1,6 @@
 package org.sobakaisti.mvt.models;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -25,13 +26,18 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "comment")
-public class Comment {	
+public class Comment implements Serializable{	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final boolean COMMENT_DEFAULT_ENABLED = true;	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
-	private long id;
+	private int id;
 	
 	@NotEmpty(message="{validation.warn.mail.notEmpty}")
 	private String content;
@@ -65,7 +71,7 @@ public class Comment {
 		this.enabled = COMMENT_DEFAULT_ENABLED;
 		this.postDate = Calendar.getInstance();
 	}
-		
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -73,13 +79,12 @@ public class Comment {
 		this.enabled = enabled;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getContent() {
 		return content;
 	}

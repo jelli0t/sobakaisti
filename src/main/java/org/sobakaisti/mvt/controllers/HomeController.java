@@ -134,15 +134,18 @@ public class HomeController {
 	
 	
 	@RequestMapping(value="/comment/submit", method=RequestMethod.POST)
-	public String submitComment(@RequestBody Comment comment, Model model) {
-		System.out.println("comment: "+comment.getContent() + "; author: "+comment.getAnonymousAuthor());
+	public String submitComment(@RequestParam(name="postId") int postId,
+			@RequestParam("content") String content,
+			@RequestParam(name="anonymousAuthor") String anonymousAuthor,
+			Model model) {
+		System.out.println("comment: "+content + "; author: "+anonymousAuthor);
 		//TODO uradi custom validaciju autora i poruke
 		
-		if(comment == null) {
+		if(content == null) {
 			return String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
 				false, "Greska neispravno polje!");
 		} else {			
-			model.addAttribute("comment", comment);
+			model.addAttribute("comment", content);
 			return "commons/fragments :: commentFragment";
 		}		
 	}
