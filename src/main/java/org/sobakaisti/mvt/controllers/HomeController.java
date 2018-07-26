@@ -133,7 +133,7 @@ public class HomeController {
 	
 	
 	
-	@RequestMapping(value="/comment/submit", method=RequestMethod.POST)
+	@RequestMapping(value="/comment/submit", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String submitComment(@RequestParam(name="postId") int postId,
 			@RequestParam("content") String content,
 			@RequestParam(name="anonymousAuthor") String anonymousAuthor,
