@@ -39,7 +39,7 @@ public class Comment implements Serializable{
 	@Column(name="id")
 	private int id;
 	
-	@NotEmpty(message="{validation.warn.mail.notEmpty}")
+	@Column(name="content")
 	private String content;
 	
 	@Column(name="post_date")

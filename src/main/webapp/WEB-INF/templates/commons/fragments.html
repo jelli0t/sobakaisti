@@ -453,9 +453,9 @@
 	<!-- 
 		Comments
 	 -->
-	 <article th:fragment="leaveCommentFragment(postId)" style="max-width:720px; background:#fff;" 
-		  class="shadow-def border-3-rad x-1em-padding y-1em-padding">
-	 	<form action="/comment/submit" method="post" onkeypress="return event.keyCode != 13;" id="post-comment-form">	<!-- th:action="@{/comment/submit}" -->		
+	 <article th:fragment="leaveCommentFragment(postId)" 
+		  class="border-3-rad x-1em-padding y-1em-padding comment-input-box">
+	 	<form action="/comment/submit" method="post" th:attr="data-action=@{/comment/submit}" onkeypress="return event.keyCode != 13;" id="post-comment-form">	<!-- th:action="@{/comment/submit}" -->		
 			<input type="hidden" name="postId" th:value="${postId}">	
 			<div class="input-holder">		
 				<input type="text" name="anonymousAuthor" class="def-input flat-input" placeholder="Vase ime">

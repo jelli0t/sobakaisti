@@ -115,8 +115,14 @@
 	<div class="center-main-width fx-box fx-dir-col fx-justify-cnt">
 		<div class="top-posts-header">
 		    <span>Komentari</span>
-		</div>			
+		</div>
+		<!-- Commit message -->
+		<div class="commit-response-holder full-width" id="commit-result"></div>
 		<th:block th:insert="~{commons/fragments :: leaveCommentFragment(postId=${post.id})}"></th:block>
+		<div id="posted-comment-container">
+			<th:block th:each="comment, item : ${postComments}" th:insert="~{commons/fragments :: commentFragment}">			
+			</th:block>
+		</div>
 	</div>
 </section>
 	
@@ -163,7 +169,5 @@
 	</article>
 	
 <footer th:replace="~{commons/mvt_footer :: mvt_main_footer}"></footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{/resources/js/movement.jq.js}"></script>
 </body>
 </html>

@@ -9,9 +9,12 @@ import java.util.List;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Category;
+import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Post.Origin;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.CategoryService;
+import org.sobakaisti.mvt.service.CommentService;
 import org.sobakaisti.mvt.service.PostService;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.TextUtil;
@@ -37,6 +40,8 @@ public class ArtsController {
 	private CategoryService categoryService;	
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private CommentService commentService;
 	
 	private int initFetched = 0;
 	private int articlesFetched = 0;
@@ -146,6 +151,10 @@ public class ArtsController {
 			model.addAttribute(PostService.POST_SORTING_ALLOWED_PARAM, false);
 			model.addAttribute(PostService.META_CIRCLE_ALLOWED_ATTR, true);
 			model.addAttribute(TextUtil.URL_BASIS_ATTR_NAME, "arts" + TextUtil.SLASH_CHAR + category);
+			
+			List<Comment> postComments = commentService.findPostComments(fullArticle.getId(), Origin.ARTICLE, 0, 3);
+			if(postComments != null && postComments.size() > 0)
+				model.addAttribute("postComments", postComments);
 		}
 		return "article";
 	}

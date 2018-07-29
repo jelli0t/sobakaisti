@@ -1189,6 +1189,26 @@ h3.article-prev-title {
 	padding: 0 60px;
 	box-sizing: border-box;
 }
+/*
+	Comments
+*/
+.comment-input-box {
+	max-width: 720px;
+	position: relative;
+    background-color: #fff;
+    border: 1px solid #d1d5da;	
+}
+.posted-comment-container::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 79px;
+    z-index: -1;
+    display: block;
+    width: 2px;
+    content: "";
+    background-color: #e6ebf1;
+}
 
 /* Side post */
 .side-article-prev {

@@ -10,10 +10,12 @@ import javax.validation.Valid;
 import org.sobakaisti.mail.MailService;
 import org.sobakaisti.mail.MailTemplateHelper;
 import org.sobakaisti.mvt.dao.ArticleDao;
+import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
+import org.sobakaisti.mvt.service.CommentService;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.MailMessage;
 import org.sobakaisti.util.PropertiesUtil;
@@ -50,6 +52,9 @@ public class HomeController {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	@RequestMapping(value="/")
 	public String displayHome(){		
@@ -138,12 +143,22 @@ public class HomeController {
 		System.out.println("comment: "+comment.getContent() + "; author: "+comment.getAnonymousAuthor());
 		//TODO uradi custom validaciju autora i poruke
 		
-		if(comment == null) {
+		if(comment.getAnonymousAuthor() == null || comment.getContent() == null) {
 			return String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
 				false, "Greska neispravno polje!");
-		} else {			
+		} else {
+			comment = commentService.populateAndSave(comment, Article.class);
 			model.addAttribute("comment", comment);
 			return "commons/fragments :: commentFragment";
 		}		
+	}
+	
+	@RequestMapping(value="/commit/result", method=RequestMethod.GET)
+	public String ajaxCommitresultShow(@RequestParam("commited") boolean commited,
+			@RequestParam("messageCode") String messageCode, Model model) {		
+		System.out.println("commited: "+commited+" message: "+messageCode);
+		model.addAttribute("commitResult", new CommitResult(commited, messageCode));
+		return String.format("commons/fragments :: commitResultFragment(commited='%s', message='%s')",
+				commited, messageCode);
 	}
 }

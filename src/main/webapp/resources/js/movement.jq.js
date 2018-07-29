@@ -216,12 +216,8 @@ $.fn.replace_contact_author = function() {
 $.fn.post_comment = function() {
 	var $form = $(this);
 	var json = $(this).serializeObject();
-	var uri = $(this).attr('action');
-	var csrf = getCsrfParams();
-	
-	console.log('URL: '+uri);
-	console.log( JSON.stringify(json) );
-		
+	var uri = $(this).attr('data-action');
+	var csrf = getCsrfParams();		
 	$.ajax({
 		url: uri,
 		type : 'POST',
@@ -232,8 +228,9 @@ $.fn.post_comment = function() {
 		    xhr.setRequestHeader(csrf[0], csrf[1]);
 		}
 	})
-	.done(function( json ) {
-		$('.response-message').showResponseMessage('Uspešno postovan članak.', true);
+	.done(function( comment ) {
+		$('#commit-result').show_commit_result(true, 'Uspesno ste objavili komentar.');
+		$('#posted-comment-container').append(comment);
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Status: " + status );
@@ -249,6 +246,23 @@ $.fn.post_comment = function() {
 		console.log( "After adding: " + status );		
 	});
 }
+
+$.fn.show_commit_result = function(commited, messageCode) {
+    $.ajax({
+    	url: '/sobakaisti/commit/result?commited=' + commited + '&messageCode='+messageCode,
+		type : 'GET',
+		dataType: 'html',
+	}).done(function( commitResult ) {
+		console.log(commitResult);
+//		if (commitResult) {
+			$('#commit-result').html(commitResult);
+//		}	
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})    
+}
+
 
 $.fn.serializeObject = function() {
     var o = {};
