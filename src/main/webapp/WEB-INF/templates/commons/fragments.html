@@ -473,14 +473,18 @@
 	 </article>
 	
 	
-	<article th:fragment="commentFragment" th:if="${comment != null}" style="max-width:720px;" 
-		  class="shadow-def border-3-rad x-2em-padding y-1em-padding">
-		<header>
-			<div th:if="${comment.authenticatedAuthor != null}">User from msystem</div>
-			<div th:unless="${comment.authenticatedAuthor != null}">Anonymus user</div>
-		</header>
-		<!-- Comment body -->
-		<main th:text="${comment.content}"></main>
-		<footer></footer>
+	<article th:fragment="commentFragment" th:if="${comment != null}" class="fx-box fx-dir-row fx-valign-start comment-container">
+		<div class="comment-avatar">
+			<span class="circle circle-small"> </span>
+		</div>
+		<div class="comment-post border-3-rad">
+			<header class="x-1em-padding">
+				<div th:if="${comment.authenticatedAuthor != null}">User from msystem</div>
+				<div th:unless="${comment.authenticatedAuthor != null}">Anonymus user</div>
+			</header>
+			<!-- Comment body -->
+			<div class="x-1em-padding y-1em-padding" th:text="${comment.content}"></div>
+			<footer></footer>
+		</div>		
 	</article>
 </html>

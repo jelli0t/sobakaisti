@@ -11,7 +11,7 @@
 	
 <section>
 	<div class="center-main-width fx-box fx-justify-cnt mvt-post-container">
-		<article th:with="post=${article}" class="post">
+		<article th:if="${article!=null}" th:with="post=${article}" class="post">
 			<div class="post-body" th:utext="${post.content}"></div>
 		</article>
 	</div>

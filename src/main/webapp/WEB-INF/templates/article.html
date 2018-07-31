@@ -59,10 +59,10 @@
 *	Top Recomendation articles  *
 -->
 <section class="bgd-lightgray y-2em-padding">
-	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw">
+	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw" id="recommends">
 		<!-- top section header -->
 		<div class="top-posts-header">
-		    <span>Preporu�ujemo</span>
+		    <span th:text="#{label.recommend}">Recommend</span>
 		</div>
 		<article class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-basic"
 				th:each="rl_post, item : ${relatedPosts}" th:unless="${item.index > 2}">
@@ -100,7 +100,9 @@
 						</div>
 					</div>	
 			    	<div class="mvt-postprev-tools">
-			            Tool
+			    		<a th:href="@{/{url_basis}/{slug}(url_basis=${URL_BASIS}, slug=${rl_post.slug})}">
+			            	<img alt="" th:src="@{/resources/img/icons/comment.svg}" height="16">
+			        	</a>
 			        </div>				    
 			</footer>
 			</div>
@@ -112,17 +114,18 @@
 	Post Comments
  -->
 <section class="bgd-lightgray y-1em-padding" id="comment-section">
-	<div class="center-main-width fx-box fx-dir-col fx-justify-cnt">
+	<div class="center-main-width fx-box fx-dir-col fx-justify-cnt" id="comments">
 		<div class="top-posts-header">
-		    <span>Komentari</span>
+		    <span th:text="#{label.comments}">Komentari</span>
+		</div>		
+		
+		<div id="js-comment-container" class="y-1em-padding posted-comment-container">
+			<th:block th:each="comment, item : ${postComments}" th:insert="~{commons/fragments :: commentFragment}">			
+			</th:block>
 		</div>
 		<!-- Commit message -->
 		<div class="commit-response-holder full-width" id="commit-result"></div>
 		<th:block th:insert="~{commons/fragments :: leaveCommentFragment(postId=${post.id})}"></th:block>
-		<div id="posted-comment-container">
-			<th:block th:each="comment, item : ${postComments}" th:insert="~{commons/fragments :: commentFragment}">			
-			</th:block>
-		</div>
 	</div>
 </section>
 	

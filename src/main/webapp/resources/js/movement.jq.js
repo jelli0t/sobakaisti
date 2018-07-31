@@ -230,7 +230,7 @@ $.fn.post_comment = function() {
 	})
 	.done(function( comment ) {
 		$('#commit-result').show_commit_result(true, 'Uspesno ste objavili komentar.');
-		$('#posted-comment-container').append(comment);
+		$('#js-comment-container').append(comment);
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Status: " + status );
