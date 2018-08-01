@@ -117,6 +117,7 @@
 	<div class="center-main-width fx-box fx-dir-col fx-justify-cnt" id="comments">
 		<div class="top-posts-header">
 		    <span th:text="#{label.comments}">Komentari</span>
+		    <span th:if="${COMMENTS_COUNT != null}" th:text="|(${COMMENTS_COUNT})|"></span>
 		</div>		
 		
 		<div id="js-comment-container" class="y-1em-padding posted-comment-container">

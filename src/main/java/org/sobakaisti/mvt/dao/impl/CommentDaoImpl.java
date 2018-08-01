@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Post.Origin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -67,6 +68,22 @@ public class CommentDaoImpl implements CommentDao {
 			// TODO: handle exception
 		}		
 		return comments;
+	}
+
+	@Override
+	public int countCommentsPerPost(int postId, Origin postOrigin) {
+		String HQL = "select count(c.id) from Comment c where c.enabled = 1 and c.postId = :postId and c.commentOrigin = :origin";
+		try {
+			Query query = sessionFactory.getCurrentSession().createQuery(HQL);
+			query.setParameter("postId", postId);
+			query.setParameter("origin", postOrigin);
+			Integer counted = (Integer) query.uniqueResult();
+			if(counted != null)
+				return counted.intValue();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
+		return 0;
 	}
 	
 }

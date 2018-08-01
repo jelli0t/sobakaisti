@@ -231,6 +231,7 @@ $.fn.post_comment = function() {
 	.done(function( comment ) {
 		$('#commit-result').show_commit_result(true, 'Uspesno ste objavili komentar.');
 		$('#js-comment-container').append(comment);
+		$form[0].reset();
 	})
 	.fail(function( xhr, status, errorThrown ) {
 	    console.log( "Status: " + status );
@@ -253,10 +254,9 @@ $.fn.show_commit_result = function(commited, messageCode) {
 		type : 'GET',
 		dataType: 'html',
 	}).done(function( commitResult ) {
-		console.log(commitResult);
-//		if (commitResult) {
-			$('#commit-result').html(commitResult);
-//		}	
+		$('#commit-result').html(commitResult).delay(3000).queue(function() {
+			   $(this).html('');
+		});
 	}).fail(function( xhr, status, errorThrown ) {
 	    console.log("Error: " + errorThrown );
 	    console.log( "Status: " + status );

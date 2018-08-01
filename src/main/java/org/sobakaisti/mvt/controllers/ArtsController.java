@@ -153,8 +153,14 @@ public class ArtsController {
 			model.addAttribute(TextUtil.URL_BASIS_ATTR_NAME, "arts" + TextUtil.SLASH_CHAR + category);
 			
 			List<Comment> postComments = commentService.findPostComments(fullArticle.getId(), Origin.ARTICLE, 0, 3);
-			if(postComments != null && postComments.size() > 0)
+			if(postComments != null && postComments.size() > 0) {
 				model.addAttribute("postComments", postComments);
+				model.addAttribute(CommentService.COMMENTS_COUNT_MODEL_ATTRIBUTE_NAME, 
+						commentService.countPostComments(fullArticle.getId(), Origin.ARTICLE));
+			}
+				
+			
+			
 		}
 		return "article";
 	}

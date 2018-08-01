@@ -33,5 +33,10 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return commentDao.save(comment);
 	}
+	
+	@Override
+	public int countPostComments(int postId, Origin postOrigin) {
+		return commentDao.countCommentsPerPost(postId, postOrigin);
+	}
 
 }

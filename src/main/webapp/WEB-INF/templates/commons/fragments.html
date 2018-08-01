@@ -479,8 +479,10 @@
 		</div>
 		<div class="comment-post border-3-rad">
 			<header class="x-1em-padding">
-				<div th:if="${comment.authenticatedAuthor != null}">User from msystem</div>
-				<div th:unless="${comment.authenticatedAuthor != null}">Anonymus user</div>
+				<span th:if="${comment.authenticatedAuthor != null}" class="post-prev-author">User from msystem</span>
+				<span th:unless="${comment.authenticatedAuthor != null}" class="post-prev-author" th:text="${comment.anonymousAuthor}">Anonymus user</span>
+				<strong> &#8226; </strong>
+				<time class="post-prev-date" th:text="${#dates.format(comment.postDate, 'dd. MMM yyyy.')}"></time>
 			</header>
 			<!-- Comment body -->
 			<div class="x-1em-padding y-1em-padding" th:text="${comment.content}"></div>

@@ -875,7 +875,7 @@ div.mvt-postprev-content > footer {
   display: block;
 }
 
-.mvt-postprev-info > time {
+time.post-prev-date {
   color: rgba(0,0,0,.64);
 }
 
@@ -1233,8 +1233,10 @@ h3.article-prev-title {
 	max-width: 665px;
 	width: 100%;
 	background-color: #fff;
-    border: 1px solid #d1d5da;
-    
+    border: 1px solid #d1d5da;   
+}
+.comment-post > header {
+	line-height: 40px;
 }
 
 /* Side post */
