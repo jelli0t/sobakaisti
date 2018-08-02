@@ -874,12 +874,10 @@ div.mvt-postprev-content > footer {
 .mvt-postprev-info > span {
   display: block;
 }
-
+.post-prev-author { color: #0e1012; }
 time.post-prev-date {
   color: rgba(0,0,0,.64);
 }
-
-
 
 .site-content-container {
 	position: relative;

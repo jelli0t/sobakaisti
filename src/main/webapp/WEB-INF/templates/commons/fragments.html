@@ -466,10 +466,12 @@
 				<textarea name="content" rows="5" class="def-input flat-input" placeholder="Unesite vas komentar"></textarea>
 	<!-- 		<div class="validation-error" th:errors="*{message}"></div> -->			
 			</div> 
-			<div class="input-holder full-input-holder aright">    
+			<div class="fx-box fx-dir-row fx-justify-sbtw fx-valign-end"> 
+				<div class="g-recaptcha" data-sitekey="6LdbEhIUAAAAADnHM9PhCBO-pEc_BE56Wcv-L5nO"></div>   
 				<a href="javascript:;" id="post-comment-bttn" class="bttn bttn-outline" th:text="#{button.label.send}">Post</a>  
 			</div>
 		  </form>
+		  <script src='https://www.google.com/recaptcha/api.js'></script>
 	 </article>
 	
 	

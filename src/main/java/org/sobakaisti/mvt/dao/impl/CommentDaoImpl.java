@@ -10,9 +10,12 @@ import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Post.Origin;
+import org.sobakaisti.mvt.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class CommentDaoImpl implements CommentDao {
 
+	private static final Logger logger = LoggerFactory.getLogger(CommentDaoImpl.class);
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -77,11 +81,13 @@ public class CommentDaoImpl implements CommentDao {
 			Query query = sessionFactory.getCurrentSession().createQuery(HQL);
 			query.setParameter("postId", postId);
 			query.setParameter("origin", postOrigin);
-			Integer counted = (Integer) query.uniqueResult();
-			if(counted != null)
+			Long counted = (Long) query.uniqueResult();			
+			if(counted != null) {
+				logger.info("Za post sa id:"+postId+" sam prebrojao "+counted +" komentara.");
 				return counted.intValue();
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.warn("Greska prilikom brojanaj komentara za post sa id:"+postId+". Uzrok: "+e.getMessage());
 		}	
 		return 0;
 	}

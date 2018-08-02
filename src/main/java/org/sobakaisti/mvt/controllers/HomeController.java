@@ -5,9 +5,12 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sobakaisti.mail.MailService;
 import org.sobakaisti.mail.MailTemplateHelper;
 import org.sobakaisti.mvt.dao.ArticleDao;
+import org.sobakaisti.mvt.dao.impl.CommentDaoImpl;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Comment;
@@ -41,6 +44,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomeController {
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
 	private ArticleService articleService;
@@ -141,15 +145,17 @@ public class HomeController {
 		System.out.println("comment: "+comment.getContent() + "; author: "+comment.getAnonymousAuthor());
 		//TODO uradi custom validaciju autora i poruke
 		
-		if(comment.getAnonymousAuthor() == null || comment.getContent() == null) {
+		if(TextUtil.isEmpty(comment.getAnonymousAuthor()) || TextUtil.isEmpty(comment.getContent())) {
+			logger.warn("Polja sa komentara su prazna! Vracam poruku o gresci.");
 			return String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
 				false, "Greska neispravno polje!");
 		} else {
 			comment = commentService.populateAndSave(comment, Article.class);
-			model.addAttribute("comment", comment);
+			model.addAttribute("comment", comment);			
 			return "commons/fragments :: commentFragment";
 		}		
 	}
+	
 	
 	@RequestMapping(value="/commit/result", method=RequestMethod.GET)
 	public String ajaxCommitresultShow(@RequestParam("commited") boolean commited,
