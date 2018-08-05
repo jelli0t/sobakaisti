@@ -14,6 +14,8 @@ import org.sobakaisti.mvt.dao.impl.CommentDaoImpl;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Comment;
+import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.Post.Origin;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
 import org.sobakaisti.mvt.service.CommentService;
@@ -142,7 +144,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/comment/submit", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String submitComment(@RequestBody Comment comment, Model model) {
-		System.out.println("comment: "+comment.getContent() + "; author: "+comment.getAnonymousAuthor());
+		System.out.println("comment: "+comment.getContent() + "; author: "+comment.getAnonymousAuthor()+";  origin: "+comment.getCommentOrigin());
 		//TODO uradi custom validaciju autora i poruke
 		
 		if(TextUtil.isEmpty(comment.getAnonymousAuthor()) || TextUtil.isEmpty(comment.getContent())) {
@@ -150,10 +152,22 @@ public class HomeController {
 			return String.format("commons/fragments :: commitResultFragment(commited=%b, message='%s')",
 				false, "Greska neispravno polje!");
 		} else {
-			comment = commentService.populateAndSave(comment, Article.class);
+			comment = commentService.authorizeAndSave(comment);
 			model.addAttribute("comment", comment);			
 			return "commons/fragments :: commentFragment";
 		}		
+	}
+	
+	@RequestMapping(value="/comment/{post_type}/{post_id}/more", method=RequestMethod.GET)
+	public String loadMoreComments(@PathVariable("post_id") int postId, @PathVariable("post_type") String postType, 
+			@RequestParam("loaded") int loaded, @RequestParam("max") int max, Model model) {
+		logger.info("Zahtevam ucitavanje vise komentara na post sa id:"+postId);
+		Post.Origin postOrigin = Origin.getByEntityName(postType);
+		List<Comment> comments = commentService.commentsBundleLoad(postId, postOrigin, loaded, CommentService.COMMENTS_BUNDLE_LOAD_DEFAULT_SIZE);
+		if(comments != null)
+			model.addAttribute("comments", comments);
+
+		return "commons/fragments :: bundleCommentsFragment";
 	}
 	
 	

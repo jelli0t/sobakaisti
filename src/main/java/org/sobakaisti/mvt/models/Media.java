@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.sobakaisti.mvt.i18n.model.I18nPost;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -142,6 +142,13 @@ public class Media extends Post {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+	
+	public String getReadableSize() {
+		if(size != 0)
+			return TextUtil.convertBytesToReadableSize(this.size);
+		else
+			return 0 + TextUtil.SPACE_CHAR + TextUtil.MEGABYTE_MEASURE_UNIT;
 	}
 
 	@Override

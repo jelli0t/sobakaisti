@@ -13,4 +13,6 @@ import org.sobakaisti.mvt.models.Publication;
  */
 public interface PublicationDao extends PostDao<Publication, I18nPublication> {	
 	
+	public int updateAndCountDownloads(int publicationId);
+	
 }

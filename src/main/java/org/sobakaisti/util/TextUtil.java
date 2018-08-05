@@ -25,6 +25,11 @@ public final class TextUtil {
 	public static final String POST_ATTR_NAME = "post";
 	public static final String POSTS_ATTR_NAME = "posts";
 	public static final String RELATED_POSTS_ATTR_NAME = "relatedPosts";
+	/**
+	 * measuring units
+	 * */
+	public static final String MEGABYTE_MEASURE_UNIT = "MB";
+	public static final String KILOBYTE_MEASURE_UNIT = "KB";
 		
 	/**
 	* Default private constrictor prevents class to be instantiated
@@ -45,5 +50,13 @@ public final class TextUtil {
 	 * */
 	public static boolean isEmpty(String input) {
 		return input == null || input.length() == 0;
+	}
+	
+	
+	public static String convertBytesToReadableSize(long size) {
+		double kbSize = size / 1024;
+		double mbSize = kbSize / 1024;
+		return mbSize < 1 ? String.format( "%.2f", kbSize ) + SPACE_CHAR + KILOBYTE_MEASURE_UNIT 
+				: String.format( "%.2f", mbSize ) + SPACE_CHAR + MEGABYTE_MEASURE_UNIT;
 	}
 }

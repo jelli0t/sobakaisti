@@ -35,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public abstract class AbstractPostDao<T extends Post, I extends I18nPost> 
 	implements PostDao<T, I> {
-	private static final Logger logger = LoggerFactory.getLogger(AbstractPostDao.class);
+	protected static final Logger logger = LoggerFactory.getLogger(AbstractPostDao.class);
    
 	@Autowired
 	private SessionFactory sessionFactory;

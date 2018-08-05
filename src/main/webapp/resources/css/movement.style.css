@@ -869,8 +869,14 @@ div.mvt-postprev-content > footer {
 /*   border: 1px dotted green; */
 }
 .mvt-postprev-tools {
-/*    border: 1px dotted blue; */
+	font-size: 0.9em;
+	color: rgba(0,0,0,.64);
 }
+/* .postprev-comments-indicator { */
+/* 	font-size: 0.8em; */
+/* 	color: rgba(0,0,0,.64); */
+/* } */
+.postprev-comments-indicator > img {margin-right: 2px;}
 .mvt-postprev-info > span {
   display: block;
 }
@@ -1127,6 +1133,12 @@ h3.article-prev-title {
 .post-details {
 	line-height: 32px;
 	font-size: 14px;
+}
+.downloaded-info {
+	border: 1px solid rgba(0, 0, 0, .1);
+	color: rgba(0,0,0,.64);
+	font-size: 0.9em;
+	padding: 3px 7px;
 }
 
 .circle-post-author {
@@ -1623,24 +1635,28 @@ li.login-options > a {
 	border-bottom: 0;
 }
 
+.side-download-container {
+	position: absolute;
+	width: 120px;
+	bottom: auto;
+	right: -120px;
+	border: 1px solid rgba(0, 0, 0, .1);
+}
+.download-bttn-container {
+	font-size: 0.8em;
+}
+.download-bttn-container > a {
+	border: none !important;
+}
+
 .main-footer-copyright>p>a {
 	color: #848d95;
 }
 /* RESPONSIVE */
-@media only screen and (max-width: 1024px) { /* 	.single-circle { */
-	/* 		width: 80px; */
-	/* 		height: 80px; */
-	/* 		margin: 0 0 0 -45px; */
-	/* 		line-height: 80px; */
-	/* 		font-size: 0.8em; */
-	/* 	} */
-
-	/* 	.circle { */
-	/* 		width: 80px; */
-	/* 		height: 80px; */
-	/* 		line-height: 80px; */
-	/* 		font-size: 12px; */
-	/* 	} */
+@media only screen and (max-width: 1024px) {
+	.center-main-width {
+		padding: 0 12px;
+	}	
 }
 
 /* Mobile phones */
@@ -1661,25 +1677,24 @@ li.login-options > a {
 	.side-article-prev {
 		display: none;
 	}
+	.side-download-container { display: none; }
 }
 
 @media only screen and (max-width: 640px) {
 	.header-top {
 		display: none;
-	}
+	}	
 	.mvt-postprev-container {
 		/* justify */
 		-webkitjustify-content: center !important;
   		-ms-justify-content: center !important;
 		justify-content: center !important;
-		padding: 0 12px;
+		
 	}
 	article.mvt-postprev-basic,
 	article.mvt-postprev-highlight {
-		width: 100%;
-		
+		width: 100%;		
 	}
-	
 	
 	.circle-filter {
 		width: 28px;

@@ -31,10 +31,8 @@
 	
 	
 	<!-- Intro backgrount text animated -->
-	<th:block th:fragment="introBackground" >
-	
+	<th:block th:fragment="introBackground" >	
 		<li th:each="line, item : ${backgroundLines}" th:class="${item.odd}? 'ltr' : 'rtl'" th:text="${line}"></li>
-	
 	</th:block>
 	
 	<!-- 
@@ -451,22 +449,25 @@
 	
 	
 	<!-- 
-		Comments
+		Comments post form
 	 -->
-	 <article th:fragment="leaveCommentFragment(postId)" 
+	 <article th:fragment="leaveCommentFragment(postId, entityName)" 
 		  class="border-3-rad x-1em-padding y-1em-padding comment-input-box">
-	 	<form action="/comment/submit" method="post" th:attr="data-action=@{/comment/submit}" onkeypress="return event.keyCode != 13;" id="post-comment-form">	<!-- th:action="@{/comment/submit}" -->		
-			<input type="hidden" name="postId" th:value="${postId}">	
+	 	<form action="/comment/submit" method="post" th:attr="data-action=@{/comment/submit}" 
+	 		onkeypress="return event.keyCode != 13;" id="post-comment-form">		
+			<input type="hidden" name="postId" th:value="${postId}">
+			<input type="hidden" name="commentOrigin" th:value="${T(org.sobakaisti.mvt.models.Post.Origin).getByEntityName(entityName)}">
 			<div class="input-holder">		
 				<input type="text" name="anonymousAuthor" class="def-input flat-input" placeholder="Vase ime">
 			</div>
 	<!-- 		<div class="validation-error" th:errors="*{subject}"></div>    -->			
 			<hr />
 			<div class="input-holder">
-				<textarea name="content" rows="5" class="def-input flat-input" placeholder="Unesite vas komentar"></textarea>
+				<textarea name="content" rows="5" class="def-input flat-input" placeholder="Unesite vas komentar"
+					onkeydown="if(event.keyCode == 13) return false;"></textarea>
 	<!-- 		<div class="validation-error" th:errors="*{message}"></div> -->			
 			</div> 
-			<div class="fx-box fx-dir-row fx-justify-sbtw fx-valign-end"> 
+			<div class="fx-box fx-dir-row fx-wrap fx-justify-sbtw fx-valign-end"> 
 				<div class="g-recaptcha" data-sitekey="6LdbEhIUAAAAADnHM9PhCBO-pEc_BE56Wcv-L5nO"></div>   
 				<a href="javascript:;" id="post-comment-bttn" class="bttn bttn-outline" th:text="#{button.label.send}">Post</a>  
 			</div>
@@ -474,7 +475,9 @@
 		  <script src='https://www.google.com/recaptcha/api.js'></script>
 	 </article>
 	
-	
+	<!-- 
+	***	Single Comment	***
+	 -->
 	<article th:fragment="commentFragment" th:if="${comment != null}" class="fx-box fx-dir-row fx-valign-start comment-container">
 		<div class="comment-avatar">
 			<span class="circle circle-small"> </span>
@@ -491,4 +494,28 @@
 			<footer></footer>
 		</div>		
 	</article>
+	
+	<!-- 
+	***	Grupni load komentara	***		
+	 -->
+	<th:block th:fragment="bundleCommentsFragment" th:unless="${#lists.isEmpty(comments)}" >
+		<article th:fragment="commentFragment" th:each="comment, item : ${comments}" class="fx-box fx-dir-row fx-valign-start comment-container">
+			<div class="comment-avatar">
+				<span class="circle circle-small"> </span>
+			</div>
+			<div class="comment-post border-3-rad">
+				<header class="x-1em-padding">
+					<span th:if="${comment.authenticatedAuthor != null}" class="post-prev-author">User from msystem</span>
+					<span th:unless="${comment.authenticatedAuthor != null}" class="post-prev-author" th:text="${comment.anonymousAuthor}">Anonymus user</span>
+					<strong> &#8226; </strong>
+					<time class="post-prev-date" th:text="${#dates.format(comment.postDate, 'dd. MMM yyyy.')}"></time>
+				</header>
+				<!-- Comment body -->
+				<div class="x-1em-padding y-1em-padding" th:text="${comment.content}"></div>
+				<footer></footer>
+			</div>		
+		</article>
+	</th:block>
+	
+	
 </html>

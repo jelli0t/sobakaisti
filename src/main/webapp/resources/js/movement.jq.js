@@ -77,6 +77,19 @@ $(function() {
 		$('#post-comment-form').post_comment();
 	});	
 	
+	$('#js-loadmore-commens-bttn').on('click', function(evt) {
+		evt.preventDefault();
+		/* Post comment via ajax */
+		$(this).load_more_comments();
+	});
+	
+	$('.js-download-count-trigger').on('click', function(evt) {
+
+		$(this).increment_downloads();
+		
+		return true;
+	});
+	
 });
 
 
@@ -97,7 +110,7 @@ function resizeTriangle(labelWidth){
 
 /* proverava da li je scroll stigao blizu dna */
 function scrollNearToBottom() {
-	console.log('scrollNearToBottom()');
+//	console.log('scrollNearToBottom()');
 	 if (($(document).height() - 100) <= ($(window).height() + $(window).scrollTop())) {
      	console.log('Near Bottom!');
      	$(document).loadMoreArticlesPreviews();
@@ -114,23 +127,20 @@ $.fn.loadMoreArticlesPreviews = function() {
 	}
 	$(window).off('scroll');
 	var uri = $('#load-content-link').attr('href');
-	var post_counter = $('#post-counter').val();
+	var loaded = $('.mvt-postprev-container > article').length;
 	if(typeof uri == 'undefined') return;
 	
 	$.ajax({
-		url: uri + '?loaded=' + post_counter,
+		url: uri + '?loaded=' + loaded,
 		type : 'GET',
 		dataType: 'html',
 	}).done(function( posts ) {			
 		if (posts) {
 			console.log('Uspesno dohvacen fragment, ');
-//			$('.site-content-container').adjustContentHeight();
-//			$('.site-content-container').append(article);
-//			$('.post-prev-item > .fadein').fadeIn(600);
 			$('.mvt-rest-posts > .mvt-postprev-container').append(posts);
 			var loaded = $('.mvt-postprev-content', posts).length;
 			
-			$('#post-counter').val(parseInt(post_counter) + parseInt(loaded));
+//			$('#post-counter').val(parseInt(post_counter) + parseInt(loaded));
 			console.log('Loaded posts: '+loaded);
 			$(window).on('scroll', scrollNearToBottom);
 		}else {	
@@ -263,6 +273,36 @@ $.fn.show_commit_result = function(commited, messageCode) {
 	})    
 }
 
+$.fn.load_more_comments = function() {
+	var uri = $(this).attr('data-uri');
+	var loaded = $('.comment-container').length;
+	$.ajax({
+		url: uri + '&loaded='+loaded,
+		type : 'GET',
+		dataType: 'html',
+	}).done(function( comments ) {
+		if(comments)
+			$('#js-comment-container').append(comments);
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})  
+}
+
+$.fn.increment_downloads = function() {
+	var uri = $(this).attr('data-uri');
+	$.ajax({
+		url: uri,
+		type : 'GET',
+		dataType: 'json',
+	}).done(function( downloads ) {
+		if(downloads)
+			$('#js-count-updateable').html(downloads);
+	}).fail(function( xhr, status, errorThrown ) {
+	    console.log("Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	})  
+}
 
 $.fn.serializeObject = function() {
     var o = {};

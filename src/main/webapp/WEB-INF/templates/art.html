@@ -12,18 +12,19 @@
 <!-- 
 *	Top articles  *
 -->
-<section class="mvt-top-posts">
+<section class="mvt-top-posts y-1em-padding">
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
 		<!-- top section header -->
 		<div class="top-posts-header">
-		    <span>Izdvajamo</span>
+		    <span th:text="#{heading.post.top}">Izdvajamo</span>
 		</div>		
 		<!-- posts -->
 		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight" 
 				th:each="post, item : ${initArticles}" th:if="${item.index < 4}">
 		    <!-- fotka -->
 		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover">
-		      <a href="#" th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
+		      <a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}"
+				th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
 		      </a>
 		    </aside>
 			<!-- Right side of preview -->
@@ -55,7 +56,11 @@
 						</div>
 					</div>	
 			    	<div class="mvt-postprev-tools">
-			            T
+			            <div class="postprev-comments-indicator">
+			            	<img th:src="@{/resources/img/icons/comment.svg}" height="15">
+			            	<span th:if="${#maps.containsKey(COMMENTS_COUNT_PER_POST, post.id)}" 
+			            		th:text="${COMMENTS_COUNT_PER_POST.get(post.id)}">0</span>
+			        	</div>
 			        </div>				    
 			</footer>
 			</div>
@@ -66,17 +71,17 @@
 <!-- 
 *	The rest of the Posts  *
 -->
-<section class="mvt-rest-posts">
+<section class="mvt-rest-posts y-1em-padding">
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
 		<!-- top section header -->
 		<div class="top-posts-header">
-		    <span>Preostali članci</span>
+		    <span th:text="#{heading.post.rest}">Preostali članci</span>
 		</div>
 		<article class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-basic"
 				th:each="post, item : ${initArticles}" th:if="${item.index > 3}">
 		    <!-- fotka -->
 		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover mvt-postprev-top-cover">
-				<a th:href="@{/arts/{slug}(slug=${post.slug})}" th:title="${post.title}"
+				<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}"
 				   th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'"></a>
 		    </aside>
 			<!-- Right side of preview -->
@@ -108,7 +113,11 @@
 						</div>
 					</div>	
 			    	<div class="mvt-postprev-tools">
-			            T
+			            <div class="postprev-comments-indicator">
+			            	<img th:src="@{/resources/img/icons/comment.svg}" height="15">
+			            	<span th:if="${#maps.containsKey(COMMENTS_COUNT_PER_POST, post.id)}" 
+			            		th:text="${COMMENTS_COUNT_PER_POST.get(post.id)}">0</span>
+			        	</div>
 			        </div>				    
 			</footer>
 			</div>

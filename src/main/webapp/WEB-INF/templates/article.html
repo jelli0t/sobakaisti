@@ -28,25 +28,56 @@
 					<!-- Post date -->
 					<span>objavljeno dana</span>
 					<time class="post-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy.')}"></time>	
+					
+					<span th:if="${post instanceof T(org.sobakaisti.mvt.models.Publication) and post.media != null}" 
+						class="border-3-rad downloaded-info">
+						<span th:text="#{label.downloaded}">Downloaded</span>&ensp;<span id="js-count-updateable" th:text="${post.downloaded}">0</span>x
+					</span>
 				</div>
 			</header>
 			<!-- featured image -->
-<!-- 			<div th:if="${post.featuredImage != null}" class="post-img-container"> -->
-<!-- 				<img alt="" th:src="@{/resources/img/{img}(img=${post.featuredImage})}" class="post-img"> -->
-<!-- 			</div> -->
-			<!-- fotka -->
 		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="post-img-container"
 		    	th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') no-repeat center center; background-size: contain;'">
 		    </aside>
-
-			<div class="post-body" th:utext="${post.content}"></div>
-			
-			<th:block th:if="${post instanceof T(org.sobakaisti.mvt.models.Publication) and post.media != null}">				
-				<div th:with="media = ${post.media}">
-					<a th:href="@{/uploads/images/{filename}(filename=${media.fileName})}" 
-						class="show-media-lib bttn bttn-default" th:text="${media.title}" download>Download</a>
+			<!-- Post -->
+			<main class="post-body">
+				<!-- Publication sid downloads button -->
+				<div th:if="${post instanceof T(org.sobakaisti.mvt.models.Publication) and post.media != null}" 
+					class="side-download-container border-3-rad">
+					<div class="fx-box fx-dir-col border-3-rad download-bttn-container" th:with="media = ${post.media}">
+						<a th:href="@{/uploads/images/{filename}(filename=${media.fileName})}" th:attr="data-uri=@{/publications/increment/downloads(id=${post.id})}" 
+							class="x-1em-padding y-1em-padding js-download-count-trigger" download>
+							<b th:text="${media.title}"></b> <br>
+							<i th:text="${media.fileName}"></i> <br>
+							size: <span th:text="${media.getReadableSize()}"></span>
+						</a>
+						<a th:href="@{/uploads/images/{filename}(filename=${media.fileName})}" th:attr="data-uri=@{/publications/increment/downloads(id=${post.id})}"
+							class="show-media-lib bttn bttn-primary js-download-count-trigger" download>
+							<img alt="" th:src="@{/resources/img/icons/svg/cloud-download-white.svg}" height="24"><br />
+						</a>
+					</div>					
 				</div>
+				<!-- Post Content -->
+				<div th:utext="${post.content}"></div>				
+			</main>	
+						
+			<th:block th:if="${post instanceof T(org.sobakaisti.mvt.models.Publication) and post.media != null}">				
+				<!-- Publication bottom download button -->
+				<div class="fx-box fx-justify-start fx-dir-row border-3-rad download-bttn-container" style="border: 1px solid rgba(0, 0, 0, .1);"
+					th:with="media = ${post.media}">
+					<a th:href="@{/uploads/images/{filename}(filename=${media.fileName})}" th:attr="data-uri=@{/publications/increment/downloads(id=${post.id})}"
+						class="show-media-lib bttn bttn-primary js-download-count-trigger" download>
+						<img alt="" th:src="@{/resources/img/icons/svg/cloud-download-white.svg}" height="32"><br />
+					</a>
+					<a th:href="@{/uploads/images/{filename}(filename=${media.fileName})}" th:attr="data-uri=@{/publications/increment/downloads(id=${post.id})}"
+						class="x-1em-padding y-1em-padding js-download-count-trigger" download>
+						<b th:text="${media.title}"></b> <br>
+						<i th:text="${media.fileName}"></i> <br>
+						size: <span th:text="${media.getReadableSize()}"></span>
+					</a>
+				</div>				
 			</th:block>
+			
 			<footer>
 				<div class="post-tags"></div>
 			</footer>
@@ -62,7 +93,7 @@
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw" id="recommends">
 		<!-- top section header -->
 		<div class="top-posts-header">
-		    <span th:text="#{label.recommend}">Recommend</span>
+		    <span th:text="#{heading.post.recommend}">Recommend</span>
 		</div>
 		<article class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-basic"
 				th:each="rl_post, item : ${relatedPosts}" th:unless="${item.index > 2}">
@@ -100,9 +131,16 @@
 						</div>
 					</div>	
 			    	<div class="mvt-postprev-tools">
-			    		<a th:href="@{/{url_basis}/{slug}(url_basis=${URL_BASIS}, slug=${rl_post.slug})}">
-			            	<img alt="" th:src="@{/resources/img/icons/comment.svg}" height="16">
-			        	</a>
+			    		<div class="postprev-comments-indicator">
+			            	<img th:src="@{/resources/img/icons/comment.svg}" height="14">
+			            	<span th:if="${not #maps.isEmpty(COMMENTS_COUNT_PER_POST) and #maps.containsKey(COMMENTS_COUNT_PER_POST, rl_post.id)}" 
+			            		th:text="${COMMENTS_COUNT_PER_POST.get(rl_post.id)}">0</span>
+			        	</div>
+			        	<div th:if="${rl_post instanceof T(org.sobakaisti.mvt.models.Publication) and rl_post.media != null}"
+			        		class="postprev-downloads-indicator">
+			        		<img th:src="@{/resources/img/icons/svg/cloud-download.svg}" height="14">
+			        		<span th:text="${rl_post.downloaded}"></span>
+			        	</div>
 			        </div>				    
 			</footer>
 			</div>
@@ -124,53 +162,18 @@
 			<th:block th:each="comment, item : ${postComments}" th:insert="~{commons/fragments :: commentFragment}">			
 			</th:block>
 		</div>
+		<!-- More... -->
+		<div class="fx-box fx-dir-row fx-justify-cnt bottm-1em-margin" th:unless="${#lists.isEmpty(postComments)}">
+			<a href="javascript:;" id="js-loadmore-commens-bttn" class="bttn bttn-sm bttn-slide-down"
+				th:attr="data-uri=@{/comment/{post_type}/{post_id}/more(post_id=${post.id}, post_type=${post.class.name}, max=${COMMENTS_COUNT})}" 
+				th:text="#{label.showmore}">Prikazi jos</a>
+		</div>
 		<!-- Commit message -->
 		<div class="commit-response-holder full-width" id="commit-result"></div>
-		<th:block th:insert="~{commons/fragments :: leaveCommentFragment(postId=${post.id})}"></th:block>
+		<th:block th:insert="~{commons/fragments :: leaveCommentFragment(postId=${post.id}, entityName=${post.class.name})}"></th:block>
 	</div>
 </section>
-	
-	
-<!-- Next an previous article -->
 
-	<article th:if="${sideArticles != null && sideArticles[0] != null}" class="side-article-prev left-article-prev" th:with="article=${sideArticles[0]}">
-		<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" id="side-post-link-next" class="side-post-overflow-link">&#xe687;</a>	
-		<header>	
-			<!-- Article title -->
-			<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" 
-				class="side-post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
-		</header>
-		<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, 110)}" class="side-post-prev-content"></div>
-		<footer class="side-post-prev-footer" th:with="author=${article.author}" th:if="article.author != null">
-			<div class="side-post-prev-author-details">
-				<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" 
-						th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-				</address>
-				<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy.')}"></time>
-			</div>
-		</footer>
-	</article>	
-
-	<!-- right (next) post -->
-	<article th:if="${sideArticles != null && sideArticles[1] != null}" class="side-article-prev right-article-prev" th:with="article=${sideArticles[1]}">
-		<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" id="side-post-link-prev" class="side-post-overflow-link">&#xe685;</a>	
-		<header>	
-			<!-- Article title -->
-			<a th:href="@{/arts/{art}/{slug}(art=${chosenArt.slug}, slug=${article.slug})}" 
-				class="side-post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a>
-		</header>
-		<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, 110)}" class="side-post-prev-content"></div>
-		<footer class="side-post-prev-footer" th:with="author=${article.author}" th:if="article.author != null">
-			<div class="side-post-prev-author-details">
-				<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-					<a th:href="@{/arts/{art}/by/{author}(art=${chosenArt.slug}, author=${author.slug})}" 
-						th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-				</address>
-				<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy.')}"></time>
-			</div>
-		</footer>
-	</article>
 	
 <footer th:replace="~{commons/mvt_footer :: mvt_main_footer}"></footer>
 </body>

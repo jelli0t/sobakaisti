@@ -56,6 +56,16 @@ public abstract class Post {
 			}
 			return null;
 		}
+		/**
+		 * Varaca ENUM tip na osnovu prosledjenog naziva kalse.
+		 * */
+		public static Origin getByEntityName(String entityName) {
+			for(Origin origin : Arrays.asList(Origin.values())) {
+				if(origin.getEntityName().equals(entityName))
+					return origin;
+			}
+			return null;
+		}
 	}
 
 	@Id

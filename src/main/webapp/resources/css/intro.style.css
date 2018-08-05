@@ -317,11 +317,15 @@ a:LINK, a:VISITED {
 .bgd-list {
 	position: static;
     width: 100%;
-/* 	font-family: 'Droid Sans Mono', 'NotoMono'; */
- 	font-family: 'Lucida Console', Monaco, monospace;
-	font-size: 12px;
+/* 	font-family: 'Droid Sans Mono', 'NotoMono'; 'Lucida Console', Monaco, */
+ 	font-family: monospace !important;
+	font-size: 12px !important;
 	font-weight: normal;
 	opacity: 0.3;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 	overflow: hidden;
 	z-index: 990;
 }

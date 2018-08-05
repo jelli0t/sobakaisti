@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ArticleService extends PostService<Article>, I18nPostService<Article, I18nArticle> {
 
+	public static final String INTRO_BACKGROUND_POST_SLUG = "intro-background";
 	public static final int LINE_HEIGHT = 16; 			// (px) visina jednog reda definisano CSS-om 
 	public static final double FONT_WIDTH = 7.0;		// (px) sirina jednog slova
 	public static final int ACTIVE = 1;
@@ -24,6 +25,7 @@ public interface ArticleService extends PostService<Article>, I18nPostService<Ar
 	public static final int INIT_ARTICLES_BUNDLE_SIZE = 9;
 	public static final int RELATED_ARTICLES_BUNDLE_SIZE = 8;
 	public static final int ARTICLES_PREV_ROW_SIZE = 4;
+	
 	
 	
 	public static enum Manifesto {

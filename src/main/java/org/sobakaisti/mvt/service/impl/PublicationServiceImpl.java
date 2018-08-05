@@ -152,4 +152,9 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication, I18nPub
 			message = getMessage("publication.delete.failure");
 		return new CommitResult(deleted, message);
 	}
+	
+	@Override
+	public int updateAndCountDownloads(int publicationId) {
+		return publicationDao.updateAndCountDownloads(publicationId);
+	}
 }

@@ -1,6 +1,5 @@
 package org.sobakaisti.app;
 
-import java.util.Collections;
 import java.util.Properties;
 
 import org.springframework.beans.BeansException;
@@ -28,7 +27,8 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
  *
  */
 @Configuration
-@PropertySource("classpath:mail/mail.properties")
+@PropertySource("classpath:variables.properties")
+@PropertySource(value = "${mail.confg.fullpath}", ignoreResourceNotFound = true)
 @ComponentScan({ "org.sobakaisti.mail" })
 public class MailConfig implements ApplicationContextAware {
 
@@ -53,6 +53,7 @@ public class MailConfig implements ApplicationContextAware {
 	@Bean(name="mailSender")
 	public JavaMailSender configureMailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		System.out.println("Protokol: "+env.getProperty("mail.transport.protocol"));
 		/* SMTP props */
 		Properties properties = new Properties();
 		properties.setProperty("mail.transport.protocol", env.getProperty("mail.transport.protocol"));		

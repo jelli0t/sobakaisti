@@ -35,5 +35,7 @@ public interface PublicationService extends PostService<Publication>{
 	 *  @param authorSlug
 	 * */
 	public Map<String, Object> prepareModelAttributesForArticles(Pagination pagination, String status, String authorSlug);
+
+	int updateAndCountDownloads(int publicationId);
 	
 }

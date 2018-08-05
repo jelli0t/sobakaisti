@@ -53,7 +53,16 @@
 						</div>
 					</div>	
 			    	<div class="mvt-postprev-tools">
-			        	<span th:text="${post.downloaded}" class="publication-prev-donwloaded"></span>
+			        	<div class="postprev-comments-indicator">
+			            	<img th:src="@{/resources/img/icons/comment.svg}" height="14">
+			            	<span th:if="${not #maps.isEmpty(COMMENTS_COUNT_PER_POST) and #maps.containsKey(COMMENTS_COUNT_PER_POST, post.id)}" 
+			            		th:text="${COMMENTS_COUNT_PER_POST.get(post.id)}">0</span>
+			        	</div>
+			        	<div th:if="${post instanceof T(org.sobakaisti.mvt.models.Publication) and post.media != null}"
+			        		class="postprev-downloads-indicator">
+			        		<img th:src="@{/resources/img/icons/svg/cloud-download.svg}" height="14">
+			        		<span th:text="${post.downloaded}"></span>
+			        	</div>
 			        </div>				    
 			</footer>
 			</div>

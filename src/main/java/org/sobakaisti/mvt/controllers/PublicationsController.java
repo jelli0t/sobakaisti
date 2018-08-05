@@ -3,7 +3,6 @@
  */
 package org.sobakaisti.mvt.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,9 +10,11 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
-import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
+import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.models.Publication;
+import org.sobakaisti.mvt.models.Post.Origin;
+import org.sobakaisti.mvt.service.CommentService;
 import org.sobakaisti.mvt.service.PostService;
 import org.sobakaisti.mvt.service.PublicationService;
 import org.sobakaisti.util.CommitResult;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,7 +48,9 @@ public class PublicationsController {
 	private AuthorDao authorDao;
 	@Autowired
 	private PublicationService publicationService;	
-		
+	@Autowired
+	private CommentService commentService;
+	
 	@ModelAttribute
 	public void prepare(Model model){
 		
@@ -85,6 +89,13 @@ public class PublicationsController {
 			model.addAttribute("author", publication.getAuthor());
 			model.addAttribute(PostService.POST_SORTING_ALLOWED_PARAM, false);
 			model.addAttribute(PostService.META_CIRCLE_ALLOWED_ATTR, true);
+			
+			List<Comment> postComments = commentService.findPostComments(publication.getId(), Origin.PUBLICATION, 0, 3);
+			if(postComments != null && postComments.size() > 0) {
+				model.addAttribute("postComments", postComments);
+				model.addAttribute(CommentService.COMMENTS_COUNT_MODEL_ATTRIBUTE_NAME, 
+						commentService.countPostComments(publication.getId(), Origin.PUBLICATION));
+			}
 		}
 		return "article";
 	}
@@ -134,5 +145,16 @@ public class PublicationsController {
 			logger.info("Uspesno publikovan: "+uploaded);
 		}		
 		return "redirect:/sbk-admin/publication";
+	}
+	
+	@RequestMapping(value="/increment/downloads", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Integer> updateDownloadedConter(@RequestParam("id") int publicationId) {
+		
+		int downloaded = publicationService.updateAndCountDownloads(publicationId);
+		if(downloaded != 0) {
+			return new ResponseEntity<Integer>(downloaded, HttpStatus.OK);
+		} else
+			return new ResponseEntity<Integer>(downloaded, HttpStatus.NOT_MODIFIED);
 	}
 }

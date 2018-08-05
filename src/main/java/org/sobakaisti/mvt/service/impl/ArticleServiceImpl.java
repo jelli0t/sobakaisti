@@ -32,6 +32,7 @@ import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.PostRequest;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -74,14 +75,14 @@ public class ArticleServiceImpl extends PostServiceImpl<Article, I18nArticle> im
 		int length = content.length();
 		charsToFill = (int) (charsPerRow - Math.ceil(length % charsPerRow));
 		
-		System.out.println("Params: Dimensions: "+width+"x"+height+"; Char width: "+charWidth+"; karaktera za popunjavanje: "+charsToFill
+		logger.info("Params: Dimensions: "+width+"x"+height+"; Char width: "+charWidth+"; karaktera za popunjavanje: "+charsToFill
 				+ " Chars x Rows: "+charsPerRow+"x"+rowsPerPage);
 		
 		List<String> row = new ArrayList<String>(rowsPerPage);
 		
-		if(!content.equals("")){
+		if(TextUtil.notEmpty(content)){
 			for(int i=0, j=0; i<rowsPerPage; i++){				
-				if(j<length-charsPerRow){					
+				if(j<length-charsPerRow) {
 					row.add(content.substring(j, j+charsPerRow));
 					j+=charsPerRow;
 				}else if(j < length){
