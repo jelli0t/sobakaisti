@@ -5,8 +5,8 @@
 	<artifactId>sobakaisti</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sobakaisti.test Maven Webapp</name>
-	<url>http://maven.apache.org</url>
+	<name>Sobakaisti Movement</name>
+	<url>http://sobakaisti.org</url>
 	<properties>
 		<org.springframework-version>4.3.3.RELEASE</org.springframework-version>
 		<org.springsecurity-version>4.1.1.RELEASE</org.springsecurity-version>
