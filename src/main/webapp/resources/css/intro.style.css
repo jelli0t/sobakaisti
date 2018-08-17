@@ -734,8 +734,8 @@ header.basic-header {
 	    height: 60px !important; 
 	    line-height: 60px !important;
 	    font-size: 0.7em !important;
-	}
-	
+	    border-width: 1px !important;
+	}	
 }
 @media only screen and (max-width: 1024px) {
   

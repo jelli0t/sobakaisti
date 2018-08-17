@@ -31,7 +31,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
-@PropertySource("classpath:database.properties")
+@PropertySource("classpath:variables.properties")
+@PropertySource(value = "${datasource.mysql.conf}", ignoreResourceNotFound = true)
 @ComponentScan({"org.sobakaisti"})
 @EnableTransactionManagement
 public class AppRootConfiguration {
@@ -42,10 +43,10 @@ public class AppRootConfiguration {
 	@Bean(name="dataSource")
 	public DataSource getDataSource(){
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sobakaisti?useUnicode=yes&characterEncoding=UTF-8");	// 3306
-		dataSource.setUsername("root");
-		dataSource.setPassword("");	//root 
+		dataSource.setDriverClassName(env.getProperty("mysql.jdbc.driver"));
+		dataSource.setUrl(env.getProperty("mysql.jdbc.url"));
+		dataSource.setUsername(env.getProperty("mysql.jdbc.username"));
+		dataSource.setPassword(env.getProperty("mysql.jdbc.password"));
 		return dataSource;
 	}
 	@Autowired

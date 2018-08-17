@@ -8,7 +8,7 @@
 		<div>
 			<div>
 				<div class="logo-wrapper logo-navigation">
-					<a th:href="@{/rs/movement}"><img alt="Pokret"
+					<a th:href="@{/}"><img alt="Pokret"
 						th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="26"></a>
 				</div>
 				<div class="social-container navigation-social">
@@ -39,7 +39,7 @@
 		<div>
 			<!-- site logo -->
 			<div class="logo-wrapper fleft header-logo">
-				<a th:href="@{/rs/movement}"><img alt="Pokret"
+				<a th:href="@{/}"><img alt="Pokret"
 					th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="26"></a>
 			</div>			
 		</div>
@@ -81,7 +81,7 @@
 	<nav class="mvt-top-navigation" th:fragment="mvtTopNavigation">
 		<div class="nav-content-wrapper center-main-width fx-box fx-dir-row fx-justify-sbtw fx-valign-cnt">
 			<!-- Topbar Logo -->
-			<a th:href="@{/rs/movement}" class="mvt-top-logo" th:title="#{mvt.title.full}">
+			<a th:href="@{/}" class="mvt-top-logo" th:title="#{mvt.title.full}">
 				<img alt="Pokret" th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="30">
 			</a>
 	
@@ -117,7 +117,7 @@
 		<div class="header-content-wrapper center-main-width">
 		
 			<div class="header-top fx-box fx-justify-sbtw">
-				<a th:href="@{/rs/movement}"> 
+				<a th:href="@{/}"> 
 					<img alt="Pokret" th:src="@{/resources/img/icons/sobakaisti_dog.svg}" height="32" th:title="#{mvt.title.full}">
 				</a>
 				<!-- social networks -->
@@ -154,11 +154,8 @@
 				*	center indicator continer
 				-->
 				<div class="header-page-indicator">
-					<a th:href="@{/arts/{art}(art=${arts[0]})}" th:if="${not #lists.isEmpty(arts)}"> 
-						<span class="circle page-indikator-circle">
-							<img th:src="@{/resources/img/icons/__${arts[0]}__.svg}" class="selected-art-icon" th:title="#{label.arts.__${arts[0]}__}"> 
-							<!--<span th:if="${not #lists.isEmpty(arts)}" th:text="#{nav.item.manifesto}" th:alt="#{nav.item.manifesto}">MANIFEST</span> -->
-						</span>
+					<a th:href="@{/arts/{art}(art=${arts[0]})}" th:if="${not #lists.isEmpty(arts)}" class="circle page-indikator-circle"> 
+						<img th:src="@{/resources/img/icons/__${arts[0]}__.svg}" class="selected-art-icon" th:title="#{label.arts.__${arts[0]}__}"> 
 					</a>
 					<!-- Show Manifest indicator -->
 					<a th:href="@{/manifesto}" th:if="${#lists.isEmpty(arts) and #bools.isTrue(MANIFESTO_INDICATOR_ON)}" class="circle page-indikator-circle"

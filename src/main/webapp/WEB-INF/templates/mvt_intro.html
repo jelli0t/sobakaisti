@@ -10,7 +10,7 @@
 	font-size:12px; opacity:0; z-index:989">m</span>
 	<!-- Back to Movement icon -->
 	<span class="intro-shortcut-container">
-		<a th:href="@{/}" th:title="#{hover.title.backToIntro}" class="intro-shortcut-link">
+		<a href="/" th:title="#{hover.title.backToIntro}" class="intro-shortcut-link">
 			<img th:alt="#{hover.title.backToIntro}" th:src="@{/resources/img/icons/dog_house.svg}">
 		</a>
 	</span>
@@ -22,8 +22,8 @@
 		-->
 		<div class="circular-progress-container" th:attr="data-title=#{nav.item.movement}">
 		    <svg class="circular-progress" width="90" height="90" viewBox="0 0 90 90">
-				<circle cx="45" cy="45" r="42" fill="none" stroke="#e6e6e6" stroke-width="3" />
-				<circle class="circular-progress-value" cx="45" cy="45" r="42" fill="none" stroke="#343434" stroke-width="3" />    
+				<circle cx="45" cy="45" r="43" fill="#ffffff" stroke="#e6e6e6" stroke-width="2" />
+				<circle class="circular-progress-value" cx="45" cy="45" r="43" fill="none" stroke="#343434" stroke-width="2" />    
 		    </svg>
 		</div>
 		<nav class="fx-box fx-wrap fx-dir-row fx-justify-sbtw mvt-intro-menu">
@@ -31,7 +31,7 @@
 			<a th:href="@{/arts}" class="circle circle-nav" th:title="#{nav.item.arts}" th:text="#{nav.item.arts}">Radovi</a>
 			<a th:href="@{/authors}" class="circle circle-nav" th:title="#{nav.item.authors}" th:text="#{nav.item.authors}">Autori</a>
 			<a th:href="@{/publications}" class="circle circle-nav" th:title="#{nav.item.publications}" th:text="#{nav.item.publications}">Izdanja</a>
-			<a th:href="@{/shop}" class="circle circle-nav" th:title="#{nav.item.shop}" th:text="#{nav.item.shop}">Ducan</a>
+<!-- 			<a th:href="@{/shop}" class="circle circle-nav" th:title="#{nav.item.shop}" th:text="#{nav.item.shop}">Ducan</a> -->
 			<a th:href="@{/contact}" class="circle circle-nav" th:title="#{nav.item.contact}" th:text="#{nav.item.contact}">Kotakt</a>  
 		</nav>
 	</div>

@@ -28,7 +28,7 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
  */
 @Configuration
 @PropertySource("classpath:variables.properties")
-@PropertySource(value = "${mail.confg.fullpath}", ignoreResourceNotFound = true)
+@PropertySource(value = "${mail.conf}", ignoreResourceNotFound = true)
 @ComponentScan({ "org.sobakaisti.mail" })
 public class MailConfig implements ApplicationContextAware {
 

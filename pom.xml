@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sobakaisti</groupId>
-	<artifactId>sobakaisti</artifactId>
+	<artifactId>movement</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Sobakaisti Movement</name>
@@ -217,11 +217,11 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.2</version>
 				<configuration>
-					<warSourceDirectory>webapp</warSourceDirectory>
+<!-- 					<warSourceDirectory>webapp</warSourceDirectory> -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>sobakaisti</finalName>
+		<finalName>movement</finalName>
 	</build>
 </project>

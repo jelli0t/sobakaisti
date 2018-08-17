@@ -266,15 +266,6 @@ a.mvt-top-logo {
 	margin: 0;
 	padding: 0;
 }
-a.mvt-top-logo::after {
-	position: absolute;
-	right: -16px;
-	left: auto;
-	top: 5px;
-	content: '';
-	height: 28px;
-	border-right: 1px solid rgba(0, 0, 0, 0.3);
-}
 /* Header navigation */
 
 /* https://css-tricks.com/reading-position-indicator/ */
@@ -778,18 +769,20 @@ hr.socials-info-separator:before {
 	margin-bottom: -1px;
 }
 
-article.mvt-postprev-basic,
-article.mvt-postprev-highlight
+.mvt-postprev-basic,
+.mvt-postprev-highlight
  {
 	flex: none;
 	min-width: 320px;
-	height:auto;
+/* 	max-height: 320px; */
 	border: 1px solid rgba(0, 0, 0, .1);
 	border-radius: 3px;
 	background: #fff;
 	margin: 10px 0;
 	overflow: hidden;
 }
+.mvt-postprev-highlight { max-height: 290px;}
+
 article.mvt-postprev-basic {
 	width: 32%;
 	align-content: space-between;
@@ -1678,6 +1671,9 @@ li.login-options > a {
 		display: none;
 	}
 	.side-download-container { display: none; }
+	.mvt-top-menu {
+		font-size: .8em !important;
+	}
 }
 
 @media only screen and (max-width: 640px) {

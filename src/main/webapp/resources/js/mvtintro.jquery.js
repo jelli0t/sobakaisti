@@ -47,9 +47,12 @@ $.fn.loadBackground = function() {
 	$.ajax({
 		url: window.location.href+'/load_background',
 		type : 'GET',
-		contentType: 'application/json; charset=utf-8',
 		data: dimension,
-		dataType: 'html'
+		dataType: 'html',
+		beforeSend: function(xhr) {
+	        xhr.setRequestHeader('Accept', 'text/html; charset=utf-8');
+	        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+	    }
 	}).done(function( data ) {
 		if(data) {
 			/* Start circle progress animation */

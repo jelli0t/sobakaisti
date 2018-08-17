@@ -60,17 +60,17 @@ public class HomeController {
 	@Autowired
 	private CommentService commentService;
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/multilang-intro")
 	public String displayHome(){		
-		return "intro";  // home
+		return "intro";
 	}
 			
-	@RequestMapping(value="/movement", method=RequestMethod.GET )
+	@RequestMapping(value="/", method=RequestMethod.GET )
 	public String showMovementHome() {
 		return "mvt_intro";
 	}
 	
-	@RequestMapping(value="/movement/load_background", method=RequestMethod.GET)
+	@RequestMapping(value="/load_background", method=RequestMethod.GET)
 	public String loadIntroBackground(@RequestParam("width") int width, 
 										@RequestParam("height") int height, 
 										@RequestParam("charWidth") double charWidth, Model model) {
