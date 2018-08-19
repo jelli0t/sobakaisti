@@ -16,35 +16,42 @@
 <!-- Side navigation manu -->
 <section th:replace="~{commons/dash_sidebar :: dash_sidebar}"></section>
 
-<div class="dash-main-container">	
-	<div th:each="author : ${authors}" class="author-box" th:id="'item-'+${author.id}">
-	<div class="author-settings" th:with="id=${author.id}">
-		<span class="dropdown-icon">&#xe689;</span>
-		<ul class="dropdown-menu">
-			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/edit/{id}(id=${id})}" class="edit-item item-link" th:alt="${author.id}" th:text="#{menu.item.edit}">Edit</a></li>
-			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}" class="delete-item item-link" th:alt="${author.id}" th:text="#{menu.item.delete}">Delete</a></li>
-		</ul>
-	</div>
-		<div class="author-cover"></div>
-		<div class="author-avatar"></div>
-		<div class="author-content">
-			<div class="author-basic-info author-name"><span th:text="${author.firstName}"></span> 
-			<span th:text="${author.lastName}"></span></div>
-			<div class="author-basic-info author-profession" th:text="${author.profession}">~</div>
-		</div>
-		<div class="author-meta-info">
-			<span th:text="${author.birthplace}" class="icon birthplace-icon"></span>
-			<span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}" class="icon dob-icon"></span>
-			<span class="icon website-icon"><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a> </span>
-			<span th:text="${author.email}" class="icon mail-icon"></span>
-		</div>
-	</div>
+<section class="fx-box fx-dir-row fx-wrap fx-justify-start dash-container">	
+
+	<th:block th:if="${not #lists.isEmpty(authors)}" th:each="author : ${authors}"
+		th:insert="~{dashboard/dash_fragments :: authorPreviewFragment(author=${author})}">	
+	</th:block>
+
+
+
+<!-- 	<div th:each="author : ${authors}" class="author-box" th:id="'item-'+${author.id}"> -->
+<!-- 	<div class="author-settings" th:with="id=${author.id}"> -->
+<!-- 		<span class="dropdown-icon">&#xe689;</span> -->
+<!-- 		<ul class="dropdown-menu"> -->
+<!-- 			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/edit/{id}(id=${id})}" class="edit-item item-link" th:alt="${author.id}" th:text="#{menu.item.edit}">Edit</a></li> -->
+<!-- 			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}" class="delete-item item-link" th:alt="${author.id}" th:text="#{menu.item.delete}">Delete</a></li> -->
+<!-- 		</ul> -->
+<!-- 	</div> -->
+<!-- 		<div class="author-cover"></div> -->
+<!-- 		<div class="author-avatar"></div> -->
+<!-- 		<div class="author-content"> -->
+<!-- 			<div class="author-basic-info author-name"><span th:text="${author.firstName}"></span>  -->
+<!-- 			<span th:text="${author.lastName}"></span></div> -->
+<!-- 			<div class="author-basic-info author-profession" th:text="${author.profession}">~</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="author-meta-info"> -->
+<!-- 			<span th:text="${author.birthplace}" class="icon birthplace-icon"></span> -->
+<!-- 			<span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}" class="icon dob-icon"></span> -->
+<!-- 			<span class="icon website-icon"><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a> </span> -->
+<!-- 			<span th:text="${author.email}" class="icon mail-icon"></span> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<div class="author-box new-author-box">
 		<div class="author-add-new">
 			<button class="add-bttn" title="Dodaj Sobakaistu" onclick="callAnchor('add')">&#xe6a9;</button>
 		</div>
 	</div>
-</div>
+</section>
 
 <div class="overlay" id="add">
 <form id="author-form" th:action="@{/sbk-admin/sobakaisti/add}" method="POST">

@@ -31,4 +31,33 @@
 		</div>		
 	
 	</th:block>
+	
+	
+	
+	
+	<article th:fragment="authorPreviewFragment(author)" class="author-box">
+		<header>
+			<div class="author-cover"></div>
+			<div class="author-avatar">
+				<a th:href="@{/sbk-admin/sobakaisti/profile/{slug}(slug=${author.slug})}" class="circle"
+					th:title="${author.firstName + ' ' + author.lastName}"></a>
+			</div>
+		</header>
+		<main>			
+			<div class="author-basic-info y-1em-padding">
+				<h4 class="author-name" th:text="${author.firstName + ' ' + author.lastName}"></h4>
+				<span class="author-profession" th:text="${author.profession}"></span>
+			</div>
+			<div class="y-1em-padding x-1em-padding author-meta-info">
+				<ul>
+					<li><span th:text="${author.birthplace}" data-icon=""></span></li>
+					<li><span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}" data-icon=""></span></li>
+					<li><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank" data-icon=""></a></li>
+					<li><span th:text="${author.email}" data-icon=""></span></li>
+				</ul>
+			</div>
+		</main>
+	</article>
+	
+	
 </html>

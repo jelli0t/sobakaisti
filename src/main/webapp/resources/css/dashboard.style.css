@@ -447,6 +447,10 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 	box-sizing: border-box;
 	margin-bottom: 30px;
 }
+.dash-container {
+	border: 1px solid red;
+	margin: 90px 0 0 210px;
+}
 
 .dash-main-container .article-left-container {
 	display: table-cell;
