@@ -121,7 +121,7 @@
 	</div>
 	<div class="input-holder full-input-holder">
 		<label for="dob" th:text="#{form.label.dob}">Date of birh</label>
-		<input type="text" th:field="*{dob}" class="def-input" th:placeholder="#{form.label.dob}"
+		<input type="text" th:field="*{dob}" class="def-input" placeholder="01.01.20xx"
 			th:classappend="${#fields.hasErrors('dob')} ? 'non-valid-field'">
 		<div class="validation-error" th:errors="*{dob}"></div>   
 	</div>
