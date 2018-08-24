@@ -21,6 +21,9 @@ public class CalendarUtil {
 	public static final String INPUT_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static final SimpleDateFormat INPUT_DATETIME_FORMAT = new SimpleDateFormat(INPUT_DATETIME_PATTERN);
 	
+	private static final String BASIC_DATE_FORMAT = "dd.MM.yyyy";
+	public static final SimpleDateFormat basicDateFormatter = new SimpleDateFormat(BASIC_DATE_FORMAT);
+	
 	private static CalendarUtil instance = null;
 	private Calendar calendar = null;
 	
