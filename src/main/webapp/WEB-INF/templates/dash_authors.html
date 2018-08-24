@@ -100,44 +100,44 @@
 	<form th:action="@{/sbk-admin/sobakaisti/add}" th:object="${author}" method="post" onkeypress="return event.keyCode != 13;">
 	<div class="input-holder half-input-holder" style="margin-right:1%;">
 		<label for="firstName" th:text="#{form.label.firstname}">First Name</label>
-		<input type="text" th:field="*{firstName}" class="def-input def-l-input" th:placeholder="#{form.label.firstname}">
+		<input type="text" th:field="*{firstName}" class="def-input" th:placeholder="#{form.label.firstname}">
 		<div class="validation-error" th:errors="*{firstName}"></div> 
 	</div>  
 	<div class="input-holder half-input-holder"> 
 		<label for="lastName" th:text="#{form.label.lastname}">Last Name</label>
-		<input type="text" class="def-input def-l-input" th:field="*{lastName}" placeholder="Prezime autora"
+		<input type="text" class="def-input" th:field="*{lastName}" placeholder="Prezime autora"
 			th:classappend="${#fields.hasErrors('lastName')} ? 'non-valid-field'">
 		<div class="validation-error" th:errors="*{lastName}"></div>
 	</div>
 	<div class="input-holder full-input-holder">
 		<label for="profession" th:text="#{form.label.mailSubject}">Profession</label>
-		<input type="text" th:field="*{profession}" class="def-input def-l-input" th:placeholder="#{form.label.proffesion}"
+		<input type="text" th:field="*{profession}" class="def-input" th:placeholder="#{form.label.proffesion}"
 			th:classappend="${#fields.hasErrors('profession')} ? 'non-valid-field'">
 		<div class="validation-error" th:errors="*{profession}"></div>   
 	</div>
 	<div class="input-holder full-input-holder">
 		<label for="birthplace" th:text="#{form.label.birthplace}">Birthblace</label>
-		<input type="text" th:field="*{birthplace}" class="def-input def-l-input" th:placeholder="#{form.label.birthplace}">
+		<input type="text" th:field="*{birthplace}" class="def-input" th:placeholder="#{form.label.birthplace}">
 	</div>
 	<div class="input-holder full-input-holder">
 		<label for="dob" th:text="#{form.label.dob}">Date of birh</label>
-		<input type="text" th:field="*{dob}" class="def-input def-l-input" th:placeholder="#{form.label.dob}"
+		<input type="text" th:field="*{dob}" class="def-input" th:placeholder="#{form.label.dob}"
 			th:classappend="${#fields.hasErrors('dob')} ? 'non-valid-field'">
 		<div class="validation-error" th:errors="*{dob}"></div>   
 	</div>
 	<div class="input-holder full-input-holder">
 		<label for="email" th:text="#{form.label.email}">Date of birh</label>
-		<input type="email" th:field="*{email}" class="def-input def-l-input" th:placeholder="#{form.label.email}"
+		<input type="email" th:field="*{email}" class="def-input" th:placeholder="#{form.label.email}"
 			th:classappend="${#fields.hasErrors('email')} ? 'non-valid-field'">
 		<div class="validation-error" th:errors="*{email}"></div>   
 	</div>
 	<div class="input-holder full-input-holder">
 		<label for="website" th:text="#{form.label.website}">website</label>
-		<input type="text" th:field="*{website}" class="def-input def-l-input" th:placeholder="#{form.label.website}">
+		<input type="text" th:field="*{website}" class="def-input" th:placeholder="#{form.label.website}">
 	</div>
 	<div class="input-holder full-input-holder">
 		<label for="shortBio" th:text="#{form.label.shortBio}">Message</label>
-		<textarea th:field="*{shortBio}" rows="4" class="def-input def-l-input" placeholder="Kratka biografija autora"></textarea>
+		<textarea th:field="*{shortBio}" rows="4" class="def-input" placeholder="Kratka biografija autora"></textarea>
 	</div>
 	<div class="input-holder full-input-holder aright">    
 		<button type="submit" class="bttn bttn-primary" th:text="#{button.label.save}">Dodaj</button>  
