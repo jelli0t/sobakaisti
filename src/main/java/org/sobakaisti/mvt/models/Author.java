@@ -46,7 +46,7 @@ public class Author {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Calendar dob;
 	
 	@Pattern(regexp="[a-zA-Z\\s\\.\\,]{2,50}", message="{validation.warn.pattern}")
@@ -94,6 +94,11 @@ public class Author {
 	public void setDob(Calendar dob) {
 		this.dob = dob;
 	}
+	
+	public void setDob(String dob) {
+		this.dob = CalendarUtil.getInstance().parseCalendarFromString(dob, CalendarUtil.basicDateFormatter);
+	}
+	
 	public String getBirthplace() {
 		return birthplace;
 	}
