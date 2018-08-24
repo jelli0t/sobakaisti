@@ -46,7 +46,7 @@ public class Author {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_OF_BIRTH")
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Calendar dob;
 	
 	@Pattern(regexp="[a-zA-Z\\s\\.\\,]{2,50}", message="{validation.warn.pattern}")
