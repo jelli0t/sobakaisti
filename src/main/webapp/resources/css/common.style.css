@@ -175,12 +175,15 @@ a:link, a:VISITED {
 
 .float-left { float: left; }
 .float-right { float: right; }
+.fleft { float: left; }
+.fright { float: right; }
+.aleft { text-align: left; }
+.aright { text-align: right; }
 img {
 	border: none;
 	outline: none;
 	vertical-align: middle;
 }
-
 .full-width { display: block; width: 100% !important; }
 /* 
 * Box shadows 
