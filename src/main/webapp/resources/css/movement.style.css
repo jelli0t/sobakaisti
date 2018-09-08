@@ -88,22 +88,6 @@ div { display: block; }
 /*
 *	Form Input elements
 */
-.inputs-container {
-	margin: 0 auto;
-	padding: 24px;
-	max-width: 700px;
-	box-sizing: border-box;
-}
-.input-holder {
-	padding:0;
-	box-sizing: border-box;
-	margin-bottom: 15px;
-}
-.input-holder > label {
-	display: block; 
-	margin-bottom: 5px;
-	font-size: 12px;
-}
 .input-holder > input,
 .input-holder > .fake-input,
 .input-holder > textarea {
@@ -125,10 +109,7 @@ div { display: block; }
 /* 	box-shadow: inset 0 1px 1px rgba(27,31,35,0.075); */
 /* 	box-sizing: inherit; */
 }
-.half-input-holder {
-  display: inline-block;
-  width: 49%;
-}
+
 .input-holder > input:focus,
 .input-holder > textarea:focus {
   background-color: #fff;

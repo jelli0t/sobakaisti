@@ -35,7 +35,7 @@
 	
 	
 	
-	<article th:fragment="authorPreviewFragment(author)" class="author-box">
+	<article th:fragment="authorPreviewFragment(author)" class="author-box border-6-rad">
 		<header>
 			<div class="author-cover"></div>
 			<div class="author-avatar">
@@ -45,7 +45,7 @@
 		</header> 
 		<main>			
 			<div class="author-basic-info y-1em-padding">
-				<h4 class="author-name" th:text="${author.firstName + ' ' + author.lastName}"></h4>
+				<a href="" class="author-name" th:text="${author.firstName + ' ' + author.lastName}"></a>
 				<span class="author-profession" th:text="${author.profession}"></span>
 			</div>
 			<div class="y-1em-padding x-1em-padding author-meta-info">

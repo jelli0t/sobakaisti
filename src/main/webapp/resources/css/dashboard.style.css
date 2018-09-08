@@ -270,7 +270,7 @@ select.def-input {
 	box-shadow: none;
 	height: 40px;
 	background:	#24292e;	/* #438EB9; */
-	z-index: 999;
+	z-index: 998;
 }
 .dash-breadcrumbs {
 	position: fixed;
@@ -448,7 +448,6 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 	margin-bottom: 30px;
 }
 .dash-container {
-	border: 1px solid red;
 	margin: 90px 0 0 210px;
 }
 
@@ -554,13 +553,9 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 
 .author-box{
 	position: relative;
-	float: left;
 	width: 200px;
 	border: 1px solid #CCC;
 	margin: 15px;
-	-webkit-border-radius: 5px;
-  	-moz-border-radius: 5px;
-  	border-radius: 5px;
 }
 .author-box > .author-cover {
 	width: 100%;
@@ -667,9 +662,10 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 	line-height: 16px;
 }
 .new-author-box {
-	height: 286px;
+	vertical-align: middle;
 	text-align: center;
 	opacity: 0.5;
+	min-height: 200px; 
 }
 .new-author-box:HOVER { opacity: 1.0 }
 .new-author-box > .author-add-new {
@@ -704,26 +700,13 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 }
 /*	AUTHOR REGISTRATION FORM	*/
 .author-registration {
-	position: fixed;
-	top: 15%;
-	left:50%;
-	width: 300px;
+	min-width: 300px;
+	width: 500px;
 	height: auto;
-	margin-left: -150px;
-	border: 1px solid #CCC;
-	border-radius: 5px;
 	background-color: #fff;
-	padding: 30px 20px;
 	box-sizing: border-box;
 	z-index: 999;
 }
-.author-registration > .input-wrapper {
-	display:block;
-	margin: 15px 0;
-}
-.author-registration > .input-wrapper > input,
-.author-registration > .input-wrapper > textarea { width: 100%; }
-.author-registration > .input-wrapper > input.inline { width: 48%;} 
 
 .overlay {
   position: fixed;
@@ -735,7 +718,7 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
   transition: opacity 500ms;
   visibility: hidden;
   opacity: 0;
-  z-index: 999;
+  z-index: 998;
 }
 .overlay:target {
   visibility: visible;

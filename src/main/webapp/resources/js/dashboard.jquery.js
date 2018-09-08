@@ -297,13 +297,10 @@ $(function() {
 		  }, 4000);
 	  }
 	  
-	  /* Call translation */
-//	  $('.lang-nav-item > a').on('click', function(evt){
-////		  evt.stopPropagation();
-//		  evt.preventDefault();
-//		  alert('YeaH!!');
-//		  $(this).loadFragmentInto('#editable-body-holder');
-//	  });
+	  $('.overlay').on('click', function(e){
+		  if(e.target != this) return;
+		  closePopup();
+	  });
 	
 }); // End Of Ready
 

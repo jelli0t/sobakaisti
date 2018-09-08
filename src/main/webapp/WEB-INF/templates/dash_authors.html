@@ -22,7 +22,11 @@
 		th:insert="~{dashboard/dash_fragments :: authorPreviewFragment(author=${author})}">	
 	</th:block>
 
-
+	<article class="author-box new-author-box border-6-rad">
+		<div class="author-add-new">
+			<button class="add-bttn" title="Dodaj Sobakaistu" onclick="callAnchor('add')">&#xe6a9;</button>
+		</div>
+	</article>
 
 <!-- 	<div th:each="author : ${authors}" class="author-box" th:id="'item-'+${author.id}"> -->
 <!-- 	<div class="author-settings" th:with="id=${author.id}"> -->
@@ -45,62 +49,21 @@
 <!-- 			<span class="icon website-icon"><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a> </span> -->
 <!-- 			<span th:text="${author.email}" class="icon mail-icon"></span> -->
 <!-- 		</div> -->
-<!-- 	</div> -->
-	<div class="author-box new-author-box">
-		<div class="author-add-new">
-			<button class="add-bttn" title="Dodaj Sobakaistu" onclick="callAnchor('add')">&#xe6a9;</button>
-		</div>
-	</div>
+<!-- 	</div> -->	
 </section>
 
 <div class="overlay" id="add">
-<form id="author-form" th:action="@{/sbk-admin/sobakaisti/add}" method="POST">
-<div class="author-registration">
-	<a href="#"><span class="popup-close">&#xe681;</span></a>
-	<div class="input-wrapper">
-		<input type="text" name="firstName" class="inline" th:placeholder="#{form.label.firstname}" id="firstName"/>
-		<div class="validation-error"></div>
-		<input type="text" name="lastName" class="inline" th:placeholder="#{form.label.lastname}" style="float:right;" id="lastName"/>
-		<div class="validation-error"></div>
-	</div>
-	<div class="input-wrapper">
-		<input type="text" name="profession" th:placeholder="#{form.label.proffesion}" id="profession"/>
-		<div class="validation-error"></div>
-	</div>
-	<div class="input-wrapper">
-		<input type="text" name="birthplace" th:placeholder="#{form.label.birthplace}" id="birthplace"/>
-		<div class="validation-error"></div>
-	</div>
-	<div class="input-wrapper">
-		<input type="text" name="dob" th:placeholder="#{form.label.dob}" id="dob"/>
-	</div> 
-	<div class="input-wrapper">
-		<input type="text" name="email" th:placeholder="#{form.label.email}" id="email"/><div class="validation-error"></div>
-	</div>
-	<div class="input-wrapper">
-		<input type="text" name="website" th:placeholder="#{form.label.website}" id="website"/>
-	</div>
-	<div class="input-wrapper">
-		<textarea rows="3" th:placeholder="#{form.label.shortbio}" name="shortBio" id="shortBio"></textarea>
-		<input type="hidden" name="avatarPath" value="avatar_path_value" id="avatarPath">
-	</div>
-	<div class="input-wrapper">
-		<a href="javascript:void(0)" class="wide-bttn" id="submit-author"th:text="#{button.label.save}" >Save</a>
-	</div>
-</div>
-</form>
-</div> <!-- End of overlay -->
-
-<div class="modal-backdrop"></div> 
+<!-- <div class="modal-backdrop"></div>  -->
 
 <!-- 
 *** New Author box ***
 -->
-<div class="border-3-rad y-1em-padding x-1em-padding shadow-def">
+<div class="inputs-container author-registration border-3-rad y-1em-padding x-1em-padding shadow-def">
 	<form th:action="@{/sbk-admin/sobakaisti/add}" th:object="${author}" method="post" onkeypress="return event.keyCode != 13;">
 	<div class="input-holder half-input-holder" style="margin-right:1%;">
 		<label for="firstName" th:text="#{form.label.firstname}">First Name</label>
-		<input type="text" th:field="*{firstName}" class="def-input" th:placeholder="#{form.label.firstname}">
+		<input type="text" th:field="*{firstName}" class="def-input" th:placeholder="#{form.label.firstname}"
+			th:classappend="${#fields.hasErrors('firstName')} ? 'non-valid-field'">
 		<div class="validation-error" th:errors="*{firstName}"></div> 
 	</div>  
 	<div class="input-holder half-input-holder"> 
@@ -110,7 +73,7 @@
 		<div class="validation-error" th:errors="*{lastName}"></div>
 	</div>
 	<div class="input-holder full-input-holder">
-		<label for="profession" th:text="#{form.label.mailSubject}">Profession</label>
+		<label for="profession" th:text="#{form.label.proffesion}">Profession</label>
 		<input type="text" th:field="*{profession}" class="def-input" th:placeholder="#{form.label.proffesion}"
 			th:classappend="${#fields.hasErrors('profession')} ? 'non-valid-field'">
 		<div class="validation-error" th:errors="*{profession}"></div>   
@@ -136,7 +99,7 @@
 		<input type="text" th:field="*{website}" class="def-input" th:placeholder="#{form.label.website}">
 	</div>
 	<div class="input-holder full-input-holder">
-		<label for="shortBio" th:text="#{form.label.shortBio}">Message</label>
+		<label for="shortBio" th:text="#{form.label.shortbio}">biografija</label>
 		<textarea th:field="*{shortBio}" rows="4" class="def-input" placeholder="Kratka biografija autora"></textarea>
 	</div>
 	<div class="input-holder full-input-holder aright">    
@@ -145,6 +108,11 @@
 	</form>
 </div>
 
+</div> <!-- End of overlay -->
+
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
+<th:block th:if="${#bools.isTrue(HAS_ERROR)}">
+	<script type="text/javascript">callAnchor('add');</script>
+</th:block>
 </body>
 </html>

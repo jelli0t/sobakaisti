@@ -448,6 +448,26 @@ img {
 /*
 ** Form Inputs
 */
+.inputs-container {
+	margin: 0 auto;
+	padding: 24px;
+	max-width: 700px;
+	box-sizing: border-box;
+}
+.input-holder {
+	padding:0;
+	box-sizing: border-box;
+	margin-bottom: 15px;
+}
+.input-holder > label {
+	display: block; 
+	margin-bottom: 5px;
+	font-size: 12px;
+}
+.half-input-holder {
+  display: inline-block;
+  width: 49%;
+}
 .def-input {
 	display: block;
 	width: 100%;
@@ -478,6 +498,7 @@ img {
 	border: none;
 	box-shadow: none;
 }
+
 /* end of inputs style */
 
 .horisontal-list li{

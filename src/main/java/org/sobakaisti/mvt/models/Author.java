@@ -7,7 +7,6 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +17,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.sobakaisti.util.CalendarUtil;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -30,8 +33,6 @@ public class Author {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="ID")
-	@Min(value=1, message="{validation.author.empty}")
 	private int id;
 
 	@Pattern(regexp = "^[\\p{L} .'-]+$", message="{validation.warn.pattern}")
@@ -62,7 +63,7 @@ public class Author {
 	@Column(name="SHORT_BIO")
 	private String shortBio;
 	
-	@Pattern(regexp="[a-zA-Z\\s\\.\\,\\/]{2,50}", message="{validation.warn.pattern}")
+//	@Pattern(regexp="[a-zA-Z\\s\\.\\,\\/]{2,50}", message="{validation.warn.pattern}")
 	@Column(name="PROFESSION")
 	private String profession;
 	@Column(name="AVATAR_PATH")

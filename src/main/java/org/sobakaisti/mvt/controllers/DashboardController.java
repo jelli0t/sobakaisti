@@ -84,27 +84,29 @@ public class DashboardController {
 	
 	@RequestMapping(value="/sobakaisti", method=RequestMethod.GET)
 	public String showSobakaistiHome(Model model){
+		if(!model.containsAttribute("author")) {
+			model.addAttribute("author", new Author());
+		}
 		model.addAttribute("name", "Sobakaisti");
-		model.addAttribute("authors", authorDao.getAllAuthors());
+		model.addAttribute("authors", authorDao.getAllAuthors());		
 		return "dash_authors";
 	}
 	
 	@RequestMapping(value="/sobakaisti/add", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<Object[]> addNewSoakais(@Valid @RequestBody Author author, BindingResult result){
-		Object[] authors = new Author[1];
-		if(result.hasErrors()){
-			Object[] errors = result.getFieldErrors().toArray();
-			return new ResponseEntity<Object[]>(errors, HttpStatus.BAD_REQUEST);			
-		}else{
-			String fullName = author.getFirstName() + " " + author.getLastName();
-			author.setSlug(StringUtil.makeSlug(fullName));
+	public String addNewAuthor(@Valid Author author, BindingResult result, RedirectAttributes redirectAttributes) {		
+		if(result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.author", result);
+			redirectAttributes.addFlashAttribute("author", author);
+			redirectAttributes.addFlashAttribute("HAS_ERROR", true);
+			logger.warn("Ima gresaka pri validaciji!");
+		} else {
+			/* Make unique authors slug */			
+			author.setSlug(StringUtil.makeSlug(author.getFullName()));
 			authorDao.persistAuthor(author);
-			authors[0] = author;
-		}		
-		System.out.println(author);
-		
-		return new ResponseEntity<Object[]>(authors, HttpStatus.OK);
+			logger.info("Uspesno sacuvan novi autor: "+author);
+			redirectAttributes.addFlashAttribute("author", author);
+		}
+		return "redirect:/sbk-admin/sobakaisti";
 	}
 	
 
