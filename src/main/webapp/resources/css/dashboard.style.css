@@ -550,35 +550,57 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 .article-input-wrapper {
 	margin: 0 0 15px 0;
 }
-
-.author-box{
+/*
+* Autori previews
+*/
+.author-box {
 	position: relative;
 	width: 200px;
 	border: 1px solid #CCC;
 	margin: 15px;
 }
-.author-box > .author-cover {
-	width: 100%;
-	height: 100px;
-	background-color: #438EB9;	
+.author-box > header >
+.author-cover {
+  height: 70px;
+	background-color: #438EB9;
+  text-align: center;
 }
-.author-box > .author-avatar {
-	position: absolute;
-	top: 50px;
-	left: 50px;
-	width: 100px;
-	height: 100px;
+.author-box > header >
+.author-avatar {
+  position: relative;
+  margin: -40px auto 0;
+	width: 80px;
+	height: 80px;
 	border: 2px solid #fff;
-	border-radius: 100%;
+	border-radius: 50%;
 }
-.author-box > .author-content {
-	margin-top: 60px;
+.author-basic-info {
+	text-align: center;
+	font-weight: 300;
+	text-transform: uppercase;
 }
-.author-settings {
-	position: absolute;
-	top: 6px;
-	right: 6px;
+.author-basic-info > 
+.author-name { display: block; font-size: 13px; }
+.author-basic-info >
+.author-profession { font-size: 10px; font-style: italic; color:#A0AEC1; line-height: 16px;}
+
+.author-meta-info {
+  list-style: none;
+	font-size: 11px;
+	font-weight: 300;
+	padding: 10px;
 }
+.author-meta-info > li { padding-left: 22px; }
+.author-meta-info > li > span { line-height: 16px; }
+.author-meta-info > li:before {
+  position: absolute;
+  left: 1em;
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  border: 1px solid red;
+}
+
 
 /* DROPDOWN MENU */
 .dropdown-icon {
@@ -645,22 +667,7 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 .dropdown-item a:HOVER {
 	color: #2f65c6;	
 }
-.author-basic-info {
-	text-align: center;
-	font-weight: 300;
-	text-transform: uppercase;
-}
-.author-name {font-size: 13px;}
-.author-profession {font-size: 10px; font-style: italic; color:#A0AEC1; line-height: 16px;}
-.author-meta-info {
-	font-size: 11px;
-	font-weight: 300;
-	padding: 10px;
-}
-.author-meta-info > span {
-	display: block;
-	line-height: 16px;
-}
+
 .new-author-box {
 	vertical-align: middle;
 	text-align: center;
