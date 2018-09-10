@@ -48,14 +48,12 @@
 				<a href="" class="author-name" th:text="${author.firstName + ' ' + author.lastName}"></a>
 				<span class="author-profession" th:text="${author.profession}"></span>
 			</div>
-			<div class="y-1em-padding x-1em-padding author-meta-info">
-				<ul>
-					<li><span th:text="${author.birthplace}" data-icon=""></span></li>
-					<li><span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}" data-icon=""></span></li>
-					<li><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank" data-icon=""></a></li>
-					<li><span th:text="${author.email}" data-icon=""></span></li>
-				</ul>
-			</div>
+			<ul class="y-1em-padding x-1em-padding author-meta-info">
+				<li data-icon=""><span th:text="${author.birthplace}"></span></li>
+				<li data-icon=""><span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}"></span></li>
+				<li data-icon=""><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a></li>
+				<li data-icon=""><span th:text="${author.email}"></span></li>
+			</ul>
 		</main>
 	</article>
 	
