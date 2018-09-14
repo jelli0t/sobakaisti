@@ -212,6 +212,11 @@ img {
 	-moz-border-radius: 12px;
 	border-radius: 12px;
 }
+.border-full-rad {
+  	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+}
 
 .bgd-lightgray {
 	background: #fafafa!important;
@@ -506,6 +511,26 @@ img {
 	font-size: 12px;
 	margin: 0 3px;
 }
+/* Background Images */
+.bkgd-cover {
+	position: relative;
+	width: inherit;
+	background-size: cover !important;
+	background-position: center center;
+	background-repeat: none;
+	overflow: hidden;
+}
+.bkgd-cover:before {
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+.bkgd-cover-1x2:before { padding-top: 200% !important; }
+.bkgd-cover-1x3:before { padding-top: 300% !important; }
+.bkgd-cover-2x1:before { padding-top: 50% !important; }
+.bkgd-cover-3x1:before { padding-top: 33.3% !important; }
+.bkgd-cover-4x3:before { padding-top: 75% !important; }
+.bkgd-cover-16x9:before { padding-top: 56.25% !important; }
 
 /* table cell width  */
 .th-xs  { width: 25px; }
