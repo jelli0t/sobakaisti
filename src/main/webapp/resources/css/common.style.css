@@ -527,6 +527,7 @@ img {
 }
 .bkgd-cover-1x2:before { padding-top: 200% !important; }
 .bkgd-cover-1x3:before { padding-top: 300% !important; }
+.bkgd-cover-9x16:before { padding-top: 177.7% !important; }
 .bkgd-cover-2x1:before { padding-top: 50% !important; }
 .bkgd-cover-3x1:before { padding-top: 33.3% !important; }
 .bkgd-cover-4x3:before { padding-top: 75% !important; }
