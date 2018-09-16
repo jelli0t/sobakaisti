@@ -43,9 +43,10 @@
 					th:title="${author.firstName + ' ' + author.lastName}"></a>
 			</div>
 		</header> 
-		<main>			
+		<main>
 			<div class="author-basic-info y-1em-padding">
-				<a href="" class="author-name" th:text="${author.firstName + ' ' + author.lastName}"></a>
+				<a th:href="@{/sbk-admin/sobakaisti/profile/{slug}(slug=${author.slug})}"
+					 class="author-name" th:text="${author.firstName + ' ' + author.lastName}"></a>
 				<span class="author-profession" th:text="${author.profession}"></span>
 			</div>
 			<ul class="y-1em-padding x-1em-padding author-meta-info">

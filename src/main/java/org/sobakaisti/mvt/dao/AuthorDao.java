@@ -28,6 +28,17 @@ public interface AuthorDao {
 	public Author findAuthorBySlug(String slug);
 	
 	/**
+	 * Dohvata potpune informacije o autoru, ukljucujuci i profil.
+	 * Autora trazi po ID
+	 * */
+	public Author findFull(int id);
+	/**
+	 * Dohvata potpune informacije o autoru, ukljucujuci i profil.
+	 * Autora trazi po njegovom slugu
+	 * */
+	public Author findFull(String slug);
+	
+	/**
 	 * 	Vraca listu svih sobakaista
 	 * @return
 	 * */

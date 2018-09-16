@@ -164,7 +164,7 @@ html, body, div, article, section, img, ul, ol {
 }
 
 /* List general style */
-ul { list-style: none; }
+ul,ol { list-style: none; }
 
 a:link, a:VISITED {	
 	text-decoration: none;
@@ -179,6 +179,7 @@ a:link, a:VISITED {
 .fright { float: right; }
 .aleft { text-align: left; }
 .aright { text-align: right; }
+.tal-center { text-align: center; }
 img {
 	border: none;
 	outline: none;
@@ -450,6 +451,23 @@ img {
 }
 /* end of buttons */
 
+.h3 {
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 2px 0;
+}
+.h4 {
+  display: block;
+  font-size: 0.9em;
+  opacity: 0.75;
+  margin: 1.5px 0;
+}
+.h5 {
+  display: block;
+  font-size: 0.8em;
+  opacity: 0.7;
+}
 /*
 ** Form Inputs
 */

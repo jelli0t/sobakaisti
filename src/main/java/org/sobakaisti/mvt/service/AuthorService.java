@@ -25,6 +25,9 @@ public interface AuthorService {
 	 * */
 	public Author findBySlug(String slug);
 	
+	/***/
+	public Author findFull(String slug);
+	
 	/**
 	 * Dohvata listu citata iz manifesta
 	 * */

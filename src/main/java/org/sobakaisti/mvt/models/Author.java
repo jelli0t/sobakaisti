@@ -7,17 +7,19 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.engine.FetchStyle;
 import org.sobakaisti.util.CalendarUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -70,6 +72,9 @@ public class Author {
 	private String avatarPath;
 	@Column(name="slug")
 	private String slug;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="author", targetEntity=AuthorProfile.class)
+	private Profile profile;
 			
 	public int getId() {
 		return id;
@@ -143,6 +148,12 @@ public class Author {
 		this.slug = slug;
 	}
 	
+	public Profile getProfile() {
+		return profile;
+	}
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
 	/**
 	 * Sabira ime i prezima i vraca kao jedan String
 	 * @return string

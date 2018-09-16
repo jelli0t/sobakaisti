@@ -17,13 +17,6 @@ html, body {
 	background-color: #fff;
 	font-family: 'Noto Sans', sans-serif;
 }
-ul { 
-	list-style: none; 
-	margin: 0; 
-	padding: 0; 
-	box-sizing: border-box;
-	}
-
 
 /* Flex */
 .fx-box {
@@ -1657,6 +1650,17 @@ a:nth-child(2) {
 /*   background: #34495E; */
 /*   color: #39D2B4; */
 }
-
 /* END MEDIA SELECT */
+
+.profile-container { max-width: 1024px; }
+.profile-container > aside { width: 160px; }
+.profile-info-list {
+	font-size:0.8em; 
+	color:#434343; 
+	min-width:210px;
+}
+.profile-info-list > li {
+	line-height: 1.7em;
+}
+
 

@@ -36,4 +36,9 @@ public class AuthorServiceImpl implements AuthorService {
 		return authorDao.findAuthorBySlug(slug);
 	}
 
+	@Override
+	public Author findFull(String slug) {
+		return authorDao.findFull(slug);
+	}
+
 }
