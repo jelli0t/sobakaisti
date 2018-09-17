@@ -11,7 +11,7 @@ import org.sobakaisti.mvt.models.Author;
  * @author jelli0t
  *
  */
-public interface AuthorService {
+public interface AuthorService extends ProfileServiceImpl<AuthorProfile> {
 
 	/**
 	 * Pronalazi sve autore u sistemu
