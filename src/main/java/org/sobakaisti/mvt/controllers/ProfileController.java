@@ -29,9 +29,9 @@ public class ProfileController {
 		return "dashboard/profile";
 	}
 	
-	@RequestMapping(value="/profile/edit/{slug}", method=RequestMethod.GET)
-	public String insertAuthorProfileEditPage(@PathVariable String slug, Model model) {
-		Author author = authorService.findFull(slug);
+	@RequestMapping(value="/profile/edit/{profileId}", method=RequestMethod.GET)
+	public String insertAuthorProfileEditPage(@PathVariable int profileId, Model model) {
+		Author author = authorService.findFull(profileId);
 		if(author != null) {
 			logger.info("Ucitavam profil autora: "+author.getFullName()+" za izmenu.");
 			model.addAttribute("profile", author.getProfile());
