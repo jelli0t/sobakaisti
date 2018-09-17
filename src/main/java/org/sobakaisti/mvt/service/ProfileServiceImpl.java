@@ -1,16 +1,25 @@
 package org.sobakaisti.mvt.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sobakaisti.mvt.dao.ProfileDao;
+import org.sobakaisti.mvt.models.Profile;
+import org.springframework.stereotype.Service;
+
 @Service
 public abstract class ProfileServiceImpl<T extends Profile> implements ProfileService<T> {
 
-  private static final Logger logger = LoggerFactory.getLogger(ProfileServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProfileServiceImpl.class);
+  	
+	private ProfileDao<T> postDao;		
   
-  @Autowired
-  private ProfileDao<T> postDao;
-  
-  @Override
-  boolean removeSocialNetwork(int snid) {
-    return postDao.removeSocialNetwork(int snid);
-  }
+	public ProfileServiceImpl(ProfileDao<T> postDao) {
+		this.postDao = postDao;
+	}
+
+	@Override
+	public boolean removeSocialNetwork(int snid) {
+		return postDao.removeSocialNetwork(snid);
+	}
   
 }

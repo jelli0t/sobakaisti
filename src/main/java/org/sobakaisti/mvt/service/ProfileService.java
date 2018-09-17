@@ -1,5 +1,7 @@
 package org.sobakaisti.mvt.service;
 
+import org.sobakaisti.mvt.models.Profile;
+
 /**
  * @author jelli0t
  *

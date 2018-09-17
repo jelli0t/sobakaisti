@@ -23,59 +23,59 @@
 	<!-- Right profile side -->
 	<div class="fx-box fx-dir-col x-1em-padding">
 	    <nav class="tabs-nav-container">
-		<ul class="tabs-nav-list" style="order-bottom: 1px solid #e1e4e8;">
-		  <li class="tabs-nav-item">
-			<a href="javascript:;" class="active-tab">Overview</a></li>
-		  <li class="tabs-nav-item">
-			<a href="javascript:;">Articles</a></li>
-		</ul>
-		<!-- Call Edit div -->
+			<ul class="tabs-nav-list" style="order-bottom: 1px solid #e1e4e8;">
+			  <li class="tabs-nav-item">
+				<a href="javascript:;" class="active-tab">Overview</a></li>
+			  <li class="tabs-nav-item">
+				<a href="javascript:;">Articles</a></li>
+			</ul>
+			<!-- Call Edit div -->
 		    <a href="javascript:;" id="js-edit-profile" class="bttn bttn-outline"
 		       th:attr="data-uri=@{/sbk-admin/sobakaisti/profile/edit/{profile_id}(profile_id=${profile.id})}" 
 			th:text="#{menu.item.edit}"></a>
 	    </nav>
-		
-		<div class="fx-box fx-dir-row fx-justify-sbtw" id="js-editable-container">
-			<!-- Basic bio -->
-			<div class="x-1em-padding y-1em-padding">
-		        <span class="h3" data-role="Admin" th:text="${profile.getFullName()}"></span>
-		        <span class="h4" th:if="${not #strings.isEmpty(profile.profession)}" th:text="${profile.profession}"></span>
-        		<span class="h5">
-        			<span th:text="#{label.member.since}"></span>:
-        			<time class="post-prev-date" th:text="${#dates.format(profile.registered, 'dd. MMM yyyy.')}"></time>
-        		</span>
-				<p th:if="${not #strings.isEmpty(profile.shortBio)}" style="font-size:12px; opacity:0.75;"
-					th:utext="${profile.shortBio}"></p>
-			</div>
-			<!-- basic info list -->
-			<div class="x-1em-padding">
-				<ul class="profile-info-list">
-					<li th:if="${not #strings.isEmpty(profile.location)}">
-						<img alt="loc" th:src="@{/resources/img/icons/svg/location.svg}" height="14"/>
-						<span th:text="${profile.location}"></span>
-					</li>
-					<li th:if="${not #strings.isEmpty(profile.dob)}">
-						<img alt="dob" th:src="@{/resources/img/icons/svg/gift.svg}" height="14"/>
-						<span th:text="${#dates.format(profile.dob, 'dd. MMM yyyy.')}"></span>
-					</li>
-					<li th:if="${not #strings.isEmpty(profile.website)}">
-						<img alt="site" th:src="@{/resources/img/icons/svg/link.svg}" height="14"/>
-						<a th:href="@{http://__${profile.website}__}" target="_blank" th:text="${profile.website}"></a>
-					</li>
-					<li th:if="${not #strings.isEmpty(profile.email)}">
-						<img alt="mail" th:src="@{/resources/img/icons/svg/mail.svg}" height="14"/>
-						<a th:href="@{mailto:__${profile.email}__}" th:text="${profile.email}" th:title="#{title.attr.mailto}"></a>
-					</li>
-					<!-- Socials -->
-					<th:block th:if="${not #lists.isEmpty(profile.socialNetwork)}">
-						<li th:each="soc : ${profile.socialNetwork}">
-							<img alt="loc" th:src="@{/resources/img/social/__${soc.icon}__}" height="14"/>
-							<a th:href="@{__${soc.url}__}" target="_blank" th:text="${soc.username}"></a>
+		<div id="js-editable-container">
+			<div class="fx-box fx-dir-row fx-justify-sbtw">
+				<!-- Basic bio -->
+				<div class="x-1em-padding y-1em-padding">
+			        <span class="h3" data-role="Admin" th:text="${profile.getFullName()}"></span>
+			        <span class="h4" th:if="${not #strings.isEmpty(profile.profession)}" th:text="${profile.profession}"></span>
+	        		<span class="h5">
+	        			<span th:text="#{label.member.since}"></span>:
+	        			<time class="post-prev-date" th:text="${#dates.format(profile.registered, 'dd. MMM yyyy.')}"></time>
+	        		</span>
+					<p th:if="${not #strings.isEmpty(profile.shortBio)}" style="font-size:12px; opacity:0.75;"
+						th:utext="${profile.shortBio}"></p>
+				</div>
+				<!-- basic info list -->
+				<div class="x-1em-padding">
+					<ul class="profile-info-list">
+						<li th:if="${not #strings.isEmpty(profile.location)}">
+							<img alt="loc" th:src="@{/resources/img/icons/svg/location.svg}" height="14"/>
+							<span th:text="${profile.location}"></span>
 						</li>
-					</th:block>
-				</ul>
+						<li th:if="${not #strings.isEmpty(profile.dob)}">
+							<img alt="dob" th:src="@{/resources/img/icons/svg/gift.svg}" height="14"/>
+							<span th:text="${#dates.format(profile.dob, 'dd. MMM yyyy.')}"></span>
+						</li>
+						<li th:if="${not #strings.isEmpty(profile.website)}">
+							<img alt="site" th:src="@{/resources/img/icons/svg/link.svg}" height="14"/>
+							<a th:href="@{http://__${profile.website}__}" target="_blank" th:text="${profile.website}"></a>
+						</li>
+						<li th:if="${not #strings.isEmpty(profile.email)}">
+							<img alt="mail" th:src="@{/resources/img/icons/svg/mail.svg}" height="14"/>
+							<a th:href="@{mailto:__${profile.email}__}" th:text="${profile.email}" th:title="#{title.attr.mailto}"></a>
+						</li>
+						<!-- Socials -->
+						<th:block th:if="${not #lists.isEmpty(profile.socialNetwork)}">
+							<li th:each="soc : ${profile.socialNetwork}">
+								<img alt="loc" th:src="@{/resources/img/social/__${soc.icon}__}" height="14"/>
+								<a th:href="@{__${soc.url}__}" target="_blank" th:text="${soc.username}"></a>
+							</li>
+						</th:block>
+					</ul>
+				</div>      
 			</div>
-      
 		</div>
     
 	</div>
