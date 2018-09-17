@@ -1122,11 +1122,11 @@ $.fn.appendSelectedTag = function(index) {
 }
 
 $.fn.loadFragmentInto = function(container) {
-	var href = $(this).attr('href');
-	alert('call: '+href);
+	var uri = $(this).attr('data-uri');
+	alert('call: '+uri);
 	$.ajax({
-	    url: href,
-	    type: 'GET',	   
+	    url: uri,
+	    type: 'GET',
 	    dataType: 'html'
 	})
 	.done(function( html ) {
