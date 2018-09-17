@@ -302,6 +302,12 @@ $(function() {
 		  closePopup();
 	  });
 	
+	$('#js-edit-profile').on('click', function(evt){
+		evt.preventDefault();
+		$(this).loadFragmentInto('#js-editable-container');
+	});
+	
+	
 }); // End Of Ready
 
 
