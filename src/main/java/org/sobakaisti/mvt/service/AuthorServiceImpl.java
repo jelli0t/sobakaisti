@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Korisnik
+ * @author jelles
  *
  */
 @Service
-public class AuthorServiceImpl implements AuthorService {
+public class AuthorServiceImpl extends ProfileServiceImpl<AuthorProfile> implements AuthorService {
 
 	@Autowired
 	private AuthorDao authorDao;
