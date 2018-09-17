@@ -7,10 +7,9 @@
 <th:block th:fragment="editableProfileFragment">
   <div class="fx-box fx-dir-row fx-justify-sbtw">
     <form th:action="@{/sbk-admin/sobakaisti/profile/edit}" th:object="${profile}" method="post" onkeypress="return event.keyCode != 13;">
-			<!-- Basic bio -->
-			<div class="x-1em-padding y-1em-padding">
+	<!-- Basic bio -->
+	<div class="x-1em-padding y-1em-padding">
             <!-- First Name -->
-		        <span class="h3" data-role="Admin" th:text="${profile.getFullName()}"></span>
             <div class="input-holder half-input-holder" style="margin-right:1%;">
               <label for="firstName" th:text="#{form.label.firstname}">First Name</label>
               <input type="text" th:field="*{firstName}" class="def-input" th:placeholder="#{form.label.firstname}"
@@ -43,45 +42,43 @@
               <label for="shortBio" th:text="#{form.label.shortbio}">biografija</label>
               <textarea th:field="*{shortBio}" rows="4" class="def-input" placeholder="Kratka biografija autora"></textarea>
             </div>
-			</div>
+	</div>
       
-			<!-- basic info list -->
-			<div class="x-1em-padding">
-				<ul class="profile-info-list" style="min-width:310px !important;">
+	<!-- basic info list -->
+	<div class="x-1em-padding">
+		<ul class="profile-info-list" style="min-width:310px !important;">
           <!-- Location -->
-					<li>						
-						<div class="input-holder full-input-holder">
-              <img alt="loc" th:src="@{/resources/img/icons/svg/location.svg}" height="15"/>&emsp;
-              <input type="text" th:field="*{location}" class="def-input" th:placeholder="#{form.label.birthplace}">
-            </div>
-					</li>
-          <!-- DOB -->
-					<li class="input-holder full-input-holder">           
-              <img alt="dob" th:src="@{/resources/img/icons/svg/gift.svg}" height="15"/>&emsp;
-              <input type="text" th:field="*{dob}" class="def-input" placeholder="01.01.19xx">  
-					</li>
-          <!-- Website -->
-					<li class="input-holder full-input-holder">
-						<img alt="site" th:src="@{/resources/img/icons/svg/link.svg}" height="15"/>&emsp;
-						<input type="text" th:field="*{website}" class="def-input" th:placeholder="#{form.label.website}">
-					</li>
-          <!-- E-mail -->
-					<li class="input-holder full-input-holder">
-						<img alt="mail" th:src="@{/resources/img/icons/svg/mail.svg}" height="15"/>&emsp;
-						<input type="email" th:field="*{email}" class="def-input" th:placeholder="#{form.label.email}"
-              th:classappend="${#fields.hasErrors('email')} ? 'non-valid-field'">
-            <div class="validation-error" th:errors="*{email}"></div>
-					</li>
+		<li class="input-holder full-input-holder">		
+			<img alt="loc" th:src="@{/resources/img/icons/svg/location.svg}" height="15"/>&emsp;
+			<input type="text" th:field="*{location}" class="def-input" th:placeholder="#{form.label.birthplace}">
+		</li>
+		<!-- DOB -->
+		<li class="input-holder full-input-holder">           
+		      <img alt="dob" th:src="@{/resources/img/icons/svg/gift.svg}" height="15"/>&emsp;
+		      <input type="text" th:field="*{dob}" class="def-input" placeholder="01.01.19xx">  
+		</li>
+		<!-- Website -->
+		<li class="input-holder full-input-holder">
+			<img alt="site" th:src="@{/resources/img/icons/svg/link.svg}" height="15"/>&emsp;
+			<input type="text" th:field="*{website}" class="def-input" th:placeholder="#{form.label.website}">
+		</li>
+          	<!-- E-mail -->
+		<li class="input-holder full-input-holder">
+			<img alt="mail" th:src="@{/resources/img/icons/svg/mail.svg}" height="15"/>&emsp;
+			<input type="email" th:field="*{email}" class="def-input" th:placeholder="#{form.label.email}"
+		      th:classappend="${#fields.hasErrors('email')} ? 'non-valid-field'">
+		    <div class="validation-error" th:errors="*{email}"></div>
+		</li>
           
-					<!-- Socials -->
-					<th:block th:if="${not #lists.isEmpty(profile.socialNetwork)}">
-						<li th:each="soc : ${profile.socialNetwork}">
-							<img alt="loc" th:src="@{/resources/img/social/__${soc.icon}__}" height="14"/>
-							<a th:href="@{__${soc.url}__}" target="_blank" th:text="${soc.username}"></a>
-						</li>
-            <li>+ Dodaj</li>
-					</th:block>
-				</ul>
+		<!-- Socials -->
+		<th:block th:if="${not #lists.isEmpty(profile.socialNetwork)}">
+			<li th:each="soc : ${profile.socialNetwork}">
+				<img alt="loc" th:src="@{/resources/img/social/__${soc.icon}__}" height="14"/>
+				<a th:href="@{__${soc.url}__}" target="_blank" th:text="${soc.username}"></a>
+			</li>
+			<li>+ Dodaj</li>
+		</th:block>
+		</ul>
         </form>
-			</div>
+	</div>
 </th:block>
