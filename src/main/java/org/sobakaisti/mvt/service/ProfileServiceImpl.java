@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.ProfileDao;
 import org.sobakaisti.mvt.models.Profile;
+import org.sobakaisti.util.CommitResult;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +32,7 @@ public abstract class ProfileServiceImpl<T extends Profile> implements ProfileSe
 	
 	@Override
 	public CommitResult commitProfilSocialNetworkDeletion(int profileId, int socnetId) {
-		boolean removed = profileDao.removeProfilesSocialNetwork(int socnetId, int profileId);
+		boolean removed = profileDao.removeProfilesSocialNetwork(socnetId, profileId);
 		return new CommitResult(removed, "");
 	}
   

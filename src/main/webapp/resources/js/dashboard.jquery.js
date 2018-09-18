@@ -1139,7 +1139,6 @@ $.fn.appendSelectedTag = function(index) {
 
 $.fn.loadFragmentInto = function(container) {
 	var uri = $(this).attr('data-uri');
-	alert('call: '+uri);
 	$.ajax({
 	    url: uri,
 	    type: 'GET',

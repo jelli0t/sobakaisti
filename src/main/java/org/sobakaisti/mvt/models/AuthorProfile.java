@@ -35,6 +35,12 @@ public class AuthorProfile extends Profile {
 	public String getFirstName() {
 		return this.author.getFirstName();
 	}
+	
+	@Override
+	public void setFirstName(String firstName) {
+		super.setFirstName(firstName);
+	}
+	
 	@Override
 	public String getLastName() {
 		return this.author.getLastName();

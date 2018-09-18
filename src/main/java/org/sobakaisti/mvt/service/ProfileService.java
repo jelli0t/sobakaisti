@@ -1,6 +1,7 @@
 package org.sobakaisti.mvt.service;
 
 import org.sobakaisti.mvt.models.Profile;
+import org.sobakaisti.util.CommitResult;
 
 /**
  * @author jelli0t
