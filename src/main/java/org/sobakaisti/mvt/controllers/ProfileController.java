@@ -29,14 +29,34 @@ public class ProfileController {
 		return "dashboard/profile";
 	}
 	
-	@RequestMapping(value="/profile/edit/{profileId}", method=RequestMethod.GET)
-	public String insertAuthorProfileEditPage(@PathVariable int profileId, Model model) {
-		Author author = authorService.findFull(profileId);
-		if(author != null) {
-			logger.info("Ucitavam profil autora: "+author.getFullName()+" za izmenu.");
-			model.addAttribute("profile", author.getProfile());
+	@RequestMapping(value="/profile/edit/{authorId}", method=RequestMethod.GET)
+	public String insertAuthorProfileEditPage(@PathVariable int authorId, Model model) {		
+		if (!model.containsAttribute("profile")) {
+			Author author = authorService.findFull(authorId);
+			if(author != null) {
+				model.addAttribute("profile", author.getProfile());
+				logger.info("Ucitavam profil autora: "+author.getFullName()+" za izmenu.");
+			} else
+				model.addAttribute("profile", new AuthorProfile());	
 		}
 		return "dashboard/profile_fragments :: editableProfileFragment";
 	}
+	
+	
+	@RequestMapping(value="/profile/edit/submit", method=RequestMethod.POST)
+	public String submitContactForm(@Valid @ModelAttribute("profile") AuthorProfile profile, BindingResult result,
+			RedirectAttributes redirectAttributes) {
+		if(result.hasErrors()) {
+			System.out.println("Ima gresaka!");
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.profile", result);
+			redirectAttributes.addFlashAttribute("profile", profile);
+		} else {
+			profile = authorService.saveOrUpdateProfile(profile);			
+			String commitMessage = (profile != null) ? "Uspesno ste azurirali profil" 
+				: "Dogodila se greska prilikom azuriranja profila!";	
+			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(profile != null, commitMessage));
+		}		
+		return String.format("redirect:/sbk-admin/sobakaisti/profile/edit/%d", profile.getId());
+	} 
 	
 }
