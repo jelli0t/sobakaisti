@@ -307,6 +307,22 @@ $(function() {
 		$(this).loadFragmentInto('#js-editable-container');
 	});
 	
+	/* Uklanja stavke sa liste */
+	$(document).on('click', '.js-remove-item', function(evt){
+		evt.preventDefault();
+		removeMeta.itemId = $(this).parent().attr('id');
+		removeMeta.uri = $(this).attr('data-uri');
+		removeMeta.item = $('#'+removeMeta.itemId);
+		/* pozivam dialog box i cekam potvrdu za brisanje*/
+		$(this).confirmationDispatcher(removeMeta, function (confirmed) {
+		    if (confirmed) {
+		    	/* potvrdjeno brisanje pozivam delete ajax funkciju */
+		    	console.log('potvrdjujem brisanje!');
+		    	$(this).deleteItem(removeMeta);
+		    } else
+		    	callAnchor('');
+		});
+	});
 	
 }); // End Of Ready
 
