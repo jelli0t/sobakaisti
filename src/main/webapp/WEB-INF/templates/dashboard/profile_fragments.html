@@ -7,6 +7,7 @@
 <th:block th:fragment="editableProfileFragment">
     <form th:action="@{/sbk-admin/sobakaisti/profile/edit}" th:object="${profile}" method="post" onkeypress="return event.keyCode != 13;">
     <div class="fx-box fx-dir-row fx-justify-sbtw">
+	    <input type="hidden" th:field="*{id}">
 		<!-- Basic bio -->
 		<div class="x-1em-padding y-1em-padding">
 	            <!-- First Name -->
