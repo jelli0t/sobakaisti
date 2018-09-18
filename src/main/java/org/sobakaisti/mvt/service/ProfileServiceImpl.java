@@ -11,22 +11,28 @@ public abstract class ProfileServiceImpl<T extends Profile> implements ProfileSe
 
 	private static final Logger logger = LoggerFactory.getLogger(ProfileServiceImpl.class);
   	
-	private ProfileDao<T> postDao;		
+	private ProfileDao<T> profileDao;		
   
-	public ProfileServiceImpl(ProfileDao<T> postDao) {
-		this.postDao = postDao;
+	public ProfileServiceImpl(ProfileDao<T> profileDao) {
+		this.profileDao = profileDao;
 	}
 
 	@Override
 	public boolean removeSocialNetwork(int snid) {
-		return postDao.removeSocialNetwork(snid);
+		return profileDao.removeSocialNetwork(snid);
 	}
 	
 	@Override
 	public T saveOrUpdateProfile(T t) {
 		if(t != null)
-			return postDao.saveOrUpdateProfile(t);
+			return profileDao.saveOrUpdateProfile(t);
 		return null;
+	}
+	
+	@Override
+	public CommitResult commitProfilSocialNetworkDeletion(int profileId, int socnetId) {
+		boolean removed = profileDao.removeProfilesSocialNetwork(int socnetId, int profileId);
+		return new CommitResult(removed, "");
 	}
   
 }
