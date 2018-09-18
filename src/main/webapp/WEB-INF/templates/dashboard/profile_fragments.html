@@ -74,7 +74,7 @@
 	          
 			<!-- Socials -->
 			<th:block th:if="${not #lists.isEmpty(profile.socialNetwork)}">
-				<li th:each="soc : ${profile.socialNetwork}">
+				<li th:each="soc : ${profile.socialNetwork}" th:id="${'soc_item_'__${soc.id}__}">
 					<img alt="loc" th:src="@{/resources/img/social/__${soc.icon}__}" height="14"/>
 					<a th:href="@{__${soc.url}__}" target="_blank" th:text="${soc.username}"></a>
 					<a href="javascript:;" class="js-remove-item" title="Ukloni drustvenu mrezu"
