@@ -22,18 +22,19 @@
 	</aside>
 	<!-- Right profile side -->
 	<div class="fx-box fx-dir-col x-1em-padding">
-	    <nav class="tabs-nav-container">
-			<ul class="tabs-nav-list" style="order-bottom: 1px solid #e1e4e8;">
-			  <li class="tabs-nav-item">
-				<a href="javascript:;" class="active-tab">Overview</a></li>
-			  <li class="tabs-nav-item">
-				<a href="javascript:;">Articles</a></li>
+		<!-- Commit message box -->
+		<div class="commit-response-holder full-width"></div>
+	    	<nav class="tabs-nav-container">
+			<ul class="tabs-nav-list" style="border-bottom: 1px solid #e1e4e8;">
+			  	<li class="tabs-nav-item">
+					<a href="javascript:;" class="active-tab">Overview</a>
+				</li>
 			</ul>
 			<!-- Call Edit div -->
 		    <a href="javascript:;" id="js-edit-profile" class="bttn bttn-outline"
 		       th:attr="data-uri=@{/sbk-admin/sobakaisti/profile/edit/{profile_id}(profile_id=${profile.id})}" 
 			th:text="#{menu.item.edit}"></a>
-	    </nav>
+	    	</nav>
 		<div id="js-editable-container">
 			<div class="fx-box fx-dir-row fx-justify-sbtw">
 				<!-- Basic bio -->
