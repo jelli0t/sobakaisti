@@ -77,12 +77,16 @@
 				<li th:each="soc : ${profile.socialNetwork}">
 					<img alt="loc" th:src="@{/resources/img/social/__${soc.icon}__}" height="14"/>
 					<a th:href="@{__${soc.url}__}" target="_blank" th:text="${soc.username}"></a>
+					<a href="javascript:;" class="js-remove-item" title="Ukloni drustvenu mrezu"
+					   th:attr="data-uri=@{/sbk-admin/sobakaisti/profile/{profile_id}/social/{soc_id}/remove(profile_id=${profile.id}, soc_id=${soc.id})}">
+						<img th:src="@{/resources/img/icons/cancel.svg}" height="14">
+					</a>
 				</li>
 				<li>+ Dodaj</li>
 			</th:block>
 			</ul>
 			<!-- Submit -->
-			<div class="input-holder full-input-holder aright">    
+			<div class="input-holder full-input-holder y-2em-padding aright">    
 				<button type="submit" class="bttn bttn-primary" th:text="#{button.label.save}">Dodaj</button>  
 			</div>
 		</div>
