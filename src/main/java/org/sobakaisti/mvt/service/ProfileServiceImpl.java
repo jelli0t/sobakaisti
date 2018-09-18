@@ -21,5 +21,12 @@ public abstract class ProfileServiceImpl<T extends Profile> implements ProfileSe
 	public boolean removeSocialNetwork(int snid) {
 		return postDao.removeSocialNetwork(snid);
 	}
+	
+	@Override
+	public T saveOrUpdateProfile(T t) {
+		if(t != null)
+			return postDao.saveOrUpdateProfile(t);
+		return null;
+	}
   
 }
