@@ -33,7 +33,7 @@
 	            <!-- Memeber since -->
 	            <div class="input-holder full-input-holder">
 	              <label for="registered" th:text="#{form.label.dob}">registered</label>
-	              <input type="text" th:field="*{registered}" class="def-input" placeholder="01.01.20xx"
+	              <input type="text" name="registered" id="registered" class="def-input" placeholder="01.01.20xx"
 	              	th:value="${#dates.format(profile.registered, 'dd. MMM yyyy.')}"
 	                th:classappend="${#fields.hasErrors('registered')} ? 'non-valid-field'">
 	              <div class="validation-error" th:errors="*{registered}"></div>   
