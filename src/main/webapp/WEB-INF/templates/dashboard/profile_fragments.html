@@ -51,23 +51,23 @@
 			<ul class="profile-info-list" style="min-width:310px !important;">
 	          <!-- Location -->
 			<li class="input-holder full-input-holder">		
-				<img alt="loc" th:src="@{/resources/img/icons/svg/location.svg}" height="15"/>&emsp;
-				<input type="text" th:field="*{location}" class="def-input" th:placeholder="#{form.label.birthplace}">
+				<img alt="loc" th:src="@{/resources/img/icons/svg/location.svg}" height="16"/>&emsp;
+				<input type="text" th:field="*{location}" class="def-input inline-input" th:placeholder="#{form.label.birthplace}">
 			</li>
 			<!-- DOB -->
 			<li class="input-holder full-input-holder">           
-			      <img alt="dob" th:src="@{/resources/img/icons/svg/gift.svg}" height="15"/>&emsp;
-			      <input type="text" th:field="*{dob}" class="def-input" placeholder="01.01.19xx">  
+			      <img alt="dob" th:src="@{/resources/img/icons/svg/gift.svg}" height="16"/>&emsp;
+			      <input type="text" th:field="*{dob}" class="def-input inline-input" placeholder="01.01.19xx">  
 			</li>
 			<!-- Website -->
 			<li class="input-holder full-input-holder">
-				<img alt="site" th:src="@{/resources/img/icons/svg/link.svg}" height="15"/>&emsp;
-				<input type="text" th:field="*{website}" class="def-input" th:placeholder="#{form.label.website}">
+				<img alt="site" th:src="@{/resources/img/icons/svg/link.svg}" height="16"/>&emsp;
+				<input type="text" th:field="*{website}" class="def-input inline-input" th:placeholder="#{form.label.website}">
 			</li>
 	          	<!-- E-mail -->
 			<li class="input-holder full-input-holder">
-				<img alt="mail" th:src="@{/resources/img/icons/svg/mail.svg}" height="15"/>&emsp;
-				<input type="email" th:field="*{email}" class="def-input" th:placeholder="#{form.label.email}"
+				<img alt="mail" th:src="@{/resources/img/icons/svg/mail.svg}" height="16"/>&emsp;
+				<input type="text" th:field="*{email}" class="def-input inline-input" th:placeholder="#{form.label.email}"
 			      th:classappend="${#fields.hasErrors('email')} ? 'non-valid-field'">
 			    <div class="validation-error" th:errors="*{email}"></div>
 			</li>
