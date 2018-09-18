@@ -44,7 +44,7 @@ public class ProfileController {
 	
 	
 	@RequestMapping(value="/profile/edit/submit", method=RequestMethod.POST)
-	public String submitContactForm(@Valid @ModelAttribute("profile") AuthorProfile profile, BindingResult result,
+	public String submitEditedAuthorProfile(@Valid @ModelAttribute("profile") AuthorProfile profile, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
 			System.out.println("Ima gresaka!");
@@ -57,6 +57,11 @@ public class ProfileController {
 			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(profile != null, commitMessage));
 		}		
 		return String.format("redirect:/sbk-admin/sobakaisti/profile/edit/%d", profile.getId());
-	} 
+	}
+	
+	@RequestMapping(value="/profile/{profileId}/social/{snId}/remove", method=RequestMethod.DELETE)
+	public String removeProfilesSocialNetwork(@PathVariable int profileId, @PathVariable int snId, Model model) {
+		
+	}
 	
 }
