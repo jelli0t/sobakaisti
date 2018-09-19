@@ -57,13 +57,16 @@ public class ProfileController {
 			System.out.println("Ima gresaka!");
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.profile", result);
 			redirectAttributes.addFlashAttribute("profile", profile);
+			redirectAttributes.addFlashAttribute("FORM_REQUIRED", true);
+			return "dashboard/profile";
 		} else {
 			profile = authorService.saveOrUpdateProfile(profile);			
 			String commitMessage = (profile != null) ? "Uspesno ste azurirali profil" 
 				: "Dogodila se greska prilikom azuriranja profila!";	
 			redirectAttributes.addFlashAttribute("commitResult", new CommitResult(profile != null, commitMessage));
 		}		
-		return String.format("redirect:/sbk-admin/sobakaisti/profile/edit/%d", profile.getId());
+		return String.format("redirect:/sbk-admin/sobakaisti/profile/%s", 
+				     profile.getAuthor() != null ? profile.getAuthor().getSlug() : "");
 	}
 	
 	@RequestMapping(value="/profile/{profileId}/social/{snId}/remove", method=RequestMethod.DELETE)
