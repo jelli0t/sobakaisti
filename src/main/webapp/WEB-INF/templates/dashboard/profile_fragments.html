@@ -93,3 +93,32 @@
 	</div>
 	</form>
 </th:block>
+	
+ <th:block th:fragment="userSignupFragment">
+	<form th:action="@{/sbk-admin/user/authorized_registration}" method="post" th:object="${newUser}">
+		<div class="input-holder">
+			<label for="username" th:text="#{form.label.username}">Username</label> 
+			<input type="text" th:field="*{username}" class="def-input" placeholder="Enter your username">
+			<div class="validation-error" th:errors="*{username}"></div>
+		</div>
+		<input type="hidden" name="dummie" value="Some dummie value">
+		<div class="input-holder">
+			<label for="email" th:text="#{form.label.email}">E-mail</label> 
+			<input type="email" th:field="*{email}" class="def-input" placeholder="Enter your e-mail">
+			<div class="validation-error" th:errors="*{email}"></div>
+		</div>
+		<div class="input-holder">
+			<label for="password" th:text="#{form.label.password}">Password</label> 
+			<input type="password" name="password" class="def-input" placeholder="Enter your password">
+			<div class="validation-error" th:errors="*{password}"></div>
+		</div>
+		<div class="input-holder">
+			<label for="role" th:text="#{form.label.password}">Password</label> 
+			<select name="role" class="def-input"/>
+		</div>
+		<br />
+		<div class="input-holder full-input-holder">    
+			<button type="submit" class="bttn bttn-primary full-width" th:text="#{button.label.signup}">Sign Up</button>  
+		</div>
+       </form>
+ </th:block>
