@@ -1095,18 +1095,6 @@ h3.article-prev-title {
 	line-height: normal;
 	margin: 0 auto;
 }
-.post-body::first-letter {
-	font-size: 4em;
-	line-height: 1em;
-	color: #343434;
-	float: left;
-	margin-right: 2px;
-	vertical-align: top;
-}
-
-.post>.post-body iframe {
-	width: 100%;
-}
 
 .contact-post {
 	width: 100%;
