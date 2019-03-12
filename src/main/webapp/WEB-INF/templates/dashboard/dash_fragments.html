@@ -37,7 +37,27 @@
 	
 	<article th:fragment="authorPreviewFragment(author)" class="author-box border-6-rad">
 		<header>
-			<div class="author-cover"></div>
+			<div class="author-cover">
+				<div class="js-select-container">		
+					<a href="javascript:;" class="bttn-plain-select js-modal-select">
+						<img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">
+					</a>
+					<div class="select-menu-modal-holder">
+						<div class="select-menu-modal">
+							<!-- select body -->  
+							<ul class="select-menu-list">
+								<li class="select-menu-item">
+									<a th:href="@{/sbk-admin/author/editing/{slug}(slug=${author.slug})}"
+										onclick="event.preventDefault(); loadFragment(this.href);">Izmeni</a>
+								</li>
+							  	<li class="select-menu-item">
+							 		<a href="#">Obriši</a>
+							  	</li>
+							</ul>
+						</div>
+					</div>
+				</div>				
+			</div>
 			<div class="author-avatar">
 				<a th:href="@{/sbk-admin/sobakaisti/profile/{slug}(slug=${author.slug})}" class="circle"
 					th:title="${author.firstName + ' ' + author.lastName}"></a>
