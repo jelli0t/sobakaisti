@@ -121,6 +121,19 @@ public class DashboardController {
 		}	
 	}
 	
+	@RequestMapping(value={"/sobakaisti/fragment/add_or_update_dialog/{id}", 
+			"/sobakaisti/fragment/add_or_update_dialog/"}, method=RequestMethod.GET)
+	public String callAddUpdateAuthorsDialog(@PathVariable Optional<Integer> id,  Model model) {
+		Author author = null;
+		if(id.isPresent()) {
+			author = authorDao.findFull(id.get());
+		} else 
+			author = new Author();
+		model.addAttribute("author", author);
+		return "dashboard/fragments :: authorRegistrationFragment";
+	}
+	
+	
 	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public String showTestPage(Model model){
 		

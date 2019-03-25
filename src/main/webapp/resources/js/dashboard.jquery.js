@@ -1152,3 +1152,20 @@ $.fn.loadFragmentInto = function(container) {
 	    console.log( "Status: " + status );
 	})	
 }
+
+
+function loadFragment(uri, target) {
+	alert('Uri: '+uri);
+	$.ajax({
+	    url: uri,
+	    type: 'GET',
+	    dataType: 'html'
+	})
+	.done(function( fragment ) {
+		$(target).html(fragment);
+	})
+	.fail(function( xhr, status, errorThrown ) {
+	    console.log( "Error: " + errorThrown );
+	    console.log( "Status: " + status );
+	});
+}

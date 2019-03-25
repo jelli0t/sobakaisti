@@ -24,7 +24,11 @@
 
 	<article class="author-box new-author-box border-6-rad">
 		<div class="author-add-new">
-			<button class="add-bttn" title="Dodaj Sobakaistu" onclick="callAnchor('add')">&#xe6a9;</button>
+			<button class="add-bttn" title="Dodaj Sobakaistu" data-th-href="@{/fragment/add_or_update_dialog}"
+				onclick="loadFragment(this.href, '#fragmentPlaceholder')">&#xe6a9;</button>
+				
+			<a th:href="@{/sbk-admin/sobakaisti/fragment/add_or_update_dialog/}" class="add-bttn" 
+				onclick=" event.preventDefault(); loadFragment(this.href, '#fragmentPlaceholder');">&#xe6a9;</a>
 		</div>
 	</article>
 
