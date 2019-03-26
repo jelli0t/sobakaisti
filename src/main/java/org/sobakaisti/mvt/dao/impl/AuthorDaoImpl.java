@@ -56,7 +56,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	@Transactional
 	public Author findFull(int id) {
 		Author author = null;
-		String HQL = "from Author a join fetch a.profile where a.id = :id";
+		String HQL = "from Author a left join fetch a.profile where a.id = :id";
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			author = (Author) session.createQuery(HQL).setParameter("id", id).uniqueResult();
@@ -78,6 +78,18 @@ public class AuthorDaoImpl implements AuthorDao {
 			logger.warn("Dogodila se greska prilikom dohvatanja autora: "+slug+". Uzork: "+e.getMessage());
 		}
 		return author;
+	}
+	
+	@Override
+	@Transactional
+	public boolean saveOrUpdate(Author author) {
+		try {
+			sessionFactory.getCurrentSession().saveOrUpdate(author);
+			return true;
+		} catch (Exception e) {
+			logger.warn("Dogodila se greska prilikom save/update autora! Uzrok: "+e.getMessage());
+		}		
+		return false;
 	}
 	
 	@Override

@@ -34,21 +34,21 @@
 	
 	
 	
-	
+	<!-- 
+	*	PREVIEW AUTORA	*
+	 -->
 	<article th:fragment="authorPreviewFragment(author)" class="author-box border-6-rad">
 		<header>
 			<div class="author-cover">
-				<div class="js-select-container">		
-					<a href="javascript:;" class="bttn-plain-select js-modal-select">
-						<img th:src="@{/resources/img/icons/svg/globe.svg}" height="14">
-					</a>
+				<div class="js-select-container fright x-1em-padding">
+					<a href="javascript:;" class="bttn-plain-select js-modal-select">&ensp;</a>
 					<div class="select-menu-modal-holder">
 						<div class="select-menu-modal">
 							<!-- select body -->  
 							<ul class="select-menu-list">
 								<li class="select-menu-item">
-									<a th:href="@{/sbk-admin/author/editing/{slug}(slug=${author.slug})}"
-										onclick="event.preventDefault(); loadFragment(this.href);">Izmeni</a>
+									<a th:href="@{/sbk-admin/sobakaisti/fragment/add_or_update_dialog/{id}(id=${author.id})}"
+										onclick="event.preventDefault(); loadFragment(this.href, '#fragmentPlaceholder');">Izmeni</a>
 								</li>
 							  	<li class="select-menu-item">
 							 		<a href="#">Obriši</a>
@@ -70,13 +70,83 @@
 				<span class="author-profession" th:text="${author.profession}"></span>
 			</div>
 			<ul class="y-1em-padding x-1em-padding author-meta-info">
-				<li data-icon=""><span th:text="${author.birthplace}"></span></li>
-				<li data-icon=""><span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}"></span></li>
-				<li data-icon=""><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a></li>
-				<li data-icon=""><span th:text="${author.email}"></span></li>
+				<li><img th:src="@{/resources/img/icons/svg/location.svg}" height="14">&emsp;<span th:text="${author.birthplace}"></span></li>
+				<li><img th:src="@{/resources/img/icons/svg/gift.svg}" height="14">&emsp;<span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}"></span></li>
+				<li><img th:src="@{/resources/img/icons/svg/link.svg}" height="14">&emsp;<a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a></li>
+				<li><img th:src="@{/resources/img/icons/svg/mail.svg}" height="14">&emsp;<span th:text="${author.email}"></span></li>
 			</ul>
 		</main>
 	</article>
 	
-	
+	<!-- 
+	*	FORMA ZA REGISTRACIJU	*
+	 -->
+	<th:block th:fragment="authorRegistrationFragment" th:unless="${author == null}">
+		<div id="whiteout_overlay">		
+		<!-- 
+		* 	New Author box ***
+		-->
+			<div class="overlayable inputs-container border-3-rad y-1em-padding x-1em-padding shadow-def"
+				style="margin-left: -320px;'">
+				<!-- Close Icon -->
+				<div class="overlayable-close-holder">
+					<a href="javascript:;" class="overlayable-close-bttn"
+						onclick="document.getElementById('whiteout_overlay').style.display='none'; return false;">
+						<img th:src="@{/resources/img/icons/cancel.svg}" alt="x" height="16">
+					</a>
+				</div>				
+				<form th:action="@{/sbk-admin/sobakaisti/add_or_update}" th:object="${author}" method="post" 
+					onkeypress="return event.keyCode != 13;" class="x-1em-padding">
+					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{slug}">
+					<div class="input-holder half-input-holder" style="margin-right:1%;">
+						<label for="firstName" th:text="#{form.label.firstname}">First Name</label>
+						<input type="text" th:field="*{firstName}" class="def-input" th:placeholder="#{form.label.firstname}"
+							th:classappend="${#fields.hasErrors('firstName')} ? 'non-valid-field'">
+						<div class="validation-error" th:errors="*{firstName}"></div> 
+					</div>  
+					<div class="input-holder half-input-holder"> 
+						<label for="lastName" th:text="#{form.label.lastname}">Last Name</label>
+						<input type="text" class="def-input" th:field="*{lastName}" placeholder="Prezime autora"
+							th:classappend="${#fields.hasErrors('lastName')} ? 'non-valid-field'">
+						<div class="validation-error" th:errors="*{lastName}"></div>
+					</div>
+					<div class="input-holder full-input-holder">
+						<label for="profession" th:text="#{form.label.proffesion}">Profession</label>
+						<input type="text" th:field="*{profession}" class="def-input" th:placeholder="#{form.label.proffesion}"
+							th:classappend="${#fields.hasErrors('profession')} ? 'non-valid-field'">
+						<div class="validation-error" th:errors="*{profession}"></div>   
+					</div>
+					<div class="input-holder full-input-holder">
+						<label for="birthplace" th:text="#{form.label.birthplace}">Birthblace</label>
+						<input type="text" th:field="*{birthplace}" class="def-input" th:placeholder="#{form.label.birthplace}">
+					</div>
+					<div class="input-holder full-input-holder">
+						<label for="dob" th:text="#{form.label.dob}">Date of birh</label>
+						<input type="text" th:field="*{dob}" class="def-input" placeholder="01.01.20xx"
+							th:classappend="${#fields.hasErrors('dob')} ? 'non-valid-field'">
+						<div class="validation-error" th:errors="*{dob}"></div>   
+					</div>
+					<div class="input-holder full-input-holder">
+						<label for="email" th:text="#{form.label.email}">Date of birh</label>
+						<input type="email" th:field="*{email}" class="def-input" th:placeholder="#{form.label.email}"
+							th:classappend="${#fields.hasErrors('email')} ? 'non-valid-field'">
+						<div class="validation-error" th:errors="*{email}"></div>   
+					</div>
+					<div class="input-holder full-input-holder">
+						<label for="website" th:text="#{form.label.website}">website</label>
+						<input type="text" th:field="*{website}" class="def-input" th:placeholder="#{form.label.website}">
+					</div>
+					<div class="input-holder full-input-holder">
+						<label for="shortBio" th:text="#{form.label.shortbio}">biografija</label>
+						<textarea th:field="*{shortBio}" rows="4" class="def-input" placeholder="Kratka biografija autora"></textarea>
+					</div>
+					<div class="input-holder full-input-holder aright">    
+						<button type="submit" class="bttn bttn-primary" th:text="#{button.label.save}">Dodaj</button>  
+					</div>
+				</form>
+			</div>
+		</div>
+	</th:block>
+
 </html>

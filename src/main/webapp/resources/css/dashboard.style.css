@@ -583,15 +583,16 @@ a.ru-nav-item:before { background-image: url('../img/icons/flags/ru.svg'); }
 	font-weight: 300;
 	padding: 10px;
 }
-.author-meta-info > li { padding-left: 22px; }
+/* .author-meta-info > li { padding-left: 22px; } */
 .author-meta-info > li > span { line-height: 16px; }
 .author-meta-info > li:before {
-  position: absolute;
-  left: 1em;
-  width: 16px;
-  height: 16px;
-  content: ' ';
-  border: 1px solid red;
+/*   position: absolute; */
+/*   left: 1em; */
+/*   width: 16px; */
+/*   height: 16px; */
+/*   content: ' '; */
+/*   background-image: attr(icon url); */
+/*   border: 1px solid red; */
 }
 
 

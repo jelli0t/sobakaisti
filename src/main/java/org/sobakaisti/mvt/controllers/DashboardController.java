@@ -122,7 +122,7 @@ public class DashboardController {
 	}
 	
 	@RequestMapping(value={"/sobakaisti/fragment/add_or_update_dialog/{id}", 
-			"/sobakaisti/fragment/add_or_update_dialog/"}, method=RequestMethod.GET)
+			"/sobakaisti/fragment/add_or_update_dialog/"}, method=RequestMethod.GET, produces=MediaType.TEXT_HTML_VALUE)
 	public String callAddUpdateAuthorsDialog(@PathVariable Optional<Integer> id,  Model model) {
 		Author author = null;
 		if(id.isPresent()) {
@@ -130,7 +130,17 @@ public class DashboardController {
 		} else 
 			author = new Author();
 		model.addAttribute("author", author);
-		return "dashboard/fragments :: authorRegistrationFragment";
+		return "dashboard/dash_fragments :: authorRegistrationFragment";
+	}
+	
+	
+	@RequestMapping(value="/sobakaisti/add_or_update", method=RequestMethod.POST)
+	public String addOrUpdateAuthor(@ModelAttribute Author author) {
+		if(author != null) {		
+			boolean saved = authorDao.saveOrUpdate(author);
+			//TODO notification message kao fles attr
+		}
+		return "redirect:/sbk-admin/sobakaisti";
 	}
 	
 	

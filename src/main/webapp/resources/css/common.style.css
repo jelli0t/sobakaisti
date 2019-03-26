@@ -468,28 +468,53 @@ img {
   font-size: 0.8em;
   opacity: 0.7;
 }
+
+.overlayable {
+	position: absolute;
+	display: block;
+	top: 15%;
+	left: 50%;
+	background-color: #fff;
+	z-index: 9;
+}	
+#whiteout_overlay:before {
+	position: fixed;
+	content: " ";
+	left: 0;
+    top: 0;
+    bottom:0;
+    right:0;
+	background-color: #7f7f7f;
+    z-index: 8;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+.overlayable-close-holder {
+	display: block;
+	text-align: right;
+	opacity: 0.75;
+}
+.overlayable-close-holder:hover { opacity: 1; }
 /*
 ** Form Inputs
 */
 .inputs-container {
 	margin: 0 auto;
-	padding: 24px;
-	max-width: 700px;
-	box-sizing: border-box;
+	max-width: 640px;
 }
 .input-holder {
-	padding:0;
-	box-sizing: border-box;
+	padding: 0;
 	margin-bottom: 15px;
 }
 .input-holder > label {
 	display: block; 
 	margin-bottom: 5px;
 	font-size: 12px;
+	opacity: 0.75;
 }
 .half-input-holder {
   display: inline-block;
-  width: 49%;
+  width: 48%;
 }
 .def-input {
 	display: block;
@@ -820,7 +845,7 @@ img {
 .select-menu-modal-holder >
 .select-menu-modal {
 	position: relative;
-    width: 250px;
+    max-width: 250px;
     margin-top: 4px;
     margin-bottom: 20px;
     overflow: hidden;

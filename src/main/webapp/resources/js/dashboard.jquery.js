@@ -1155,7 +1155,6 @@ $.fn.loadFragmentInto = function(container) {
 
 
 function loadFragment(uri, target) {
-	alert('Uri: '+uri);
 	$.ajax({
 	    url: uri,
 	    type: 'GET',

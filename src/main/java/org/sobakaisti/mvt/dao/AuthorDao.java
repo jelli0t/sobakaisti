@@ -46,6 +46,8 @@ public interface AuthorDao {
 		
 	public void persistAuthor(Author author);
 	
+	public boolean saveOrUpdate(Author author);
+	
 	public void deleteAuthor(int id);
 
 }

@@ -21,6 +21,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.engine.FetchStyle;
 import org.sobakaisti.util.CalendarUtil;
+import org.sobakaisti.util.StringUtil;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -132,19 +134,28 @@ public class Author {
 	public String getAvatarPath() {
 		return avatarPath;
 	}
+	
 	public void setAvatarPath(String avatarPath) {
 		this.avatarPath = avatarPath;
 	}
+	
 	public String getProfession() {
 		return profession;
 	}
+	
 	public void setProfession(String profession) {
 		this.profession = profession;
-	}	
+	}
+	
 	public String getSlug() {
 		return slug;
 	}
+	
 	public void setSlug(String slug) {
+		if(TextUtil.isEmpty(slug)) {
+			slug = getFullName();
+			this.slug = StringUtil.makeSlug(slug);
+		}
 		this.slug = slug;
 	}
 	
