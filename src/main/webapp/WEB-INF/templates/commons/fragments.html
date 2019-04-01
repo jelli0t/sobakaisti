@@ -423,10 +423,10 @@
 						<a th:href="@{http://__${a.website}__}" target="_blank" th:text="${a.website}"></a>
 					</li>
 					<!-- E-mail -->	
-					<li th:unless="${#strings.isEmpty(a.email)}" class="author-info-item">
-						<img th:src="@{/resources/img/icons/svg/mail.svg}" th:title="#{form.label.email}" height="14">
-						<a th:href="@{mailto:__${a.email}__}" th:text="${a.email}" th:title="#{title.attr.mailto}"></a>
-					</li>
+<!-- 					<li th:unless="${#strings.isEmpty(a.email)}" class="author-info-item"> -->
+<!-- 						<img th:src="@{/resources/img/icons/svg/mail.svg}" th:title="#{form.label.email}" height="14"> -->
+<!-- 						<a th:href="@{mailto:__${a.email}__}" th:text="${a.email}" th:title="#{title.attr.mailto}"></a> -->
+<!-- 					</li> -->
 					<!-- Birthplace -->	
 					<li th:unless="${#strings.isEmpty(a.birthplace)}" class="author-info-item">
 						<img th:src="@{/resources/img/icons/svg/location.svg}" th:title="#{form.label.birthplace}" height="14">
@@ -438,7 +438,7 @@
 						<time th:text="${#dates.format(a.dob, 'dd. MMM yyyy.')}"></time>
 					</li>
 					<!-- Social Networks -->
-					<li th:unless="${#lists.isEmpty(socials)}"><hr class="socials-info-separator" data-title="Drustvene mreze"></li>
+					<li th:unless="${#lists.isEmpty(socials)}"><hr class="socials-info-separator" data-title="Društvene mreže"></li>
 					<li th:unless="${#lists.isEmpty(socials)}" th:each="soc : ${socials}" class="author-info-item">
 						<img th:src="@{__${soc.iconPath}__}" th:title="${soc.name}" height="14">
 						<a th:href="@{__${soc.url}__}" th:text="${soc.username}"></a>

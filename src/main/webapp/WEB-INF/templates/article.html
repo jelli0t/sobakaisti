@@ -36,9 +36,14 @@
 				</div>
 			</header>
 			<!-- featured image -->
-		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="post-img-container"
-		    	th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') no-repeat center center; background-size: contain;'">
+<!-- 		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="post-img-container" -->
+<!-- 		    	th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') no-repeat center center; background-size: contain;'"> -->
+<!-- 		    </aside> -->
+		    
+		     <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="post-img-container">
+		    	<img alt="img" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}">
 		    </aside>
+		    
 			<!-- Post -->
 			<main class="post-body">
 				<!-- Publication sid downloads button -->

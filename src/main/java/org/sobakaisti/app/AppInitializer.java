@@ -28,6 +28,6 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	
 	@Override
 	protected Filter[] getServletFilters() {
-		 return new Filter[] { new PathVariableLocaleFilter() };
+		 return new Filter[] { new CharacterEncodingFilter("UTF-8", true) }; // new PathVariableLocaleFilter()
 	}
 }

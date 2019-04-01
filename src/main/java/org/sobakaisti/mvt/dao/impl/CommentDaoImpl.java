@@ -132,6 +132,7 @@ public class CommentDaoImpl implements CommentDao {
 			logger.info("Generisao sam mapu post_id => comments_coun za "+postToCommentsNum.size()+" postova tipa: "+postOrigin+".");
 		} catch (Exception e) {
 			logger.warn("Dogodila se greska prilikom generisanja mape[post_id => comments_coun]. Uzrok: "+e.getMessage());
+			postToCommentsNum = new HashMap<Integer, Integer>(0);
 		}		
 		return postToCommentsNum;
 	}

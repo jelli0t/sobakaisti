@@ -36,9 +36,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArtsController {
 	
 	@Autowired
-	private CategoryService categoryService;	
+	private CategoryService categoryService;
+	
 	@Autowired
 	private ArticleService articleService;
+	
 	@Autowired
 	private CommentService commentService;
 	
@@ -221,8 +223,7 @@ public class ArtsController {
 	
 	private void populateCommentsCountPerPostIndicator(Model model) {
 		Map<Integer, Integer> postToCommentsCountMap = commentService.getPostToCommentsCountMap(Origin.ARTICLE);
-		if(postToCommentsCountMap != null)
-			model.addAttribute(CommentService.COMMENTS_COUNT_PER_POST_ATTR_NAME, postToCommentsCountMap);
+		model.addAttribute(CommentService.COMMENTS_COUNT_PER_POST_ATTR_NAME, postToCommentsCountMap);
 	}
 
 }

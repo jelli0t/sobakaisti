@@ -1066,34 +1066,36 @@ h3.article-prev-title {
 	vertical-align: middle;
 }
 
-.post-details>.post-author-name {
+.post-details > .post-author-name {
 	color: #1fa0ae !important;
 }
 
-.post-details>.post-author-name:hover {
+.post-details > .post-author-name:hover {
 	text-decoration: underline;
 }
 
-.post >.post-img-container {
+.post > .post-img-container {
 	display: block;
-	width: 100%;	
-	min-height: 460px;
+	max-width: 980px;
+	width: 100%;
 	overflow: hidden;
 	text-align: center;
 	margin-bottom: 1.5em !important;
 }
 
-.post>.post-img-container>img {
+.post > .post-img-container > img {
 	width: inherit;
-	max-width: 100%;
+/* 	max-width: 100%; */
 	height: auto;
 }
 
-.post>.post-body {
+.post > .post-body {
 	max-width: 740px;
+	width: 100%;
 	padding: 0 15px;
-	line-height: normal;
+	line-height: 1.459;
 	margin: 0 auto;
+	overflow: hidden;
 }
 
 .contact-post {
@@ -1319,8 +1321,20 @@ h3.article-prev-title {
 	background-image: url('../img/social/youtube-play-mono.svg');
 }
 
+.social-container .instagram-ico {
+	background-image: url('../img/social/instagram-mono.svg');
+}
+
 .social-container .tumblr-ico {
 	background-image: url('../img/social/tumblr-mono.svg');
+}
+
+.social-container .soundcloud-ico {
+	background-image: url('../img/social/soundcloud-mono.svg');
+}
+
+.social-container .kofi-ico {
+	background-image: url('../img/social/ko-fi-mono.svg');
 }
 
 .social-container .facebook-ico:HOVER {
@@ -1333,6 +1347,9 @@ h3.article-prev-title {
 	border-color: #1da1f2;
 }
 
+.social-container .instagram-ico:hover {
+	border-color: #5851DB
+}
 .social-container .youtube-ico:HOVER {
 	background-image: url('../img/social/youtube-play-color.svg');
 	border-color: #cd201f;
@@ -1341,6 +1358,14 @@ h3.article-prev-title {
 .social-container .tumblr-ico:HOVER {
 	background-image: url('../img/social/tumblr-color.svg');
 	border-color: #35465c;
+}
+.social-container .soundcloud-ico:HOVER {
+	border-color: #ff3300;
+}
+.social-container .kofi-ico:hover {
+	background-image: url('../img/social/ko-fi-color.svg');
+	border-color: #fff;
+	background-size: 24px 24px;
 }
 
 .footer-nav li {
