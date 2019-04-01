@@ -28,29 +28,6 @@
 				onclick="event.preventDefault(); loadFragment(this.href, '#fragmentPlaceholder');">&#xe6a9;</a>
 		</div>
 	</article>
-
-<!-- 	<div th:each="author : ${authors}" class="author-box" th:id="'item-'+${author.id}"> -->
-<!-- 	<div class="author-settings" th:with="id=${author.id}"> -->
-<!-- 		<span class="dropdown-icon">&#xe689;</span> -->
-<!-- 		<ul class="dropdown-menu"> -->
-<!-- 			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/edit/{id}(id=${id})}" class="edit-item item-link" th:alt="${author.id}" th:text="#{menu.item.edit}">Edit</a></li> -->
-<!-- 			<li class="dropdown-item"><a th:href="@{/sbk-admin/sobakaisti/delete/{id}(id=${id})}" class="delete-item item-link" th:alt="${author.id}" th:text="#{menu.item.delete}">Delete</a></li> -->
-<!-- 		</ul> -->
-<!-- 	</div> -->
-<!-- 		<div class="author-cover"></div> -->
-<!-- 		<div class="author-avatar"></div> -->
-<!-- 		<div class="author-content"> -->
-<!-- 			<div class="author-basic-info author-name"><span th:text="${author.firstName}"></span>  -->
-<!-- 			<span th:text="${author.lastName}"></span></div> -->
-<!-- 			<div class="author-basic-info author-profession" th:text="${author.profession}">~</div> -->
-<!-- 		</div> -->
-<!-- 		<div class="author-meta-info"> -->
-<!-- 			<span th:text="${author.birthplace}" class="icon birthplace-icon"></span> -->
-<!-- 			<span th:text="${#dates.format(author.dob, 'dd.MM.yyyy.')}" class="icon dob-icon"></span> -->
-<!-- 			<span class="icon website-icon"><a th:href="@{'http://'+${author.website}}" th:text="${author.website}" target="_blank"></a> </span> -->
-<!-- 			<span th:text="${author.email}" class="icon mail-icon"></span> -->
-<!-- 		</div> -->
-<!-- 	</div> -->	
 </section>
 
 <footer th:replace="~{commons/dash_footer :: dash_footer}"></footer>
