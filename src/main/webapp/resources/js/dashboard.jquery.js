@@ -17,6 +17,19 @@ $(function() {
 		evt.preventDefault();
 		$(this).next('.dropdown-menu').toggle();
 	});	 
+	
+	/**
+	 * DROP-DOWN MENU
+	 * */
+	$('.js-dropdown-bttn').on('click', function(evt) {
+		evt.preventDefault()
+		$(this).next('.js-dropdown-list').toggle();
+	});
+	$('.js-dropdown-close').on('click', function(evt) {
+		evt.preventDefault()
+		$(this).parent().parent().hide();
+	});
+	/** End of Drop-down */
 
 	/* sakriva poruke o validaciji za svako polje forme */
 	$('form input, form select').focusin(function(){
@@ -1167,4 +1180,46 @@ function loadFragment(uri, target) {
 	    console.log( "Error: " + errorThrown );
 	    console.log( "Status: " + status );
 	});
+}
+
+function validateBeforeSubmit(form_name) {
+	$form = $('form[name='+form_name+']');
+	$('.input-holder > .field-err').each(function() {
+		$( this ).removeClass('field-err');
+	});
+	var valid = $form.ajaxFormValidation();	
+	console.log('Forma: '+form_name+' je validna: '+valid);
+	if(valid) {
+		$form.submit();
+	}
+}
+
+$.fn.ajaxFormValidation = function() {
+	var result = false;
+	var uri = $(this).attr('data-validation-action');
+	var form_name = $(this).attr('name');
+	var formData = $(this).serialize();		
+	$.ajax({
+		url: uri,
+	 	data: formData,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        type: 'POST',
+        async: false,
+	    dataType: 'json'
+	})
+	.done(function( response ) {		
+		result = true;
+	})
+	.fail(function( xhr, status, errorThrown ) {
+		var err = xhr.responseJSON;
+		$('label[for='+err.field+']').attr('data-error', err.defaultMessage).addClass('field-err');
+		$('input[name='+err.field+']').addClass('field-err');
+		result = false;
+	});
+	return result;
+}
+
+
+function clearContainer(target) {
+	$(target).html("");
 }

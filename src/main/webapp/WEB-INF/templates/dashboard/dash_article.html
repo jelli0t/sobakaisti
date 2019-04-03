@@ -186,6 +186,9 @@
 				<!-- Featured IMG preview -->
 				<div id="featured-prev-container">
 					<th:block th:if="${article?.featuredImage != null}">
+						<a href="javascript:;" class="popup-close" onclick="document.getElementById('featured-prev-container').innerHTML = '';">
+							<img alt="x" th:src="@{/resources/img/icons/cancel.svg}" height="16">
+						</a>
 						<img alt="Featured Image" th:src="@{/uploads/images/{filename}(filename=${article.featuredImage.fileName})}" 
 						     th:title="${article.featuredImage.title}" width="180">
 						<input type="hidden" name="featuredImage.id" th:value="${article.featuredImage.id}">

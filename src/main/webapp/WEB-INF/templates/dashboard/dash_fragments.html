@@ -40,23 +40,28 @@
 	<article th:fragment="authorPreviewFragment(author)" class="author-box border-6-rad">
 		<header>
 			<div class="author-cover">
-				<div class="js-select-container fright x-1em-padding">
-					<a href="javascript:;" class="bttn-plain-select js-modal-select">&ensp;</a>
-					<div class="select-menu-modal-holder">
-						<div class="select-menu-modal">
-							<!-- select body -->  
-							<ul class="select-menu-list">
-								<li class="select-menu-item">
-									<a th:href="@{/sbk-admin/sobakaisti/fragment/add_or_update_dialog/{id}(id=${author.id})}"
-										onclick="event.preventDefault(); loadFragment(this.href, '#fragmentPlaceholder');">Izmeni</a>
-								</li>
-							  	<li class="select-menu-item">
-							 		<a href="#">Obriši</a>
-							  	</li>
-							</ul>
-						</div>
-					</div>
-				</div>				
+				<!-- Dropdown -->
+				<div class="js-dropdown-container fright xy-05em-margin">
+					<!-- Button -->
+					<a href="javascript:;" class="js-dropdown-bttn radiance">
+						<img th:src="@{/resources/img/icons/svg/three-bars.svg}" height="14">
+					</a>
+					<!-- Dorpdown list -->
+					<ul class="js-dropdown-list">
+				  		<li class="js-dropdown-header">
+				    		<span>Menu</span>
+					    	<svg aria-label="Close" class="js-dropdown-close" width="16" height="16" role="img" version="1.1" viewBox="0 0 16 16">
+						        <path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+				      		</svg>
+					  </li>
+					  <li class="js-dropdown-item">
+							<a th:href="@{/sbk-admin/sobakaisti/fragment/add_or_update_dialog/{id}(id=${author.id})}"
+								onclick="event.preventDefault(); loadFragment(this.href, '#fragmentPlaceholder');">Izmeni</a>
+					  </li>
+					  <li class="js-dropdown-item"><a href="#">Obriši</a></li>
+					</ul>
+				</div>
+						
 			</div>
 			<div class="author-avatar">
 				<a th:href="@{/sbk-admin/sobakaisti/profile/{slug}(slug=${author.slug})}" class="circle"
@@ -96,7 +101,8 @@
 					</a>
 				</div>				
 				<form th:action="@{/sbk-admin/sobakaisti/add_or_update}" th:object="${author}" method="post" 
-					onkeypress="return event.keyCode != 13;" class="x-1em-padding">
+					onkeypress="return event.keyCode != 13;" class="x-1em-padding" name="author-addupdate-form"
+					th:attr="data-validation-action=@{/sbk-admin/validate/author/add_or_update}">
 					<input type="hidden" th:field="*{id}">
 					<input type="hidden" th:field="*{slug}">
 					<div class="input-holder half-input-holder" style="margin-right:1%;">
@@ -142,11 +148,12 @@
 						<textarea th:field="*{shortBio}" rows="4" class="def-input" placeholder="Kratka biografija autora"></textarea>
 					</div>
 					<div class="input-holder full-input-holder aright">    
-						<button type="submit" class="bttn bttn-primary" th:text="#{button.label.save}">Dodaj</button>  
+						<button type="submit" onclick="event.preventDefault(); validateBeforeSubmit(this.form.name);" 
+							class="bttn bttn-primary" th:text="#{button.label.save}">Dodaj</button>  
 					</div>
 				</form>
-			</div>
-		</div>
+			</div>			
+		</div>		
 	</th:block>
 
 </html>

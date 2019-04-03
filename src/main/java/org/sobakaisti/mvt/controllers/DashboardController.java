@@ -39,6 +39,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -141,6 +142,18 @@ public class DashboardController {
 			//TODO notification message kao fles attr
 		}
 		return "redirect:/sbk-admin/sobakaisti";
+	}
+	
+	
+	@RequestMapping(value="/validate/author/add_or_update", method=RequestMethod.POST,
+			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<FieldError> validateAuthorForm(@Valid @ModelAttribute Author author, BindingResult result) {
+		if(result.hasErrors()) {
+			result.getFieldError();
+			return new ResponseEntity<FieldError>(result.getFieldError(), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<FieldError>(new FieldError("author", "", ""), HttpStatus.OK);
 	}
 	
 	

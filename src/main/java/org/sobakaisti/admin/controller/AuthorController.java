@@ -3,6 +3,7 @@
  */
 package org.sobakaisti.admin.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -12,4 +13,5 @@ import org.springframework.stereotype.Controller;
 @Controller(value = "")
 public class AuthorController {
 
+	
 }

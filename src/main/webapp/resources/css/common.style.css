@@ -49,7 +49,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
-html, body, div, article, section, img, ul, ol {
+html, body, div, article, section, img, ul, ol, a {
 	margin: 0;
 	padding: 0;
 	font-family: 'Noto Sans', sans-serif;
@@ -242,6 +242,8 @@ img {
 .bottm-1em-margin {
 	margin-bottom: 1em;
 }
+.xy-05em-padding { padding: 0.5em; }
+.xy-05em-margin { margin: 0.5em; }
 
 /* BUTTONS */
 .bttn {
@@ -550,7 +552,18 @@ img {
 	display: inline-block !important;
 	width: 80%;
 }
-
+.field-err {
+	border-color: #DD381D !important;
+}
+.field-err:after {
+	position: relative;
+	display: inline-block;
+	padding: 0.3em 0.6em;
+	color: #fff;
+	background-color: #DD381D;
+	content: attr(data-error);
+	border-radius: 6px;
+}
 /* end of inputs style */
 
 .horisontal-list li{
@@ -997,6 +1010,73 @@ input:checked ~ .checkmark {
     transform: rotate(45deg);
 }
 
+/*
+* DROPDOWN MENU
+*/
+.js-dropdown-container {
+	position: relative;
+	display: inline-block;
+}
+.js-dropdown-bttn { opacity: 0.75; }
+.js-dropdown-bttn:hover { opacity: 1; }
+.js-dropdown-list {
+	position: absolute;
+	display: none;
+	min-width: 125px;
+	right: 0;
+	background-clip: padding-box;
+	background-color: #fff;
+	border: 1px solid rgba(27, 31, 35, 0.15);
+	border-radius: 3px;
+	box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+	color: #586069;
+	font-size: 0.8em;
+	margin-top: 0.5em;
+	overflow: hidden;
+	z-index: 8;
+	text-align: left; /* default */
+}
+
+.js-dropdown-list > li {
+	line-height: 16px;
+	padding: 8px 10px;
+	border-bottom: 1px solid #eaecef;
+}
+
+.js-dropdown-list > .js-dropdown-header,
+.js-dropdown-list > .js-dropdown-search {
+	background: #f6f8fa;
+	border-bottom: 1px solid #e1e4e8;
+}
+.js-dropdown-list > .js-dropdown-item { padding: 0.6em 1.2em !important; }
+.js-dropdown-list > .js-dropdown-item > a { display: block; }
+
+.js-dropdown-list > .js-dropdown-item:hover {
+	background-color: #f6f8fa;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.js-dropdown-list > .js-dropdown-search > input {
+  	width: 95%;
+}
+.js-dropdown-close {
+	vertical-align: middle;
+	float: right;
+	margin-left: 1em;
+	opacity: 0.75;
+	cursor: pointer;
+}
+.js-dropdown-close:hover { opacity: 1; }
+
+.radiance {
+	display: inline-block;
+	width: 100%;
+	min-width: 23.5px;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.75) !important;
+	border-radius: 50%;	
+	vertical-align: middle;
+}
 /*
 	TAGS
 */
