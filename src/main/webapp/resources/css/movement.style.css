@@ -84,7 +84,29 @@ div { display: block; }
 	max-width: 1024px; /* 1024 */
 	margin: 0 auto;
 	box-sizing: border-box;
+	position: relative;
 }
+.post-vshare-palette {
+	position: fixed;
+	visibility: hidden;
+	opacity: 0;
+	top: 5%;
+	width: 45px;
+	margin: 0;
+}
+.soc-share-bttn {
+	cursor: pointer;
+	opacity: 0.75;
+}
+.soc-share-bttn:hover {
+	opacity: 1.0;
+}
+
+.full-visible {
+	visibility: visible;
+	opacity: 1.0;
+}
+/* .post-vshare-palette > ul { position: fixed; } */
 /*
 *	Form Input elements
 */

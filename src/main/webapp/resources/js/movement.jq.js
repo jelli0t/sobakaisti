@@ -90,6 +90,17 @@ $(function() {
 		return true;
 	});
 	
+	
+	$(window).on('scroll', function(e) {
+		var start = $('.post-body').offset().top;
+		var end = start + $('.post-body').outerHeight();
+		var $palette = $('#post-share-vpalette');
+		if($palette.offset().top > start & $palette.offset().top < end) {
+			$palette.addClass('full-visible');
+		} else
+			$palette.removeClass('full-visible');
+	});
+	
 });
 
 

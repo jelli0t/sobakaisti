@@ -13,5 +13,18 @@
   	<link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/movement.style.css}"> 	
 	<link rel="shortcut icon" th:href="@{/resources/img/icons/favicon.ico}" type="image/x-icon">
 	<link rel="icon" th:href="@{/resources/img/icons/favicon.ico}" type="image/x-icon">
+	
+	<!-- FB graph -->
+<!-- 	<meta property="og:url"           content="https://www.your-domain.com/your-page.html" /> -->
+<!-- 	<meta property="og:type"          content="website" /> -->
+<!-- 	<meta property="og:title"         content="Sobakaisti" /> -->
+	<meta property="og:description"   content="Your description" />
+	
+	
+	
+	<meta th:attr="property=${'og:url'}" th:content="@{__${#httpServletRequest.requestURI}__}" />
+	<meta th:attr="property=${'og:type'}" content="website" />
+	<meta th:attr="property=${'og:title'}" content="Sobakaisti" />
+	<meta th:attr="property=${'og:image'}" th:content="@{/resources/img/icons/movement_logo.svg}" />
 </head>
 </html>

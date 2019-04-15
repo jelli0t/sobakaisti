@@ -42,7 +42,18 @@
 *	MAIN MVT FOOTER		*
  -->
 <footer th:fragment="mvt_main_footer" class="mvt-main-footer">
+
+	<!-- Load Facebook SDK for JavaScript -->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
 	
+		
 	<div class="mvt-footer-container center-main-width fx-box fx-wrap fx-dir-row fx-justify-sbtw fx-selfalign-end">
 		<!-- footer logo container -->
 		<div class="mvt-footer-logo">

@@ -11,7 +11,7 @@
 <th:block th:insert="~{commons/mvt_header :: mvtHeader}"></th:block>
 	
 <section>
-	<div class="center-main-width fx-box fx-justify-cnt mvt-post-container">
+	<div class="center-main-width mvt-post-container"> <!-- fx-box fx-justify-cnt  -->
 		<article th:with="post=${post}" class="post">
 			<!-- header of the article -->
 			<header class="post-header">
@@ -43,6 +43,23 @@
 		     <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="post-img-container">
 		    	<img alt="img" th:src="@{/uploads/images/{filename}(filename=${media.fileName})}">
 		    </aside>
+		    <!-- Share bttn -->
+		    <div class="post-vshare-palette" id="post-share-vpalette">
+			 	<ul>
+			 		<li>
+			 			<img th:src="@{/resources/img/social/facebook-share.svg}" title="Podeli na Facebook" height="24"
+							th:attr="data-href=@{__${#httpServletRequest.requestURI}__}" class="soc-share-bttn xy-05em-margin"
+							onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('this.data-href'),'facebook-share-dialog','width=626,height=436'); return false;">		
+			 		</li>
+			 		<li>
+			 			<!-- twitter -->
+						<img th:src="@{/resources/img/social/twitter-share.svg}" alt="Tweet" height="26" title="Podeli na Twitter"
+							th:attr="data-href=@{__${#httpServletRequest.requestURI}__}" class="soc-share-bttn xy-05em-margin"
+							onclick="javascript:window.open('https://twitter.com/share?text=Pogledajte+clanak&amp;url=this.data-href','Twitter-dialog','width=626,height=436'); return false;">
+			 		</li>
+			 		
+			 	</ul>
+			 </div>
 		    
 			<!-- Post -->
 			<main class="post-body">
@@ -85,8 +102,20 @@
 			
 			<footer>
 				<div class="post-tags"></div>
+				<div class="aright">	
+					<!-- Facebbok -->				
+					<img th:src="@{/resources/img/social/facebook-share.svg}" title="Podeli na Facebook" height="24"
+						th:attr="data-href=@{__${#httpServletRequest.requestURI}__}" class="soc-share-bttn xy-05em-margin"
+						onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('this.data-href'),'facebook-share-dialog','width=626,height=436'); return false;">
+					<!-- twitter -->
+					<img th:src="@{/resources/img/social/twitter-share.svg}" alt="Tweet" height="26" title="Podeli na Twitter"
+						th:attr="data-href=@{__${#httpServletRequest.requestURI}__}" class="soc-share-bttn xy-05em-margin"
+						onclick="javascript:window.open('https://twitter.com/share?text=Pogledajte+clanak&amp;url=this.data-href','Twitter-dialog','width=626,height=436'); return false;">
+				</div>
 			</footer>
 		</article>		
+		 
+		 
 		 
 	</div>
 </section>	
