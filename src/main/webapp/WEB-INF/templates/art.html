@@ -14,10 +14,12 @@
 -->
 <section class="mvt-top-posts y-1em-padding">
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
+		
 		<!-- top section header -->
 		<div class="top-posts-header">
 		    <span th:text="#{heading.post.top}">Izdvajamo</span>
-		</div>		
+		</div>
+
 		<!-- posts -->
 		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight" 
 				th:each="post, item : ${initArticles}" th:if="${item.index < 4}">
@@ -65,6 +67,69 @@
 			</footer>
 			</div>
 		</article>
+		
+		
+		<hr>
+		
+		
+		<!-- PREVIEW 2.0 -->
+		<article class="fx-box fx-dir-row fx-basis-48_75 post-prev-box post-prev-highlights"
+			th:each="post, item : ${initArticles}" th:if="${item.index < 4}"
+			th:with="hasImage=${#bools.isTrue(post?.featuredImage != null)}">
+			<!-- Featured post image -->
+			<aside class="fx-basis-40 mvt-postprev-cover" th:if="${hasImage}" th:with="media = ${post.featuredImage}">
+		    	<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" class="post-prev-img"
+		    		th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
+		  		</a>     
+		  	</aside>
+		  
+		  	<div class="fx-box fx-dir-col fx-justify-sbtw x-1em-padding y-05em-padding" 
+		  		th:classappend="${#bools.isTrue(hasImage)} ? fx-basis-60 : fx-basis-full">
+		    	<header>
+		    		<!-- Post tags preview -->
+		      		<div class="post-prev-tags" th:if="${post?.tags != null}">
+		      			<span th:each="tag, item : ${post.tags}" th:if="${item.index < 4}" 
+		      				th:text="${'#' + tag.tag + ' '}"></span>
+		      		</div>
+		      		<!-- Post title -->
+		      		<h2 class="post-prev-h2">
+		      			<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
+		      		</h2>
+		    	</header>
+		    	<div class="post-prev-snippet" th:if="${post.content != null}"
+		    		th:utext="${#strings.abbreviate(post.content, #bools.isTrue(hasImage) ? 145 : 300)}">		        
+		    	</div>
+		    	<!-- Post preview footer -->
+		    	<footer class="fx-box fx-wrap fx-justify-sbtw fx-dir-row" th:with="author=${post.author}">
+		      		<!--  -->
+					<div class="fx-box"> 
+			    		<!-- Authors avatar -->
+						<div class="mvt-postprev-author-avatar">
+							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+							</a>
+						</div>
+						<!-- Authors full name and post date -->
+						<div class="mvt-postprev-info">
+							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
+									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+							</span>
+							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+						</div>
+					</div>	
+			    	<div class="mvt-postprev-tools">
+			            <div class="postprev-comments-indicator">
+			            	<img th:src="@{/resources/img/icons/comment.svg}" height="15">
+			            	<span th:if="${#maps.containsKey(COMMENTS_COUNT_PER_POST, post.id)}" 
+			            		th:text="${COMMENTS_COUNT_PER_POST.get(post.id)}">0</span>
+			        	</div>
+			        </div>
+		    	</footer>
+		  </div>
+		  
+		</article>
+		
 	</div>
 </section>	
 

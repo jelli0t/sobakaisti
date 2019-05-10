@@ -832,29 +832,6 @@ time.post-prev-date {
 	/* 	border: 1px solid gray; */
 }
 
-/* .article-top-container { */
-/* 	position: relative; */
-/* 	border-bottom: 1px solid #e1e8ed; */
-/* 	margin-bottom: 25px; */
-/* 	height: 180px; */
-/* } */
-
-/* .top-post-prev-img { */
-/* 	position: relative; */
-/* 	display: inline-block; */
-/* 	float: left; */
-/* 	width: 320px; */
-/* 	height: 180px; */
-/* 	overflow: hidden; */
-/* } */
-
-/* .article-top-container>article { */
-/* 	position: relative; */
-/* 	width: auto; */
-/* 	margin-left: 320px; */
-/* 	height: 180px; */
-/* } */
-
 .full-width {
 	width: 100% !important;
 	margin: 0 !important;
@@ -882,6 +859,78 @@ h3.article-prev-title {
 .article-prev-footer a:link {
 	color: #1fa0ae !important;
 }
+
+/* ARTS POST PREVIEW 2.0 */
+
+.post-prev-box {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    background: #fff;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.post-prev-highlights {
+    max-height: 260px;
+    min-width: 360px;
+}
+
+.post-prev-basic {
+    max-height: 360px;
+    min-width: 245px;
+}
+
+.post-prev-h2 {
+	margin: 5px 0 !important;
+	font-size: 24px!important;
+	line-height: 28px!important;
+	-webkit-transform: translateY(-0.72px);
+	transform: translateY(-0.72px);
+	letter-spacing: -0.45px!important;
+	color: rgba(0, 0, 0, 0.84);
+	text-overflow: ellipsis!important;
+}
+
+.post-prev-tags {
+	font-size: 0.8em;
+	font-weight: lighten;
+	letter-spacing: -0.45px !important;
+	color: rgba(0, 0, 0, 0.45);
+}
+
+.post-prev-img {
+	position: relative;
+	display: block;
+	height: 100%;
+	width: inherit;
+	background-size: cover !important;
+	background-position: center center;
+	background-repeat: none;
+	overflow: hidden;
+}
+
+.post-prev-snippet {
+	position: relative;
+	color: rgba(0, 0, 0, 0.65);
+	font-size: 0.825em;
+	line-height: 18.33px;
+	word-break: break-word;
+	max-height: 90px;
+	overflow: hidden;
+}
+
+.post-prev-snippet::after {
+	position: absolute;
+	content: ' ';
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: auto;
+	box-shadow: 0px 0px 12px 6px rgba(255, 255, 255, 1);
+}
+
+/* ENDS ARTS 2.0*/
+
 
 /* GRID POST PREVIEWS */
 .post-prev-list {
@@ -940,50 +989,6 @@ h3.article-prev-title {
 	margin: 0;
 }
 
-/* .post-prev-title { */
-/* 	display: block; */
-/* 	margin: 10px 15px 0 15px; */
-/* 	font-size: 14px; */
-/* 	color: #24292e; */
-/* } */
-
-/* .post-prev-title:hover { */
-/* 	color: #00729d; */
-/* } */
-
-/* .top-post-prev-title { */
-/* 	font-size: 16px !important; */
-/* 	font-weight: 600; */
-/* } */
-
-
-/*
-.top-post-prev-content {
-	font-size: 14px !important;
-	line-height: 18px;
-	max-height: 120px;
-	overflow: hidden;
-}
-*/
-/* .post-prev-footer { */
-/* 	font-size: 10px; */
-/* 	position: absolute; */
-/* 	bottom: 0; */
-/* 	left: 0; */
-/* 	width: 100%; */
-/* 	padding: 0 14px 7px 14px; */
-/* 	color: #8e8e8e; */
-/* 	background-color: #fff; */
-/* 	-webkit-box-shadow: 0px -16px 15px 0px rgba(255, 255, 255, 1); */
-/* 	-moz-box-shadow: 0px -16px 15px 0px rgba(255, 255, 255, 1); */
-/* 	box-shadow: 0px -16px 15px 0px rgba(255, 255, 255, 1); */
-/* } */
-
-/* .post-prev-footer>.post-prev-avatar { */
-/* 	display: inline-block; */
-/* 	vertical-align: text-bottom; */
-/* 	overflow: hidden; */
-/* } */
 
 .circle-small {
 	width: 32px;

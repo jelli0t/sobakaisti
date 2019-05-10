@@ -153,11 +153,37 @@ html, body, div, article, section, img, ul, ol, a {
   -ms-flex-basis: 100%;
   flex-basis: 100%;
 }
+
 .fx-basis-60 {
   -webkit-flex-basis: 60%;
   -ms-flex-basis: 60%;
   flex-basis: 60%;
 }
+
+.fx-basis-50 {
+  -webkit-flex-basis: 50%;
+  -ms-flex-basis: 50%;
+  flex-basis: 50%;
+}
+
+.fx-basis-40 {
+  -webkit-flex-basis: 40%;
+  -ms-flex-basis: 40%;
+  flex-basis: 40%;
+}
+
+.fx-basis-48_75 {
+  -webkit-flex-basis: 48.75%;
+  -ms-flex-basis: 48.75%;
+  flex-basis: 48.75%;
+}
+
+.fx-basis-33 {
+  -webkit-flex-basis: 33%;
+  -ms-flex-basis: 33%;
+  flex-basis: 33%;
+}
+
 .fx-selfalign-end {
 	-webkit-align-self: flex-end;
 	align-self: flex-end; 
@@ -244,6 +270,11 @@ img {
 }
 .xy-05em-padding { padding: 0.5em; }
 .xy-05em-margin { margin: 0.5em; }
+
+.y-05em-padding {
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
 
 /* BUTTONS */
 .bttn {
