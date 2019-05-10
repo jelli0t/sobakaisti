@@ -102,6 +102,9 @@ div { display: block; }
 	opacity: 1.0;
 }
 
+.vshare-bttn-list > li { margin: 1em 0; }
+.hshare-bttn-list > li { display: inline-block; margin: 0 0.5em; float: left; }
+
 .full-visible {
 	visibility: visible;
 	opacity: 1.0;
@@ -1099,15 +1102,15 @@ h3.article-prev-title {
 .post > .post-img-container {
 	display: block;
 	max-width: 980px;
-	width: 100%;
+/* 	width: 100%; */
 	overflow: hidden;
 	text-align: center;
 	margin-bottom: 1.5em !important;
 }
 
 .post > .post-img-container > img {
-	width: inherit;
-/* 	max-width: 100%; */
+	max-width: 100%;
+	max-height: 654px;
 	height: auto;
 }
 

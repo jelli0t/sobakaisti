@@ -523,4 +523,47 @@
 	</th:block>
 	
 	
+	<!-- 
+	*	SHARE BUTTONS PALETTE
+	 -->
+	 <th:block th:fragment="socialShareVPaletteFragment">
+	 	<ul class="vshare-bttn-list">
+	 		<li>
+	 			<!-- FB share button -->
+				<div class="fb-share-button" th:attr="data-href=@{__${#request.getScheme() +'://'+ #request.getServerName() + #httpServletRequest.requestURI}__}" 
+					data-layout="box_count" data-size="small">
+					<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" 
+						class="fb-xfbml-parse-ignore">Podeli</a>
+				</div>
+	 		</li>
+	 		<li>
+	 			<!-- twitter -->
+	 			<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-via="sobakaisti" data-hashtags="sobakaisti" data-show-count="true">Tweet</a>
+	 			<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	 		</li>
+	 		<li>
+	 			<a class="tumblr-share-button" data-color="blue" data-notes="top" data-tags="sobakaisti" href="https://embed.tumblr.com/share"></a> 
+	 			<script>!function(d,s,id){var js,ajs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://assets.tumblr.com/share-button.js";ajs.parentNode.insertBefore(js,ajs);}}(document, "script", "tumblr-js");</script>
+	 		</li>
+	 	</ul>	 
+	 </th:block>
+	<th:block th:fragment="socialShareHPaletteFragment">
+	 	<ul class="hshare-bttn-list">
+	 		<li>
+	 			<!-- FB share button -->
+				<div class="fb-share-button" th:attr="data-href=@{__${#request.getScheme() +'://'+ #request.getServerName() + #httpServletRequest.requestURI}__}" 
+					data-layout="button_count" data-size="large">
+					<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" 
+						class="fb-xfbml-parse-ignore">Podeli</a>
+				</div>
+	 		</li>
+	 		<li>
+	 			<!-- twitter -->
+	 			<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-via="sobakaisti" data-hashtags="sobakaisti" data-show-count="false">Tweet</a>
+				<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	 		</li>	 		
+	 	</ul>	 
+	 </th:block>
+	
+	
 </html>
