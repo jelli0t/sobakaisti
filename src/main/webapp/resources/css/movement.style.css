@@ -880,15 +880,24 @@ h3.article-prev-title {
     min-width: 245px;
 }
 
-.post-prev-h2 {
-	margin: 5px 0 !important;
-	font-size: 24px!important;
-	line-height: 28px!important;
+.post-prev-title {
 	-webkit-transform: translateY(-0.72px);
 	transform: translateY(-0.72px);
 	letter-spacing: -0.45px!important;
 	color: rgba(0, 0, 0, 0.84);
 	text-overflow: ellipsis!important;
+}
+
+.post-prev-h2 {
+	margin: 5px 0 !important;
+	font-size: 24px!important;
+	line-height: 28px!important;
+}
+
+.post-prev-h3 {
+	margin: 4px 0 !important;
+	font-size: 21px!important;
+	line-height: 25px!important;
 }
 
 .post-prev-tags {

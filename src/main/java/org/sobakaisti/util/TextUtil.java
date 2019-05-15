@@ -14,6 +14,7 @@ public final class TextUtil {
 	public static final String UTF8_CHAR_ENCODING = "UTF-8";
 	
 	public static final String EMPTY = "";
+	public static final String BLANKO = String.valueOf(SPACE_CHAR);
 	public static final String FILE_SEPARATOR = System.getProperty("file.separator");	
 	/*
 	 * ModelAttributes names
@@ -30,6 +31,10 @@ public final class TextUtil {
 	 * */
 	public static final String MEGABYTE_MEASURE_UNIT = "MB";
 	public static final String KILOBYTE_MEASURE_UNIT = "KB";
+	/*
+	 * REGEX
+	 * */
+	public static final String HTML_TAG_REGEXP = "^<[^>]*>$";
 		
 	/**
 	* Default private constrictor prevents class to be instantiated

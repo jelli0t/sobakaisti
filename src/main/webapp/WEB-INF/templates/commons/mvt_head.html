@@ -6,13 +6,19 @@
 	<meta name="_csrf" th:content="${_csrf.token}"/>
 	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-site-verification" content="_3FvAyOpapIQcceP27KdJo6HdeZQhVgyQTjyu_FoPTQ" />
+	
 	<title th:replace="${title}"></title>
 
-  <!-- Common styles and scripts -->
+  	<!-- Common styles and scripts -->
 	<link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/common.style.css}"> 
-  	<link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/movement.style.css}"> 	
+  	<link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/movement.style.css}">
+	<!-- Fav icons -->
 	<link rel="shortcut icon" th:href="@{/resources/img/icons/favicon.ico}" type="image/x-icon">
-	<link rel="icon" th:href="@{/resources/img/icons/favicon.ico}" type="image/x-icon">
+	<link rel="icon" sizes="16x16 32x32" th:href="@{/resources/img/icons/favicon.ico}" type="image/x-icon">
+	<link rel="apple-touch-icon" th:href="@{/resources/img/icons/favicon-57.ico}">
+	<link rel="apple-touch-icon" sizes="152x152" th:href="@{/resources/img/icons/favicon-152.ico}">
+	<link rel="apple-touch-icon" sizes="180x180" th:href="@{/resources/img/icons/favicon-180.ico}">
 	
 	<!-- FB graph -->
 	<meta th:attr="property=${'og:url'}" th:content="@{__${#request.getScheme() +'://'+ #request.getServerName() + #httpServletRequest.requestURI}__}" />
@@ -30,6 +36,16 @@
 		<meta th:attr="property=${'og:title'}" content="Sobakaisti" />
 		<meta th:attr="property=${'og:image'}" th:content="@{__${#request.getScheme() +'://'+ #request.getServerName() + #servletContext.contextPath}__/resources/img/icons/movement_logo.svg}" />
 		<meta th:attr="property=${'og:description'}" content="Ми смо Собакаисти. Ми смо пси што бесно гризу за уметност, ми смо чувари богате ризнице светске културне традиције, ми смо водичи онима што не знају за овај пут." />
-	</th:block>	
+	</th:block>
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62662644-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-62662644-1');
+    </script>
 </head>
 </html>

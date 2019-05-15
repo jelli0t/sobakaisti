@@ -150,7 +150,19 @@ public class Media extends Post {
 		else
 			return 0 + TextUtil.SPACE_CHAR + TextUtil.MEGABYTE_MEASURE_UNIT;
 	}
+	
+	@Override
+	public String getSnippet() {
+		if(TextUtil.isEmpty(super.getSnippet()) && TextUtil.notEmpty(this.descriprion)) {
+			int endIndex = this.descriprion.length() <= MAX_POST_SNIPPET_LENGHT 
+					? this.descriprion.length()-1 : MAX_POST_SNIPPET_LENGHT;
+			String shortContent = this.descriprion.substring(0, endIndex);
+			return shortContent.replaceAll("<[^>]*>", TextUtil.BLANKO);
+		}
+		return super.getSnippet();
+	}
 
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("media : {");

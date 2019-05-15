@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.sobakaisti.mvt.i18n.model.I18nPost;
+import org.sobakaisti.util.TextUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -34,6 +35,7 @@ public abstract class Post {
 	
 	public static final int ACTIVE = 1;
 	public static final int NONACTIVE = 0;
+	public static final int MAX_POST_SNIPPET_LENGHT = 384;
 	
 	public enum Origin {
 		ARTICLE(Article.class.getName()),
@@ -102,6 +104,12 @@ public abstract class Post {
         targetEntity = Author.class)
 	private Author author;
 	
+	/**
+	 * Snippet from post content.<br>
+	 * Displays on post preview.
+	 * */
+	@Column(name="snippet")
+	private String snippet;
 	
 	@Transient
 	private Boolean commited;
@@ -177,5 +185,14 @@ public abstract class Post {
 	}
 	public void setCommitMessage(String commitMessage) {
 		this.commitMessage = commitMessage;
+	}	
+
+	public String getSnippet() {
+		return snippet;
 	}
+
+	public void setSnippet(String snippet) {
+		this.snippet = snippet;
+	}	
+	
 }

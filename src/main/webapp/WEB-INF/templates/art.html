@@ -4,7 +4,6 @@
 	<title th:text="${chosenArt}">Literature</title>
 </head>
 <body class="fx-box fx-dir-col fx-justify-sbtw">
-<!-- <header th:replace="~{commons/mvt_header :: mvt_header}"></header> -->
 <th:block th:insert="~{commons/mvt_header :: mvtTopNavigation}"></th:block>
 <!-- Main Page Header -->
 <th:block th:insert="~{commons/mvt_header :: mvtHeader}"></th:block>
@@ -18,59 +17,7 @@
 		<!-- top section header -->
 		<div class="top-posts-header">
 		    <span th:text="#{heading.post.top}">Izdvajamo</span>
-		</div>
-
-		<!-- posts -->
-		<article class="fx-box fx-nowrap fx-dir-row mvt-postprev-highlight" 
-				th:each="post, item : ${initArticles}" th:if="${item.index < 4}">
-		    <!-- fotka -->
-		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover">
-		      <a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}"
-				th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'">
-		      </a>
-		    </aside>
-			<!-- Right side of preview -->
-		    <div class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-content" th:classappend="${post?.featuredImage != null} ? fx-basis-60 : fx-basis-full">
-				<header>
-					<h3 class="mvt-postprev-title">
-						<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
-					</h3>
-				</header>
-			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 300)}"
-					class="mvt-postprev-snippet">
-			    </div>
-		    	<footer class="fx-box fx-justify-sbtw fx-dir-row" th:with="author=${post.author}">
-		    		<!--  -->
-					<div class="fx-box"> 
-			    		<!-- Authors avatar -->
-						<div class="mvt-postprev-author-avatar">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
-								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
-							</a>
-						</div>
-						<!-- Authors full name and post date -->
-						<div class="mvt-postprev-info">
-							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
-									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-							</span>
-							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
-						</div>
-					</div>	
-			    	<div class="mvt-postprev-tools">
-			            <div class="postprev-comments-indicator">
-			            	<img th:src="@{/resources/img/icons/comment.svg}" height="15">
-			            	<span th:if="${#maps.containsKey(COMMENTS_COUNT_PER_POST, post.id)}" 
-			            		th:text="${COMMENTS_COUNT_PER_POST.get(post.id)}">0</span>
-			        	</div>
-			        </div>				    
-			</footer>
-			</div>
-		</article>
-		
-		
-		<hr>
-		
+		</div>	
 		
 		<!-- PREVIEW 2.0 -->
 		<article class="fx-box fx-dir-row fx-basis-48_75 post-prev-box post-prev-highlights"
@@ -92,15 +39,15 @@
 		      				th:text="${'#' + tag.tag + ' '}"></span>
 		      		</div>
 		      		<!-- Post title -->
-		      		<h2 class="post-prev-h2">
+		      		<h2 class="post-prev-title post-prev-h2">
 		      			<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
 		      		</h2>
 		    	</header>
-		    	<div class="post-prev-snippet" th:if="${post.content != null}"
-		    		th:utext="${#strings.abbreviate(post.content, #bools.isTrue(hasImage) ? 145 : 300)}">		        
+		    	<div class="post-prev-snippet" th:if="${post.snippet != null}"
+		    		th:utext="${#strings.abbreviate(post.snippet, #bools.isTrue(hasImage) ? 145 : 300)}">		        
 		    	</div>
 		    	<!-- Post preview footer -->
-		    	<footer class="fx-box fx-wrap fx-justify-sbtw fx-dir-row" th:with="author=${post.author}">
+		    	<footer class="fx-box fx-wrap fx-justify-sbtw fx-dir-row" style="margin-top: 0.5em;" th:with="author=${post.author}">
 		      		<!--  -->
 					<div class="fx-box"> 
 			    		<!-- Authors avatar -->
@@ -138,55 +85,70 @@
 -->
 <section class="mvt-rest-posts y-1em-padding">
 	<div class="center-main-width fx-box fx-wrap fx-justify-sbtw mvt-postprev-container">
+	
 		<!-- top section header -->
 		<div class="top-posts-header">
 		    <span th:text="#{heading.post.rest}">Preostali članci</span>
 		</div>
-		<article class="fx-box fx-dir-col fx-justify-sbtw mvt-postprev-basic"
-				th:each="post, item : ${initArticles}" th:if="${item.index > 3}">
-		    <!-- fotka -->
-		    <aside th:if="${post?.featuredImage != null}" th:with="media = ${post.featuredImage}" class="mvt-postprev-cover mvt-postprev-top-cover">
+
+		<!-- 
+		*	Basic design preview 
+		-->
+		<article class="fx-box fx-dir-col fx-justify-sbtw fx-basis-32 post-prev-box post-prev-basic"
+			th:each="post, item : ${initArticles}" th:if="${item.index > 3}"
+			th:with="hasImage=${#bools.isTrue(post?.featuredImage != null)}">
+			<!-- Featured post image -->
+			<aside th:if="${hasImage}" style="height:120px;" th:with="media = ${post.featuredImage}">			
 				<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}"
 				   th:style="'background:url(' + @{/uploads/images/{filename}(filename=${media.fileName})} + ') center center; background-size: cover;'"></a>
-		    </aside>
-			<!-- Right side of preview -->
-			<div class="fx-box fx-grow2 fx-dir-col fx-justify-sbtw mvt-postprev-content">
+			</aside>			
+    		<div class="fx-box fx-dir-col x-1em-padding y-05em-padding">
 				<header>
-					<h3 class="mvt-postprev-title">
-						<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
-					</h3>
+					<!-- Post tags preview -->
+					<div class="post-prev-tags" th:if="${post?.tags != null}">
+						<span th:each="tag, item : ${post.tags}" th:if="${item.index < 4}" 
+							th:text="${'#' + tag.tag + ' '}"></span>
+					</div>
+				  	<!-- Post title -->
+		      		<h3 class="post-prev-title post-prev-h3">
+		      			<a th:href="@{/arts/{art}/{slug}(art=${arts[0]}, slug=${post.slug})}" th:title="${post.title}" th:text="${post.title}"></a>
+		      		</h3>
 				</header>
-			    <div th:if="${post.content != null}" th:utext="${#strings.abbreviate(post.content, post.featuredImage != null ? 145 : 300)}"
-					class="mvt-postprev-snippet">
-			    </div>
-		    	<footer class="fx-box fx-dir-row fx-justify-sbtw" th:with="author=${post.author}">
-		    		<!--  -->
-					<div class="fx-box"> 
-			    		<!-- Authors avatar -->
-						<div class="mvt-postprev-author-avatar">
-							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
-								<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
-							</a>
-						</div>
-						<!-- Authors full name and post date -->
-						<div class="mvt-postprev-info">
-							<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
-								<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
-									th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
-							</span>
-							<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
-						</div>
-					</div>	
-			    	<div class="mvt-postprev-tools">
-			            <div class="postprev-comments-indicator">
-			            	<img th:src="@{/resources/img/icons/comment.svg}" height="15">
-			            	<span th:if="${#maps.containsKey(COMMENTS_COUNT_PER_POST, post.id)}" 
-			            		th:text="${COMMENTS_COUNT_PER_POST.get(post.id)}">0</span>
-			        	</div>
-			        </div>				    
-			</footer>
-			</div>
-		</article>
+				<!-- Post snippet -->
+				<div class="post-prev-snippet" th:if="${post.snippet != null}" style="max-height: 155px !important;"
+		    		th:utext="${#strings.abbreviate(post.snippet, #bools.isTrue(hasImage) ? 145 : 300)}">		        
+		    	</div>
+		    </div>
+	    	<!-- Post preview footer -->
+	    	<footer class="fx-box fx-wrap fx-justify-sbtw fx-dir-row x-1em-padding y-05em-padding" 
+	    		th:with="author=${post.author}">
+	      		<!--  -->
+				<div class="fx-box"> 
+		    		<!-- Authors avatar -->
+					<div class="mvt-postprev-author-avatar">
+						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" th:alt="${author.firstName + ' ' + author.lastName}">
+							<span class="circle circle-small" th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span>
+						</a>
+					</div>
+					<!-- Authors full name and post date -->
+					<div class="mvt-postprev-info">
+						<span class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}">
+							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0]}, author=${author.slug})}" 
+								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a>
+						</span>
+						<time class="post-prev-date" th:text="${#dates.format(post.postDate, 'dd. MMM yyyy. HH:mm')}"></time>
+					</div>
+				</div>	
+		    	<div class="mvt-postprev-tools">
+		            <div class="postprev-comments-indicator">
+		            	<img th:src="@{/resources/img/icons/comment.svg}" height="15">
+		            	<span th:if="${#maps.containsKey(COMMENTS_COUNT_PER_POST, post.id)}" 
+		            		th:text="${COMMENTS_COUNT_PER_POST.get(post.id)}">0</span>
+		        	</div>
+		        </div>
+	    	</footer>    		    
+ 		 </article>
+ 		 
 	</div>
 </section>	
 
@@ -195,83 +157,6 @@
  -->
 <input type="hidden" id="post-counter" th:value="${#lists.size(initArticles)}" />
 <a th:href="@{/arts/{art}/{author}/more(art=${arts[0]}, author=(${chosenAuthor != null} ? 'by/'+${chosenAuthor.slug} : ''))}" style="display:none;" id="load-content-link"></a>
-
-
-<!-- <div class="site-content-container"> -->
-	<!-- Top article preview -->
-<!-- 	<div class="article-top-container" th:if="${initArticles != null}"> -->
-<!-- 		<!-- Top article preview image --> 
-<!-- 		<div class="top-post-prev-img" th:if="${initArticles[0].featuredImage != null}"> -->
-<!-- 			<a th:href="@{/arts/{slug}(slug=${initArticles[0].slug})}" class="post-prev-img" th:title="${initArticles[0].title}"> -->
-
-<!-- 			</a> -->
-<!-- 		</div> -->
-<!-- 		<article th:classappend="${initArticles[0].featuredImage != null} ? '' : full-width">			 -->
-<!-- 			<header> -->
-<!-- 				<a th:href="@{/arts/{art}/{slug}(art=${arts[0].slug}, slug=${initArticles[0].slug})}"  -->
-<!-- 					class="post-prev-title top-post-prev-title" th:text="${initArticles[0].title}" th:alt="${initArticles[0].title}" th:title="${initArticles[0].title}"></a> -->
-<!-- 			</header> -->
-
-<!-- 			<div th:if="${initArticles[0].content != null}" th:utext="${#strings.abbreviate(initArticles[0].content, initArticles[0].featuredImage != null ? 300 : 500)}"  -->
-<!-- 				class="post-prev-content top-post-prev-content"></div> -->
-			<!-- top article footer -->
-<!-- 			<footer class="post-prev-footer" th:with="author=${initArticles[0].author}"> -->
-<!-- 				<div class="post-prev-avatar"> -->
-<!-- 					<span class="circle circle-small"  -->
-<!-- 						th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span> -->
-<!-- 				</div> -->
-<!-- 				Author and date info -->
-<!-- 				<div class="post-prev-author-details"> -->
-<!-- 					<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}"> -->
-<!-- 						<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}"  -->
-<!-- 							th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a> -->
-<!-- 					</address> -->
-<!-- 					<time class="post-prev-date" th:text="${#dates.format(initArticles[0].postDate, 'dd. MMM yyyy. HH:mm')}"></time> -->
-<!-- 				</div> -->
-<!-- 				Comments indicator -->
-<!-- 				<div class="post-prev-meta"> -->
-<!-- 					<span class="post-prev-comment-count">999</span> -->
-<!-- 				</div> -->
-<!-- 			</footer> -->
-<!-- 		</article> -->
-<!-- 	</div> -->
-
-<!-- 	<ul th:if="${initArticles != null}" class="post-prev-list"> -->
-
-<!-- 		<li class="post-prev-item" th:each="article,itemStat : ${initArticles}" th:unless="${itemStat.index == 0}"> -->
-<!-- 			<article> -->
-<!-- 				<header> -->
-<!-- 					Article featured image -->
-<!-- 					<a th:href="@{/arts/{slug}(slug=${article.slug})}" class="post-prev-img" th:if="${article.featuredImage != null}" th:title="${article.title}"> -->
-<!-- 						<img alt="" th:src="@{/resources/img/{img}(img=${article.featuredImage})}"> -->
-<!-- 					</a> -->
-<!-- 					Article title -->
-<!-- 					<a th:href="@{/arts/{art}/{slug}(art=${arts[0].slug}, slug=${article.slug})}"  -->
-<!-- 						class="post-prev-title" th:text="${article.title}" th:alt="${article.title}" th:title="${article.title}"></a> -->
-<!-- 				</header> -->
-<!-- 				<div th:if="${article.content != null}" th:utext="${#strings.abbreviate(article.content, article.featuredImage != null ? 145 : 290)}" class="post-prev-content"></div> -->
-<!-- 				<footer class="post-prev-footer" th:with="author=${article.author}"> -->
-<!-- 					<div class="post-prev-avatar"> -->
-<!-- 						<span class="circle circle-small"  -->
-<!-- 							th:text="${#strings.substring(author.firstName,0,1)}+'.'+${#strings.substring(author.lastName,0,1)}+'.'">SBK</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="post-prev-author-details"> -->
-<!-- 						<address class="post-prev-author" th:title="${author.firstName + ' ' + author.lastName}"> -->
-<!-- 							<a th:href="@{/arts/{art}/by/{author}(art=${arts[0].slug}, author=${author.slug})}"  -->
-<!-- 								th:text="${author.firstName + ' ' + author.lastName}" th:alt="${author.firstName + ' ' + author.lastName}">Sobakaisti</a> -->
-<!-- 						</address> -->
-<!-- 						<time class="post-prev-date" th:text="${#dates.format(article.postDate, 'dd. MMM yyyy. HH:mm')}"></time> -->
-<!-- 					</div> -->
-<!-- 					<div class="post-prev-meta"> -->
-<!-- 						<span class="post-prev-comment-count">999</span> -->
-<!-- 					</div> -->
-<!-- 				</footer> -->
-<!-- 			</article> -->
-<!-- 		</li> -->
-<!-- 	</ul> -->
-	
-<!-- 	<a th:href="@{/arts/footer}" style="display:none;" id="load-footer-link"></a>	 -->
-<!-- </div>		 -->
 
 <th:block th:insert="~{commons/mvt_footer :: mvt_main_footer}"></th:block>
 </body>

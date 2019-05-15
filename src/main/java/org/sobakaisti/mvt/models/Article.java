@@ -3,8 +3,6 @@ package org.sobakaisti.mvt.models;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +12,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
-import org.sobakaisti.mvt.i18n.model.I18nPost;
+import org.sobakaisti.util.TextUtil;
 
 @Entity
 @Table(name="article")
@@ -107,7 +104,17 @@ public class Article extends Post {
 	public void setFeaturedImage(Media featuredImage) {
 		this.featuredImage = featuredImage;
 	}
-	
+
+	@Override
+	public String getSnippet() {
+		if(TextUtil.isEmpty(super.getSnippet()) && TextUtil.notEmpty(this.content)) {
+			int endIndex = this.content.length() <= MAX_POST_SNIPPET_LENGHT 
+					? this.content.length()-1 : MAX_POST_SNIPPET_LENGHT;
+			String shortContent = this.content.substring(0, endIndex);
+			return shortContent.replaceAll("<[^>]*>", TextUtil.BLANKO);
+		}
+		return super.getSnippet();
+	}
 
 	@Override
 	public String toString() {
@@ -120,17 +127,4 @@ public class Article extends Post {
 		sb.append(this.tags != null ? "tags_size : "+this.tags.size() : "");
 		return sb.append("}").toString();
 	}
-
-
-//	@Override
-//	@OneToMany(fetch = FetchType.LAZY, cascade =
-//		{
-//		        CascadeType.DETACH,
-//		        CascadeType.MERGE,
-//		        CascadeType.REFRESH,
-//		        CascadeType.PERSIST
-//		},
-//		targetEntity = I18nArticle.class, 
-//		mappedBy = "article")
-	
 }

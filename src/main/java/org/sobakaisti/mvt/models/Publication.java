@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.sobakaisti.mvt.i18n.model.I18nPublication;
+import org.sobakaisti.util.TextUtil;
 
 /**
  * @author jelles
@@ -127,6 +128,18 @@ public class Publication extends Post {
 	}
 	public void setFeaturedImage(Media featuredImage) {
 		this.featuredImage = featuredImage;
+	}
+	
+
+	@Override
+	public String getSnippet() {
+		if(TextUtil.isEmpty(super.getSnippet()) && TextUtil.notEmpty(this.content)) {
+			int endIndex = this.content.length() <= MAX_POST_SNIPPET_LENGHT 
+					? this.content.length()-1 : MAX_POST_SNIPPET_LENGHT;
+			String shortContent = this.content.substring(0, endIndex);
+			return shortContent.replaceAll("<[^>]*>", TextUtil.BLANKO);
+		}
+		return super.getSnippet();
 	}
 	
 	@Override

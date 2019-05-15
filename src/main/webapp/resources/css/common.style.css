@@ -184,6 +184,12 @@ html, body, div, article, section, img, ul, ol, a {
   flex-basis: 33%;
 }
 
+.fx-basis-32 {
+  -webkit-flex-basis: 32%;
+  -ms-flex-basis: 32%;
+  flex-basis: 32%;
+}
+
 .fx-selfalign-end {
 	-webkit-align-self: flex-end;
 	align-self: flex-end; 
