@@ -871,7 +871,7 @@ h3.article-prev-title {
 }
 
 .post-prev-highlights {
-    max-height: 260px;
+    max-height: 280px;
     min-width: 360px;
 }
 
@@ -887,6 +887,7 @@ h3.article-prev-title {
 	color: rgba(0, 0, 0, 0.84);
 	text-overflow: ellipsis!important;
 }
+.post-prev-title:hover { text-decoration: underline; }
 
 .post-prev-h2 {
 	margin: 5px 0 !important;
@@ -895,7 +896,7 @@ h3.article-prev-title {
 }
 
 .post-prev-h3 {
-	margin: 4px 0 !important;
+	margin: 0.25em 0 0.725em !important;
 	font-size: 21px!important;
 	line-height: 25px!important;
 }
@@ -972,33 +973,6 @@ h3.article-prev-title {
 	overflow: hidden;
 }
 
-.post-prev-img {
-	overflow: hidden;
-	width: 100%;
-	text-align: center;
-	display: block;
-	margin: 0 auto;
-	border-bottom: 1px solid #e1e8ed;
-	line-height: 0;
-	height: 120px;
-	background: url(../img/icons/sobakaisti_dog.svg) center center no-repeat;
-	background-size: 30px 30px;
-	background-color: #f8f8f8;
-	opacity: 0.9;
-}
-
-.post-prev-img:hover {
-	opacity: 1.0;
-}
-
-.post-prev-img>img {
-	width: 220px;
-	/* 	height: 120px; */
-	border: none;
-	margin: 0;
-}
-
-
 .circle-small {
 	width: 32px;
 	height: 32px;
@@ -1009,12 +983,6 @@ h3.article-prev-title {
 	font-size: 10px;
 	margin: 0;
 }
-
-/* .post-prev-footer > .post-prev-author-details { */
-/* 	font: inherit; */
-/* 	display: inline-block; */
-/* 	padding-left: 3px; */
-/* } */
 
 .post-prev-author-details>time {
 	display: block;
@@ -1619,12 +1587,17 @@ li.login-options > a {
 	.mvt-top-menu {
 		font-size: .8em !important;
 	}
+	 #post-share-vpalette { display: none; }
 }
 
 @media only screen and (max-width: 640px) {
 	.header-top {
 		display: none;
-	}	
+	}
+	.mvt-top-posts {
+	    padding-left: 0.5em;
+	    padding-right: 0.5em;
+    }
 	.mvt-postprev-container {
 		/* justify */
 		-webkitjustify-content: center !important;
@@ -1632,11 +1605,13 @@ li.login-options > a {
 		justify-content: center !important;
 		
 	}
-	article.mvt-postprev-basic,
-	article.mvt-postprev-highlight {
-		width: 100%;		
-	}
-	
+    .mvt-postprev-container > article {
+	    -webkit-flex-basis: 100%;
+	    -ms-flex-basis: 100%;
+	    flex-basis: 100%;
+	    min-width: auto;
+    }
+		
 	.circle-filter {
 		width: 28px;
 		height: 28px;

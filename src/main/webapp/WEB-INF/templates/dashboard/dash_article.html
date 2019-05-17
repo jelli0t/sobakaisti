@@ -220,6 +220,20 @@
 			<div class="article-input-wrapper form-tr">
 				<textarea name="content" id="article-content" th:field="*{content}"></textarea>
 			</div>
+			
+			<!-- Snippet -->
+			<div class="form-tr">				
+				<div class="panel">
+					<div class="panel-element panel-header">
+						<span class="panel-title">Odlomak</span>
+					</div>
+					<div class="panel-element panel-body">
+						<input type="text" class="title-input full-width" th:field="*{snippet}" style="height: 5em;"
+							placeholder="Odlomak za preview clanka. (max 300 karaktera)" />
+					</div>
+					<div class="panel-element panel-footer"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 <!-- end of the form -->
