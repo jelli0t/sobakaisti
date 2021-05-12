@@ -9,7 +9,7 @@
 	<url>http://sobakaisti.org</url>
 	<properties>
 		<org.springframework-version>4.3.3.RELEASE</org.springframework-version>
-		<org.springsecurity-version>4.1.1.RELEASE</org.springsecurity-version>
+		<org.springsecurity-version>5.2.10.RELEASE</org.springsecurity-version>
 		<hibernate.version>4.3.6.Final</hibernate.version>
 	</properties>
 	<dependencies>
