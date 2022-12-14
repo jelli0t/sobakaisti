@@ -18,6 +18,7 @@ import org.thymeleaf.context.Context;
 
 @Service
 public class MailServiceImpl implements MailService {
+
 	private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
 
 	@Autowired

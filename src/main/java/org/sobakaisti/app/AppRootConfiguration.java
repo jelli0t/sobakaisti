@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.sobakaisti.app;
 
 import java.util.Properties;
@@ -24,6 +21,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -37,11 +36,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class AppRootConfiguration {
 	
+	private final Environment env;
+
 	@Autowired
-	private Environment env;
-	
-	@Bean(name="dataSource")
-	public DataSource getDataSource(){
+	public AppRootConfiguration(Environment env) {
+		this.env = env;
+	}
+
+	@Bean
+	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(env.getProperty("mysql.jdbc.driver"));
 		dataSource.setUrl(env.getProperty("mysql.jdbc.url"));
@@ -49,20 +52,23 @@ public class AppRootConfiguration {
 		dataSource.setPassword(env.getProperty("mysql.jdbc.password"));
 		return dataSource;
 	}
-	@Autowired
-	@Bean(name="sessionFactory")
-	public SessionFactory getSessionFactory(DataSource dataSource){
+	@Bean
+	public SessionFactory getSessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBuilder sessionFactory = new LocalSessionFactoryBuilder(dataSource);
-		sessionFactory.scanPackages("org.sobakaisti.mvt.models", "org.sobakaisti.mvt.i18n.model", "org.sobakaisti.security.model");
+		sessionFactory.scanPackages(
+				"org.sobakaisti.mvt.models",
+				"org.sobakaisti.mvt.i18n.model",
+				"org.sobakaisti.security.model"
+		);
 		sessionFactory.addProperties(getHibernateProperties());
+
 		return sessionFactory.buildSessionFactory();
 	}
 	
 	@Autowired
 	@Bean(name="transactionManager")
 	HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
-		HibernateTransactionManager txManager = new HibernateTransactionManager(sessionFactory);
-		return txManager;
+		return new HibernateTransactionManager(sessionFactory);
 	}
 	@Autowired
 	@Bean(name="accountManagerDao")
@@ -77,13 +83,13 @@ public class AppRootConfiguration {
 	}
 		
 	private Properties getHibernateProperties(){
+
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		hibernateProperties.setProperty("hibernate.connection.CharSet", "utf8");
 		hibernateProperties.setProperty("hibernate.connection.characterEncoding", "utf8");
 		hibernateProperties.setProperty("hibernate.connection.useUnicode", "true");
-//		hibernateProperties.setProperty("hibernate.show_sql", "true");
-//		hibernateProperties.setProperty("hibernate.format_sql", "true");
-		return hibernateProperties;	
+
+		return hibernateProperties;
 	}	
 }

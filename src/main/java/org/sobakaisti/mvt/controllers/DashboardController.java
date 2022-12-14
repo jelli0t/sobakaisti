@@ -4,7 +4,6 @@
 package org.sobakaisti.mvt.controllers;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -17,16 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.CategoryDao;
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
-import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Article;
 import org.sobakaisti.mvt.models.Author;
-import org.sobakaisti.mvt.models.Category;
-import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.PublicationService;
-import org.sobakaisti.mvt.validation.Validation;
-import org.sobakaisti.mvt.validation.Validator;
 import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
@@ -47,7 +41,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**

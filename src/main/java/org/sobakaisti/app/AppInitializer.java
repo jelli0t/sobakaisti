@@ -11,23 +11,27 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[] { AppSecurityConfiguration.class, AppRootConfiguration.class, MailConfig.class };
+		return new Class[] {
+				AppSecurityConfiguration.class,
+				AppRootConfiguration.class,
+				org.sobakaisti.app.MailConfig.class
+		};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		// TODO Auto-generated method stub
 		return new Class[] { MvtWebMvcConfiguration.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		// TODO Auto-generated method stub
 		return new String[] { "/" };
 	}
 	
 	@Override
 	protected Filter[] getServletFilters() {
-		 return new Filter[] { new CharacterEncodingFilter("UTF-8", true) }; // new PathVariableLocaleFilter()
+		 return new Filter[] {
+				 new CharacterEncodingFilter("UTF-8", true)
+		 };
 	}
 }

@@ -4,7 +4,7 @@
 package org.sobakaisti.mvt.dao.impl;
 
 import org.hibernate.Query;
-import org.sobakaisti.mvt.dao.AbstractPostDao;
+import org.sobakaisti.dao.AbstractPostDao;
 import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.i18n.model.I18nPublication;
 import org.sobakaisti.mvt.models.Publication;

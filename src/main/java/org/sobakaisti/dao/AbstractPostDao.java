@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.sobakaisti.mvt.dao;
+package org.sobakaisti.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.i18n.dao.I18nPostResultTransformer;
 import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Author;

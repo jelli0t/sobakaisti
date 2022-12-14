@@ -46,19 +46,31 @@ import com.sun.org.apache.xpath.internal.operations.And;
 @EnableWebSecurity
 @ComponentScan(basePackages="org.sobakaisti.security")
 public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter {
+
 	private static final int BCRYPT_LOG_ITERATION = 12;
 	
-	@Autowired
-	private AuthenticationSuccessHandler accountAuthenticationSuccessHandler;
-		
+	private final AuthenticationSuccessHandler accountAuthenticationSuccessHandler;
+	private final UserDetailsService dbUserDetailsService;
+
 //	@Autowired
-//	private AuthenticationProvider authenticationProvider;	
-	
+//	private AuthenticationProvider authenticationProvider;
+
 	@Autowired
-	private UserDetailsService dbUserDetailsService;
-	
-	
-    @Override
+	public AppSecurityConfiguration(
+			AuthenticationSuccessHandler accountAuthenticationSuccessHandler,
+			UserDetailsService dbUserDetailsService
+	) {
+		this.accountAuthenticationSuccessHandler = accountAuthenticationSuccessHandler;
+		this.dbUserDetailsService = dbUserDetailsService;
+	}
+
+	public AppSecurityConfiguration(boolean disableDefaults, AuthenticationSuccessHandler accountAuthenticationSuccessHandler, UserDetailsService dbUserDetailsService) {
+		super(disableDefaults);
+		this.accountAuthenticationSuccessHandler = accountAuthenticationSuccessHandler;
+		this.dbUserDetailsService = dbUserDetailsService;
+	}
+
+	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authProvider());
     }

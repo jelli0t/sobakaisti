@@ -5,16 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import sun.util.calendar.CalendarUtils;
 
 public class CalendarUtil {
 	private static final Logger logger = LoggerFactory.getLogger(CalendarUtil.class);

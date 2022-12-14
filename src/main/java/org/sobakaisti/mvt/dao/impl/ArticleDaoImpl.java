@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sobakaisti.mvt.dao.AbstractPostDao;
+import org.sobakaisti.dao.AbstractPostDao;
 import org.sobakaisti.mvt.dao.ArticleDao;
 import org.sobakaisti.mvt.i18n.model.I18nArticle;
 import org.sobakaisti.mvt.models.Article;

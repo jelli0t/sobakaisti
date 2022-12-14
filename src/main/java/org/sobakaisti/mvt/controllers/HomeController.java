@@ -1,7 +1,6 @@
 package org.sobakaisti.mvt.controllers;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.validation.Valid;
 
@@ -9,10 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sobakaisti.mail.MailService;
 import org.sobakaisti.mail.MailTemplateHelper;
-import org.sobakaisti.mvt.dao.ArticleDao;
-import org.sobakaisti.mvt.dao.impl.CommentDaoImpl;
-import org.sobakaisti.mvt.models.Article;
-import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Post.Origin;
@@ -22,14 +17,9 @@ import org.sobakaisti.mvt.service.CommentService;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.MailMessage;
 import org.sobakaisti.util.PropertiesUtil;
-import org.sobakaisti.util.Socials;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +29,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
