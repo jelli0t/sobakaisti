@@ -19,10 +19,6 @@ import javax.persistence.Table;
 import org.sobakaisti.mvt.i18n.model.I18nPublication;
 import org.sobakaisti.util.TextUtil;
 
-/**
- * @author jelles
- *
- */
 @Entity
 @Table(name="publication")
 public class Publication extends Post {	
@@ -49,14 +45,16 @@ public class Publication extends Post {
 			inverseJoinColumns = { @JoinColumn(name = "tag_id")})
 	private List<Tag> tags;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade =
-        {
+	@ManyToOne(
+			fetch = FetchType.EAGER,
+			cascade = {
                 CascadeType.DETACH,
                 CascadeType.MERGE,
                 CascadeType.REFRESH,
                 CascadeType.PERSIST
-        },
-        targetEntity = Media.class)
+			},
+			targetEntity = Media.class
+	)
 	@JoinColumn(name="media_id")
 	private Media media;
 	

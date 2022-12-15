@@ -1,6 +1,5 @@
 package org.sobakaisti.mvt.models;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -15,31 +14,32 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.sobakaisti.mvt.models.enums.PostOrigin;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * @author jelli0t
- *
- */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "comment")
-public class Comment implements Serializable{	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Comment {
 
-	public static final boolean COMMENT_DEFAULT_ENABLED = true;	
+	public static final boolean COMMENT_DEFAULT_ENABLED = true;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
-	private int id;
+	private Long id;
 	
 	@Column(name="content")
 	private String content;
 	
 	@Column(name="post_date")
+	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Calendar postDate;	
@@ -51,7 +51,7 @@ public class Comment implements Serializable{
 	@Column(name="user_id")
 	private User authenticatedAuthor;
 	
-	@Column(name="enabled", nullable = false, columnDefinition = "TINYINT", length = 1)
+	@Column(nullable = false, columnDefinition = "TINYINT", length = 1)
 	private boolean enabled;
 	
 	@Column(name = "post_id")
@@ -59,75 +59,7 @@ public class Comment implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
    	@Column(name = "comment_origin")
-	private Post.Origin commentOrigin;
-	
-	/**
-	* Default constructor
-	*/
-	public Comment() {
-		this.enabled = COMMENT_DEFAULT_ENABLED;
-		this.postDate = Calendar.getInstance();
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}	
-
-	public String getAnonymousAuthor() {
-		return anonymousAuthor;
-	}
-
-	public void setAnonymousAuthor(String anonymousAuthor) {
-		this.anonymousAuthor = anonymousAuthor;
-	}
-
-	public int getPostId() {
-		return postId;
-	}
-
-	public void setPostId(int postId) {
-		this.postId = postId;
-	}
-
-	public Post.Origin getCommentOrigin() {
-		return commentOrigin;
-	}
-
-	public void setCommentOrigin(Post.Origin commentOrigin) {
-		this.commentOrigin = commentOrigin;
-	}
-
-	public void setPostDate(Calendar postDate) {
-		this.postDate = postDate;
-	}
-
-	public void setAuthenticatedAuthor(User authenticatedAuthor) {
-		this.authenticatedAuthor = authenticatedAuthor;
-	}
-
-	public User getAuthenticatedAuthor() {
-		return authenticatedAuthor;
-	}
-
-	public Calendar getPostDate() {
-		return postDate;
-	}	
+	private PostOrigin commentOrigin;
 
 	public boolean isAuthenticatedAuthor() {
 		return this.authenticatedAuthor != null;

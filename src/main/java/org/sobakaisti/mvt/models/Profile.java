@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
@@ -20,19 +17,19 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * @author Korisnik
- *
- */
+@Getter
+@Setter
 @MappedSuperclass
 public abstract class Profile {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
-	private int id;
+	private Long id;
 	
 	@Pattern(regexp = "^[\\p{L} .'-]+$", message="{validation.warn.pattern}")
 	@Size(min=2, max=20, message="{validation.warn.firstName}")
@@ -66,95 +63,6 @@ public abstract class Profile {
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=SocialNetwork.class)
 	@JoinColumn(name = "profile_id")
 	private List<SocialNetwork> socialNetwork;
-	
-	public abstract String getEmail();	
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Calendar getDob() {
-		return dob;
-	}
-
-	public void setDob(Calendar dob) {
-		this.dob = dob;
-	}
-
-	public String getProfession() {
-		return profession;
-	}
-
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
-
-	public String getWebsite() {
-		return website;
-	}
-
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-
-	public String getShortBio() {
-		return shortBio;
-	}
-
-	public void setShortBio(String shortBio) {
-		this.shortBio = shortBio;
-	}
-
-	public String getAvatarName() {
-		return avatarName;
-	}
-
-	public void setAvatarName(String avatarName) {
-		this.avatarName = avatarName;
-	}
-
-	public Calendar getRegistered() {
-		return registered;
-	}
-
-	public void setRegistered(Calendar registered) {
-		this.registered = registered;
-	}	
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public List<SocialNetwork> getSocialNetwork() {
-		return socialNetwork;
-	}
-
-	public void setSocialNetwork(List<SocialNetwork> socialNetwork) {
-		this.socialNetwork = socialNetwork;
-	}
-	
+	public abstract String getEmail();
 }

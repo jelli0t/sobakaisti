@@ -1,4 +1,4 @@
-package org.sobakaisti.app;
+package org.sobakaisti.config;
 
 import java.util.Properties;
 
@@ -15,8 +15,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
@@ -76,6 +76,7 @@ public class MailConfig implements ApplicationContextAware {
 	
 	@Bean(name="mailTemplateEngine")
 	public TemplateEngine emailTemplateEngine() {
+
 		final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		// Resolver for TEXT emails
 		templateEngine.addTemplateResolver(textTemplateResolver());

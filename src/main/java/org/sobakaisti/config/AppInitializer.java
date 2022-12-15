@@ -1,4 +1,4 @@
-package org.sobakaisti.app;
+package org.sobakaisti.config;
 
 import javax.servlet.Filter;
 
@@ -10,11 +10,10 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
 		return new Class[] {
 				AppSecurityConfiguration.class,
 				AppRootConfiguration.class,
-				org.sobakaisti.app.MailConfig.class
+				org.sobakaisti.config.MailConfig.class
 		};
 	}
 

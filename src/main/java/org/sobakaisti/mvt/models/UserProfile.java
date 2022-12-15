@@ -6,9 +6,15 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.sobakaisti.security.model.User;
 
 @Entity
+@Getter
+@Setter
+@Data
 @Table(name = "profile")
 public class UserProfile extends Profile {
 	
@@ -21,12 +27,4 @@ public class UserProfile extends Profile {
 	public String getEmail() {
 		return null;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}	
 }

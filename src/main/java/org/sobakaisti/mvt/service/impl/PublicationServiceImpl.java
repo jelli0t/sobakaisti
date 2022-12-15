@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.sobakaisti.mvt.dao.PostDao;
 import org.sobakaisti.mvt.dao.PublicationDao;
 import org.sobakaisti.mvt.i18n.model.I18nPublication;
@@ -27,19 +26,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * @author jelles
- *
- */
 @Service
+@Slf4j
 public class PublicationServiceImpl extends PostServiceImpl<Publication, I18nPublication> implements PublicationService {
-	private static final Logger logger = LoggerFactory.getLogger(PublicationServiceImpl.class);
-	
+
 	private PublicationDao publicationDao;
 	
 	@Autowired
 	public PublicationServiceImpl(
-			@Qualifier("publicationDaoImpl") PostDao<Publication, I18nPublication> postDao) {
+			@Qualifier("publicationDaoImpl") PostDao<Publication,
+					I18nPublication> postDao
+	) {
 		super(postDao);
 		this.publicationDao = (PublicationDao) postDao;
 	}
@@ -55,7 +52,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication, I18nPub
 		publication.setActive(1);
 		/* ako je prosledjen ID autora pronadji ga i postavi ga kao autora izdanja */
 		if(authorId > 0) {
-			Author author = authorDao.getAuthorById(authorId);
+			Author author = authorDao.getAuthorById((long) authorId);
 			publication.setAuthor(author);
 		}
 		/* ako ima odabranih Tagova dodaj ih na publication obj. */
@@ -126,7 +123,7 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication, I18nPub
 			}
 			/* set language*/
 			post.setLang(getPostLanguage());
-			logger.info("Cuvam: "+post);
+			log.info("Saving: " + post);
 			Publication result = publicationDao.saveOrUpdate(post);
 			if (result != null) {
 				result.setCommited(new Boolean(true));
@@ -138,7 +135,9 @@ public class PublicationServiceImpl extends PostServiceImpl<Publication, I18nPub
 				return post;
 			}
 		}
-		logger.warn("Nije prosledjen Publication za procesuiranje!");
+
+		log.warn("Nije prosledjen Publication za procesuiranje!");
+
 		return null;
 	}
 	

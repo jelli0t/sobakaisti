@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.sobakaisti.mvt.service;
+package org.sobakaisti.mvt.service.impl;
 
 import java.util.List;
 
@@ -9,6 +9,8 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.dao.ProfileDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.AuthorProfile;
+import org.sobakaisti.mvt.service.AuthorService;
+import org.sobakaisti.mvt.service.ProfileServiceImpl;
 import org.sobakaisti.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

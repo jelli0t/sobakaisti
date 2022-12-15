@@ -1,9 +1,8 @@
 package org.sobakaisti.mvt.service;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.function.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +17,11 @@ import org.sobakaisti.mvt.models.Category;
 import org.sobakaisti.mvt.models.Post;
 import org.sobakaisti.mvt.models.Publication;
 import org.sobakaisti.mvt.models.Tag;
+import org.sobakaisti.mvt.models.enums.PostStatus;
 import org.sobakaisti.util.CommitResult;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.StringUtil;
-import org.sobakaisti.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -32,7 +31,8 @@ import org.springframework.ui.Model;
 
 @Service
 public abstract class PostServiceImpl<T extends Post, I extends I18nPost> 
-		implements PostService<T>, I18nPostService<T, I> {	
+		implements PostService<T>, I18nPostService<T, I> {
+
 	private static final Logger logger = LoggerFactory.getLogger(PostServiceImpl.class);
 	/*
 	 * Post DAO dependecies
@@ -114,7 +114,6 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findAllOrderedPostsByAuthor(Author author) {
-		// Kreira filter po autoru 
 		final PostFilter filter = new PostFilter(true, false, author);
 		Pagination pagination = postDao.createPostPagination(new Pagination(), filter);		
 		return (List<T>) postDao.findPostsSortedByDate(pagination, filter);
@@ -154,19 +153,13 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 	
 	@Override
 	public CommitResult switchPostStatus(int id) {
-		CommitResult commited = null;
+
 		int status = postDao.switchActiveStatus(id);
-		if(status == ArticleService.ACTIVE) {
-			logger.info("Post uspesno postavljen kao aktivan.");
-			commited = new CommitResult(true, getMessage("post.status.changed.active"));
-		}else if(status == ArticleService.INACTIVE) {
-			logger.info("Post uspesno postavljen kao neaktivan.");
-			commited = new CommitResult(true, getMessage("post.status.changed.nonactive"));
-		} else {
-			logger.info("Greska prilikom promene statusa posta!");
-			commited = new CommitResult(false, getMessage("post.status.changed.failure"));
-		}	
-		return commited;
+
+		return switch (PostStatus.byValue(status)) {
+			case ACTIVE -> new CommitResult(true, getMessage("post.status.changed.active"));
+			case INACTIVE -> new CommitResult(true, getMessage("post.status.changed.nonactive"));
+		};
 	}
 	
 	@Override
@@ -176,73 +169,67 @@ public abstract class PostServiceImpl<T extends Post, I extends I18nPost>
 	
 	@Override
 	public List<Author> findAllPostsAuthorsInCategory(String categorySlug)  {
-		List<Author> authorsInCat = null;
-		if(TextUtil.notEmpty(categorySlug))
-			authorsInCat = postDao.findAllPostsAuthorsInCategory(categorySlug);		
-		return authorsInCat;
+
+		return Optional.ofNullable(categorySlug)
+				.filter(Predicate.not(String::isBlank))
+				.map(postDao::findAllPostsAuthorsInCategory)
+				.orElse(Collections.emptyList());
 	}
 
 	@Override
 	public String addSuffixIfDuplicateExist(String slug) {
-		int duplicates = postDao.countSlugDuplicates(slug);
-		/* ako ima ponavljanja dodaj broj kao sufiks */
-		if(duplicates > 0) {
-			slug += ("-" + duplicates);
-		}		
-		return slug;
+
+		return Optional.ofNullable(slug)
+				.filter(Predicate.not(String::isBlank))
+				.map(postDao::countSlugDuplicates)
+				.filter(duplicates -> duplicates > 0)
+				.map(duplicates -> String.format("%s-%d", slug, duplicates))
+				.orElse(slug);
 	}
 	
-	@Override
-	public abstract T processAndSaveSubmittedPost(T post);
-	
-	
-
 	@Override
 	public List<Tag> fatchPostFullTagList(T t) {
 		List<Tag> tagsReferences = null;
 		List<Integer> tagsIdList = null;
-		
+
 		if(t instanceof Article)
-			tagsReferences = ((Article) t).getTags();		
+			tagsReferences = ((Article) t).getTags();
 		else if(t instanceof Publication)
 			tagsReferences = ((Publication) t).getTags();
-		
+
 		if(tagsReferences != null && !tagsReferences.isEmpty()) {
 			tagsIdList = new ArrayList<Integer>(tagsReferences.size());
 			for(Tag tag : tagsReferences)
 				tagsIdList.add(tag.getId());
-			
+
 			return tagService.findListOfTagsByIdsList(tagsIdList);
 		}
 		return null;
 	}
-		
-	
+
 	@Override
 	public List<Category> findAllCategories() {
 		return categoryDao.findAllCategories();
 	}
-	
+
 	@Override
 	public Category getDefaultCategory() {
 		return categoryDao.getDefaultCategory();
 	}
-	
+
 	@Override
 	public Model generateModelAttributesForPostsListing(Pagination pagination, String status, String authorSlug) {
-		Author author = null;		
+		Author author = null;
 		boolean isActive = status != null && status.equals(ArticleService.ACTIVE_STATUS) ? true : false;
 		/* ako je prosledjen autor */
 		if(authorSlug != null)
 			author = authorDao.findAuthorBySlug(authorSlug);
 		/* kreira paginaciju */
 		PostFilter filter = new PostFilter(isActive, false, author);
-		
+
 		return null;
 	}
-	
-//	public List<Post> getPostBundle(PostFilter postFilter) {
-//		
-//		
-//	}
+
+	@Override
+	public abstract T processAndSaveSubmittedPost(T post);
 }

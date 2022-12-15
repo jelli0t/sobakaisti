@@ -19,6 +19,7 @@ import org.sobakaisti.mvt.i18n.model.I18nPost;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.IntroPost;
 import org.sobakaisti.mvt.models.Post;
+import org.sobakaisti.mvt.models.enums.PostStatus;
 import org.sobakaisti.util.Pagination;
 import org.sobakaisti.util.PostFilter;
 import org.sobakaisti.util.StringUtil;
@@ -28,11 +29,6 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author jelli0t
- *
- */
-@SuppressWarnings("unchecked")
 @Repository
 public abstract class AbstractPostDao<T extends Post, I extends I18nPost> 
 	implements PostDao<T, I> {
@@ -182,17 +178,22 @@ public abstract class AbstractPostDao<T extends Post, I extends I18nPost>
 	@Override
 	@Transactional
 	public int countPostsByActiveStatus(boolean isActive) {
-		int count = 0;
-		int status = isActive ? Post.ACTIVE : Post.NONACTIVE;
-		String HQL = "select count(t.id) from "+entity.getName()+" t where t.active = :status";
-		try {			
-			Long result = (Long) currentSession().createQuery(HQL).setInteger("status", status).uniqueResult();
-			count = result.intValue();
+
+		int status = PostStatus.byValue(isActive).getValue();
+		var HQL = "select count(t.id) from "+entity.getName()+" t where t.active = :status";
+
+		try {
+			Long result = (Long) currentSession()
+					.createQuery(HQL)
+					.setInteger("status", status)
+					.uniqueResult();
+
+			return result.intValue();
 		} catch (Exception e) {
 			logger.warn("Greska pri brojanju Postova gde je staus = "+status+". Uzrok: "+e.getMessage());
+			return 0;
 		}
-		return count;
-	}	
+	}
 	
 	@Override
 	@Transactional

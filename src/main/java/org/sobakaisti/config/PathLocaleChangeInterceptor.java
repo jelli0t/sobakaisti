@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.sobakaisti.app;
+package org.sobakaisti.config;
 
 import java.util.Locale;
 

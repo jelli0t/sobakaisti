@@ -1,11 +1,10 @@
-package org.sobakaisti.app;
+package org.sobakaisti.config;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.sobakaisti.security.Authority;
 import org.sobakaisti.util.CommitResult;
@@ -14,33 +13,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authentication.dao.ReflectionSaltSource;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
-
-import com.sun.org.apache.xpath.internal.operations.And;
 
 @Configuration
 @EnableWebSecurity
@@ -104,16 +93,6 @@ public class AppSecurityConfiguration  extends WebSecurityConfigurerAdapter {
 			ignoring()
 			.antMatchers("/resources/**");
 	}
-	
-	
-	
-	 @Bean
-	 public Md5PasswordEncoder md5PasswordEncoder(){
-		 Md5PasswordEncoder md5 = new Md5PasswordEncoder();
-		 md5.setEncodeHashAsBase64(true);
-		 md5.setIterations(32);
-		 return md5;
-	 }
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {

@@ -1,11 +1,10 @@
 /**
  * 
  */
-package org.sobakaisti.app;
+package org.sobakaisti.config;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.FilterChain;
@@ -19,12 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.util.StringUtil;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
-
-/**
- * @author Korisnik
- *
- */
 public class PathVariableLocaleFilter extends OncePerRequestFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(PathVariableLocaleFilter.class);
@@ -53,7 +46,6 @@ public class PathVariableLocaleFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 		}		
 	}
-	
 	
 	private boolean isLocale(String langCode) {
 		boolean result = false;

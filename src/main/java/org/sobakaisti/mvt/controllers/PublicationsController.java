@@ -13,7 +13,7 @@ import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
 import org.sobakaisti.mvt.models.Comment;
 import org.sobakaisti.mvt.models.Publication;
-import org.sobakaisti.mvt.models.Post.Origin;
+import org.sobakaisti.mvt.models.enums.PostOrigin;
 import org.sobakaisti.mvt.service.CommentService;
 import org.sobakaisti.mvt.service.PostService;
 import org.sobakaisti.mvt.service.PublicationService;
@@ -90,11 +90,11 @@ public class PublicationsController {
 			model.addAttribute(PostService.POST_SORTING_ALLOWED_PARAM, false);
 			model.addAttribute(PostService.META_CIRCLE_ALLOWED_ATTR, true);
 			
-			List<Comment> postComments = commentService.findPostComments(publication.getId(), Origin.PUBLICATION, 0, 3);
+			List<Comment> postComments = commentService.findPostComments(publication.getId(), PostOrigin.PUBLICATION, 0, 3);
 			if(postComments != null && postComments.size() > 0) {
 				model.addAttribute("postComments", postComments);
 				model.addAttribute(CommentService.COMMENTS_COUNT_MODEL_ATTRIBUTE_NAME, 
-						commentService.countPostComments(publication.getId(), Origin.PUBLICATION));
+						commentService.countPostComments(publication.getId(), PostOrigin.PUBLICATION));
 			}
 		}
 		return "article";

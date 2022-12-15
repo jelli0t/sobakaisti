@@ -98,7 +98,7 @@ public final class TextUtil {
 	public static final List<Character> URL_RESERVED_CHARS_LIST = Arrays.asList(URL_RESERVED_CHARS_ARRAY);
 		
 
-	public static final List<Character> SLUG_UNFRIENDLY_SIGNS_LIST = new ArrayList<Character>() {{
+	public static final List<Character> SLUG_UNFRIENDLY_SIGNS_LIST = new ArrayList<>() {{
 		addAll(URL_UNSAFE_CHARS_LIST);
 		addAll(URL_RESERVED_CHARS_LIST);
 	}};
@@ -187,10 +187,6 @@ public final class TextUtil {
 		put((char) 0xd188, "s");
 	}};
 	
-	
-	/**
-	* Default private constrictor prevents class to be instantiated
-	* */
 	private TextUtil() {}
 	
 	/**

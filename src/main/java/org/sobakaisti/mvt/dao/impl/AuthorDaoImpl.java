@@ -1,55 +1,38 @@
-/**
- * 
- */
 package org.sobakaisti.mvt.dao.impl;
 
+import java.util.Collection;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sobakaisti.mvt.dao.AuthorDao;
 import org.sobakaisti.mvt.models.Author;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.sobakaisti.repository.AuthorRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author jelles
- *
- */
+import javax.persistence.EntityNotFoundException;
+
+@Slf4j
 @Repository
+@RequiredArgsConstructor
 public class AuthorDaoImpl implements AuthorDao {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AuthorDaoImpl.class);	
-
-	@Autowired
-	private SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
+	private final AuthorRepository authorRepository;
 	
 	@Override
-	@Transactional
-	public Author getAuthorById(int id) {
-		final String HQL = "from Author where id=:id";
-		Session session = sessionFactory.getCurrentSession();
-		Author author = (Author) session.createQuery(HQL).setInteger("id", id).uniqueResult();
-		if(author != null){
-			return author;
-		}else{
-			return null;
-		}		
-	}	
+	public Author getAuthorById(Long id) {
+		return authorRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException());
+	}
 	
 	@Override
-	@Transactional
 	public List<Author> getAllAuthors() {
-		final String HQL = "FROM Author";
-		Session session = sessionFactory.getCurrentSession();
-		@SuppressWarnings("unchecked")
-		List<Author> authors = session.createQuery(HQL).list();
-		logger.info("Dohvatio listu od "+authors.size()+" autora.");
-		return authors;
+		return (List<Author>) authorRepository.findAll();
 	}
 
 	@Override
@@ -61,7 +44,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			Session session = sessionFactory.getCurrentSession();
 			author = (Author) session.createQuery(HQL).setParameter("id", id).uniqueResult();
 		} catch (Exception e) {
-			logger.warn("Dogodila se greska prilikom dohvatanja autora sa ID:"+id+". Uzork: "+e.getMessage());
+			log.warn("Dogodila se greska prilikom dohvatanja autora sa ID:"+id+". Uzork: "+e.getMessage());
 		}
 		return author;
 	}
@@ -75,7 +58,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			Session session = sessionFactory.getCurrentSession();
 			author = (Author) session.createQuery(HQL).setParameter("slug", slug).uniqueResult();
 		} catch (Exception e) {
-			logger.warn("Dogodila se greska prilikom dohvatanja autora: "+slug+". Uzork: "+e.getMessage());
+			log.warn("Dogodila se greska prilikom dohvatanja autora: "+slug+". Uzork: "+e.getMessage());
 		}
 		return author;
 	}
@@ -83,20 +66,13 @@ public class AuthorDaoImpl implements AuthorDao {
 	@Override
 	@Transactional
 	public boolean saveOrUpdate(Author author) {
-		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(author);
-			return true;
-		} catch (Exception e) {
-			logger.warn("Dogodila se greska prilikom save/update autora! Uzrok: "+e.getMessage());
-		}		
-		return false;
+		return authorRepository.save(author) != null;
 	}
 	
 	@Override
 	@Transactional
 	public void persistAuthor(Author author) {
-		Session session = sessionFactory.getCurrentSession();
-		session.save(author);
+		authorRepository.save(author);
 	}
 
 	@Override
@@ -108,19 +84,8 @@ public class AuthorDaoImpl implements AuthorDao {
 	}
 
 	@Override
-	@Transactional
 	public Author findAuthorBySlug(String slug) {
-		Session session = sessionFactory.getCurrentSession();
-		String HQL = "from Author where slug =:slug"; 
-		try {
-			Author author = (Author) session.createQuery(HQL).setString("slug", slug).uniqueResult();
-			return author;
-		} catch (Exception e) {
-			return null;
-		}		
+		return authorRepository.findBySlug(slug)
+				.orElseThrow(() -> new EntityNotFoundException());
 	}
-
-
-	
-	
 }

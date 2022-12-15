@@ -3,26 +3,25 @@ package org.sobakaisti.mvt.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
+import lombok.RequiredArgsConstructor;
 import org.sobakaisti.mvt.dao.AccountManagerDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserCredentialValidator {
-	
-	@Autowired
-	private AccountManagerDao accountManagerDao;
 
-	private Pattern pattern;
-    private Matcher matcher;
-    private String massage;
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final String USERNAME_PATTERN = "^[a-z0-9._-]{3,20}$";
     private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9._-]{8,20}$"; // ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,30}$  ^[a-zA-Z0-9._-]{8,30}$
-       
+
+    private final AccountManagerDao accountManagerDao;
+
+    private Pattern pattern;
+    private Matcher matcher;
+    private String massage;
+
     public void validateUserNameFormat(String username) {
         if(!matchPatternWithValue(USERNAME_PATTERN, username))
         	throw new BadCredentialsException("Invalid username!");        

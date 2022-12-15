@@ -1,9 +1,9 @@
-/**
- * 
- */
 package org.sobakaisti.mvt.models;
 
 import java.util.Calendar;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,22 +18,20 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.Data;
 import org.sobakaisti.util.CalendarUtil;
 import org.sobakaisti.util.StringUtil;
 import org.sobakaisti.util.TextUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * @author jelles
- * Model klasa koja reprezentuje autore (Sobakaiste)
- */
+@Data
 @Entity
 @Table(name="author")
 public class Author {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	@Size(min=2, max=20, message="{validation.warn.firstName}")
 	@Pattern(regexp = "^[\\p{L} .'-]+$", message="{validation.warn.pattern}")
@@ -78,104 +76,24 @@ public class Author {
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="author", targetEntity=AuthorProfile.class)
 	private Profile profile;
 			
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public Calendar getDob() {
-		return dob;
-	}
-	public void setDob(Calendar dob) {
-		this.dob = dob;
-	}
-	
 	public void setDob(String dob) {
-		this.dob = CalendarUtil.getInstance().parseCalendarFromString(dob, CalendarUtil.basicDateFormatter);
+		this.dob = CalendarUtil.getInstance()
+				.parseCalendarFromString(dob, CalendarUtil.basicDateFormatter);
 	}
-	
-	public String getBirthplace() {
-		return birthplace;
-	}
-	public void setBirthplace(String birthplace) {
-		this.birthplace = birthplace;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getWebsite() {
-		return website;
-	}
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-	public String getShortBio() {
-		return shortBio;
-	}
-	public void setShortBio(String shortBio) {
-		this.shortBio = shortBio;
-	}
-	public String getAvatarPath() {
-		return avatarPath;
-	}
-	
-	public void setAvatarPath(String avatarPath) {
-		this.avatarPath = avatarPath;
-	}
-	
-	public String getProfession() {
-		return profession;
-	}
-	
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
-	
-	public String getSlug() {
-		return slug;
-	}
-	
+
 	public void setSlug(String slug) {
 		if(TextUtil.isEmpty(slug)) {
-			slug = getFullName();
-			this.slug = StringUtil.makeSlug(slug);
+			this.slug = StringUtil.makeSlug(this.getFullName());
 		}
 		this.slug = slug;
 	}
 	
-	public Profile getProfile() {
-		return profile;
-	}
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-	/**
-	 * Sabira ime i prezima i vraca kao jedan String
-	 * @return string
-	 * */
 	public String getFullName() {
-		StringBuilder fullName = new StringBuilder();
-		fullName.append(this.firstName != null ? this.firstName : "");
-		fullName.append(this.lastName != null ? " "+this.lastName : "");
-		return fullName.toString();
+		return Stream.of(getFirstName(), getLastName())
+				.filter(Predicate.not(String::isEmpty))
+				.collect(Collectors.joining(" "));
 	}
-	
+
 	@Override
 	public String toString() {
 		return "[Autor: "+firstName+" "+lastName+", "+birthplace+", "+email+"]";

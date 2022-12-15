@@ -135,7 +135,7 @@ public class ArticleServiceImpl extends PostServiceImpl<Article, I18nArticle> im
 		}
 		/* ako je prosledjen ID autora pronadji ga i postavi ga kao autora izdanja */
 		if(authorId > 0) {
-			Author author = authorDao.getAuthorById(authorId);
+			Author author = authorDao.getAuthorById((long) authorId);
 			article.setAuthor(author);
 		}
 		/* ako ima odabranih Tagova dodaj ih na publication obj. */

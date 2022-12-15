@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.sobakaisti.mail.MailService;
 import org.sobakaisti.mail.MailTemplateHelper;
 import org.sobakaisti.mvt.models.Comment;
-import org.sobakaisti.mvt.models.Post;
-import org.sobakaisti.mvt.models.Post.Origin;
+import org.sobakaisti.mvt.models.enums.PostOrigin;
 import org.sobakaisti.mvt.service.ArticleService;
 import org.sobakaisti.mvt.service.AuthorService;
 import org.sobakaisti.mvt.service.CommentService;
@@ -23,12 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -146,12 +140,23 @@ public class HomeController {
 		}		
 	}
 	
-	@RequestMapping(value="/comment/{post_type}/{post_id}/more", method=RequestMethod.GET)
-	public String loadMoreComments(@PathVariable("post_id") int postId, @PathVariable("post_type") String postType, 
-			@RequestParam("loaded") int loaded, @RequestParam("max") int max, Model model) {
+	@GetMapping(value="/comment/{post_type}/{post_id}/more")
+	public String loadMoreComments(
+			@PathVariable("post_id") int postId,
+			@PathVariable("post_type") String postType,
+			@RequestParam("loaded") int loaded,
+			@RequestParam("max") int max,
+			Model model
+	) {
 		logger.info("Zahtevam ucitavanje vise komentara na post sa id:"+postId);
-		Post.Origin postOrigin = Origin.getByEntityName(postType);
-		List<Comment> comments = commentService.commentsBundleLoad(postId, postOrigin, loaded, CommentService.COMMENTS_BUNDLE_LOAD_DEFAULT_SIZE);
+
+		List<Comment> comments = commentService.commentsBundleLoad(
+				postId,
+				PostOrigin.getByTypeName(postType),
+				loaded,
+				CommentService.COMMENTS_BUNDLE_LOAD_DEFAULT_SIZE
+		);
+
 		if(comments != null)
 			model.addAttribute("comments", comments);
 

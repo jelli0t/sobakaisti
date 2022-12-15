@@ -1,4 +1,4 @@
-package org.sobakaisti.app;
+package org.sobakaisti.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

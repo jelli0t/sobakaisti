@@ -178,7 +178,7 @@ public class ArticleDaoImpl extends AbstractPostDao<Article, I18nArticle> implem
 		
 		try {
 			List<Article> relatedByAuthor = (List<Article>) currentSession().createQuery(selectByAuthor)
-											.setInteger("authorId", exclude.getAuthor().getId())
+											.setLong("authorId", exclude.getAuthor().getId())
 											.setInteger("id", exclude.getId())
 											.setMaxResults(size/2).list();
 
@@ -190,7 +190,7 @@ public class ArticleDaoImpl extends AbstractPostDao<Article, I18nArticle> implem
 			List<Article> relatedByCat = currentSession().createQuery(selectByCategoy)
 										.setInteger("cid", exclude.getCategories().get(0).getId())
 										.setInteger("aid", exclude.getId())
-										.setInteger("authorId", exclude.getAuthor().getId())
+										.setLong("authorId", exclude.getAuthor().getId())
 										.setMaxResults(secondMaxResult).list();
 			
 			System.out.println("relatedByCat size: "+relatedByCat.size());
@@ -215,18 +215,18 @@ public class ArticleDaoImpl extends AbstractPostDao<Article, I18nArticle> implem
 		List<Article> bothArticles = new ArrayList<Article>(2);
 		
 		String nextSelect = "select a from Article a join a.categories c where a.id <> :aid "
-				+ "and (a.author.id = :authorId or c.id = :cid) and a.postDate >= :postDate and active = 1 order by a.postDate asc";
+				+ "and (a.author.id = :authorId or c.id = :cid) and a.postDate >= :postDate and a.active = 1 order by a.postDate asc";
 		String prevSelect = "select a from Article a join a.categories c where a.id <> :aid "
-				+ "and (a.author.id = :authorId or c.id = :cid) and a.postDate <= :postDate and active = 1 order by a.postDate desc";
+				+ "and (a.author.id = :authorId or c.id = :cid) and a.postDate <= :postDate and a.active = 1 order by a.postDate desc";
 	
 		try {			
 			nextArticle = (Article) currentSession().createQuery(nextSelect).setInteger("aid", article.getId())
-						.setInteger("authorId", article.getAuthor().getId())
+						.setLong("authorId", article.getAuthor().getId())
 						.setInteger("cid", article.getCategories().get(0).getId())
 						.setCalendar("postDate", article.getPostDate())
 						.setMaxResults(1).uniqueResult();
 			previousArticle = (Article) currentSession().createQuery(prevSelect).setInteger("aid", article.getId())
-						.setInteger("authorId", article.getAuthor().getId())
+						.setLong("authorId", article.getAuthor().getId())
 						.setInteger("cid", article.getCategories().get(0).getId())
 						.setCalendar("postDate", article.getPostDate())
 						.setMaxResults(1).uniqueResult();

@@ -1,4 +1,4 @@
-package org.sobakaisti.app;
+package org.sobakaisti.config;
 
 import java.util.Properties;
 
@@ -12,23 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/**
- * @author jelles
- *
- */
 @Configuration
 @PropertySource("classpath:variables.properties")
 @PropertySource(value = "${datasource.mysql.conf}", ignoreResourceNotFound = true)
@@ -70,11 +60,10 @@ public class AppRootConfiguration {
 	HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
 		return new HibernateTransactionManager(sessionFactory);
 	}
-	@Autowired
-	@Bean(name="accountManagerDao")
-	public AccountManagerDao getAccuntManagerDao(SessionFactory sessionFactory){
-		AccountManagerDao accountManagment = new AccountManagerDaotImpl(sessionFactory);
-		return accountManagment;
+
+	@Bean
+	public AccountManagerDao accountManagerDao(SessionFactory sessionFactory) {
+		return new AccountManagerDaotImpl(sessionFactory);
 	}
 	
 	@Bean
